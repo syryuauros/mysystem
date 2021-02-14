@@ -27,7 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-darwin = {
+    darwin = {
       # url = "github:kclejeune/nix-darwin/brew-bundle";
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,10 +36,29 @@
   };
 
   outputs =
-    inputs@{ self, nixpkgs, nix-darwin, home-manager, mach-nix, flake-utils, ... }:
+    inputs@{ self, nixpkgs, darwin, home-manager, mach-nix, flake-utils, ... }:
     let
 
       overlays = [ ];
+
+
+      # Configuration for `nixpkgs` mostly used in personal configs.
+      nixpkgsConfig = with inputs; {
+        config = { allowUnfree = true; };
+        overlays = self.overlays ++ [
+          (
+            final: prev:
+            let
+              system = prev.stdenv.system;
+              nixpkgs-stable = if system == "x86_64-darwin" then nixpkgs-stable-darwin else nixos-stable;
+            in {
+              master = nixpkgs-master.legacyPackages.${system};
+              stable = nixpkgs-stable.legacyPackages.${system};
+            }
+          )
+        ];
+      };
+
 
 
       mkDarwinConfig = { hostname
@@ -52,9 +71,9 @@
                        , extraModules ? [ ]
                        }:
       {
-        "${hostname}" = nix-darwin.lib.darwinSystem
+        "${hostname}" = darwin.lib.darwinSystem
         {
-          inherit        system;
+          # inherit        system;
           modules     =  baseModules
                       ++ extraModules
                       ++ [{ nixpkgs.overlays = overlays; }];
