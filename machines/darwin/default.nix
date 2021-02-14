@@ -1,5 +1,6 @@
 { inputs, config, pkgs, ... }:
 let
+
   prefix = "/run/current-system/sw/bin";
 
 in {
@@ -13,7 +14,7 @@ in {
 
     loginShell = pkgs.fish;
     pathsToLink = [ "/Applications" ];
-    backupFileExtension = "backup";
+    # backupFileExtension = "backup";
     etc = { darwin.source = "${inputs.darwin}"; };
 
     # Use a custom configuration.nix location.

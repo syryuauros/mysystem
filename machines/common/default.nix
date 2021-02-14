@@ -2,27 +2,28 @@
 
   # imports = [ ../modules/primary.nix ];
 
-  # programs.zsh.enable = true;
-
-  # user = {
-  #   description = "Kennan LeJeune";
-  #   home = "${
-  #       if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"
-  #     }/${config.user.name}";
-  #   shell = pkgs.zsh;
-  # };
+  user = {
+    description = "JJ Kim";
+    home = "${
+        if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"
+      }/${config.user.name}";
+    shell = pkgs.zsh;
+  };
 
   # bootstrap home manager using system config
   # hm = import ./home.nix;
 
   # let nix manage home-manager profiles and use global nixpkgs
-  # home-manager = {
-  #   useGlobalPkgs = true;
-  #   useUserPackages = true;
-  #   backupFileExtension = "backup";
-  # };
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+  };
 
-  # environment setup
+  #----------------------------------------------------------------------------------------
+  #
+  #   Bare Minimum Environment
+  #
   environment = {
     systemPackages = with pkgs; [
 
@@ -43,9 +44,10 @@
 
 
 
-
-  # Nix configuration ------------------------------------------------------------------------------
-
+  #----------------------------------------------------------------------------------------
+  #
+  #  Nix configuration
+  #
   nix = {
 
     package = pkgs.nixFlakes;
@@ -68,7 +70,7 @@
 
     # trustedUsers = [ "${config.user.name}" "root" "@admin" "@wheel" ];
     trustedUsers = [
-      "@admin"
+      "root" "@admin" "@wheel"
     ];
 
     # gc = {
