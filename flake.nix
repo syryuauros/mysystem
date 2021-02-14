@@ -36,7 +36,7 @@
   };
 
   outputs =
-    inputs@{ self, nixpkgs, darwin, home-manager, mach-nix, flake-utils, ... }:
+    inputs@{ self, nixpkgs, nix-darwin, home-manager, mach-nix, flake-utils, ... }:
     let
 
       overlays = [ ];
@@ -52,7 +52,7 @@
                        , extraModules ? [ ]
                        }:
       {
-        "${hostname}" = darwin.lib.darwinSystem
+        "${hostname}" = nix-darwin.lib.darwinSystem
         {
           inherit        system;
           modules     =  baseModules
@@ -99,7 +99,7 @@
             configuration    = {
               nixpkgs.overlays = overlays;
               imports          =  [
-                                    # ./machines/home-manager
+                                    ./home
                                   ]
 
                                ++ extraModules;
