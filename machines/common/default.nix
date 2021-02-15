@@ -2,18 +2,24 @@
 
   # imports = [ ../modules/primary.nix ];
 
-  user = {
-    description = "JJ Kim";
-    home = "${
-        if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"
-      }/${config.user.name}";
-    shell = pkgs.zsh;
-  };
+  # user = {
+  #   description = "JJ Kim";
+  #   home = "${
+  #       if pkgs.stdenvNoCC.isDarwin then "/Users/jj" else "/home/jj"
+  #     }";
+  #   # home = "${
+  #   #     if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"
+  #   #   }/${config.user.name}";
+  #   shell = pkgs.fish;
+  # };
 
   # bootstrap home manager using system config
   # hm = import ./home.nix;
 
   # let nix manage home-manager profiles and use global nixpkgs
+  programs.zsh.enable = true;
+  programs.fish.enable = true;
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -70,7 +76,7 @@
 
     # trustedUsers = [ "${config.user.name}" "root" "@admin" "@wheel" ];
     trustedUsers = [
-      "root" "@admin" "@wheel"
+      "root" "@admin" "@wheel" "jj"
     ];
 
     # gc = {
