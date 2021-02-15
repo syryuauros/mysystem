@@ -33,6 +33,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # myEnv2 = {
+    #   url = "git+ssh://git@gitlab.com/wavetojj/myenv2.git";
+    #   flake = false;
+    # };
   };
 
   outputs =
@@ -153,6 +157,10 @@
       overlays = with inputs; [
         (
           final: prev: {
+
+            inherit (import ./home/packages)
+              myEmacs
+            ;
           }
         )
         # Other overlays that don't depend on flake inputs.
