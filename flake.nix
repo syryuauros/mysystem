@@ -138,16 +138,16 @@
         # Main `nix-darwin` config
         ./machines/darwin
         # `home-manager` module
-        home-manager.darwinModules.home-manager
-        {
-          nixpkgs = nixpkgsConfig;
-          # Hack to support legacy worklows that use `<nixpkgs>` etc.
-          nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
-          # `home-manager` config
-          users.users.${user}.home = "/Users/${user}";
-          home-manager.useGlobalPkgs = true;
-          home-manager.users.${user} = homeManagerCommonConfig;
-        }
+        # home-manager.darwinModules.home-manager
+        # {
+        #   nixpkgs = nixpkgsConfig;
+        #   # Hack to support legacy worklows that use `<nixpkgs>` etc.
+        #   nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
+        #   # `home-manager` config
+        #   users.users.${user}.home = "/Users/${user}";
+        #   home-manager.useGlobalPkgs = true;
+        #   home-manager.users.${user} = homeManagerCommonConfig;
+        # }
       ];
 
     in {
@@ -161,7 +161,7 @@
         };
 
         mbp15 = darwin.lib.darwinSystem {
-          modules = darwinModuleCommon { user = "jj"; } ++ [
+          modules = darwinCommonModules { user = "jj"; } ++ [
             {
               networking.computerName = "JJ’s 💻";
               networking.hostName = "mbp15";
@@ -169,7 +169,7 @@
                 "Wi-Fi"
                 "USB 10/100/1000 LAN"
               ];
-            };
+            }
           ];
 
         };
