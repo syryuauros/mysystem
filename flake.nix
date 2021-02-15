@@ -44,7 +44,9 @@
 
       # Configuration for `nixpkgs` mostly used in personal configs.
       nixpkgsConfig = with inputs; {
-        config = { allowUnfree = true; };
+        config = {
+          allowUnfree = true;
+        };
         overlays = self.overlays ++ [
           (
             final: prev:
@@ -58,7 +60,6 @@
           )
         ];
       };
-
 
 
       mkDarwinConfig = { hostname
@@ -102,13 +103,13 @@
       };
 
 
-      mkHomeManagerConfig = { hostname
+      mkHomeManagerConfig = { homename
                             , system ? "x86_64-linux"
                             , username
                             , extraModules ? [ ]
                             }:
       {
-        "${hostname}" = home-manager.lib.homeManagerConfiguration rec
+        "${homename}" = home-manager.lib.homeManagerConfiguration rec
         {
             inherit            system
                                username;
@@ -127,97 +128,142 @@
         };
       };
 
+
+      # Modules shared by most `nix-darwin` personal configurations.
+      darwinCommonModules = { user }: [
+        # Include extra `nix-darwin`
+        # self.darwinModules.homebrew
+        # self.darwinModules.programs.nix-index
+        # self.darwinModules.security.pam
+        # Main `nix-darwin` config
+        ./machines/darwin
+        # `home-manager` module
+        home-manager.darwinModules.home-manager
+        {
+          nixpkgs = nixpkgsConfig;
+          # Hack to support legacy worklows that use `<nixpkgs>` etc.
+          nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
+          # `home-manager` config
+          users.users.${user}.home = "/Users/${user}";
+          home-manager.useGlobalPkgs = true;
+          home-manager.users.${user} = homeManagerCommonConfig;
+        }
+      ];
+
     in {
 
-      darwinConfigurations =
 
-        mkDarwinConfig
-        {
-          hostname     = "mbp15";
-          extraModules = [
-                           # ./modules/profiles/personal.nix
-                         ];
-        } //
+      darwinConfigurations = {
 
-        mkDarwinConfig
-        {
-          hostname     = "mpMacOS";
-          extraModules = [
-                           # ./modules/profiles/work.nix
-                         ];
+        # Mininal configuration to bootstrap systems
+        bootstrap = darwin.lib.darwinSystem {
+          modules = [ ./machines/darwin/bootstrap.nix { nixpkgs = nixpkgsConfig; } ];
         };
 
+        mbp15 = darwin.lib.darwinSystem {
+          modules = darwinModuleCommon { user = "jj"; } ++ [
+            {
+              networking.computerName = "JJ’s 💻";
+              networking.hostName = "mbp15";
+              networking.knownNetworkServices = [
+                "Wi-Fi"
+                "USB 10/100/1000 LAN"
+              ];
+            };
+          ];
 
-      nixosConfigurations =
-
-        mkNixosConfig
-        {
-          hostname     = "x230";
-          extraModules = [
-                           # ./machines/nixos/phil
-                           # ./modules/profiles/personal.nix
-                         ];
-        } //
-
-        mkNixosConfig
-        {
-          hostname     = "mpNixOS";
-          extraModules = [
-                           # ./machines/nixos/phil
-                           # ./modules/profiles/personal.nix
-                         ];
         };
 
+      };
 
-      # Build and activate with
-      # `nix build .#server.activationPackage; ./result/activate`
-      # courtesy of @malob - https://github.com/malob/nixpkgs/
-      homeManagerConfigurations =
+      homeManagerConfigurations = {
 
-        mkHomeManagerConfig
-        {
-          hostname     = "mbp15";
-          username     = "jj";
-          extraModules = [
-                           # ./modules/profiles/home-manager/personal.nix
-                         ];
-        } //
-
-        mkHomeManagerConfig
-        {
-          hostname     = "x230";
-          username     = "jj";
-          extraModules = [
-                           # ./modules/profiles/home-manager/personal.nix
-                         ];
-        } //
-
-        mkHomeManagerConfig
-        {
-          hostname     = "mpMacOS";
-          username     = "jj";
-          extraModules = [
-                           # ./modules/profiles/home-manager/personal.nix
-                         ];
-        } //
-
-        mkHomeManagerConfig
-        {
-          hostname     = "mpLinuxOS";
-          username     = "jj";
-          extraModules = [
-                           # ./modules/profiles/home-manager/personal.nix
-                         ];
-        } //
-
-        mkHomeManagerConfig
-        {
-          hostname     = "mx9366";
-          username     = "jj";
-          extraModules = [
-                           # ./modules/profiles/home-manager/personal.nix
-                         ];
+        mbp15-jj = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-darwin";
+          homeDirectory = "/home/jj";
+          username = "jj";
+          configuration = {
+            imports = [
+              ./home/mbp15
+            ];
+            nixpkgs = nixpkgsConfig;
+          };
         };
+
+      };
+
+
+
+    #   nixosConfigurations =
+
+    #     mkNixosConfig
+    #     {
+    #       hostname     = "x230";
+    #       extraModules = [
+    #                        # ./machines/nixos/phil
+    #                        # ./modules/profiles/personal.nix
+    #                      ];
+    #     } //
+
+    #     mkNixosConfig
+    #     {
+    #       hostname     = "mpNixOS";
+    #       extraModules = [
+    #                        # ./machines/nixos/phil
+    #                        # ./modules/profiles/personal.nix
+    #                      ];
+    #     };
+
+
+    #   # Build and activate with
+    #   # `nix build .#server.activationPackage; ./result/activate`
+    #   # courtesy of @malob - https://github.com/malob/nixpkgs/
+    #   homeManagerConfigurations =
+
+    #     mkHomeManagerConfig
+    #     {
+    #       homename     = "mbp15";
+    #       username     = "jj";
+    #       extraModules = [
+    #                        # ./modules/profiles/home-manager/personal.nix
+    #                      ];
+    #     } //
+
+    #     mkHomeManagerConfig
+    #     {
+    #       homename     = "x230";
+    #       username     = "jj";
+    #       extraModules = [
+    #                        # ./modules/profiles/home-manager/personal.nix
+    #                      ];
+    #     } //
+
+    #     mkHomeManagerConfig
+    #     {
+    #       homename     = "mpMacOS";
+    #       username     = "jj";
+    #       extraModules = [
+    #                        # ./modules/profiles/home-manager/personal.nix
+    #                      ];
+    #     } //
+
+    #     mkHomeManagerConfig
+    #     {
+    #       homename     = "mpLinuxOS";
+    #       username     = "jj";
+    #       extraModules = [
+    #                        # ./modules/profiles/home-manager/personal.nix
+    #                      ];
+    #     } //
+
+    #     mkHomeManagerConfig
+    #     {
+    #       homename     = "mx9366";
+    #       username     = "jj";
+    #       extraModules = [
+    #                        # ./modules/profiles/home-manager/personal.nix
+    #                      ];
+    #     };
 
     } //
 

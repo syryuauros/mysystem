@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ inputs, config, pkgs, lib, ... }:
 let
 
   prefix = "/run/current-system/sw/bin";
@@ -6,8 +6,8 @@ let
 in {
 
   imports = [
-              ../common
-            ];
+    ./bootstrap.nix
+  ] ++ lib.filter lib.pathExists [ ./private.nix ];
 
   # environment setup
   environment = {
@@ -17,54 +17,23 @@ in {
     # backupFileExtension = "backup";
     etc = { darwin.source = "${inputs.darwin}"; };
 
-    # Use a custom configuration.nix location.
-    # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
-
-    # packages installed in system profile
-    # systemPackages = with pkgs;
-    #   [
-    #     neovim
-    #     coreutils
-    #     curl
-    #     wget
-    #     git
-    #   ];
-
     extraInit = ''
     '';
   };
 
-  # nix.nixPath = [ "darwin=/etc/${config.environment.etc.darwin.target}" ];
+    # Fonts
+  fonts.enableFontDir = true;
+  fonts.fonts = with pkgs;
+    [
+      nerdfonts
 
-  # Overlay for temporary fixes to broken packages on nixos-unstable
-  # nixpkgs.overlays = [
-  #   (self: super:
-  #     let
-  #       # Import nixpkgs at a specified commit
-  #       importNixpkgsRev = { rev, sha256 }:
-  #         import (builtins.fetchTarball {
-  #           name = "nixpkgs-src-" + rev;
-  #           url = "https://github.com/NixOS/nixpkgs/archive/" + rev + ".tar.gz";
-  #           inherit sha256;
-  #         }) {
-  #           system = "x86_64-darwin";
-  #           inherit (config.nixpkgs) config;
-  #           overlays = [ ];
-  #         };
+    ];
 
-  #       stable = import inputs.stable {
-  #         system = "x86_64-darwin";
-  #         inherit (config.nixpkgs) config;
-  #         overlays = [ ];
-  #       };
-  #     in { })
-  # ];
+  # Keyboard
+  system.keyboard.enableKeyMapping = true;
+  # system.keyboard.remapCapsLockToEscape = true;
 
-  # Auto upgrade nix package and the daemon service.
-  # services.nix-daemon.enable = true;
-
-  # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog
-  system.stateVersion = 4;
+  # Add ability to used TouchID for sudo authentication
+  security.pam.enableSudoTouchIdAuth = true;
 
 }

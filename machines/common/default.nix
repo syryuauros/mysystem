@@ -31,6 +31,7 @@
   #   Bare Minimum Environment
   #
   environment = {
+
     systemPackages = with pkgs; [
 
       neovim
@@ -40,12 +41,16 @@
       git
 
     ];
+
     etc = {
       home-manager.source = "${inputs.home-manager}";
       nixpkgs.source = "${inputs.nixpkgs}";
+      darwin.source = "${inputs.darwin}";
     };
+
     # list of acceptable shells in /etc/shells
     shells = with pkgs; [ bash zsh fish ];
+
   };
 
 
