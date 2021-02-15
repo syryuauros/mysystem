@@ -28,7 +28,6 @@
     };
 
     darwin = {
-      # url = "github:kclejeune/nix-darwin/brew-bundle";
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -44,7 +43,6 @@
     let
 
 
-      # Configuration for `nixpkgs` mostly used in personal configs.
       nixpkgsConfig = with inputs; {
         config = {
           allowUnfree = true;
@@ -152,19 +150,29 @@
         # }
       ];
 
+
     in {
 
-      overlays = with inputs; [
-        (
-          final: prev: {
 
-            inherit (prev.pkgs.callPackage ./home/packages {})
-              myEmacs
-              myHunspell
-            ;
-          }
-        )
-        # Other overlays that don't depend on flake inputs.
+      overlays = with inputs; [
+        (import ./home/packages)
+        # (
+        #   final: prev: {
+
+        #     inherit (prev.callPackage ./home/packages {})
+        #       myEmacs
+        #       myHunspell
+        #       myVim
+        #       # haskellForXmonad
+        #       myHaskell
+        #     ;
+        #   }
+        # )
+
+        # To my undersding this is supposed to work as above.
+        # But I've got infinite recursion
+        # ( final: prev: (prev.callPackage ./home/package {}) )
+        # ( final: prev: (import ./home/package { inherit prev; }) )
       ];
 
 

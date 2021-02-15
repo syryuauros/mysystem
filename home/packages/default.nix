@@ -1,4 +1,5 @@
-{ pkgs, ... }: with pkgs;
+# { pkgs, ... }: with pkgs;
+self: super: with self;
 {
 
   myEmacs = callPackage ./emacs {
@@ -11,6 +12,30 @@
   myHunspell = let
     dicts = with hunspellDicts; [ en_US-large ];
   in hunspellWithDicts dicts;
+
+
+  myVim = calPackage ./neovim {};
+
+
+  haskellPackages = super.haskellPackages.override (old: {
+    overrides =
+      lib.composeExtensions
+        (old.overrides or (_: _: {}))
+        myHaskellOverrides;
+  });
+
+  myHaskellOverrides = import ./haskell/pacakges;
+
+  myHaskell = callPackage ./haskell {};
+
+  haskellForXmonad = pkgs.haskellPackages.ghcWithPackages (p: with P; [
+    xmonad
+    xmonad-contrib
+    xmonad-extras
+    dbus
+    monad-logger
+    haskell-language-server
+  ]);
 
 
 }

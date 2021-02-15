@@ -1,6 +1,10 @@
 { config, pkgs , lib , ... }:
 
-{
+let
+
+  # myPackages = pkgs.callPackages ../packages {};
+
+in {
 
   #------------------------------------------------------------------------------
   #
@@ -90,8 +94,16 @@
 
     myEmacs
     myHunspell
+    myHaskell
 
   ];
+  # ] ++ with (pkgs.callPackage ../packages {}); [
+  # ] ++ (with myPackages; [
+
+  #   myEmacs
+  #   myHunspell
+
+  # ]);
 
 
   # You can update Home Manager without changing this value. See the Home Manager release notes for
