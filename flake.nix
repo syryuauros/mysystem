@@ -158,8 +158,9 @@
         (
           final: prev: {
 
-            inherit (import ./home/packages)
+            inherit (prev.pkgs.callPackage ./home/packages {})
               myEmacs
+              myHunspell
             ;
           }
         )

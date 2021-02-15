@@ -88,6 +88,9 @@
 
     imagemagick
 
+    myEmacs
+    myHunspell
+
   ];
 
 
