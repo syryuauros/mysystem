@@ -39,8 +39,6 @@
     inputs@{ self, nixpkgs, darwin, home-manager, mach-nix, flake-utils, ... }:
     let
 
-      overlays = [ ];
-
 
       # Configuration for `nixpkgs` mostly used in personal configs.
       nixpkgsConfig = with inputs; {
@@ -62,71 +60,71 @@
       };
 
 
-      mkDarwinConfig = { hostname
-                       , system       ? "x86_64-darwin"
-                       , baseModules  ?
-                           [
-                             home-manager.darwinModules.home-manager
-                             ./machines/darwin
-                           ]
-                       , extraModules ? [ ]
-                       }:
-      {
-        "${hostname}" = darwin.lib.darwinSystem
-        {
-          # inherit        system;
-          modules     =  baseModules
-                      ++ extraModules
-                      ++ [{ nixpkgs.overlays = overlays; }];
-          specialArgs = { inherit inputs nixpkgs; };
-        };
-      };
+      # mkDarwinConfig = { hostname
+      #                  , system       ? "x86_64-darwin"
+      #                  , baseModules  ?
+      #                      [
+      #                        home-manager.darwinModules.home-manager
+      #                        ./machines/darwin
+      #                      ]
+      #                  , extraModules ? [ ]
+      #                  }:
+      # {
+      #   "${hostname}" = darwin.lib.darwinSystem
+      #   {
+      #     # inherit        system;
+      #     modules     =  baseModules
+      #                 ++ extraModules
+      #                 ++ [{ nixpkgs.overlays = overlays; }];
+      #     specialArgs = { inherit inputs nixpkgs; };
+      #   };
+      # };
 
 
-      mkNixosConfig = { hostname
-                      , system ? "x86_64-linux"
-                      , baseModules ?
-                          [
-                            home-manager.nixosModules.home-manager
-                            ./machines/nixos
-                          ]
-                      , extraModules ? [ ] }:
-      {
-        "${hostname}" = nixpkgs.lib.nixosSystem
-        {
-          inherit        system;
-          modules     =  baseModules
-                      ++ extraModules
-                      ++ [{ nixpkgs.overlays = overlays; }];
-          specialArgs = { inherit inputs nixpkgs; };
-        };
-      };
+      # mkNixosConfig = { hostname
+      #                 , system ? "x86_64-linux"
+      #                 , baseModules ?
+      #                     [
+      #                       home-manager.nixosModules.home-manager
+      #                       ./machines/nixos
+      #                     ]
+      #                 , extraModules ? [ ] }:
+      # {
+      #   "${hostname}" = nixpkgs.lib.nixosSystem
+      #   {
+      #     inherit        system;
+      #     modules     =  baseModules
+      #                 ++ extraModules
+      #                 ++ [{ nixpkgs.overlays = overlays; }];
+      #     specialArgs = { inherit inputs nixpkgs; };
+      #   };
+      # };
 
 
-      mkHomeManagerConfig = { homename
-                            , system ? "x86_64-linux"
-                            , username
-                            , extraModules ? [ ]
-                            }:
-      {
-        "${homename}" = home-manager.lib.homeManagerConfiguration rec
-        {
-            inherit            system
-                               username;
-            homeDirectory    = if system == "x86_64-linux"
-                                  then "/home/${username}"
-                                  else "/Users/${username}";
-            configuration    = {
-              nixpkgs.overlays = overlays;
-              imports          =  [
-                                    ./home
-                                  ]
+      # mkHomeManagerConfig = { homename
+      #                       , system ? "x86_64-linux"
+      #                       , username
+      #                       , extraModules ? [ ]
+      #                       }:
+      # {
+      #   "${homename}" = home-manager.lib.homeManagerConfiguration rec
+      #   {
+      #       inherit            system
+      #                          username;
+      #       homeDirectory    = if system == "x86_64-linux"
+      #                             then "/home/${username}"
+      #                             else "/Users/${username}";
+      #       configuration    = {
+      #         nixpkgs.overlays = overlays;
+      #         imports          =  [
+      #                               ./home
+      #                             ]
 
-                               ++ extraModules;
-            };
-            extraSpecialArgs = { inherit inputs nixpkgs; };
-        };
-      };
+      #                          ++ extraModules;
+      #       };
+      #       extraSpecialArgs = { inherit inputs nixpkgs; };
+      #   };
+      # };
 
 
       # Modules shared by most `nix-darwin` personal configurations.
@@ -152,6 +150,20 @@
 
     in {
 
+      overlays = with inputs; [
+        (
+          final: prev: {
+          }
+        )
+        # Other overlays that don't depend on flake inputs.
+      ];
+
+
+      #--------------------------------------------------------------------------
+      #
+      #  Darwin Configurations
+      #
+      #--------------------------------------------------------------------------
 
       darwinConfigurations = {
 
@@ -176,7 +188,19 @@
 
       };
 
-      homeManagerConfigurations = {
+
+      #--------------------------------------------------------------------------
+      #
+      #  Home Configurations
+      #
+      #  How to run:
+      #  > nix build .#homeConfigurations.mbp15-jj.activationPackage
+      #
+      #  Or change mbp15-jj to one of other names
+      #
+      #--------------------------------------------------------------------------
+
+      homeConfigurations = {
 
         mbp15-jj = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-darwin";
