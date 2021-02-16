@@ -9,6 +9,7 @@ in {
     ./bootstrap.nix
     ./services/skhd
     ./services/yabai
+    ./services/spacebar
   ] ++ lib.filter lib.pathExists [ ./private.nix ];
 
 
@@ -21,15 +22,20 @@ in {
 
   };
 
-  # Fonts
+
   fonts.enableFontDir = true;
   fonts.fonts = with pkgs;
     [
       nerdfonts
       noto-fonts
+      material-design-icons
+      weather-icons
+      font-awesome
+      pragmata-pro-font
+      emacs-all-the-icons-fonts
     ];
 
-  # Keyboard
+
   system.keyboard = {
     enableKeyMapping = true;
     remapCapsLockToControl = true;
