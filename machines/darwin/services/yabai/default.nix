@@ -3,7 +3,11 @@
   services.yabai = {
     enable = true;
     package = pkgs.yabai;
+
+
+    # Enabling this changes my background image every so second. -_-
     enableScriptingAddition = false;
+
     config = {
 
       focus_follows_mouse = "autoraise";
@@ -46,14 +50,12 @@
     extraConfig = ''
 
       # mission-control desktop labels
-      yabai -m space 1 --label code
-      yabai -m space 2 --label mail
-      yabai -m space 3 --label web
-      yabai -m space 4 --label notes
-      yabai -m space 5 --label re
-      yabai -m space 6 --label media
-      yabai -m space 7 --label social
-      yabai -m space 8 --label games
+      # yabai -m space 1 --label dev
+      # yabai -m space 2 --label www
+      # yabai -m space 3 --label sys
+      # yabai -m space 4 --label 4
+      # yabai -m space 5 --label 5
+      # yabai -m space 6 --label 6
 
       yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
       yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
