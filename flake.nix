@@ -40,7 +40,7 @@
   };
 
   outputs =
-    inputs@{ self, nixpkgs, darwin, home-manager, mach-nix, flake-compat, flake-utils, ... }:
+    inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils, ... }:
     let
 
 
