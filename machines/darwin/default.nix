@@ -16,11 +16,13 @@ in {
   environment = {
 
     loginShell = pkgs.fish;
-    pathsToLink = [ "/Applications" ];
+    # pathsToLink = [ "/Applications" ];
     # backupFileExtension = "backup";
     etc = { darwin.source = "${inputs.darwin}"; };
 
   };
+
+  time.timeZone = "Asia/Seoul";
 
 
   fonts.enableFontDir = true;
