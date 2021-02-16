@@ -65,31 +65,14 @@ in {
 
   home.packages = with pkgs; [
 
-    curl
-    wget
-    syncthing
-
-    fzf
-    ripgrep
     fd
+    ripgrep
     gnused
-
-    git
     coreutils
-    mcron
-    gnupg
-
-    neofetch       # information fetcher
-
-    bat
-    exa            # better ls
-    tree
-    broot          # tree explorer
-
+    neofetch
     youtube-dl
-
+    syncthing
     rnix-lsp
-
     imagemagick
 
     myEmacs

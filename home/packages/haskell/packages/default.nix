@@ -1,4 +1,4 @@
-self: super: with self; {
+external: self: super: with self; {
 
   ghc = super.ghc // { withPackages = super.ghc.withHoogle; };
   ghcWithPackages = self.ghc.withPackages;
@@ -25,6 +25,10 @@ self: super: with self; {
     url = https://github.com/DougBurke/hvega;
   };
 
+  myFlow  = callPackage (import (builtins.fetchGit {
+    url = https://gitlab.com/wavetojj/myflow.git;
+  })) {};
+
   # hvegaDir = hvegaSource + "/hvega";
   # ihaskellvegaDir = hvegaSource + "/ihaskell-hvega";
 
@@ -49,4 +53,4 @@ self: super: with self; {
   # ihaskell-hvega = bypassBroken hsuper.ihaskell-hvega;
   # plot           = bypassBroken hsuper.plot;
 
-};
+}

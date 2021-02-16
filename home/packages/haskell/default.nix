@@ -1,4 +1,5 @@
 { pkgs
+, lib ? pkgs.lib
 , isLinux ? pkgs.stdenv.isLinux
 } :
 
@@ -67,10 +68,10 @@ pkgs.haskellPackages.ghcWithPackages (p: with p; [
     # MonadRandom'
 
     # persional
-    myFlow
-    myPlot
-    power
-    picture
+    # myFlow
+    # myPlot
+    # power
+    # picture
 
     # numerical
     hmatrix

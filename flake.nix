@@ -36,10 +36,11 @@
     #   url = "git+ssh://git@gitlab.com/wavetojj/myenv2.git";
     #   flake = false;
     # };
+
   };
 
   outputs =
-    inputs@{ self, nixpkgs, darwin, home-manager, mach-nix, flake-utils, ... }:
+    inputs@{ self, nixpkgs, darwin, home-manager, mach-nix, flake-compat, flake-utils, ... }:
     let
 
 
@@ -61,82 +62,18 @@
         ];
       };
 
-
-      # mkDarwinConfig = { hostname
-      #                  , system       ? "x86_64-darwin"
-      #                  , baseModules  ?
-      #                      [
-      #                        home-manager.darwinModules.home-manager
-      #                        ./machines/darwin
-      #                      ]
-      #                  , extraModules ? [ ]
-      #                  }:
-      # {
-      #   "${hostname}" = darwin.lib.darwinSystem
-      #   {
-      #     # inherit        system;
-      #     modules     =  baseModules
-      #                 ++ extraModules
-      #                 ++ [{ nixpkgs.overlays = overlays; }];
-      #     specialArgs = { inherit inputs nixpkgs; };
-      #   };
-      # };
-
-
-      # mkNixosConfig = { hostname
-      #                 , system ? "x86_64-linux"
-      #                 , baseModules ?
-      #                     [
-      #                       home-manager.nixosModules.home-manager
-      #                       ./machines/nixos
-      #                     ]
-      #                 , extraModules ? [ ] }:
-      # {
-      #   "${hostname}" = nixpkgs.lib.nixosSystem
-      #   {
-      #     inherit        system;
-      #     modules     =  baseModules
-      #                 ++ extraModules
-      #                 ++ [{ nixpkgs.overlays = overlays; }];
-      #     specialArgs = { inherit inputs nixpkgs; };
-      #   };
-      # };
-
-
-      # mkHomeManagerConfig = { homename
-      #                       , system ? "x86_64-linux"
-      #                       , username
-      #                       , extraModules ? [ ]
-      #                       }:
-      # {
-      #   "${homename}" = home-manager.lib.homeManagerConfiguration rec
-      #   {
-      #       inherit            system
-      #                          username;
-      #       homeDirectory    = if system == "x86_64-linux"
-      #                             then "/home/${username}"
-      #                             else "/Users/${username}";
-      #       configuration    = {
-      #         nixpkgs.overlays = overlays;
-      #         imports          =  [
-      #                               ./home
-      #                             ]
-
-      #                          ++ extraModules;
-      #       };
-      #       extraSpecialArgs = { inherit inputs nixpkgs; };
-      #   };
-      # };
+      external = with inputs; {
+      };
 
 
       # Modules shared by most `nix-darwin` personal configurations.
       darwinCommonModules = { user }: [
+        ./machines/darwin
         # Include extra `nix-darwin`
         # self.darwinModules.homebrew
         # self.darwinModules.programs.nix-index
         # self.darwinModules.security.pam
         # Main `nix-darwin` config
-        ./machines/darwin
         # `home-manager` module
         # home-manager.darwinModules.home-manager
         # {
@@ -155,30 +92,21 @@
 
 
       overlays = with inputs; [
-        (import ./home/packages)
-        # (
-        #   final: prev: {
-
-        #     inherit (prev.callPackage ./home/packages {})
-        #       myEmacs
-        #       myHunspell
-        #       myVim
-        #       # haskellForXmonad
-        #       myHaskell
-        #     ;
-        #   }
-        # )
-
-        # To my undersding this is supposed to work as above.
-        # But I've got infinite recursion
-        # ( final: prev: (prev.callPackage ./home/package {}) )
-        # ( final: prev: (import ./home/package { inherit prev; }) )
+        (import ./home/packages external)
       ];
 
 
       #--------------------------------------------------------------------------
       #
       #  Darwin Configurations
+      #
+      #  How to run:
+      #   1. Build darwin-rebuild for flake first
+      #     > nix build .#darwinConfigurations.mbp15.system
+      #   2. Then use ./result/sw/bin/darwin-rebuild to switch
+      #     > ./result/sw/bin/darwin-rebuild switch --flake .#mbp15
+      #
+      #  Or change mbp15 to one of other darwin configurations
       #
       #--------------------------------------------------------------------------
 
@@ -212,8 +140,9 @@
       #
       #  How to run:
       #  > nix build .#homeConfigurations.mbp15-jj.activationPackage
+      #  > ./result/activate
       #
-      #  Or change mbp15-jj to one of other names
+      #  Or change mbp15-jj to one of other home configurations
       #
       #--------------------------------------------------------------------------
 
@@ -308,18 +237,21 @@
 
     } //
 
-    # add a devShell to this flake
+    #--------------------------------------------------------------------------
+    #
+    #  devShell fo this flake
+    #
+    #  How to run:
+    #  > nix develop
+    #
+    #--------------------------------------------------------------------------
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        python = pkgs.python3;
       in {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             nixFlakes
-            rnix-lsp
-            (python.withPackages
-              (ps: with ps; [ black pylint typer colorama shellingham ]))
           ];
         };
       });

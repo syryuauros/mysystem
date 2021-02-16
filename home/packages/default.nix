@@ -1,5 +1,4 @@
-# { pkgs, ... }: with pkgs;
-self: super: with self;
+external: self: super: with self;
 {
 
   myEmacs = callPackage ./emacs {
@@ -24,9 +23,13 @@ self: super: with self;
         myHaskellOverrides;
   });
 
-  myHaskellOverrides = import ./haskell/pacakges;
+
+  myHaskellOverrides = import ./haskell/packages
+    (if external ? haskellPackages then external.haskellPackages else {});
+
 
   myHaskell = callPackage ./haskell {};
+
 
   haskellForXmonad = pkgs.haskellPackages.ghcWithPackages (p: with P; [
     xmonad
