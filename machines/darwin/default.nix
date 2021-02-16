@@ -7,7 +7,8 @@ in {
 
   imports = [
     ./bootstrap.nix
-    ./services/shhd
+    ./services/skhd
+    ./services/yabai
   ] ++ lib.filter lib.pathExists [ ./private.nix ];
 
 
