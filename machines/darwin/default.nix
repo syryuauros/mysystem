@@ -31,7 +31,6 @@ in {
       material-design-icons
       weather-icons
       font-awesome
-      pragmata-pro-font
       emacs-all-the-icons-fonts
     ];
 
