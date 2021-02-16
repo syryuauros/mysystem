@@ -6,12 +6,8 @@
       # launchers
       # lcmd - p : FIXME spotlight
       lalt + lshift - return : alacritty
-      #latt + lshift - e      : open ~/.nix-profle/Applications/Emacs.app
-      #latt + lshift - w      : open /Applications/Safari.app
-
-
-      # destroy desktop
-      lalt + lshift + lctrl - c  : yabai -m space --destroy
+      lalt + lshift - e      : open ~/.nix-profile/Applications/Emacs.app
+      lalt + lshift - w      : open /Applications/Safari.app
 
 
       # focus window
@@ -60,7 +56,7 @@
 
 
       # zoom
-      lshift + lalt - space            : yabai -m window --toggle zoom-fullscreen
+      lshift + lalt - space          : yabai -m window --toggle zoom-fullscreen
       lalt + lshift + lctrl  - space : yabai -m window --toggle zoom-parent
 
 
