@@ -759,7 +759,7 @@ https://github.com/travisbhartwell/nix-emacs
          ("C-p" . 'counsel-minibuffer-history))
   :custom
   (counsel-rg-base-command
-     (split-string "rg -L --no-heading --no-ignore -n %s"))
+     (split-string "rg -M 240 --no-heading --line-number %s"))
   (counsel-fzf-cmd "fzf -f \"%s\"")
   :config
   (defun my/counsel-fzf (&optional input dir)
