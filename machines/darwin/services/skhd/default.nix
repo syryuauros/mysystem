@@ -175,6 +175,8 @@ let
     shift + alt - f : yabai -m window --toggle float;\
                       yabai -m window --grid 12:12:1:1:10:10
 
+    shift + alt + ctrl - f : yabai -m window --toggle float
+
     # toggle sticky
     shift + alt + ctrl - s : yabai -m window --toggle sticky
 

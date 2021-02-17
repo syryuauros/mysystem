@@ -59,6 +59,7 @@
 
       yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
       yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+      yabai -m rule --add label="KakaoTalk" app="^KakaoTalk$" manage=off
       yabai -m rule --add label="System Preferences" app="^System Preferences$" manage=off
       yabai -m rule --add label="App Store" app="^App Store$" manage=off
       yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
@@ -67,8 +68,6 @@
       yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
       yabai -m rule --add label="mpv" app="^mpv$" manage=off
       yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
-      yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
-      yabai -m rule --add label="VirtualBox" app="^VirtualBox$" manage=off
 
     '';
   };
