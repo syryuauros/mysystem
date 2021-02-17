@@ -830,11 +830,12 @@ persp-kill does not work sometimes.
 
 (use-package perspective
   :custom
-  (persp-show-modestring nil)
+  (persp-show-modestring t)
   (persp-modestring-dividers '("" "" "|"))
   (persp-sort 'created)
   :config
   (persp-mode)
+  (persp-turn-off-modestring)
 )
 
 #+end_src
