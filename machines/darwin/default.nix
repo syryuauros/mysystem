@@ -56,7 +56,7 @@ in {
       expose-group-by-app = false;
       minimize-to-application = true;
       show-process-indicators = true;
-      tilesize = 128;
+      tilesize = 80;
       #mouse-over-hilite-stack = false;
     };
 
