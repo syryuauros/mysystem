@@ -91,9 +91,9 @@ let
 
 
     # launch programs
-    shift + alt - return : alacritty
-    shift + alt - e      : open ~/.nix-profile/Applications/Emacs.app
-    shift + alt - w      : open /Applications/Safari.app
+    shift + alt + ctrl - return : alacritty
+    shift + alt + ctrl - e      : open ~/.nix-profile/Applications/Emacs.app
+    shift + alt + ctrl - w      : open /Applications/Safari.app
 
     # focus window
     # here the || was added so the selection cycles and doesn't stop at the end or beginning
