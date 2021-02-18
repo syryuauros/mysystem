@@ -8,12 +8,12 @@ external: self: super: with self;
   # };
 
 
-  myHunspell = let
-    dicts = with hunspellDicts; [ en_US-large ];
-  in hunspellWithDicts dicts;
+  # myHunspell = let
+  #   dicts = with hunspellDicts; [ en_US-large ];
+  # in hunspellWithDicts dicts;
 
 
-  myVim = calPackage ./neovim {};
+  # myVim = calPackage ./neovim {};
 
 
   haskellPackages = super.haskellPackages.override (old: {

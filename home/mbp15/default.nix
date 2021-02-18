@@ -75,19 +75,11 @@ in {
     rnix-lsp
     imagemagick
 
-    # myEmacs
     myemacs
-    myHunspell
+    myvim
     myHaskell
 
   ];
-  # ] ++ with (pkgs.callPackage ../packages {}); [
-  # ] ++ (with myPackages; [
-
-  #   myEmacs
-  #   myHunspell
-
-  # ]);
 
 
   # You can update Home Manager without changing this value. See the Home Manager release notes for

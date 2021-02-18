@@ -25,11 +25,11 @@ let
     set -g theme_color_scheme solarized
   '';
 
-  nixConfig = ''
-    if test -e ~/.nix-profile/etc/profile.d/nix.sh
-      fenv source ~/.nix-profile/etc/profile.d/nix.sh
-    end
-  '';
+  # nixConfig = ''
+  #   if test -e ~/.nix-profile/etc/profile.d/nix.sh
+  #     fenv source ~/.nix-profile/etc/profile.d/nix.sh
+  #   end
+  # '';
 
   customPlugins = pkgs.callPackage ./plugins.nix {};
 
@@ -41,15 +41,20 @@ let
   fishConfig = ''
     bind \t accept-autosuggestion
     set fish_greeting
-  '' + fzfConfig + themeConfig + nixConfig;
+  '' + fzfConfig + themeConfig;
 
 in
 {
   programs.fish = {
     enable = true;
     plugins = [ customPlugins.theme fenv ];
+    # promptInit = ''
+    #   eval (direnv hook fish)
+    ####^ this add ~/.nix-profile/bin in front of $PATH in the nix-shell,
+    ####  which shadows pathes that are supposed to be exposed.
+    #   ${any-nix-shell} fish --info-right | source
+    # '';
     promptInit = ''
-      eval (direnv hook fish)
       ${any-nix-shell} fish --info-right | source
     '';
     shellAliases = {

@@ -33,12 +33,13 @@
     };
 
     myemacs.url = "git+ssh://git@gitlab.com/wavetojj/myemacs3.git";
+    myvim.url   = "git+ssh://git@gitlab.com/wavetojj/myvim2.git";
 
   };
 
   outputs =
     inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils
-           , myemacs, ... }:
+           , myemacs, myvim, ... }:
 
     let
 
@@ -47,6 +48,7 @@
           allowUnfree = true;
         };
         overlays = [ myemacs.overlay
+                     myvim.overlay
                    ] ++ self.overlays;
       };
 

@@ -85,6 +85,22 @@
         "type": "github"
       }
     },
+    "flake-utils_3": {
+      "locked": {
+        "lastModified": 1610051610,
+        "narHash": "sha256-U9rPz/usA1/Aohhk7Cmc2gBrEEKRzcW4nwPWMPwja4Y=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "3982c9903e93927c2164caa727cd3f6a0e6d14cc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "ref": "master",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -114,17 +130,37 @@
         "stable": "stable"
       },
       "locked": {
-        "lastModified": 1613637751,
-        "narHash": "sha256-JKCylwN3hV12rqnHoFCHtQdFfAKd8JTR7xBmEPTK0Gg=",
+        "lastModified": 1613662922,
+        "narHash": "sha256-IiVRq7gPfWF1rcnX98gOuNfKknaoBD5VB8HQ/RQcaD8=",
         "ref": "master",
-        "rev": "7c9ed37b15162f40f2405d683e632d039ea67d32",
-        "revCount": 2,
+        "rev": "cc5ba1b74cee16365ede581624600964ef1bef6f",
+        "revCount": 7,
         "type": "git",
         "url": "ssh://git@gitlab.com/wavetojj/myemacs3.git"
       },
       "original": {
         "type": "git",
         "url": "ssh://git@gitlab.com/wavetojj/myemacs3.git"
+      }
+    },
+    "myvim": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": "nixpkgs_2",
+        "stable": "stable_2"
+      },
+      "locked": {
+        "lastModified": 1613640125,
+        "narHash": "sha256-ornTJB/XoyZbulHEP/cmM9MkCqVa2FceaeAQOtZgh1s=",
+        "ref": "master",
+        "rev": "f5521e2cd12fc5551fe55162464a88dc3c9e3174",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@gitlab.com/wavetojj/myvim2.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@gitlab.com/wavetojj/myvim2.git"
       }
     },
     "nixpkgs": {
@@ -144,6 +180,22 @@
       }
     },
     "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1613495094,
+        "narHash": "sha256-nCM0DOMzxObrXkpGBBTFUCfKOQbdm908z2rv9julGO8=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "64b4617883844efe0cc20163e007ee636462eb18",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1613226215,
         "narHash": "sha256-3rA5cGIrBHD6yeKhNhsF7/t461ww25oJY8KyBb0IhjU=",
@@ -166,8 +218,9 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "myemacs": "myemacs",
-        "nixpkgs": "nixpkgs_2",
-        "stable": "stable_2"
+        "myvim": "myvim",
+        "nixpkgs": "nixpkgs_3",
+        "stable": "stable_3"
       }
     },
     "stable": {
@@ -187,6 +240,22 @@
       }
     },
     "stable_2": {
+      "locked": {
+        "lastModified": 1613551942,
+        "narHash": "sha256-2jt80VjHx8Wf9GkPDy5JbH6jzSFRpYnIw6oa5lZ3XT4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5c53c720ff690ef82a9fe4849e7b70c104e1c82f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-20.09",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "stable_3": {
       "locked": {
         "lastModified": 1613208951,
         "narHash": "sha256-pxDu+9KZBnZkMcKBqSAqw1oQwTIbxTeIwcMtygLsWio=",
