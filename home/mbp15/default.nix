@@ -75,7 +75,8 @@ in {
     rnix-lsp
     imagemagick
 
-    myEmacs
+    # myEmacs
+    myemacs
     myHunspell
     myHaskell
 

@@ -1,11 +1,11 @@
 external: self: super: with self;
 {
 
-  myEmacs = callPackage ./emacs {
-    emacs = if stdenv.isDarwin
-              then emacsMacport
-              else emacs;
-  };
+  # myEmacs = callPackage ./emacs {
+  #   emacs = if stdenv.isDarwin
+  #             then emacsMacport
+  #             else emacs;
+  # };
 
 
   myHunspell = let

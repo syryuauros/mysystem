@@ -32,34 +32,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # myEnv2 = {
-    #   url = "git+ssh://git@gitlab.com/wavetojj/myenv2.git";
-    #   flake = false;
-    # };
+    myemacs.url = "git+ssh://git@gitlab.com/wavetojj/myemacs3.git";
 
   };
 
   outputs =
-    inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils, ... }:
-    let
+    inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils
+           , myemacs, ... }:
 
+    let
 
       nixpkgsConfig = with inputs; {
         config = {
           allowUnfree = true;
         };
-        overlays = self.overlays ++ [
-          (
-            final: prev:
-            let
-              system = prev.stdenv.system;
-              nixpkgs-stable = if system == "x86_64-darwin" then nixpkgs-stable-darwin else nixos-stable;
-            in {
-              master = nixpkgs-master.legacyPackages.${system};
-              stable = nixpkgs-stable.legacyPackages.${system};
-            }
-          )
-        ];
+        overlays = [ myemacs.overlay
+                   ] ++ self.overlays;
       };
 
       external = with inputs; {
@@ -90,10 +78,11 @@
 
     in {
 
-
       overlays = with inputs; [
         (import ./home/packages external)
       ];
+
+      overlay = nixpkgs.lib.composeExtensions self.overlays;
 
 
       #--------------------------------------------------------------------------
