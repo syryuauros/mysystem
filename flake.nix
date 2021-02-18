@@ -32,14 +32,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    myemacs.url = "git+ssh://git@gitlab.com/wavetojj/myemacs3.git";
-    myvim.url   = "git+ssh://git@gitlab.com/wavetojj/myvim2.git";
+    myemacs.url   = "git+ssh://git@gitlab.com/wavetojj/myemacs3.git";
+    myvim.url     = "git+ssh://git@gitlab.com/wavetojj/myvim2.git";
+    myhaskell.url = "git+ssh://git@gitlab.com/wavetojj/myhaskell2.git";
 
   };
 
   outputs =
     inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils
-           , myemacs, myvim, ... }:
+           , myemacs, myvim, myhaskell, ... }:
 
     let
 
@@ -49,6 +50,7 @@
         };
         overlays = [ myemacs.overlay
                      myvim.overlay
+                     myhaskell.overlay
                    ] ++ self.overlays;
       };
 
@@ -84,8 +86,7 @@
         (import ./home/packages external)
       ];
 
-      overlay = nixpkgs.lib.composeExtensions self.overlays;
-
+      overlay = nixpkgs.lib.composeManyExtensions self.overlays;
 
       #--------------------------------------------------------------------------
       #

@@ -77,7 +77,7 @@ in {
 
     myemacs
     myvim
-    myHaskell
+    myhaskell
 
   ];
 
