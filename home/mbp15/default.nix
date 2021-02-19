@@ -23,6 +23,7 @@
   home.packages = with pkgs; [
     fd
     ncdu
+    du-dust
     exa
     ripgrep
     any-nix-shell
