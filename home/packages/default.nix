@@ -1,4 +1,4 @@
-external: self: super: with self;
+external: final: prev: with final;
 {
 
   haskellForXmonad = pkgs.haskellPackages.ghcWithPackages (p: with P; [

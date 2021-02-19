@@ -46,17 +46,8 @@
     let
 
       nixpkgsConfig = with inputs; {
-        config = {
-          allowUnfree = true;
-        };
-        overlays = [ myemacs.overlay
-                     myvim.overlay
-                     myhaskell.overlay
-                     myfonts.overlay
-                   ] ++ self.overlays;
-      };
-
-      external = with inputs; {
+        # config = { allowUnfree = true; };
+        overlays = self.overlays;
       };
 
 
@@ -75,14 +66,33 @@
         }
       ];
 
+      nixosCommonModules = { user }: [
+        ./machines/linux { nixpkgs = nixpkgsConfig; }
+        home-manager.nixosModules.home-manager
+        {
+          nixpkgs = nixpkgsConfig;
+          # Hack to support legacy worklows that use `<nixpkgs>` etc.
+          nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
+          # `home-manager` config
+          users.users.${user}.home = "/Users/${user}";
+          home-manager.useGlobalPkgs = true;
+          home-manager.users.${user} = import ./home/linux;
+        }
+      ];
+
 
     in {
 
-      overlays = with inputs; [
-        (import ./home/packages external)
+      overlays = [
+        myemacs.overlay
+        myvim.overlay
+        myhaskell.overlay
+        myfonts.overlay
+        (import ./home/packages {})
       ];
 
       overlay = nixpkgs.lib.composeManyExtensions self.overlays;
+
 
       #--------------------------------------------------------------------------
       #
@@ -102,7 +112,9 @@
 
         # Mininal configuration to bootstrap systems
         bootstrap = darwin.lib.darwinSystem {
-          modules = [ ./machines/darwin/bootstrap.nix { nixpkgs = nixpkgsConfig; } ];
+          modules = [ ./machines/darwin/bootstrap.nix
+                      { nixpkgs = nixpkgsConfig; }
+                    ];
         };
 
         mbp15 = darwin.lib.darwinSystem {
@@ -117,6 +129,19 @@
             }
           ];
 
+        };
+
+      };
+
+
+      nixosConfigurations = {
+
+        x230 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+                      { nixpkgs = nixpkgsConfig; }
+                    ];
+          specialArgs = { inherit inputs nixpkgs; };
         };
 
       };
@@ -159,78 +184,6 @@
 
       };
 
-
-
-    #   nixosConfigurations =
-
-    #     mkNixosConfig
-    #     {
-    #       hostname     = "x230";
-    #       extraModules = [
-    #                        # ./machines/nixos/phil
-    #                        # ./modules/profiles/personal.nix
-    #                      ];
-    #     } //
-
-    #     mkNixosConfig
-    #     {
-    #       hostname     = "mpNixOS";
-    #       extraModules = [
-    #                        # ./machines/nixos/phil
-    #                        # ./modules/profiles/personal.nix
-    #                      ];
-    #     };
-
-
-    #   # Build and activate with
-    #   # `nix build .#server.activationPackage; ./result/activate`
-    #   # courtesy of @malob - https://github.com/malob/nixpkgs/
-    #   homeManagerConfigurations =
-
-    #     mkHomeManagerConfig
-    #     {
-    #       homename     = "mbp15";
-    #       username     = "jj";
-    #       extraModules = [
-    #                        # ./modules/profiles/home-manager/personal.nix
-    #                      ];
-    #     } //
-
-    #     mkHomeManagerConfig
-    #     {
-    #       homename     = "x230";
-    #       username     = "jj";
-    #       extraModules = [
-    #                        # ./modules/profiles/home-manager/personal.nix
-    #                      ];
-    #     } //
-
-    #     mkHomeManagerConfig
-    #     {
-    #       homename     = "mpMacOS";
-    #       username     = "jj";
-    #       extraModules = [
-    #                        # ./modules/profiles/home-manager/personal.nix
-    #                      ];
-    #     } //
-
-    #     mkHomeManagerConfig
-    #     {
-    #       homename     = "mpLinuxOS";
-    #       username     = "jj";
-    #       extraModules = [
-    #                        # ./modules/profiles/home-manager/personal.nix
-    #                      ];
-    #     } //
-
-    #     mkHomeManagerConfig
-    #     {
-    #       homename     = "mx9366";
-    #       username     = "jj";
-    #       extraModules = [
-    #                        # ./modules/profiles/home-manager/personal.nix
-    #                      ];
-    #     };
 
     } //
 
