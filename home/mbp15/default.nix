@@ -13,7 +13,7 @@
     ../programs/htop
     ../programs/bat
     ../programs/gpg
-    ../programs/jg
+    ../programs/jq
     ../programs/ssh
   ] ++ lib.filter lib.pathExists [
     ./private.nix

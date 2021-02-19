@@ -10,24 +10,18 @@
     matchBlocks = {
 
       "mp" = {
-        identityFile = "~/.ssh/id_rsa.pub";
-        identitiesOnly = true;
         forwardX11 = true;
         hostname = "192.168.0.118";
         user = "jj";
       };
 
       "x230" = {
-        identityFile = "~/.ssh/id_rsa.pub";
-        identitiesOnly = true;
         forwardX11 = true;
         hostname = "192.168.0.105";
         user = "jj";
       };
 
       "mx9366" = {
-        identityFile = "~/.ssh/id_rsa.pub";
-        identitiesOnly = true;
         forwardX11 = true;
         hostname = "192.168.0.119";
         user = "jj";

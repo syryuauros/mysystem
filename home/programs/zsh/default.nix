@@ -1,4 +1,5 @@
 { config, pkgs, lib, ... }:
+
 {
   programs.zsh = {
     enable = true;
@@ -17,5 +18,6 @@
       ".." = "cd ..";
       ping = "prettyping";
     };
+    initExtra = "source ~/.nix-profile/etc/profile.d/nix.sh";
   };
 }
