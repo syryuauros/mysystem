@@ -51,35 +51,44 @@
       };
 
 
-      # Modules shared by most `nix-darwin` personal configurations.
-      darwinCommonModules = { user }: [
-        ./machines/darwin { nixpkgs = nixpkgsConfig; }
+      mkDarwinModules = { user, hostname, home, machine }: [
+        machine
         home-manager.darwinModules.home-manager
         {
           nixpkgs = nixpkgsConfig;
-          # Hack to support legacy worklows that use `<nixpkgs>` etc.
           nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
-          # `home-manager` config
           users.users.${user}.home = "/Users/${user}";
           home-manager.useGlobalPkgs = true;
-          home-manager.users.${user} = import ./home/darwin;
+          home-manager.users.${user} = home;
+
+          networking.computerName = user + "-" + hostname;
+          networking.hostName = hostname;
+          networking.knownNetworkServices = [
+            "Wi-Fi"
+            "USB 10/100/1000 LAN"
+          ];
         }
       ];
 
-      nixosCommonModules = { user }: [
-        ./machines/linux { nixpkgs = nixpkgsConfig; }
+
+      mkNixosModules = { user, hostname, home, machine }: [
+        machine
         home-manager.nixosModules.home-manager
         {
           nixpkgs = nixpkgsConfig;
-          # Hack to support legacy worklows that use `<nixpkgs>` etc.
           nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
-          # `home-manager` config
-          users.users.${user}.home = "/Users/${user}";
+          users.users.${user}.home = "/home/${user}";
           home-manager.useGlobalPkgs = true;
-          home-manager.users.${user} = import ./home/linux;
+          home-manager.users.${user} = home;
+
+          networking.computerName = user + "-" + hostname;
+          networking.hostName = hostname;
+          networking.knownNetworkServices = [
+            "Wi-Fi"
+            "USB 10/100/1000 LAN"
+          ];
         }
       ];
-
 
     in {
 
@@ -99,7 +108,7 @@
       #  Darwin Configurations
       #
       #  How to run:
-      #   1. Build darwin-rebuild for flake first
+      #   1. Build darwin-rebuild for this flake first
       #     > nix build .#darwinConfigurations.mbp15.system
       #   2. Then use ./result/sw/bin/darwin-rebuild to switch
       #     > ./result/sw/bin/darwin-rebuild switch --flake .#mbp15
@@ -110,24 +119,13 @@
 
       darwinConfigurations = {
 
-        # Mininal configuration to bootstrap systems
-        bootstrap = darwin.lib.darwinSystem {
-          modules = [ ./machines/darwin/bootstrap.nix
-                      { nixpkgs = nixpkgsConfig; }
-                    ];
-        };
-
         mbp15 = darwin.lib.darwinSystem {
-          modules = darwinCommonModules { user = "jj"; } ++ [
-            {
-              networking.computerName = "jj-mbp15";
-              networking.hostName = "mbp15";
-              networking.knownNetworkServices = [
-                "Wi-Fi"
-                "USB 10/100/1000 LAN"
-              ];
-            }
-          ];
+          modules = mkDarwinModules {
+            user     = "jj";
+            hostname = "mbp15";
+            machine  = ./machines/darwin;
+            home     = ./home/darwin;
+          };
 
         };
 
@@ -137,11 +135,12 @@
       nixosConfigurations = {
 
         x230 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-                      { nixpkgs = nixpkgsConfig; }
-                    ];
-          specialArgs = { inherit inputs nixpkgs; };
+          modules = mkDarwinModules {
+            user     = "jj";
+            hostname = "mbp15";
+            machine  = ./machines/linux;
+            home     = ./home/linux;
+          };
         };
 
       };
