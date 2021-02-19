@@ -1,5 +1,5 @@
 # See https://nixos.wiki/wiki/Flakes#Using_flakes_project_from_a_legacy_Nix
-(import (
+import (
   let
     lock = builtins.fromJSON (builtins.readFile ./flake.lock);
   in fetchTarball {
@@ -7,4 +7,4 @@
     sha256 = lock.nodes.flake-compat.locked.narHash; }
 ) {
   src =  ./.;
-}).defaultNix
+}

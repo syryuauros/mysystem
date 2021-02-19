@@ -114,7 +114,7 @@
         mbp15 = darwin.lib.darwinSystem {
           modules = darwinCommonModules { user = "jj"; } ++ [
             {
-              networking.computerName = "JJ’s 💻";
+              networking.computerName = "jj-mbp15";
               networking.hostName = "mbp15";
               networking.knownNetworkServices = [
                 "Wi-Fi"
@@ -132,24 +132,33 @@
       #
       #  Home Configurations
       #
-      #  How to run:
-      #  > nix build .#homeConfigurations.mbp15-jj.activationPackage
+      #  To build, for mac,
+      #  > nix build .#homeConfigurations.darwin.activationPackage
+      #  or, for linux,
+      #  > nix build .#homeConfigurations.linux.activationPackage
+      #  then run
       #  > ./result/activate
-      #
-      #  Or change mbp15-jj to one of other home configurations
       #
       #--------------------------------------------------------------------------
 
       homeConfigurations = {
 
-        mbp15-jj = home-manager.lib.homeManagerConfiguration {
+        darwin = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-darwin";
+          homeDirectory = "/Users/jj";
+          username = "jj";
+          configuration = {
+            imports = [ ./home/darwin ];
+            nixpkgs = nixpkgsConfig;
+          };
+        };
+
+        linux = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
           homeDirectory = "/home/jj";
           username = "jj";
           configuration = {
-            imports = [
-              ./home/mbp15
-            ];
+            imports = [ ./home/linux ];
             nixpkgs = nixpkgsConfig;
           };
         };
