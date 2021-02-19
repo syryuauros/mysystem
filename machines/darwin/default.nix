@@ -26,15 +26,7 @@ in {
 
 
   fonts.enableFontDir = true;
-  fonts.fonts = with pkgs;
-    [
-      nerdfonts
-      noto-fonts
-      material-design-icons
-      weather-icons
-      font-awesome
-      emacs-all-the-icons-fonts
-    ];
+  fonts.fonts = pkgs.myfonts-collection;
 
 
   system.keyboard = {

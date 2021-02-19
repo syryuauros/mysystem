@@ -35,12 +35,13 @@
     myemacs.url   = "git+ssh://git@gitlab.com/wavetojj/myemacs3.git";
     myvim.url     = "git+ssh://git@gitlab.com/wavetojj/myvim2.git";
     myhaskell.url = "git+ssh://git@gitlab.com/wavetojj/myhaskell2.git";
+    myfonts.url   = "git+ssh://git@gitlab.com/wavetojj/myfonts.git";
 
   };
 
   outputs =
     inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils
-           , myemacs, myvim, myhaskell, ... }:
+           , myemacs, myvim, myhaskell, myfonts, ... }:
 
     let
 
@@ -51,6 +52,7 @@
         overlays = [ myemacs.overlay
                      myvim.overlay
                      myhaskell.overlay
+                     myfonts.overlay
                    ] ++ self.overlays;
       };
 
@@ -60,7 +62,7 @@
 
       # Modules shared by most `nix-darwin` personal configurations.
       darwinCommonModules = { user }: [
-        ./machines/darwin
+        ./machines/darwin { nixpkgs = nixpkgsConfig; }
         # Include extra `nix-darwin`
         # self.darwinModules.homebrew
         # self.darwinModules.programs.nix-index

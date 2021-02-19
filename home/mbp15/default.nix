@@ -66,6 +66,8 @@ in {
   home.packages = with pkgs; [
 
     fd
+    ncdu
+    exa
     ripgrep
     gnused
     coreutils
