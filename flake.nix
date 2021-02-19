@@ -63,22 +63,16 @@
       # Modules shared by most `nix-darwin` personal configurations.
       darwinCommonModules = { user }: [
         ./machines/darwin { nixpkgs = nixpkgsConfig; }
-        # Include extra `nix-darwin`
-        # self.darwinModules.homebrew
-        # self.darwinModules.programs.nix-index
-        # self.darwinModules.security.pam
-        # Main `nix-darwin` config
-        # `home-manager` module
-        # home-manager.darwinModules.home-manager
-        # {
-        #   nixpkgs = nixpkgsConfig;
-        #   # Hack to support legacy worklows that use `<nixpkgs>` etc.
-        #   nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
-        #   # `home-manager` config
-        #   users.users.${user}.home = "/Users/${user}";
-        #   home-manager.useGlobalPkgs = true;
-        #   home-manager.users.${user} = homeManagerCommonConfig;
-        # }
+        home-manager.darwinModules.home-manager
+        {
+          nixpkgs = nixpkgsConfig;
+          # Hack to support legacy worklows that use `<nixpkgs>` etc.
+          nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
+          # `home-manager` config
+          users.users.${user}.home = "/Users/${user}";
+          home-manager.useGlobalPkgs = true;
+          home-manager.users.${user} = import ./home/darwin;
+        }
       ];
 
 

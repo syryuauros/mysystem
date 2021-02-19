@@ -15,7 +15,11 @@
     ../programs/gpg
     ../programs/jq
     ../programs/ssh
-  ] ++ lib.filter lib.pathExists [
+    ../programs/git
+  ] ++ [
+    # ../services/emacs
+  ] ++
+  lib.filter lib.pathExists [
     ./private.nix
   ];
 
@@ -28,6 +32,7 @@
     ripgrep
     any-nix-shell
     prettyping
+    diff-so-fancy
     gnused
     coreutils
     neofetch
