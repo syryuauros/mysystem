@@ -10,7 +10,7 @@
 
     config = {
 
-      focus_follows_mouse = "autoraise";
+      focus_follows_mouse = "off"; # "autoraise";
       mouse_follows_focus = "off";
 
       window_placement = "second_child";
@@ -21,7 +21,7 @@
       window_border_placement = "inset";
       window_border_width = 2;
       window_border_radius = 3;
-      active_window_border_topmost = "off";
+      active_window_border_topmost = "on";
       active_window_border_color = "0xff5c7e81";
       normal_window_border_color = "0xff505050";
       insert_window_border_color = "0xffd75f5f";
@@ -50,24 +50,17 @@
     extraConfig = ''
 
       # mission-control desktop labels
-      # yabai -m space 1 --label dev
-      # yabai -m space 2 --label www
-      # yabai -m space 3 --label sys
-      # yabai -m space 4 --label 4
-      # yabai -m space 5 --label 5
-      # yabai -m space 6 --label 6
+      yabai -m space 1 --label dev
+      yabai -m space 2 --label www
+      yabai -m space 3 --label sys
+      yabai -m space 4 --label 4
+      yabai -m space 5 --label 5
+      yabai -m space 6 --label 6
+      yabai -m space 7 --label 7
+      yabai -m space 8 --label 8
+      yabai -m space 9 --label 0
 
-      yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
-      yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
-      yabai -m rule --add label="KakaoTalk" app="^KakaoTalk$" manage=off
-      yabai -m rule --add label="System Preferences" app="^System Preferences$" manage=off
-      yabai -m rule --add label="App Store" app="^App Store$" manage=off
-      yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
-      yabai -m rule --add label="KeePassXC" app="^KeePassXC$" manage=off
-      yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
-      yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
-      yabai -m rule --add label="mpv" app="^mpv$" manage=off
-      yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
+      yabai -m rule --add app!="^(Safari|Emacs|alacritty)$" manage=off
 
     '';
   };
