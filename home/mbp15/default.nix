@@ -15,6 +15,7 @@ in {
   imports = [
     ../programs/alacritty
     ../programs/fish
+    ../programs/zsh
     # ./programs/ssh  # I don't know how to manage the keys
     # ../programs/others
   ] ++ lib.filter lib.pathExists [
@@ -56,6 +57,12 @@ in {
 
   programs.jq.enable = true;
 
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    enableFishIntegration = true;
+    enableBashIntegration = true;
+  };
 
   #------------------------------------------------------------------------------
   #
@@ -69,6 +76,8 @@ in {
     ncdu
     exa
     ripgrep
+    any-nix-shell
+    prettyping
     gnused
     coreutils
     neofetch
