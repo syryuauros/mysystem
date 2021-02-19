@@ -1,77 +1,26 @@
 { config, pkgs , lib , ... }:
 
-let
-
-  # myPackages = pkgs.callPackages ../packages {};
-
-in {
-
-  #------------------------------------------------------------------------------
-  #
-  #  Programs with heavy customizations
-  #
-  #------------------------------------------------------------------------------
+{
 
   imports = [
     ../programs/alacritty
     ../programs/fish
     ../programs/zsh
-    # ./programs/ssh  # I don't know how to manage the keys
-    # ../programs/others
+    ../programs/starship
+    ../programs/fzf
+    ../programs/broot
+    ../programs/direnv
+    ../programs/htop
+    ../programs/bat
+    ../programs/gpg
+    ../programs/jg
+    ../programs/ssh
   ] ++ lib.filter lib.pathExists [
     ./private.nix
   ];
 
 
-  #------------------------------------------------------------------------------
-  #
-  #  Programs
-  #
-  #------------------------------------------------------------------------------
-
-  programs.bat.enable = true;
-
-  programs.broot = {
-    enable = true;
-    enableFishIntegration = true;
-  };
-
-  programs.direnv = {
-    enable = true;
-    enableFishIntegration = true;
-    enableNixDirenvIntegration = true;
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableFishIntegration = true;
-  };
-
-  programs.gpg.enable = true;
-
-  programs.htop = {
-    enable = true;
-    sortDescending = true;
-    sortKey = "PERCENT_CPU";
-  };
-
-  programs.jq.enable = true;
-
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
-    enableFishIntegration = true;
-    enableBashIntegration = true;
-  };
-
-  #------------------------------------------------------------------------------
-  #
-  #  Packages
-  #
-  #------------------------------------------------------------------------------
-
   home.packages = with pkgs; [
-
     fd
     ncdu
     exa
@@ -89,8 +38,13 @@ in {
     myemacs
     myvim
     myhaskell
-
   ];
+
+  home.sessionVariables = {
+    EDITOR = "vim";
+    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+    # PATH = "$PATH:${builtins.getEnv "HOME"}/.emacs.d/bin:${builtins.getEnv "HOME"}/.radicle/bin";
+  };
 
 
   # You can update Home Manager without changing this value. See the Home Manager release notes for
