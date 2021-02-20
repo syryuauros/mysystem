@@ -15,8 +15,7 @@
     ../services/random-background  # needs mywallpapers
     ../services/udiskie
     ../services/flameshot
-
-    ./xwindow/xmonad
+    ../services/xmonad
   ];
 
   fonts.fontconfig.enable = true;

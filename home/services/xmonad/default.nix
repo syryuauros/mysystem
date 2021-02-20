@@ -22,7 +22,7 @@ let
 in
 {
   xresources.properties = {
-    "Xft.dpi" = 82;
+    "Xft.dpi" = 90;
     "Xft.autohint" = 0;
     "Xft.hintstyle" = "hintfull";
     "Xft.hinting" = 1;
