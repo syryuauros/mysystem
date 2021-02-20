@@ -14,6 +14,7 @@
     ../services/screenlocker       # needs mylockscreen
     ../services/random-background  # needs mywallpapers
     ../services/udiskie
+    ../services/flameshot
 
     ./xwindow/xmonad
   ];
