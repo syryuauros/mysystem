@@ -37,25 +37,28 @@
     myfonts.url           = "git+ssh://git@gitlab.com/wavetojj/myfonts.git";
     mylockscreen.url      = "git+ssh://git@gitlab.com/wavetojj/mylockscreen.git";
     mywallpapers-1366.url = "git+ssh://git@gitlab.com/wavetojj/mywallpapers-1366.git";
+    myxmobar.url          = "git+ssh://git@gitlab.com/wavetojj/myxmobar.git";
+    mynitrogen.url        = "git+ssh://git@gitlab.com/wavetojj/mynitrogen.git";
 
   };
 
   outputs =
     inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils, nur
-           , myemacs, myvim, myhaskell, myfonts, mylockscreen, mywallpapers-1366, ... }:
+           , myemacs, myvim, myhaskell, myfonts, mylockscreen, mywallpapers-1366
+           , myxmobar, mynitrogen, ... }:
 
     let
 
       nixpkgsConfig = with inputs; {
         # config = { allowUnfree = true; };
-        config = {
-          allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-            "firefox-beta-bin"
-            "firefox-beta-bin-unwrapped"
-            "languagetool"
-            "lastpass-password-manager"
-          ];
-        };
+        # config = {
+        #   allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
+        #     "firefox-beta-bin"
+        #     "firefox-beta-bin-unwrapped"
+        #     "languagetool"
+        #     "lastpass-password-manager"
+        #   ];
+        # };
         overlays = self.overlays;
       };
 
@@ -111,6 +114,8 @@
         myfonts.overlay
         mylockscreen.overlay
         mywallpapers-1366.overlay
+        myxmobar.overlay
+        mynitrogen.overlay
         (import ./home/packages {})
       ];
 

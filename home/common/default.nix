@@ -2,6 +2,9 @@
 
 {
 
+  programs.home-manager.enable = true;
+  xdg.enable = true;
+
   imports = [
     ../programs/alacritty
     ../programs/fish

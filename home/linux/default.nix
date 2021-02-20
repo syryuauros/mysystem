@@ -18,7 +18,38 @@
     ./xwindow/xmonad
   ];
 
+  fonts.fontconfig.enable = true;
+
+  nixpkgs.config = {
+    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg)
+      [  # whitelist for firefox
+        "firefox-beta-bin"
+        "firefox-beta-bin-unwrapped"
+        "languagetool"
+        "lastpass-password-manager"
+      ];
+  };
+
+
   home.packages = with pkgs; [
     myhaskell-xmonad
+
+    networkmanager_dmenu   # networkmanager on dmenu
+    networkmanagerapplet   # networkmanager applet
+    xcape                  # keymaps modifier
+    xorg.xkbcomp           # keymaps modifier
+    xorg.xrandr            # display manager (X Resize and Rotate protocol)
+
+    myxmobar
+    mynitrogen
+    mylockscreen
+
+    killall              # kill processes by name
+    bottom               # alternative to htop & ytop
+    dmenu                # application launcher
+    nix-doc              # nix documentation search tool
+    tree                 # display files in a tree view
+    xclip                # clipboard support (also for neovim)
+
   ] ++ myfonts-collection;
 }
