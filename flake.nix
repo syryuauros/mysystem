@@ -1,17 +1,6 @@
 {
   description = "my system configurations using nix";
 
-  # nixConfig = {
-  #   substituters = [
-  #     "https://nix-community.cachix.org"
-  #     "https://cache.nixos.org"
-  #   ];
-  #   trusted-public-keys = [
-  #     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-  #     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-  #   ];
-  # };
-
   inputs = {
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -50,15 +39,6 @@
     let
 
       nixpkgsConfig = with inputs; {
-        # config = { allowUnfree = true; };
-        # config = {
-        #   allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-        #     "firefox-beta-bin"
-        #     "firefox-beta-bin-unwrapped"
-        #     "languagetool"
-        #     "lastpass-password-manager"
-        #   ];
-        # };
         overlays = self.overlays;
       };
 
@@ -67,7 +47,6 @@
         machine
         home-manager.darwinModules.home-manager
         {
-          system = "x86_64-darwin";
           nixpkgs = nixpkgsConfig;
           nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
           users.users.${user}.home = "/Users/${user}";
