@@ -646,6 +646,21 @@
         "url": "ssh://git@gitlab.com/wavetojj/myxmobar.git"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1613453906,
+        "narHash": "sha256-w6oeQ3OTCKxRAG9KtjK+ErxpvUhNr48binO99JVQP9Q=",
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "rev": "115770eed0c0fa50c1277cd0f7fe0f15501dbc43",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1613495094,
@@ -900,6 +915,7 @@
         "myvim": "myvim",
         "mywallpapers-1366": "mywallpapers-1366_3",
         "myxmobar": "myxmobar",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_14",
         "nur": "nur",
         "stable": "stable_14"

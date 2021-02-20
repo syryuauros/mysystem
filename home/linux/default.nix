@@ -18,18 +18,7 @@
     ../services/xmonad
   ];
 
-  fonts.fontconfig.enable = true;
-
-  nixpkgs.config = {
-    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg)
-      [  # whitelist for firefox
-        "firefox-beta-bin"
-        "firefox-beta-bin-unwrapped"
-        "languagetool"
-        "lastpass-password-manager"
-      ];
-  };
-
+  # fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
     myhaskell-xmonad

@@ -29,16 +29,28 @@
     myxmobar.url          = "git+ssh://git@gitlab.com/wavetojj/myxmobar.git";
     mynitrogen.url        = "git+ssh://git@gitlab.com/wavetojj/mynitrogen.git";
 
+    nixos-hardware.url = "github:nixos/nixos-hardware";
   };
 
   outputs =
     inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils, nur
            , myemacs, myvim, myhaskell, myfonts, mylockscreen, mywallpapers-1366
-           , myxmobar, mynitrogen, ... }:
+           , myxmobar, mynitrogen, nixos-hardware, ... }:
 
     let
 
       nixpkgsConfig = with inputs; {
+
+        config = {
+          allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
+            [ # whitelist for firefox
+              "firefox-beta-bin"
+              "firefox-beta-bin-unwrapped"
+              "languagetool"
+              "lastpass-password-manager"
+            ];
+        };
+
         overlays = self.overlays;
       };
 
@@ -67,19 +79,11 @@
         machine
         home-manager.nixosModules.home-manager
         {
-          system = "x86_64-linux";
           nixpkgs = nixpkgsConfig;
-          nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
-          users.users.${user}.home = "/home/${user}";
           home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
           home-manager.users.${user} = home;
-
-          networking.computerName = user + "-" + hostname;
           networking.hostName = hostname;
-          networking.knownNetworkServices = [
-            "Wi-Fi"
-            "USB 10/100/1000 LAN"
-          ];
         }
       ];
 
@@ -130,15 +134,27 @@
       };
 
 
+      #--------------------------------------------------------------------------
+      #
+      #  NixOS Configurations
+      #
+      #  How to run:
+      #     > nixos-rebuild build --flake .#x230
+      #
+      #  Or change mbp15 to one of other nixos configurations
+      #
+      #--------------------------------------------------------------------------
+
       nixosConfigurations = {
 
         x230 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
           modules = mkNixosModules {
             user     = "jj";
-            hostname = "mbp15";
-            machine  = ./machines/linux;
+            hostname = "x230";
+            machine  = ./machines/x230;
             home     = ./home/linux;
-          };
+          } ++ [ nixos-hardware.nixosModules.lenovo-thinkpad-x230 ] ;
         };
 
       };
