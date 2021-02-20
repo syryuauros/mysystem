@@ -60,9 +60,7 @@
         home-manager.darwinModules.home-manager
         {
           nixpkgs = nixpkgsConfig;
-          nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
           users.users.${user}.home = "/Users/${user}";
-          home-manager.useGlobalPkgs = true;
           home-manager.users.${user} = home;
 
           networking.computerName = user + "-" + hostname;
@@ -80,8 +78,6 @@
         home-manager.nixosModules.home-manager
         {
           nixpkgs = nixpkgsConfig;
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
           home-manager.users.${user} = home;
           networking.hostName = hostname;
         }
@@ -99,7 +95,7 @@
         mywallpapers-1366.overlay
         myxmobar.overlay
         mynitrogen.overlay
-        (import ./home/packages {})
+        (import ./overlay.nix {})
       ];
 
       overlay = nixpkgs.lib.composeManyExtensions self.overlays;
@@ -153,7 +149,7 @@
             user     = "jj";
             hostname = "x230";
             machine  = ./machines/x230;
-            home     = ./home/linux;
+            home     = ./home/x230;
           } ++ [ nixos-hardware.nixosModules.lenovo-thinkpad-x230 ] ;
         };
 

@@ -1,4 +1,7 @@
 { config, pkgs, ... }:
 {
-  imports = [ ./configuration.nix ];
+  imports = [
+    ../common
+    ./configuration.nix
+  ];
 }

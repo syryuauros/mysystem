@@ -1,35 +1,11 @@
 { inputs, config, lib, pkgs, ... }: {
 
-  # imports = [ ../modules/primary.nix ];
-
-  # user = {
-  #   description = "JJ Kim";
-  #   home = "${
-  #       if pkgs.stdenvNoCC.isDarwin then "/Users/jj" else "/home/jj"
-  #     }";
-  #   # home = "${
-  #   #     if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"
-  #   #   }/${config.user.name}";
-  #   shell = pkgs.fish;
-  # };
-
-  # bootstrap home manager using system config
-  # hm = import ./home.nix;
-
-  # let nix manage home-manager profiles and use global nixpkgs
-  programs.zsh.enable = true;
-  programs.fish.enable = true;
-
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
   };
 
-  #----------------------------------------------------------------------------------------
-  #
-  #   Bare Minimum Environment
-  #
   environment = {
 
     systemPackages = with pkgs; [
@@ -42,23 +18,18 @@
 
     ];
 
-    etc = {
-      home-manager.source = "${inputs.home-manager}";
-      nixpkgs.source = "${inputs.nixpkgs}";
-      darwin.source = "${inputs.darwin}";
-    };
+    # etc = {
+    #   home-manager.source = "${inputs.home-manager}";
+    #   nixpkgs.source = "${inputs.nixpkgs}";
+    #   darwin.source = "${inputs.darwin}";
+    # };
 
     # list of acceptable shells in /etc/shells
-    shells = with pkgs; [ bash zsh fish ];
+    shells = with pkgs; [ bashInteractive ];
 
   };
 
 
-
-  #----------------------------------------------------------------------------------------
-  #
-  #  Nix configuration
-  #
   nix = {
 
     package = pkgs.nixFlakes;
@@ -84,10 +55,11 @@
       "root" "@admin" "@wheel" "jj"
     ];
 
-    # gc = {
-    #   automatic = true;
-    #   options = "--delete-older-than 30d";
-    # };
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
+
     # buildCores = 8;
     # maxJobs = 8;
     # readOnlyStore = true;
@@ -97,7 +69,5 @@
     # ];
 
   };
-
-  services.nix-daemon.enable = true;
 
 }

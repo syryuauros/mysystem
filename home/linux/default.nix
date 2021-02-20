@@ -4,6 +4,7 @@
 
   imports = [
     ../common
+
     ../programs/rofi
     ../programs/firefox
 

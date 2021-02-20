@@ -4,7 +4,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ];
+  imports = [
+  ];
+
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
