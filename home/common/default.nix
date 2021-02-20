@@ -16,8 +16,6 @@
     ../programs/jq
     ../programs/ssh
     ../programs/git
-  ] ++ [
-    # ../services/emacs
   ] ++
   lib.filter lib.pathExists [
     ./private.nix
@@ -43,7 +41,6 @@
 
     myemacs
     myvim
-    myhaskell
   ];
 
   home.sessionVariables = {

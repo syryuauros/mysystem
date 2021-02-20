@@ -1,16 +1,16 @@
 {
   description = "my system configurations using nix";
 
-  nixConfig = {
-    substituters = [
-      "https://nix-community.cachix.org"
-      "https://cache.nixos.org"
-    ];
-    trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    ];
-  };
+  # nixConfig = {
+  #   substituters = [
+  #     "https://nix-community.cachix.org"
+  #     "https://cache.nixos.org"
+  #   ];
+  #   trusted-public-keys = [
+  #     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  #     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+  #   ];
+  # };
 
   inputs = {
 
@@ -21,32 +21,41 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
-
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     darwin = {
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur.url = "github:nix-community/NUR/master";
 
-    myemacs.url   = "git+ssh://git@gitlab.com/wavetojj/myemacs3.git";
-    myvim.url     = "git+ssh://git@gitlab.com/wavetojj/myvim2.git";
-    myhaskell.url = "git+ssh://git@gitlab.com/wavetojj/myhaskell2.git";
-    myfonts.url   = "git+ssh://git@gitlab.com/wavetojj/myfonts.git";
+    myemacs.url           = "git+ssh://git@gitlab.com/wavetojj/myemacs3.git";
+    myvim.url             = "git+ssh://git@gitlab.com/wavetojj/myvim2.git";
+    myhaskell.url         = "git+ssh://git@gitlab.com/wavetojj/myhaskell2.git";
+    myfonts.url           = "git+ssh://git@gitlab.com/wavetojj/myfonts.git";
+    mylockscreen.url      = "git+ssh://git@gitlab.com/wavetojj/mylockscreen.git";
+    mywallpapers-1366.url = "git+ssh://git@gitlab.com/wavetojj/mywallpapers-1366.git";
 
   };
 
   outputs =
-    inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils
-           , myemacs, myvim, myhaskell, myfonts, ... }:
+    inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils, nur
+           , myemacs, myvim, myhaskell, myfonts, mylockscreen, mywallpapers-1366, ... }:
 
     let
 
       nixpkgsConfig = with inputs; {
         # config = { allowUnfree = true; };
+        config = {
+          allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
+            "firefox-beta-bin"
+            "firefox-beta-bin-unwrapped"
+            "languagetool"
+            "lastpass-password-manager"
+          ];
+        };
         overlays = self.overlays;
       };
 
@@ -55,6 +64,7 @@
         machine
         home-manager.darwinModules.home-manager
         {
+          system = "x86_64-darwin";
           nixpkgs = nixpkgsConfig;
           nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
           users.users.${user}.home = "/Users/${user}";
@@ -75,6 +85,7 @@
         machine
         home-manager.nixosModules.home-manager
         {
+          system = "x86_64-linux";
           nixpkgs = nixpkgsConfig;
           nix.nixPath = { nixpkgs = "$HOME/.config/nixpkgs/nixpkgs.nix"; };
           users.users.${user}.home = "/home/${user}";
@@ -93,10 +104,13 @@
     in {
 
       overlays = [
+        nur.overlay
         myemacs.overlay
         myvim.overlay
         myhaskell.overlay
         myfonts.overlay
+        mylockscreen.overlay
+        mywallpapers-1366.overlay
         (import ./home/packages {})
       ];
 
@@ -135,7 +149,7 @@
       nixosConfigurations = {
 
         x230 = nixpkgs.lib.nixosSystem {
-          modules = mkDarwinModules {
+          modules = mkNixosModules {
             user     = "jj";
             hostname = "mbp15";
             machine  = ./machines/linux;
