@@ -16,6 +16,7 @@
     ../services/random-background  # needs mywallpapers
     ../services/udiskie
     ../services/flameshot
+    ../services/xcape
     ../services/xmonad
   ];
 

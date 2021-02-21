@@ -6,9 +6,8 @@
     ../linux
   ];
 
-
   xresources.properties = {
-    "Xft.dpi" = 90;
+    "Xft.dpi" = 150;
     "Xft.autohint" = 0;
     "Xft.hintstyle" = "hintfull";
     "Xft.hinting" = 1;
@@ -18,17 +17,15 @@
     "Xcursor*size" = 24;
   };
 
-
   xsession.enable = true;
   xsession.initExtra = ''
 
     lxsession &
     nitrogen --restore &
 
-    ${pkgs .xorg.xkbcomp}/bin/setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
+    ${pkgs.xorg.xkbcomp}/bin/setxkbmap -option caps:ctrl_modifier
 
   '';
-
 
   home.file = {
 

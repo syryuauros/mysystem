@@ -39,7 +39,7 @@
         ];
       };
 
-      xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
+      # xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
     };
   };
 

@@ -48,6 +48,7 @@
               "firefox-beta-bin-unwrapped"
               "languagetool"
               "lastpass-password-manager"
+              "broadcom-sta"
             ];
         };
 

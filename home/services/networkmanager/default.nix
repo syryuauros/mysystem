@@ -1,5 +1,7 @@
 {
 
+  services.network-manager-applet.enable = true;
+
   xdg.configFile."networkmanager-dmenu/config.ini".text = ''
     [dmenu]
     dmenu_command = rofi
@@ -7,7 +9,5 @@
     [editor]
     gui_if_available = True
   '';
-
-  services.network-manager-applet.enable = true;
 
 }
