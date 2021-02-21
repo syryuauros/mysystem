@@ -14,7 +14,7 @@
     "Xft.antialias" = 1;
     "Xft.rgba" = "rgb";
     "Xcursor*theme" = "Vanilla-DMZ-AA";
-    "Xcursor*size" = 24;
+    "Xcursor*size" = 30;
   };
 
   xsession.enable = true;
@@ -23,7 +23,10 @@
     lxsession &
     nitrogen --restore &
 
-    ${pkgs.xorg.xkbcomp}/bin/setxkbmap -option caps:ctrl_modifier
+    setxkbmap -option caps:ctrl_modifier &
+    trayer --edge top --align right --widthtype request --padding 1 \
+           --SetDockType true --SetPartialStrut true --expand true --transparent true \
+           --alpha 0 --tint 0x282c34  --height 22 &
 
   '';
 
