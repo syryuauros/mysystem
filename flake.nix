@@ -152,6 +152,17 @@
             home     = ./home/x230;
           };
           # } ++ [ nixos-hardware.nixosModules.lenovo-thinkpad-x230 ] ;
+          ##       ^ this seem to make wifi not work
+        };
+
+        mp = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = mkNixosModules {
+            user     = "jj";
+            hostname = "mp";
+            machine  = ./machines/mp;
+            home     = ./home/mp;
+          };
         };
 
       };
