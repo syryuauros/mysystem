@@ -2,11 +2,9 @@
 
 {
 
-  programs.starship = {
+  programs.fzf = {
     enable = true;
-    enableZshIntegration = true;
     enableFishIntegration = true;
-    enableBashIntegration = true;
   };
 
 }

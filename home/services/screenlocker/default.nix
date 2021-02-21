@@ -4,7 +4,7 @@
 
   services.screen-locker = {
     enable = true;
-    inactiveInterval = 10; # min
+    inactiveInterval = 5; # min
     lockCmd = "yes | ${pkgs.mylockscreen}/bin/mylockscreen";
     # xautolockExtraOptions = [
     #   "Xautolock.killer: systemctl suspend"

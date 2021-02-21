@@ -150,7 +150,8 @@
             hostname = "x230";
             machine  = ./machines/x230;
             home     = ./home/x230;
-          } ++ [ nixos-hardware.nixosModules.lenovo-thinkpad-x230 ] ;
+          };
+          # } ++ [ nixos-hardware.nixosModules.lenovo-thinkpad-x230 ] ;
         };
 
       };
