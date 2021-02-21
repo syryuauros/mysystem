@@ -1,12 +1,10 @@
 { inputs, config, pkgs, lib, ... }:
-let
 
-  prefix = "/run/current-system/sw/bin";
-
-in {
+{
 
   imports = [
-    ./bootstrap.nix
+    ../common
+    # ./bootstrap.nix
   ] ++ [
     ./services/skhd
     ./services/yabai
@@ -17,15 +15,29 @@ in {
 
   environment = {
 
-    loginShell = pkgs.fish;
+    # loginShell = pkgs.fish;
     # pathsToLink = [ "/Applications" ];
     # backupFileExtension = "backup";
     etc = { darwin.source = "${inputs.darwin}"; };
 
+    variables.SHELL = "${pkgs.fish}/bin/fish";
   };
 
-  time.timeZone = "Asia/Seoul";
+  programs.zsh.enable = true;
+  programs.fish.enable = true;
+  programs.fish.useBabelfish = true;
+  programs.fish.babelfishPackage = pkgs.babelfish;
+  # Needed to address bug where $PATH is not properly set for fish:
+  # https://github.com/LnL7/nix-darwin/issues/122
+  programs.fish.shellInit = ''
+    for p in (string split : ${config.environment.systemPath})
+      if not contains $p $fish_user_paths
+        set -g fish_user_paths $fish_user_paths $p
+      end
+    end
+  '';
 
+  time.timeZone = "Asia/Seoul";
 
   fonts.enableFontDir = true;
   fonts.fonts = pkgs.myfonts-collection;
@@ -112,5 +124,11 @@ in {
 
   # Add ability to used TouchID for sudo authentication
   # security.pam.enableSudoTouchIdAuth = true;
+
+  services.nix-daemon.enable = true;
+
+  # Used for backwards compatibility, please read the changelog before changing.
+  # $ darwin-rebuild changelog
+  system.stateVersion = 4;
 
 }
