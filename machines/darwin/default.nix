@@ -15,12 +15,12 @@
 
   environment = {
 
-    # loginShell = pkgs.fish;
-    # pathsToLink = [ "/Applications" ];
+    loginShell = pkgs.fish;
+    # pathsToLink = [ "~/Applications" ];
     # backupFileExtension = "backup";
     etc = { darwin.source = "${inputs.darwin}"; };
 
-    variables.SHELL = "${pkgs.fish}/bin/fish";
+    # variables.SHELL = "${pkgs.fish}/bin/fish";
   };
 
   programs.zsh.enable = true;
