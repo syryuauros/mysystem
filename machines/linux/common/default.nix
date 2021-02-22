@@ -2,6 +2,12 @@
 
 {
 
+  imports = [
+    ../users
+    ../xserver
+    ../services/blueman
+  ];
+
   fonts.fontconfig.enable = true;
 
   # Select internationalisation properties.

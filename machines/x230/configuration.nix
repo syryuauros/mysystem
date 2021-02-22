@@ -15,8 +15,6 @@
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
-  fonts.fontconfig.enable = true;
-
   networking = {
     hostName = "x230";
     networkmanager = {

@@ -40,11 +40,11 @@
       };
 
       # xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
+      ##^ will be set separatedly for each machine
     };
   };
 
   hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
 
   systemd.services.upower.enable = true;
 }
