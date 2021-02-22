@@ -1,4 +1,5 @@
 {
+
   description = "my system configurations using nix";
 
   inputs = {
