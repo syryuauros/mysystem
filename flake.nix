@@ -55,6 +55,7 @@
               "lastpass-password-manager"
               "broadcom-sta"
               "cudatoolkit"
+              "zoom"
             ];
         };
 

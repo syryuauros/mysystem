@@ -34,6 +34,7 @@
     myhaskell-full
     mypython-full
     myjupyter-full
+    zoom-us
   ];
 
   home.file = {
