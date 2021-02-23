@@ -272,21 +272,18 @@ searchList = [ ("a", archwiki)
              ]
 
 myScratchPads :: [NamedScratchpad]
-myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "mocp" spawnMocp findMocp manageMocp
+myScratchPads = [ NS "terminal" spawnTerm findTerm myFloating
+                , NS "mocp" spawnMocp findMocp myFloating
+                , NS "emacs" spawnEmacs findEmacs myFloating
                 ]
   where
     spawnTerm  = myTerminal ++ " --class alacrittyOnScratchPad"
-    findTerm   = appName =? "alacrittyOnScratchPad"
-    manageTerm = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
+    spawnEmacs = "emacs --title emacsOnScratchPad"
     spawnMocp  = myTerminal ++ " -n mocp 'mocp'"
+    findTerm   = appName =? "alacrittyOnScratchPad"
     findMocp   = resource =? "mocp"
-    manageMocp = customFloating $ W.RationalRect l t w h
+    findEmacs  = title =? "emacsOnScratchPad"
+    myFloating = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
@@ -526,6 +523,7 @@ myKeys home =
     -- Scratchpads
     , ("M-C-<Return>" , namedScratchpadAction myScratchPads "terminal")
     , ("M-C-c"        , namedScratchpadAction myScratchPads "mocp")
+    , ("M-C-e"        , namedScratchpadAction myScratchPads "emacs")
 
     -- Controls for mocp music player (SUPER-u followed by a key)
     -- , ("M-u p"          , spawn "mocp --play")
