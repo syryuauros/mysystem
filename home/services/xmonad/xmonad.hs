@@ -401,9 +401,9 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
 
 myWorkspaces :: [String]
 -- myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
--- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
+myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 -- myWorkspaces = myClickableWorkspaces
-myWorkspaces = [" dev ", " www ", " sys ", " doc ", " med " ]
+-- myWorkspaces = [" dev ", " www ", " sys ", " doc ", " med " ]
 
 xmobarEscape :: String -> String
 xmobarEscape = concatMap doubleLts
@@ -413,8 +413,8 @@ xmobarEscape = concatMap doubleLts
 
 myClickableWorkspaces :: [String]
 myClickableWorkspaces = clickable . map xmobarEscape
-    --- $ [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-    $ [" dev ", " www ", " sys ", " doc ", " med "]
+    $ [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
+    --- $ [" dev ", " www ", " sys ", " doc ", " med "]
   where
     clickable l = [ "<action=xdotool key super+" ++ show i ++ ">" ++ ws ++ "</action>" |
                   (i,ws) <- zip [1..9::Int] l ]
@@ -424,8 +424,9 @@ myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out the full
      -- name of my workspaces, and the names would very long if using clickable workspaces.
-     [ title      =? "Mozilla Firefox"                --> doShift ( myWorkspaces !! 1 )
-     , className  =? "Gimp"                           --> doFloat
+     [
+       className  =? "Gimp"                           --> doFloat
+     -- , title      =? "Mozilla Firefox"                --> doShift ( myWorkspaces !! 1 )
      , title      =? "Oracle VM VirtualBox Manager"   --> doFloat
      , className  =? "VirtualBox Manager"             --> doShift  ( myWorkspaces !! 4 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog

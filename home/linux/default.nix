@@ -18,6 +18,7 @@
     ../services/flameshot
     ../services/xcape
     ../services/xmonad
+    ../services/syncthing
   ];
 
   # fonts.fontconfig.enable = true;
