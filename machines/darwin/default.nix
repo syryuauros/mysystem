@@ -74,12 +74,6 @@
       FXEnableExtensionChangeWarning = false;
     };
 
-    #trackpad = {
-    #  Clicking = true;
-    #  TrackpadThreeFingerDrag = true;
-    #};
-
-    #NSGlobalDomain.
 
     NSGlobalDomain = {
       AppleMeasurementUnits = "Centimeters";
@@ -115,8 +109,10 @@
 
     # Trackpad
     trackpad = {
-      Clicking = false;
+      Clicking = true;
+      Dragging = true;
       TrackpadRightClick = true;
+      TrackpadThreeFingerDrag = true;
     };
 
 

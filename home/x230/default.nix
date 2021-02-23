@@ -29,6 +29,10 @@
 
   '';
 
+  home.packages = with pkgs; [
+    myhaskell-xmonad
+  ];
+
 
   home.file = {
 

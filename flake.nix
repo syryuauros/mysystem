@@ -23,20 +23,24 @@
 
     myemacs.url           = "git+ssh://git@gitlab.com/wavetojj/myemacs3.git";
     myvim.url             = "git+ssh://git@gitlab.com/wavetojj/myvim2.git";
-    myhaskell.url         = "git+ssh://git@gitlab.com/wavetojj/myhaskell2.git";
     myfonts.url           = "git+ssh://git@gitlab.com/wavetojj/myfonts.git";
     mylockscreen.url      = "git+ssh://git@gitlab.com/wavetojj/mylockscreen.git";
     mywallpapers-1366.url = "git+ssh://git@gitlab.com/wavetojj/mywallpapers-1366.git";
     myxmobar.url          = "git+ssh://git@gitlab.com/wavetojj/myxmobar.git";
     mynitrogen.url        = "git+ssh://git@gitlab.com/wavetojj/mynitrogen.git";
 
+    myhaskell.url         = "git+ssh://git@gitlab.com/wavetojj/myhaskell2.git";
+    mypython.url          = "git+ssh://git@gitlab.com/wavetojj/mypython2.git";
+    myjupyter.url         = "git+ssh://git@gitlab.com/wavetojj/myjupyter2.git";
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
   };
 
   outputs =
     inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils, nur
-           , myemacs, myvim, myhaskell, myfonts, mylockscreen, mywallpapers-1366
-           , myxmobar, mynitrogen, nixos-hardware, ... }:
+           , myemacs, myvim, myfonts, mylockscreen, mywallpapers-1366
+           , myxmobar, mynitrogen, nixos-hardware
+           , myhaskell, mypython, myjupyter, ... }:
 
     let
 
@@ -50,6 +54,7 @@
               "languagetool"
               "lastpass-password-manager"
               "broadcom-sta"
+              "cudatoolkit"
             ];
         };
 
@@ -91,12 +96,16 @@
         nur.overlay
         myemacs.overlay
         myvim.overlay
-        myhaskell.overlay
         myfonts.overlay
         mylockscreen.overlay
         mywallpapers-1366.overlay
         myxmobar.overlay
         mynitrogen.overlay
+
+        myhaskell.overlay
+        mypython.overlay
+        myjupyter.overlay
+
         (import ./overlay.nix {})
       ];
 

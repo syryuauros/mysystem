@@ -24,7 +24,6 @@
   # fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    myhaskell-xmonad
 
     networkmanager_dmenu   # networkmanager on dmenu
     networkmanagerapplet   # networkmanager applet
