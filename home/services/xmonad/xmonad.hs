@@ -89,7 +89,8 @@ myTerminal :: String
 myTerminal = "alacritty"   -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "qutebrowser "               -- Sets qutebrowser as browser for tree select
+myBrowser = "firefox "                      -- Sets qutebrowser as browser for tree select
+-- myBrowser = "qutebrowser "               -- Sets qutebrowser as browser for tree select
 -- myBrowser = myTerminal ++ " -e lynx " -- Sets lynx as browser for tree select
 
 myEditor :: String
@@ -401,7 +402,8 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
 myWorkspaces :: [String]
 -- myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
 -- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-myWorkspaces = myClickableWorkspaces
+-- myWorkspaces = myClickableWorkspaces
+myWorkspaces = [" dev ", " www ", " sys ", " doc ", " med " ]
 
 xmobarEscape :: String -> String
 xmobarEscape = concatMap doubleLts
@@ -441,6 +443,7 @@ myKeys home =
 
     -- Launch programs
     , ("M-e"          , spawn "emacsclient -c -a 'emacs'")
+    , ("M-w"          , spawn myBrowser)
     , ("M-S-<Return>" , spawn myTerminal)
     , ("M-p"          , spawn myRofi)
     , ("M-S-p"        , spawn myDmenu)
