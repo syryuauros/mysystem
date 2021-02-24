@@ -16,14 +16,14 @@
       any-nix-shell fish --info-right | source
     '';
     shellAliases = {
-      cat  = "bat";
-      du   = "ncdu --color dark -rr -x";
+      # cat  = "bat";
+      # du   = "ncdu --color dark -rr -x";
       ls   = "exa";
       ll   = "ls -a";
       ec   = "emacsclient";
       ecc  = "emacsclient -c";
       ".." = "cd ..";
-      ping = "prettyping";
+      # ping = "prettyping";
     };
     # shellInit = fishConfig;
   };
