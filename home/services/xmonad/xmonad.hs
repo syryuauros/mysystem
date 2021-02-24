@@ -46,6 +46,7 @@ import XMonad.Layout.LayoutCombinators (JumpToLayout(..))
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.Magnifier
+import XMonad.Layout.Reflect
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import XMonad.Layout.NoBorders
@@ -118,7 +119,7 @@ myNormColor :: String
 myNormColor   = "#282c34"  -- Border color of normal windows
 
 myFocusColor :: String
-myFocusColor  = "#8EA4B7"  -- Border color of focused windows
+myFocusColor  = "#906cff"  -- Border color of focused windows
 
 altMask :: KeyMask
 altMask = mod1Mask         -- Setting this for use in xprompts
@@ -305,17 +306,17 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 tall     = renamed [Replace "tall"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
-         $ subLayout [] (smartBorders Simplest)
+         $ subLayout [] Simplest -- (smartBorders Simplest)
          $ limitWindows 12
-         $ mySpacing 2
+         $ mySpacing 4
          $ ResizableTall 1 (3/100) (1/2) []
 magnify  = renamed [Replace "magnify"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
-         $ subLayout [] (smartBorders Simplest)
+         $ subLayout [] Simplest
          $ magnifier
          $ limitWindows 12
-         $ mySpacing 2
+         $ mySpacing 4
          $ ResizableTall 1 (3/100) (1/2) []
 monocle  = renamed [Replace "monocle"]
          $ windowNavigation
@@ -325,43 +326,42 @@ monocle  = renamed [Replace "monocle"]
 floats   = renamed [Replace "floats"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
-         $ subLayout [] (smartBorders Simplest)
+         $ subLayout [] Simplest
          $ limitWindows 20 simplestFloat
 grid     = renamed [Replace "grid"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
-         $ subLayout [] (smartBorders Simplest)
+         $ subLayout [] Simplest
          $ limitWindows 12
-         $ mySpacing 2
-         $ mkToggle (single MIRROR)
+         $ mySpacing 4
          $ Grid (16/10)
-spirals  = renamed [Replace "spirals"]
-         $ windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ subLayout [] (smartBorders Simplest)
-         $ mySpacing' 2
-         $ spiral (6/7)
+-- spirals  = renamed [Replace "spirals"]
+--          $ windowNavigation
+--          $ addTabs shrinkText myTabTheme
+--          $ subLayout [] (smartBorders Simplest)
+--          $ mySpacing' 2
+--          $ spiral (6/7)
 threeCol = renamed [Replace "threeCol"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
-         $ subLayout [] (smartBorders Simplest)
+         $ subLayout [] Simplest
          $ limitWindows 7
-         $ mySpacing' 2
+         $ mySpacing' 4
          $ ThreeCol 1 (3/100) (1/2)
-threeRow = renamed [Replace "threeRow"]
-         $ windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ subLayout [] (smartBorders Simplest)
-         $ limitWindows 7
-         $ mySpacing' 2
-         -- Mirror takes a layout and rotates it by 90 degrees.
-         -- So we are applying Mirror to the ThreeCol layout.
-         $ Mirror
-         $ ThreeCol 1 (3/100) (1/2)
-tabs     = renamed [Replace "tabs"]
-         -- I cannot add spacing to this layout because it will
-         -- add spacing between window and tabs which looks bad.
-         $ tabbed shrinkText myTabTheme
+-- threeRow = renamed [Replace "threeRow"]
+--          $ windowNavigation
+--          $ addTabs shrinkText myTabTheme
+--          $ subLayout [] (smartBorders Simplest)
+--          $ limitWindows 7
+--          $ mySpacing' 2
+--          -- Mirror takes a layout and rotates it by 90 degrees.
+--          -- So we are applying Mirror to the ThreeCol layout.
+--          $ Mirror
+--          $ ThreeCol 1 (3/100) (1/2)
+-- tabs     = renamed [Replace "tabs"]
+--          -- I cannot add spacing to this layout because it will
+--          -- add spacing between window and tabs which looks bad.
+--          $ tabbed shrinkText myTabTheme
 
 -- setting colors for tabs layout and tabs sublayout.
 myTabTheme = def { fontName            = myFont
@@ -384,17 +384,21 @@ myShowWNameTheme = def
 
 -- The layout hook
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
-               $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
+               $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
+               . mkToggle (single MIRROR)
+               . mkToggle (single REFLECTX)
+               . mkToggle (single REFLECTY)
+               $ myDefaultLayout
              where
                myDefaultLayout =     tall
                                  ||| magnify
-                                 ||| noBorders monocle
-                                 ||| floats
-                                 ||| noBorders tabs
-                                 ||| grid
-                                 ||| spirals
                                  ||| threeCol
-                                 ||| threeRow
+                                 ||| grid
+                                 ||| noBorders monocle
+                                 --- ||| noBorders tabs
+                                 --- ||| spirals
+                                 --- ||| floats
+                                 --- ||| threeRow
 
 myWorkspaces :: [String]
 -- myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
@@ -476,7 +480,7 @@ myKeys home =
     , ("M-S-<Left>"   , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
     -- Floating windows
-    , ("M-f"          , sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
+    , ("M-f"        , sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
     , ("M-t"          , withFocused $ windows . W.sink)  -- Push floating window back to tile
     , ("M-S-t"        , sinkAll)                         -- Push ALL floating windows to tile
 
@@ -491,10 +495,12 @@ myKeys home =
     , ("M-C-M1-<Up>"  , sendMessage Arrange)
     , ("M-C-M1-<Down>", sendMessage DeArrange)
     , ("M-<Space>"    , sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
-    , ("M-S-<Space>"  , sendMessage ToggleStruts)           -- Toggles struts
-    , ("M-S-n"        , sendMessage $ MT.Toggle NOBORDERS)  -- Toggles noborder
-    , ("M-S-e"        , sendMessage $ JumpToLayout "tall")
-    , ("M-S-g"        , sendMessage $ JumpToLayout "grid")
+    , ("M-S-<Space>"  , sendMessage ToggleStruts)
+    , ("M-S-b"        , sendMessage $ MT.Toggle NOBORDERS)
+    , ("M-S-r"        , sendMessage $ MT.Toggle MIRROR)
+    , ("M-S-x"        , sendMessage $ MT.Toggle REFLECTX)
+    , ("M-S-y"        , sendMessage $ MT.Toggle REFLECTY)
+    , ("M-S-e"        , sendMessage $ JumpToLayout "tall") -- does not work
 
     -- Increase/decrease windows in the master pane or the stack
     , ("M-S-<Up>"     , sendMessage (IncMasterN 1))      -- Increase number of clients in master pane
