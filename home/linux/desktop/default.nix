@@ -30,13 +30,6 @@
 
   '';
 
-  home.packages = with pkgs; [
-    myhaskell-full
-    mypython-full
-    myjupyter-full
-    zoom-us
-  ];
-
   home.file = {
 
     ".config/xmobar/xmobarrc".source = ./xmobar/xmobarrc;
