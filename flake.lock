@@ -1028,11 +1028,11 @@
         "stable": "stable_17"
       },
       "locked": {
-        "lastModified": 1614078764,
-        "narHash": "sha256-bAMvrISI5akFu5l4OOIk2EmqUO6+ZTNI4yMqQkqro9g=",
+        "lastModified": 1614186245,
+        "narHash": "sha256-T6jrqYCHefLDgotrK5RUDl7Q+JK/HYSiDH1mIMJ2YeM=",
         "ref": "master",
-        "rev": "79c8edb9363b868fe55a5b0bf12ee74d5e572072",
-        "revCount": 8,
+        "rev": "14996ee84b8c8dbfe926d3aeb59be5b9c7e07188",
+        "revCount": 10,
         "type": "git",
         "url": "ssh://git@gitlab.com/wavetojj/mypython2.git"
       },
