@@ -3,22 +3,23 @@
 {
 
   imports = [
-    ../common
 
-    ../programs/rofi
-    ../programs/firefox
+    ../../common                     # for darwin and linux
 
-    ../services/emacs
-    ../services/gpg-agent
-    ../services/networkmanager
-    ../services/picom
-    ../services/screenlocker       # needs mylockscreen
-    ../services/random-background  # needs mywallpapers
-    ../services/udiskie
-    ../services/flameshot
-    ../services/xcape
-    ../services/xmonad
-    ../services/syncthing
+    ../../programs/rofi
+    ../../programs/firefox
+
+    ../../services/emacs
+    ../../services/gpg-agent
+    ../../services/networkmanager
+    ../../services/picom
+    ../../services/screenlocker       # needs mylockscreen
+    ../../services/random-background  # needs mywallpapers
+    ../../services/udiskie
+    ../../services/flameshot
+    ../../services/xcape
+    ../../services/xmonad
+    ../../services/syncthing
   ];
 
   # fonts.fontconfig.enable = true;

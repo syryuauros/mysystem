@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../common
-    ../linux/common
+    ../../common
+    ../../linux/common
     ./configuration.nix
   ];
 }

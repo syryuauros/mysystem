@@ -133,8 +133,8 @@
           modules = mkDarwinModules {
             user     = "jj";
             hostname = "mbp15";
-            machine  = ./machines/darwin;
-            home     = ./home/darwin;
+            machine  = ./machines/darwin/mbp15;
+            home     = ./home/darwin/mbp15;
           };
 
         };
@@ -160,8 +160,8 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "x230";
-            machine  = ./machines/x230;
-            home     = ./home/x230;
+            machine  = ./machines/linux/x230;
+            home     = ./home/linux/x230;
           };
           # } ++ [ nixos-hardware.nixosModules.lenovo-thinkpad-x230 ] ;
           ##       ^ this seem to make wifi not work
@@ -172,8 +172,18 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "mp";
-            machine  = ./machines/mp;
-            home     = ./home/mp;
+            machine  = ./machines/linux/mp;
+            home     = ./home/linux/mp;
+          };
+        };
+
+        mx9366 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = mkNixosModules {
+            user     = "jj";
+            hostname = "mx9366";
+            machine  = ./machines/linux/mx9366;
+            home     = ./home/linux/mx9366;
           };
         };
 
@@ -195,22 +205,32 @@
 
       homeConfigurations = {
 
-        darwin = home-manager.lib.homeManagerConfiguration {
+        mbp15 = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-darwin";
           homeDirectory = "/Users/jj";
           username = "jj";
           configuration = {
-            imports = [ ./home/darwin ];
+            imports = [ ./home/darwin/mbp15 ];
             nixpkgs = nixpkgsConfig;
           };
         };
 
-        linux = home-manager.lib.homeManagerConfiguration {
+        mp = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-linux";
           homeDirectory = "/home/jj";
           username = "jj";
           configuration = {
-            imports = [ ./home/linux ];
+            imports = [ ./home/linux/mp ];
+            nixpkgs = nixpkgsConfig;
+          };
+        };
+
+        mx9366 = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          homeDirectory = "/home/jj";
+          username = "jj";
+          configuration = {
+            imports = [ ./home/linux/mx9366 ];
             nixpkgs = nixpkgsConfig;
           };
         };
