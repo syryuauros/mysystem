@@ -20,6 +20,7 @@
     ../../services/xcape
     ../../services/xmonad
     ../../services/syncthing
+    ../../services/keyboard
   ];
 
   # fonts.fontconfig.enable = true;

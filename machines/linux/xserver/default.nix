@@ -1,6 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
+
+  imports = [
+    ../services/keyboard
+  ];
+
   services = {
 
     gnome3.gnome-keyring.enable = true;
@@ -13,7 +18,6 @@
 
     xserver = {
       enable = true;
-      layout = "us";
 
       libinput = {
         enable = true;

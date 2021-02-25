@@ -14,7 +14,7 @@ Config { font            = "xft:Mononoki Nerd Font:weight=bold:pixelsize=22:anti
        -- layout
        , sepChar =  "%"   -- delineator between plugin names and straight text
        , alignSep = "}{"  -- separator between left-right alignment
-       , template = " <action=`xdotool key control+alt+g`><icon=haskell_20.xpm/> </action> %UnsafeStdinReader% }{ %coretemp%  %multicpu%  %memory%  %disku%  %dynnetwork%  %date% %kbd%       "
+       , template = " <action=`xdotool key control+alt+g`><icon=haskell_20.xpm/> </action> %UnsafeStdinReader% }{ %coretemp%  %multicpu%  %memory%  %disku%  %dynnetwork%  %date% "
 
        -- general behavior
        , lowerOnStart     = True    -- send to bottom of window stack on start

@@ -110,10 +110,11 @@ myDmenu = "dmenu_run"
 screenLocker :: String
 screenLocker = "yes | mylockscreen-1366"
 
--- myTrayer :: String
--- myTrayer =  "trayer --edge top --align right --widthtype request --padding 0 "
---          <> "--SetDockType true --SetPartialStrut true --expand true --transparent true "
---          <> "--alpha 0 --tint 0x282c34  --height 15 &"
+myTrayer :: String
+myTrayer =  "trayer --edge top --align right --widthtype request --padding 1 "
+         <> "--SetDockType true --SetPartialStrut true --expand true --transparent true "
+         <> "--alpha 0 --tint 0x282c34  --height 25 --distance 1800 --distancefrom right &"
+
 
 myBorderWidth :: Dimension
 myBorderWidth = 2          -- Sets border width for windows
@@ -456,6 +457,8 @@ myKeys home =
     , ("M-p"          , spawn myRofi)
     , ("M-S-p"        , spawn myDmenu)
     , ("M-S-l"        , spawn screenLocker)
+    , ("M-i"          , spawn myTrayer)
+    , ("M-S-i"        , spawn "killall trayer")
     , ("M-M1-h"       , spawn (myTerminal ++ " -e htop"))
     -- , ("M-b"          , spawn (myBrowser ++ " www.youtube.com/c/DistroTube/"))
     -- , ("M-S-<Return>", shellPrompt dtXPConfig) -- Xmonad Shell Prompt
@@ -486,7 +489,7 @@ myKeys home =
     , ("M-S-<Left>"   , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
     -- Floating windows
-    , ("M-f"        , sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
+    , ("M-f"          , sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
     , ("M-t"          , withFocused $ windows . W.sink)  -- Push floating window back to tile
     , ("M-S-t"        , sinkAll)                         -- Push ALL floating windows to tile
 

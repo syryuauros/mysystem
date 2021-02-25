@@ -4,18 +4,13 @@
 
   imports = [
     ../users
+    ../i18n
     ../xserver
     ../services/blueman
     ../services/ssh
   ];
 
   fonts.fontconfig.enable = true;
-
-  # Select internationalisation properties.
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    inputMethod.enabled = "uim";
-  };
 
   console.font = "Lat2-Terminus16";
   console.keyMap = "us";
