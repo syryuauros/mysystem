@@ -560,18 +560,20 @@ myKeys home =
         -- , ("C-e a", spawn "emacsclient -c -a 'emacs' --eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/Non-Classical/70s-80s/\")'")
 
     -- Multimedia Keys
-    , ("<XF86AudioPlay>"        , spawn (myTerminal ++ "mocp --play"))
-    , ("<XF86AudioPrev>"        , spawn (myTerminal ++ "mocp --previous"))
-    , ("<XF86AudioNext>"        , spawn (myTerminal ++ "mocp --next"))
-    , ("<XF86AudioMute>"        , spawn "amixer set Master toggle")
-    , ("<XF86AudioLowerVolume>" , spawn "amixer set Master 5%- unmute")
-    , ("<XF86AudioRaiseVolume>" , spawn "amixer set Master 5%+ unmute")
-    , ("<XF86HomePage>"         , spawn "firefox")
-    , ("<XF86Search>"           , safeSpawn "firefox" ["https://www.duckduckgo.com/"])
-    , ("<XF86Mail>"             , runOrRaise "thunderbird" (resource =? "thunderbird"))
-    , ("<XF86Calculator>"       , runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
-    , ("<XF86Eject>"            , spawn "toggleeject")
-    , ("<Print>"                , spawn "scrotd 0")
+    , ("<XF86AudioPlay>"         , spawn (myTerminal ++ "mocp --play"))
+    , ("<XF86AudioPrev>"         , spawn (myTerminal ++ "mocp --previous"))
+    , ("<XF86AudioNext>"         , spawn (myTerminal ++ "mocp --next"))
+    , ("<XF86AudioMute>"         , spawn "amixer set Master toggle")
+    , ("<XF86AudioLowerVolume>"  , spawn "amixer set Master 5%- unmute")
+    , ("<XF86AudioRaiseVolume>"  , spawn "amixer set Master 5%+ unmute")
+    , ("<XF86MonBrightnessUp>"   , spawn "xbacklight -inc 5")
+    , ("<XF86MonBrightnessDown>" , spawn "xbacklight -dec 5")
+    , ("<XF86HomePage>"          , spawn "firefox")
+    , ("<XF86Search>"            , safeSpawn "firefox" ["https://www.duckduckgo.com/"])
+    , ("<XF86Mail>"              , runOrRaise "thunderbird" (resource =? "thunderbird"))
+    , ("<XF86Calculator>"        , runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
+    , ("<XF86Eject>"             , spawn "toggleeject")
+    , ("<Print>"                 , spawn "scrotd 0")
     ]
     -- Appending search engine prompts to keybindings list.
     -- Look at "search engines" section of this config for values for "k".
