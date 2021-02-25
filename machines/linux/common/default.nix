@@ -8,6 +8,7 @@
     ../xserver
     ../services/blueman
     ../services/ssh
+    ../services/geoclue2
     ../hardware/acpilight
     ../hardware/audio
   ];

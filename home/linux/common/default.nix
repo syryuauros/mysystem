@@ -21,6 +21,7 @@
     ../../services/xmonad
     ../../services/syncthing
     ../../services/keyboard
+    ../../services/redshift
   ];
 
   # fonts.fontconfig.enable = true;
@@ -36,6 +37,7 @@
     trayer
 
     acpilight              # xbacklight drop-in replacement
+    redshift
 
     myxmobar
     mynitrogen
