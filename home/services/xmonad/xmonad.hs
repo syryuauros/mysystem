@@ -98,6 +98,9 @@ myEditor :: String
 myEditor = "emacsclient -c -a emacs "  -- Sets emacs as editor for tree select
 -- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor for tree select
 
+myEditorOnScratchPad :: String
+myEditorOnScratchPad = "emacsclient -s emacsOnSP -c -a 'emacs --title emacsOnSP --fg-daemon=emacsOnSP'"
+
 myRofi :: String
 myRofi = "rofi -modi drun,ssh,window -show drun -show-icons"
 
@@ -129,10 +132,10 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
-          spawnOnce "nm-applet &"
-          spawnOnce "volumeicon &"
+          -- spawnOnce "nm-applet &"
+          -- spawnOnce "volumeicon &"
+          -- spawnOnce "emacs --title emacsOnSP --daemon=emacsOnSP"  -- this makes the login time slow
           -- spawnOnce myTrayer
-          -- spawnOnce "/usr/bin/emacs --daemon &" -- emacs daemon for the emacsclient
           -- spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
           -- spawnOnce "urxvtd -q -o -f &"      -- urxvt daemon for better performance
           setWMName "LG3D"
@@ -273,23 +276,26 @@ searchList = [ ("a", archwiki)
              ]
 
 myScratchPads :: [NamedScratchpad]
-myScratchPads = [ NS "terminal" spawnTerm findTerm myFloating
-                , NS "mocp" spawnMocp findMocp myFloating
-                , NS "emacs" spawnEmacs findEmacs myFloating
+myScratchPads = [ NS "terminal" spawnTerm findTerm termFloat
+                , NS "emacs" spawnEmacs findEmacs emacsFloat
                 ]
   where
-    spawnTerm  = myTerminal ++ " --class alacrittyOnScratchPad"
-    spawnEmacs = "emacs --title emacsOnScratchPad"
-    spawnMocp  = myTerminal ++ " -n mocp 'mocp'"
-    findTerm   = appName =? "alacrittyOnScratchPad"
-    findMocp   = resource =? "mocp"
-    findEmacs  = title =? "emacsOnScratchPad"
-    myFloating = customFloating $ W.RationalRect l t w h
+    spawnTerm  = myTerminal ++ " --class alacrittyOnSP"
+    spawnEmacs = myEditorOnScratchPad
+    findTerm   = appName =? "alacrittyOnSP"
+    findEmacs  = title =? "emacsOnSP"
+    termFloat = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
+                 t = (1.0 - h)/2
+                 l = (1.0 - w)/2
+    emacsFloat = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = (1.0 - h)/2
+                 l = (1.0 - w)/2
 
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
