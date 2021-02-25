@@ -26,6 +26,7 @@
 
 
   home.packages = with pkgs; [
+    file
     fd
     ncdu
     du-dust
