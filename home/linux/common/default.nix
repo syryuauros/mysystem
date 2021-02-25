@@ -35,6 +35,8 @@
     xdotool
     trayer
 
+    acpilight              # xbacklight drop-in replacement
+
     myxmobar
     mynitrogen
     mylockscreen
@@ -46,7 +48,6 @@
     tree                 # display files in a tree view
     xclip                # clipboard support (also for neovim)
 
-    zoom-us
   ] ++ myfonts-collection;
 
 }
