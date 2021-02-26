@@ -50,6 +50,8 @@
     tree                 # display files in a tree view
     xclip                # clipboard support (also for neovim)
 
+    kcolorchooser
+
   ] ++ myfonts-collection;
 
 }

@@ -19,9 +19,8 @@ import qualified XMonad.Actions.Search as S
 
     -- Data
 import Data.Char (isSpace, toUpper)
-import Data.Maybe (fromJust)
+import Data.Maybe ( fromJust, isJust )
 import Data.Monoid
-import Data.Maybe (isJust)
 import qualified Data.Map as M
 
     -- Hooks
@@ -278,21 +277,18 @@ searchList = [ ("a", archwiki)
              ]
 
 myScratchPads :: [NamedScratchpad]
-myScratchPads = [ NS "terminal" spawnTerm findTerm termFloat
-                , NS "emacs" spawnEmacs findEmacs emacsFloat
+myScratchPads = [ NS "terminal" spawnTerm findTerm myFloat
+                , NS "emacs"    spawnEmacs findEmacs myFloat
+                , NS "htop"     spawnHtop findHtop myFloat
                 ]
   where
     spawnTerm  = myTerminal ++ " --class alacrittyOnSP"
+    spawnHtop  = myTerminal ++ " --class htopOnSP -e htop"
     spawnEmacs = myEditorOnScratchPad
     findTerm   = appName =? "alacrittyOnSP"
-    findEmacs  = title =? "emacsOnSP"
-    termFloat = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = (1.0 - h)/2
-                 l = (1.0 - w)/2
-    emacsFloat = customFloating $ W.RationalRect l t w h
+    findHtop   = appName =? "htopOnSP"
+    findEmacs  = title   =? "emacsOnSP"
+    myFloat = customFloating $ W.RationalRect l t w h
                where
                  h = 0.9
                  w = 0.9
@@ -412,8 +408,7 @@ myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
   where
-    i = fromJust $ M.lookup ws myWorkspaceIndices
-    myWorkspaceIndices = M.fromList $ zip myWorkspaces [1..]
+    i = fromJust $ M.lookup ws $ M.fromList $ zip myWorkspaces [1..]
 
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
@@ -445,10 +440,9 @@ myKeys home =
     , ("M-S-<Return>" , spawn myTerminal)
     , ("M-p"          , spawn myRofi)
     , ("M-S-p"        , spawn myDmenu)
-    , ("M-S-l"        , spawn screenLocker)
     , ("M-i"          , spawn myTrayer)
     , ("M-S-i"        , spawn "killall trayer")
-    , ("M-M1-h"       , spawn (myTerminal ++ " -e htop"))
+    , ("M-C-M1-l"     , spawn screenLocker)
     -- , ("M-b"          , spawn (myBrowser ++ " www.youtube.com/c/DistroTube/"))
     -- , ("M-S-<Return>", shellPrompt dtXPConfig) -- Xmonad Shell Prompt
     -- , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
@@ -472,13 +466,15 @@ myKeys home =
     -- Workspace s
     , ("M-<Right>"    , moveTo Next nonNSP)                         -- moveTo next workspace
     , ("M-<Left>"     , moveTo Prev nonNSP)                         -- moveTo previous workspace
-    , ("M-."          , nextScreen)                                 -- Switch focus to next monitor
-    , ("M-,"          , prevScreen)                                 -- Switch focus to prev monitor
+    , ("M-C-<Right>"  , nextScreen)                                 -- Switch focus to next monitor
+    , ("M-C-<Left>"   , prevScreen)                                 -- Switch focus to prev monitor
     , ("M-S-<Right>"  , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws
     , ("M-S-<Left>"   , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
+    , ("M-S-l"        , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws
+    , ("M-S-h"        , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
     -- Floating windows
-    , ("M-f"          , sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
+    , ("M-S-f"        , sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
     , ("M-t"          , withFocused $ windows . W.sink)  -- Push floating window back to tile
     , ("M-S-t"        , sinkAll)                         -- Push ALL floating windows to tile
 
@@ -489,11 +485,11 @@ myKeys home =
     , ("M-S-]"        , incScreenSpacing 1)         -- Increase screen spacing
 
     -- Layouts
-    , ("M-<Tab>"      , sendMessage NextLayout)           -- Switch to next layout
+    , ("M-<Space>"    , sendMessage NextLayout)           -- Switch to next layout
     , ("M-C-M1-<Up>"  , sendMessage Arrange)
     , ("M-C-M1-<Down>", sendMessage DeArrange)
-    , ("M-<Space>"    , sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
-    , ("M-S-<Space>"  , sendMessage ToggleStruts)
+    , ("M-S-<Space>"  , sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
+    , ("M-f"          , sendMessage ToggleStruts)
     , ("M-S-b"        , sendMessage $ MT.Toggle NOBORDERS)
     , ("M-S-r"        , sendMessage $ MT.Toggle MIRROR)
     , ("M-S-x"        , sendMessage $ MT.Toggle REFLECTX)
@@ -501,33 +497,33 @@ myKeys home =
     , ("M-S-e"        , sendMessage $ JumpToLayout "tall") -- does not work
 
     -- Increase/decrease windows in the master pane or the stack
-    , ("M-S-<Up>"     , sendMessage (IncMasterN 1))      -- Increase number of clients in master pane
-    , ("M-S-<Down>"   , sendMessage (IncMasterN (-1)))   -- Decrease number of clients in master pane
-    , ("M-C-<Up>"     , increaseLimit)                   -- Increase number of windows
-    , ("M-C-<Down>"   , decreaseLimit)                   -- Decrease number of windows
+    , ("M-,"          , sendMessage (IncMasterN 1))      -- Increase number of clients in master pane
+    , ("M-."          , sendMessage (IncMasterN (-1)))   -- Decrease number of clients in master pane
+    , ("M-S-,"        , increaseLimit)                   -- Increase number of windows
+    , ("M-S-."        , decreaseLimit)                   -- Decrease number of windows
 
     -- Window resizing
     , ("M-h"          , sendMessage Shrink)              -- Shrink horiz window width
     , ("M-l"          , sendMessage Expand)              -- Expand horiz window width
-    , ("M-M1-j"       , sendMessage MirrorShrink)        -- Shrink vert window width
-    , ("M-M1-k"       , sendMessage MirrorExpand)        -- Exoand vert window width
+    , ("M-C-j"       , sendMessage MirrorShrink)        -- Shrink vert window width
+    , ("M-C-k"       , sendMessage MirrorExpand)        -- Exoand vert window width
 
     -- Sublayouts
     -- This is used to push windows to tabbed sublayouts, or pull them out of it.
-    , ("M-C-h"        , sendMessage $ pullGroup L)
-    , ("M-C-l"        , sendMessage $ pullGroup R)
-    , ("M-C-k"        , sendMessage $ pullGroup U)
-    , ("M-C-j"        , sendMessage $ pullGroup D)
-    , ("M-C-m"        , withFocused (sendMessage . MergeAll))
-    , ("M-C-u"        , withFocused (sendMessage . UnMerge))
-    , ("M-C-/"        , withFocused (sendMessage . UnMergeAll))
-    , ("M-C-."        , onGroup W.focusUp')    -- Switch focus to next tab
-    , ("M-C-,"        , onGroup W.focusDown')  -- Switch focus to prev tab
+    , ("M-M1-h"        , sendMessage $ pullGroup L)
+    , ("M-M1-l"        , sendMessage $ pullGroup R)
+    , ("M-M1-k"        , sendMessage $ pullGroup U)
+    , ("M-M1-j"        , sendMessage $ pullGroup D)
+    , ("M-M1-m"        , withFocused (sendMessage . MergeAll))
+    , ("M-M1-u"        , withFocused (sendMessage . UnMerge))
+    , ("M-M1-/"        , withFocused (sendMessage . UnMergeAll))
+    , ("M-M1-."        , onGroup W.focusUp')    -- Switch focus to next tab
+    , ("M-M1-,"        , onGroup W.focusDown')  -- Switch focus to prev tab
 
     -- Scratchpads
     , ("M-C-<Return>" , namedScratchpadAction myScratchPads "terminal")
-    , ("M-C-c"        , namedScratchpadAction myScratchPads "mocp")
     , ("M-C-e"        , namedScratchpadAction myScratchPads "emacs")
+    , ("M-C-t"        , namedScratchpadAction myScratchPads "htop")
 
     -- Controls for mocp music player (SUPER-u followed by a key)
     -- , ("M-u p"          , spawn "mocp --play")
@@ -548,6 +544,9 @@ myKeys home =
         -- -- emms is an emacs audio player. I set it to auto start playing in a specific directory.
         -- , ("C-e a", spawn "emacsclient -c -a 'emacs' --eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/Non-Classical/70s-80s/\")'")
 
+    , ("M-M1-9" , spawn "xbacklight -inc 5")
+    , ("M-M1-8" , spawn "xbacklight -dec 5")
+
     -- Multimedia Keys
     , ("<XF86AudioPlay>"         , spawn (myTerminal ++ "mocp --play"))
     , ("<XF86AudioPrev>"         , spawn (myTerminal ++ "mocp --previous"))
@@ -566,8 +565,8 @@ myKeys home =
     ]
     -- Appending search engine prompts to keybindings list.
     -- Look at "search engines" section of this config for values for "k".
-    ++ [("M-s " ++ k, S.promptSearch dtXPConfig' f) | (k,f) <- searchList ]
-    ++ [("M-S-s " ++ k, S.selectSearch f) | (k,f) <- searchList ]
+    ++ [("M-s   " ++ k, S.promptSearch dtXPConfig' f) | (k,f) <- searchList ]
+    ++ [("M-S-s " ++ k, S.selectSearch f)             | (k,f) <- searchList ]
     -- The following lines are needed for named scratchpads.
     where
       nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
@@ -599,10 +598,10 @@ main = do
         , focusedBorderColor = myFocusColor
         , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
                         { ppOutput          = hPutStrLn xmproc
-                        , ppCurrent         = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible         = xmobarColor "#98be65" "" . clickable    -- Visible but not current workspace
-                        , ppHidden          = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
+                        , ppCurrent         = xmobarColor "#98be65" "" . wrap "[" "]" . clickable  -- Current workspace in xmobar
+                        , ppVisible         = xmobarColor "#98be65" ""                . clickable        -- Visible but not current workspace
+                        , ppHidden          = xmobarColor "#82AAFF" "" . wrap "*" ""  . clickable   -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""                . clickable       -- Hidden workspaces (no windows)
                         , ppTitle           = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
                         , ppSep             =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
                         , ppUrgent          = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
