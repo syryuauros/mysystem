@@ -31,9 +31,11 @@ in {
     activeOpacity = "0.95";
     inactiveOpacity = "0.8";
     opacityRule = [
-      # "95:class_g = 'emacs'"
-      # "95:class_i = 'Firefox'"
-      # "95:class_g = 'Alacritty'"
+      "95:class_g = 'emacs'"
+      "95:class_i = 'Firefox'"
+      "95:class_g = 'firefox'"
+      "95:class_g = 'Navigator'"
+      "95:class_g = 'Alacritty'"
     ];
 
     shadow = true;
