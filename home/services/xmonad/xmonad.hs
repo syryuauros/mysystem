@@ -443,6 +443,8 @@ myKeys home =
     , ("M-i"          , spawn myTrayer)
     , ("M-S-i"        , spawn "killall trayer")
     , ("M-C-M1-l"     , spawn screenLocker)
+    , ("M-C-M1-f"     , spawn "flameshot full -p ~/captures/")
+    , ("M-C-M1-c"     , spawn "flameshot gui -p ~/captures/")
     -- , ("M-b"          , spawn (myBrowser ++ " www.youtube.com/c/DistroTube/"))
     -- , ("M-S-<Return>", shellPrompt dtXPConfig) -- Xmonad Shell Prompt
     -- , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
