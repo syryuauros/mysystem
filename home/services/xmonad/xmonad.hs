@@ -600,10 +600,10 @@ main = do
         , focusedBorderColor = myFocusColor
         , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
                         { ppOutput          = hPutStrLn xmproc
-                        , ppCurrent         = xmobarColor "#98be65" "" . wrap "[" "]" . clickable  -- Current workspace in xmobar
-                        , ppVisible         = xmobarColor "#98be65" ""                . clickable        -- Visible but not current workspace
-                        , ppHidden          = xmobarColor "#82AAFF" "" . wrap "*" ""  . clickable   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""                . clickable       -- Hidden workspaces (no windows)
+                        , ppCurrent         = xmobarColor "#98be65" "" . wrap "[" "]"                  -- Current workspace in xmobar
+                        , ppVisible         = xmobarColor "#98be65" ""               -- . clickable        -- Visible but not current workspace
+                        , ppHidden          = xmobarColor "#82AAFF" "" . wrap "*" "" -- . clickable   -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""               -- . clickable       -- Hidden workspaces (no windows)
                         , ppTitle           = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
                         , ppSep             =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
                         , ppUrgent          = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace

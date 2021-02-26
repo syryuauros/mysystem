@@ -14,15 +14,15 @@
     "Xft.antialias" = 1;
     "Xft.rgba" = "rgb";
     "Xcursor*theme" = "Vanilla-DMZ-AA";
-    "Xcursor*size" = 50;
+    "Xcursor*size" = 80;
   };
 
   xsession.enable = true;
   xsession.initExtra = ''
 
     lxsession &
-
     setxkbmap -option caps:ctrl_modifier &
+    emacs --title emacsOnSP --daemon=emacsOnSP &
 
   '';
 
