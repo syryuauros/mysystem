@@ -19,6 +19,7 @@ import qualified XMonad.Actions.Search as S
 
     -- Data
 import Data.Char (isSpace, toUpper)
+import Data.Maybe (fromJust)
 import Data.Monoid
 import Data.Maybe (isJust)
 import qualified Data.Map as M
@@ -302,8 +303,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm termFloat
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
--- Below is a variation of the above except no borders are applied
--- if fewer than two windows. So a single window has no gaps.
+-- The same as above but with the smartBorder
 mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
@@ -353,7 +353,7 @@ threeCol = renamed [Replace "threeCol"]
          $ addTabs shrinkText myTabTheme
          $ subLayout [] Simplest
          $ limitWindows 7
-         $ mySpacing' 4
+         $ mySpacing 4
          $ ThreeCol 1 (3/100) (1/2)
 -- threeRow = renamed [Replace "threeRow"]
 --          $ windowNavigation
@@ -408,24 +408,13 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  --- ||| threeRow
 
 myWorkspaces :: [String]
--- myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
 myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
--- myWorkspaces = myClickableWorkspaces
--- myWorkspaces = [" dev ", " www ", " sys ", " doc ", " med " ]
 
-xmobarEscape :: String -> String
-xmobarEscape = concatMap doubleLts
+clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
   where
-        doubleLts '<' = "<<"
-        doubleLts x   = [x]
+    i = fromJust $ M.lookup ws myWorkspaceIndices
+    myWorkspaceIndices = M.fromList $ zip myWorkspaces [1..]
 
-myClickableWorkspaces :: [String]
-myClickableWorkspaces = clickable . map xmobarEscape
-    $ [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
-    --- $ [" dev ", " www ", " sys ", " doc ", " med "]
-  where
-    clickable l = [ "<action=xdotool key super+" ++ show i ++ ">" ++ ws ++ "</action>" |
-                  (i,ws) <- zip [1..9::Int] l ]
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
@@ -611,7 +600,7 @@ main = do
         , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
                         { ppOutput          = hPutStrLn xmproc
                         , ppCurrent         = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible         = xmobarColor "#98be65" ""                -- Visible but not current workspace
+                        , ppVisible         = xmobarColor "#98be65" "" . clickable    -- Visible but not current workspace
                         , ppHidden          = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
                         , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
                         , ppTitle           = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
