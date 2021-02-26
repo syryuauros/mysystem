@@ -225,6 +225,16 @@
           };
         };
 
+        x230 = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          homeDirectory = "/home/jj";
+          username = "jj";
+          configuration = {
+            imports = [ ./home/linux/x230 ];
+            nixpkgs = nixpkgsConfig;
+          };
+        };
+
         mx9366 = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-linux";
           homeDirectory = "/home/jj";
