@@ -23,7 +23,6 @@
   xsession.initExtra = ''
 
     lxsession &
-    nitrogen --restore &
 
     ${pkgs .xorg.xkbcomp}/bin/setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
 

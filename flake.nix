@@ -44,7 +44,9 @@
 
     let
 
-      nixpkgsConfig = with inputs; {
+      lib = nixpkgs.lib;
+
+      nixpkgsConfig = hostname: with inputs; {
 
         config = {
           allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
@@ -57,6 +59,7 @@
               "cudatoolkit"
               "zoom"
             ];
+          inherit hostname;
         };
 
         overlays = self.overlays;
@@ -67,7 +70,7 @@
         machine
         home-manager.darwinModules.home-manager
         {
-          nixpkgs = nixpkgsConfig;
+          nixpkgs = nixpkgsConfig hostname;
           users.users.${user}.home = "/Users/${user}";
           home-manager.users.${user} = home;
 
@@ -85,7 +88,7 @@
         machine
         home-manager.nixosModules.home-manager
         {
-          nixpkgs = nixpkgsConfig;
+          nixpkgs = nixpkgsConfig hostname;
           home-manager.users.${user} = home;
           networking.hostName = hostname;
         }
@@ -211,7 +214,7 @@
           username = "jj";
           configuration = {
             imports = [ ./home/darwin/mbp15 ];
-            nixpkgs = nixpkgsConfig;
+            nixpkgs = nixpkgsConfig "mbp15";
           };
         };
 
@@ -221,7 +224,7 @@
           username = "jj";
           configuration = {
             imports = [ ./home/linux/mp ];
-            nixpkgs = nixpkgsConfig;
+            nixpkgs = nixpkgsConfig "mp";
           };
         };
 
@@ -231,7 +234,7 @@
           username = "jj";
           configuration = {
             imports = [ ./home/linux/x230 ];
-            nixpkgs = nixpkgsConfig;
+            nixpkgs = nixpkgsConfig "x230";
           };
         };
 
@@ -241,7 +244,7 @@
           username = "jj";
           configuration = {
             imports = [ ./home/linux/mx9366 ];
-            nixpkgs = nixpkgsConfig;
+            nixpkgs = nixpkgsConfig "mx9366";
           };
         };
 
