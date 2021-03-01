@@ -38,6 +38,7 @@ import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
+import XMonad.Layout.TwoPane
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.LayoutCombinators (JumpToLayout(..))
@@ -70,6 +71,7 @@ import XMonad.Prompt.Shell
 import XMonad.Prompt.Ssh
 import XMonad.Prompt.XMonad
 import Control.Arrow (first)
+import Control.Monad (replicateM_)
 
    -- Text
 import Text.Printf
@@ -313,6 +315,13 @@ tall     = renamed [Replace "tall"]
          $ limitWindows 12
          $ mySpacing 4
          $ ResizableTall 1 (3/100) (1/2) []
+twopane  = renamed [Replace "twopane"]
+         $ windowNavigation
+         $ addTabs shrinkText myTabTheme
+         $ subLayout [] Simplest -- (smartBorders Simplest)
+         $ limitWindows 12
+         $ mySpacing 4
+         $ TwoPane (3/100) (1/2)
 magnify  = renamed [Replace "magnify"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
@@ -394,6 +403,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                $ myDefaultLayout
              where
                myDefaultLayout =     tall
+                                 ||| twopane
                                  ||| magnify
                                  ||| threeCol
                                  ||| grid
@@ -476,7 +486,6 @@ myKeys home =
     , ("M-S-h"        , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
     -- Floating windows
-    , ("M-S-f"        , sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
     , ("M-t"          , withFocused $ windows . W.sink)  -- Push floating window back to tile
     , ("M-S-t"        , sinkAll)                         -- Push ALL floating windows to tile
 
@@ -488,15 +497,23 @@ myKeys home =
 
     -- Layouts
     , ("M-<Space>"    , sendMessage NextLayout)           -- Switch to next layout
+    , ("M-S-<Space>"  , sendMessage FirstLayout)
+    , ("M-C-1"        , sendMessage FirstLayout)
+    , ("M-C-2"        , sendMessage FirstLayout >> replicateM_ 1 (sendMessage NextLayout))
+    , ("M-C-3"        , sendMessage FirstLayout >> replicateM_ 2 (sendMessage NextLayout))
+    , ("M-C-4"        , sendMessage FirstLayout >> replicateM_ 3 (sendMessage NextLayout))
+    , ("M-C-5"        , sendMessage FirstLayout >> replicateM_ 4 (sendMessage NextLayout))
+
     , ("M-C-M1-<Up>"  , sendMessage Arrange)
     , ("M-C-M1-<Down>", sendMessage DeArrange)
-    , ("M-S-<Space>"  , sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
-    , ("M-f"          , sendMessage ToggleStruts)
     , ("M-S-b"        , sendMessage $ MT.Toggle NOBORDERS)
     , ("M-S-r"        , sendMessage $ MT.Toggle MIRROR)
     , ("M-S-x"        , sendMessage $ MT.Toggle REFLECTX)
     , ("M-S-y"        , sendMessage $ MT.Toggle REFLECTY)
-    , ("M-S-e"        , sendMessage $ JumpToLayout "tall") -- does not work
+    , ("M-f"          , sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
+    , ("M-S-f"        , sendMessage ToggleStruts)
+    , ("M-C-f"        , sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
+
 
     -- Increase/decrease windows in the master pane or the stack
     , ("M-,"          , sendMessage (IncMasterN 1))      -- Increase number of clients in master pane
