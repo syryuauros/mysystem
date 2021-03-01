@@ -1,8 +1,16 @@
+{ config, ... }:
+
 {
 
-  # This is probably not a correct way to set this up
+  # This is probably not a correct way to set this up.
+  # The files created this way have permission 777, which
+  # is often not the correct permission that has to be set.
   # home.file.".ssh/id_rsa".source = ./id_rsa;
   # home.file.".ssh/id_rsa.pub".source = ./id_rsa.pub;
+  # home.file.".ssh/authorized_keys" = {
+  #   source = config.lib.file.mkOutOfStoreSymlink ./authorized_keys;
+  #   executable = false;
+  # };
 
   programs.ssh = {
 

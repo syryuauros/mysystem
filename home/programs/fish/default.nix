@@ -23,7 +23,8 @@
       ec   = "emacsclient";
       ecc  = "emacsclient -c";
       ".." = "cd ..";
-      # ping = "prettyping";
+      home = "git --git-dir=$HOME/.home --work-tree=$HOME";
+      home-clone = "git clone --separate-git-dir=$HOME/.home git@gitlab.com:wavetojj/myhome.git";
     };
     # shellInit = fishConfig;
   };
