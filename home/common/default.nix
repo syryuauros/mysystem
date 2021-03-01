@@ -42,6 +42,7 @@
     syncthing
     rnix-lsp
     imagemagick
+    pass
 
     myemacs
     myvim
