@@ -42,6 +42,7 @@
   fonts.enableFontDir = true;
   fonts.fonts = pkgs.myfonts-collection;
 
+  users.nix.configureBuildUsers = true;
 
   system.keyboard = {
     enableKeyMapping = true;
