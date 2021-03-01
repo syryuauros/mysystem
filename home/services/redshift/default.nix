@@ -15,6 +15,14 @@
     # latitude = "0.0000";
     # longitude = "0.0000";
     provider = "geoclue2";
-  };
+
+  } //
+  (if pkgs.config.hostname == "x230"
+     then {
+       settings.redshift.brightness-day = "1.0";
+       settings.redshift.brightness-night = "1.0";
+     }
+     else {}
+  );
 
 }
