@@ -315,13 +315,13 @@ tall     = renamed [Replace "tall"]
          $ limitWindows 12
          $ mySpacing 4
          $ ResizableTall 1 (3/100) (1/2) []
-twopane  = renamed [Replace "twopane"]
-         $ windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ subLayout [] Simplest -- (smartBorders Simplest)
-         $ limitWindows 12
-         $ mySpacing 4
-         $ TwoPane (3/100) (1/2)
+-- twopane  = renamed [Replace "twopane"]
+--          $ windowNavigation
+--          $ addTabs shrinkText myTabTheme
+--          $ subLayout [] Simplest -- (smartBorders Simplest)
+--          $ limitWindows 12
+--          $ mySpacing 4
+--          $ TwoPane (3/100) (1/2)
 magnify  = renamed [Replace "magnify"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
@@ -403,11 +403,11 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                $ myDefaultLayout
              where
                myDefaultLayout =     tall
-                                 ||| twopane
                                  ||| magnify
                                  ||| threeCol
                                  ||| grid
                                  ||| noBorders monocle
+                                 -- ||| twopane
                                  --- ||| noBorders tabs
                                  --- ||| spirals
                                  --- ||| floats
