@@ -19,6 +19,7 @@
     ../programs/jq
     ../programs/ssh
     ../programs/git
+    ../services/email
   ] ++
   lib.filter lib.pathExists [
     ./private.nix

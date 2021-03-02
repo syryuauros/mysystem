@@ -51,6 +51,7 @@
     xclip                # clipboard support (also for neovim)
 
     kcolorchooser
+    nomacs
 
   ] ++ myfonts-collection;
 
