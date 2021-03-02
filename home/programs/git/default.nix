@@ -33,10 +33,10 @@ in
       ".DS_Store"
       "result"
     ];
-    # signing = {
-    #   key = "121D4302A64B2261";
-    #   signByDefault = true;
-    # };
+    signing = {
+      key = "6A9DC1FC403B1F49";
+      signByDefault = false;
+    };
     userEmail = "wavetojj@gmail.com";
     userName = "JJ Kim";
   };
