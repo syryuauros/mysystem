@@ -49,8 +49,4 @@
     };
   };
 
-  services.mbsync = {
-    enable = true;
-  };
-
 }
