@@ -10,6 +10,7 @@
     ../../programs/firefox
     ../../programs/qutebrowser
     ../../programs/zathura
+    ../../programs/xscreensaver
 
     ../../services/emacs
     ../../services/gpg-agent
