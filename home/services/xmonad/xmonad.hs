@@ -89,8 +89,8 @@ myModMask :: KeyMask
 myModMask = mod4Mask       -- Sets modkey to super/windows key
 
 myTerminal :: String
--- myTerminal = "alacritty"   -- Sets default terminal
-myTerminal = "kitty"   -- Sets default terminal
+myTerminal = "alacritty"   -- Sets default terminal
+-- myTerminal = "kitty"   -- Sets default terminal
 
 myBrowser :: String
 myBrowser = "qutebrowser "                      -- Sets qutebrowser as browser for tree select
@@ -129,7 +129,8 @@ myNormColor :: String
 myNormColor   = "#282c34"  -- Border color of normal windows
 
 myFocusColor :: String
-myFocusColor  = "#906cff"  -- Border color of focused windows
+-- myFocusColor  = "#906cff"  -- Border color of focused windows
+myFocusColor  = "#fffefe"  -- Border color of focused windows
 
 altMask :: KeyMask
 altMask = mod1Mask         -- Setting this for use in xprompts
