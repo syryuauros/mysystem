@@ -20,6 +20,7 @@
     ../programs/ssh
     ../programs/git
     ../programs/zathura
+    ../programs/mpv
     ../services/email
   ] ++
   lib.filter lib.pathExists [
