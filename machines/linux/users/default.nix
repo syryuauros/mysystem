@@ -11,6 +11,8 @@
     shell = pkgs.fish;
   };
 
+  users.extraUsers.jj.extraGroups = [ "audio" "video" ];
+
   users.users.web = {
     isNormalUser = false;
     uid = 1001;
