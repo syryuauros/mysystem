@@ -7,6 +7,7 @@
 
   imports = [
     ../programs/alacritty
+    ../programs/kitty
     ../programs/fish
     ../programs/zsh
     ../programs/starship

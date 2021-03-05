@@ -89,16 +89,20 @@ myModMask :: KeyMask
 myModMask = mod4Mask       -- Sets modkey to super/windows key
 
 myTerminal :: String
-myTerminal = "alacritty"   -- Sets default terminal
+-- myTerminal = "alacritty"   -- Sets default terminal
+myTerminal = "kitty"   -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "firefox "                      -- Sets qutebrowser as browser for tree select
+myBrowser = "qutebrowser "                      -- Sets qutebrowser as browser for tree select
 -- myBrowser = "qutebrowser "               -- Sets qutebrowser as browser for tree select
 -- myBrowser = myTerminal ++ " -e lynx " -- Sets lynx as browser for tree select
 
 myEditor :: String
 myEditor = "emacsclient -c -a emacs "  -- Sets emacs as editor for tree select
 -- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor for tree select
+
+myEmail :: String
+myEmail = "emacsclient -c -a emacs --eval '(notmuch)'"
 
 myEditorOnScratchPad :: String
 myEditorOnScratchPad = "emacsclient -s emacsOnSP -c -a 'emacs --title emacsOnSP --fg-daemon=emacsOnSP'"
@@ -284,10 +288,10 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm myFloat
                 , NS "htop"     spawnHtop findHtop myFloat
                 ]
   where
-    spawnTerm  = myTerminal ++ " --class alacrittyOnSP"
+    spawnTerm  = myTerminal ++ " --class termOnSP"
     spawnHtop  = myTerminal ++ " --class htopOnSP -e htop"
     spawnEmacs = myEditorOnScratchPad
-    findTerm   = appName =? "alacrittyOnSP"
+    findTerm   = appName =? "termOnSP"
     findHtop   = appName =? "htopOnSP"
     findEmacs  = title   =? "emacsOnSP"
     myFloat = customFloating $ W.RationalRect l t w h
@@ -416,6 +420,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
 myWorkspaces :: [String]
 myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 
+clickable :: String -> String
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
   where
     i = fromJust $ M.lookup ws $ M.fromList $ zip myWorkspaces [1..]
@@ -445,7 +450,8 @@ myKeys home =
     , ("M-S-q"        , io exitSuccess)         -- Quits xmonad
 
     -- Launch programs
-    , ("M-e"          , spawn "emacsclient -c -a 'emacs'")
+    , ("M-e"          , spawn myEditor)
+    , ("M-S-e"        , spawn myEmail)
     , ("M-w"          , spawn myBrowser)
     , ("M-S-<Return>" , spawn myTerminal)
     , ("M-p"          , spawn myRofi)
@@ -524,20 +530,20 @@ myKeys home =
     -- Window resizing
     , ("M-h"          , sendMessage Shrink)              -- Shrink horiz window width
     , ("M-l"          , sendMessage Expand)              -- Expand horiz window width
-    , ("M-C-j"       , sendMessage MirrorShrink)        -- Shrink vert window width
-    , ("M-C-k"       , sendMessage MirrorExpand)        -- Exoand vert window width
+    , ("M-C-j"        , sendMessage MirrorShrink)        -- Shrink vert window width
+    , ("M-C-k"        , sendMessage MirrorExpand)        -- Exoand vert window width
 
     -- Sublayouts
     -- This is used to push windows to tabbed sublayouts, or pull them out of it.
-    , ("M-M1-h"        , sendMessage $ pullGroup L)
-    , ("M-M1-l"        , sendMessage $ pullGroup R)
-    , ("M-M1-k"        , sendMessage $ pullGroup U)
-    , ("M-M1-j"        , sendMessage $ pullGroup D)
-    , ("M-M1-m"        , withFocused (sendMessage . MergeAll))
-    , ("M-M1-u"        , withFocused (sendMessage . UnMerge))
-    , ("M-M1-/"        , withFocused (sendMessage . UnMergeAll))
-    , ("M-M1-."        , onGroup W.focusUp')    -- Switch focus to next tab
-    , ("M-M1-,"        , onGroup W.focusDown')  -- Switch focus to prev tab
+    , ("M-M1-h"       , sendMessage $ pullGroup L)
+    , ("M-M1-l"       , sendMessage $ pullGroup R)
+    , ("M-M1-k"       , sendMessage $ pullGroup U)
+    , ("M-M1-j"       , sendMessage $ pullGroup D)
+    , ("M-M1-m"       , withFocused (sendMessage . MergeAll))
+    , ("M-M1-u"       , withFocused (sendMessage . UnMerge))
+    , ("M-M1-/"       , withFocused (sendMessage . UnMergeAll))
+    , ("M-M1-."       , onGroup W.focusUp')    -- Switch focus to next tab
+    , ("M-M1-,"       , onGroup W.focusDown')  -- Switch focus to prev tab
 
     -- Scratchpads
     , ("M-C-<Return>" , namedScratchpadAction myScratchPads "terminal")
@@ -567,17 +573,17 @@ myKeys home =
     , ("M-M1-8" , spawn "xbacklight -dec 5")
 
     -- Multimedia Keys
-    , ("<XF86AudioPlay>"         , spawn (myTerminal ++ "mocp --play"))
-    , ("<XF86AudioPrev>"         , spawn (myTerminal ++ "mocp --previous"))
-    , ("<XF86AudioNext>"         , spawn (myTerminal ++ "mocp --next"))
+    , ("<XF86AudioPlay>"         , spawn (myTerminal ++ " mocp --play"))
+    , ("<XF86AudioPrev>"         , spawn (myTerminal ++ " mocp --previous"))
+    , ("<XF86AudioNext>"         , spawn (myTerminal ++ " mocp --next"))
     , ("<XF86AudioMute>"         , spawn "amixer set Master toggle")
     , ("<XF86AudioLowerVolume>"  , spawn "amixer set Master 5%- unmute")
     , ("<XF86AudioRaiseVolume>"  , spawn "amixer set Master 5%+ unmute")
     , ("<XF86MonBrightnessUp>"   , spawn "xbacklight -inc 5")
     , ("<XF86MonBrightnessDown>" , spawn "xbacklight -dec 5")
-    , ("<XF86HomePage>"          , spawn "firefox")
-    , ("<XF86Search>"            , safeSpawn "firefox" ["https://www.duckduckgo.com/"])
-    , ("<XF86Mail>"              , runOrRaise "thunderbird" (resource =? "thunderbird"))
+    , ("<XF86HomePage>"          , spawn myBrowser)
+    , ("<XF86Search>"            , safeSpawn myBrowser ["https://www.duckduckgo.com/"])
+    , ("<XF86Mail>"              , spawn myEmail)
     , ("<XF86Calculator>"        , runOrRaise "qalculate-gtk" (resource =? "qalculate-gtk"))
     , ("<XF86Eject>"             , spawn "toggleeject")
     , ("<Print>"                 , spawn "scrotd 0")
