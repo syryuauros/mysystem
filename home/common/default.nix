@@ -19,6 +19,7 @@
     ../programs/jq
     ../programs/ssh
     ../programs/git
+    ../programs/zathura
     ../services/email
   ] ++
   lib.filter lib.pathExists [

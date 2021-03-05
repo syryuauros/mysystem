@@ -8,6 +8,8 @@
 
     ../../programs/rofi
     ../../programs/firefox
+    ../../programs/qutebrowser
+    ../../programs/zathura
 
     ../../services/emacs
     ../../services/gpg-agent
