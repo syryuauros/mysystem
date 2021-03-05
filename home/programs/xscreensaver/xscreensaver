@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.44 for jj on Fri Mar  5 22:03:12 2021.
+# Written by xscreensaver-demo 5.44 for jj on Fri Mar  5 22:47:58 2021.
 # https://www.jwz.org/xscreensaver/
 
 timeout:	0:10:00
@@ -14,7 +14,7 @@ timestamp:	True
 splash:		True
 splashDuration:	0:00:05
 demoCommand:	xscreensaver-demo
-prefsCommand:
+prefsCommand:	
 nice:		10
 memoryLimit:	0
 fade:		True
@@ -32,14 +32,14 @@ dpmsOff:	4:00:00
 grabDesktopImages:  True
 grabVideoFrames:    False
 chooseRandomImages: False
-imageDirectory:
+imageDirectory:	
 
 mode:		one
 selected:	88
 
 textMode:	file
 textLiteral:	XScreenSaver
-textFile:
+textFile:	
 textProgram:	fortune
 textURL:	https://en.wikipedia.org/w/index.php?title=Special:NewPages&feed=rss
 
@@ -132,7 +132,7 @@ programs:								      \
 				wander -root				    \n\
 -				webcollage -root			    \n\
 				xflame -root				    \n\
-				xmatrix -root -delay 22124 -density 30	    \n\
+				xmatrix -root -delay 76991 -density 22	    \n\
   GL: 				gflux -root				    \n\
 -				nerverot -root				    \n\
 				xrayswarm -root				    \n\
@@ -293,3 +293,4 @@ procInterrupts:	True
 xinputExtensionDev: False
 overlayStderr:	True
 authWarningSlack:   20
+
