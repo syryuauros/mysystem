@@ -93,7 +93,7 @@ myTerminal = "alacritty"   -- Sets default terminal
 -- myTerminal = "kitty"   -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "qutebrowser "                      -- Sets qutebrowser as browser for tree select
+myBrowser = "qutebrowser"                      -- Sets qutebrowser as browser for tree select
 -- myBrowser = "qutebrowser "               -- Sets qutebrowser as browser for tree select
 -- myBrowser = myTerminal ++ " -e lynx " -- Sets lynx as browser for tree select
 
@@ -149,8 +149,8 @@ myStartupHook = do
           setWMName "LG3D"
 
 
-dtXPConfig :: XPConfig
-dtXPConfig = def
+myXPConfig :: XPConfig
+myXPConfig = def
       { font                = myFont
       , bgColor             = "#282c34"
       , fgColor             = "#bbc2cf"
@@ -178,8 +178,8 @@ dtXPConfig = def
 
 -- The same config above minus the autocomplete feature which is annoying
 -- on certain Xprompts, like the search engine prompts.
-dtXPConfig' :: XPConfig
-dtXPConfig' = dtXPConfig
+myXPConfig' :: XPConfig
+myXPConfig' = myXPConfig
       { autoComplete        = Nothing
       }
 
@@ -197,7 +197,7 @@ editPrompt home = do
         Just s  -> openInEditor s
         Nothing -> pure ()
   where
-    cfg = dtXPConfig { defaultText = "" }
+    cfg = myXPConfig { defaultText = "" }
 
 openInEditor :: String -> X ()
 openInEditor path =
@@ -211,7 +211,7 @@ scrotPrompt home select = do
         Nothing -> pure ()
   where
     mode = if select then "--select" else "--focused"
-    cfg = dtXPConfig { defaultText = "" }
+    cfg = myXPConfig { defaultText = "" }
 
 dtXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 dtXPKeymap = M.fromList $
@@ -463,7 +463,7 @@ myKeys home =
     , ("M-C-M1-f"     , spawn "flameshot full -p ~/captures/")
     , ("M-C-M1-c"     , spawn "flameshot gui -p ~/captures/")
     -- , ("M-b"          , spawn (myBrowser ++ " www.youtube.com/c/DistroTube/"))
-    -- , ("M-S-<Return>", shellPrompt dtXPConfig) -- Xmonad Shell Prompt
+    -- , ("M-S-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
     -- , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
     -- , ("M-S-<Return>", spawn "rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
 
@@ -591,10 +591,12 @@ myKeys home =
     ]
     -- Appending search engine prompts to keybindings list.
     -- Look at "search engines" section of this config for values for "k".
-    ++ [("M-s   " ++ k, S.promptSearch dtXPConfig' f) | (k,f) <- searchList ]
-    ++ [("M-S-s " ++ k, S.selectSearch f)             | (k,f) <- searchList ]
+    ++ [("M-s   " ++ k, myPromptSearch f) | (k,f) <- searchList ]
+    ++ [("M-S-s " ++ k, mySelectSearch f) | (k,f) <- searchList ]
     -- The following lines are needed for named scratchpads.
     where
+      myPromptSearch = S.promptSearchBrowser myXPConfig' myBrowser
+      mySelectSearch = S.selectSearchBrowser myBrowser
       nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
       nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
 
