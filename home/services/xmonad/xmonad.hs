@@ -16,6 +16,9 @@ import qualified XMonad.Actions.TreeSelect as TS
 import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 import qualified XMonad.Actions.Search as S
+import           XMonad.Actions.SpawnOn                ( manageSpawn
+                                                       , spawnOn
+                                                       )
 
     -- Data
 import Data.Char (isSpace, toUpper)
@@ -28,11 +31,21 @@ import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, s
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
-import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
-
+import           XMonad.Hooks.ManageHelpers            ( (-?>)
+                                                       , composeOne
+                                                       , doCenterFloat
+                                                       , doFullFloat
+                                                       , isDialog
+                                                       , isFullscreen
+                                                       , isInProperty
+                                                       )
+import           XMonad.Hooks.InsertPosition           ( Focus(Newer)
+                                                       , Position(Below)
+                                                       , insertPosition
+                                                       )
     -- Layouts
 import XMonad.Layout.GridVariants (Grid(Grid))
 import XMonad.Layout.SimplestFloat
@@ -78,7 +91,13 @@ import Text.Printf
 
    -- Utilities
 import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.NamedScratchpad
+-- import XMonad.Util.NamedScratchpad
+import           XMonad.Util.NamedScratchpad           ( NamedScratchpad(..)
+                                                       , customFloating
+                                                       , defaultFloating
+                                                       , namedScratchpadAction
+                                                       , namedScratchpadManageHook
+                                                       )
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 
@@ -105,7 +124,7 @@ myEmail :: String
 myEmail = "emacsclient -c -a emacs --eval '(notmuch)'"
 
 myEditorOnScratchPad :: String
-myEditorOnScratchPad = "emacsclient -s emacsOnSP -c -a 'emacs --title emacsOnSP --fg-daemon=emacsOnSP'"
+myEditorOnScratchPad = "emacsclient -s editorSP -c -a 'emacs --title editorSP --fg-daemon=editorSP'"
 
 myRofi :: String
 myRofi = "rofi -modi drun,ssh,window -show drun -show-icons"
@@ -283,25 +302,6 @@ searchList = [ ("a", archwiki)
              , ("z", S.amazon)
              ]
 
-myScratchPads :: [NamedScratchpad]
-myScratchPads = [ NS "terminal" spawnTerm findTerm myFloat
-                , NS "emacs"    spawnEmacs findEmacs myFloat
-                , NS "htop"     spawnHtop findHtop myFloat
-                ]
-  where
-    spawnTerm  = myTerminal ++ " --class termOnSP"
-    spawnHtop  = myTerminal ++ " --class htopOnSP -e htop"
-    spawnEmacs = myEditorOnScratchPad
-    findTerm   = appName =? "termOnSP"
-    findHtop   = appName =? "htopOnSP"
-    findEmacs  = title   =? "emacsOnSP"
-    myFloat = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = (1.0 - h)/2
-                 l = (1.0 - w)/2
-
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
@@ -426,19 +426,148 @@ clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
   where
     i = fromJust $ M.lookup ws $ M.fromList $ zip myWorkspaces [1..]
 
+------------------------------------------------------------------------
+-- Manage Hook:
+
+-- Execute arbitrary actions and WindowSet manipulations when managing
+-- a new window. You can use this to, for example, always float a
+-- particular program, or have a client always appear on a particular
+-- workspace.
+--
+-- To find the property name associated with a program, use
+-- > xprop | grep WM_CLASS
+-- and click on the client you're interested in.
+--
+-- To match on the WM_NAME, you can use 'title' in the same way that
+-- 'className' and 'resource' are used below.
+--
+
+type AppName      = String
+type AppTitle     = String
+type AppClassName = String
+type AppCommand   = String
+
+data App
+  = ClassApp AppClassName AppCommand
+  | TitleApp AppTitle AppCommand
+  | NameApp AppName AppCommand
+  deriving Show
+
+audacious = ClassApp "Audacious"            "audacious"
+btm       = TitleApp "btm"                  "alacritty -t btm -e btm --color gruvbox --default_widget_type proc"
+calendar  = ClassApp "Gnome-calendar"       "gnome-calendar"
+eog       = NameApp  "eog"                  "eog"
+evince    = ClassApp "Evince"               "evince"
+gimp      = ClassApp "Gimp"                 "gimp"
+nautilus  = ClassApp "Org.gnome.Nautilus"   "nautilus"
+office    = ClassApp "libreoffice-draw"     "libreoffice-draw"
+pavuctrl  = ClassApp "Pavucontrol"          "pavucontrol"
+scr       = ClassApp "SimpleScreenRecorder" "simplescreenrecorder"
+spotify   = ClassApp "Spotify"              "myspotify"
+vlc       = ClassApp "Vlc"                  "vlc"
+yad       = ClassApp "Yad"                  "yad --text-info --text 'XMonad'"
+termSP    = NameApp  "termSP"               (myTerminal ++ " --class termSP")
+htopSP    = NameApp  "htopSP"               (myTerminal ++ " --class htopSP -e htop")
+editorSP  = TitleApp "editorSP"             myEditorOnScratchPad
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
-myManageHook = composeAll
-     -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
-     -- I'm doing it this way because otherwise I would have to write out the full
-     -- name of my workspaces, and the names would very long if using clickable workspaces.
-     [
-       className  =? "Gimp"                           --> doFloat
-     -- , title      =? "Mozilla Firefox"                --> doShift ( myWorkspaces !! 1 )
-     , title      =? "Oracle VM VirtualBox Manager"   --> doFloat
-     , className  =? "VirtualBox Manager"             --> doShift  ( myWorkspaces !! 4 )
-     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
-     ] <+> namedScratchpadManageHook myScratchPads
+myManageHook = manageApps <+> manageSpawn <+> manageScratchpads <+> manageDocks
+ where
+  isBrowserDialog     = isDialog <&&> className =? "Brave-browser"
+  isFileChooserDialog = isRole =? "GtkFileChooserDialog"
+  isPopup             = isRole =? "pop-up"
+  isSplash            = isInProperty "_NET_WM_WINDOW_TYPE" "_NET_WM_WINDOW_TYPE_SPLASH"
+  isRole              = stringProperty "WM_WINDOW_ROLE"
+  tileBelow           = insertPosition Below Newer
+  doCalendarFloat     = customFloating (W.RationalRect (11 / 15) (1 / 48) (1 / 8) (1 / 8))
+  manageScratchpads   = namedScratchpadManageHook myScratchPads
+  anyOf :: [Query Bool] -> Query Bool
+  anyOf = foldl (<||>) (pure False)
+  match :: [App] -> Query Bool
+  match = anyOf . fmap isInstance
+  manageApps = composeOne
+    [ isInstance calendar                      -?> doCalendarFloat
+    , match [ gimp, office ]                   -?> doFloat
+    , match [ audacious
+            , eog
+            , nautilus
+            , pavuctrl
+            , scr
+            ]                                  -?> doCenterFloat
+    , match [ btm, evince, spotify, vlc, yad ] -?> doFullFloat
+    , resource =? "desktop_window"             -?> doIgnore
+    , resource =? "kdesktop"                   -?> doIgnore
+    , anyOf [ isBrowserDialog
+            , isFileChooserDialog
+            , isDialog
+            , isPopup
+            , isSplash
+            ]                                  -?> doCenterFloat
+    , isFullscreen                             -?> doFullFloat
+    , pure True                                -?> tileBelow
+    ]
+
+isInstance :: App -> Query Bool
+isInstance (ClassApp c _) = className =? c
+isInstance (TitleApp t _) = title =? t
+isInstance (NameApp n _)  = appName =? n
+
+getNameCommand (ClassApp n c) = (n, c)
+getNameCommand (TitleApp n c) = (n, c)
+getNameCommand (NameApp  n c) = (n, c)
+
+getAppName    = fst . getNameCommand
+getAppCommand = snd . getNameCommand
+
+scratchpadApp :: App -> NamedScratchpad
+scratchpadApp app = NS (getAppName app) (getAppCommand app) (isInstance app) spFloating
+  where
+    spFloating = customFloating $ W.RationalRect l t w h
+                       where
+                         h = 0.9
+                         w = 0.9
+                         t = (1.0 - h)/2
+                         l = (1.0 - w)/2
+
+
+runScratchpadApp = namedScratchpadAction myScratchPads . getAppName
+
+myScratchPads = scratchpadApp <$> [ termSP, htopSP, editorSP, scr, spotify ]
+
+-- myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
+-- myManageHook = composeAll
+--      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
+--      -- I'm doing it this way because otherwise I would have to write out the full
+--      -- name of my workspaces, and the names would very long if using clickable workspaces.
+--      [
+--        className  =? "Gimp"                           --> doFloat
+--      -- , title      =? "Mozilla Firefox"                --> doShift ( myWorkspaces !! 1 )
+--      , title      =? "Oracle VM VirtualBox Manager"   --> doFloat
+--      , className  =? "VirtualBox Manager"             --> doShift  ( myWorkspaces !! 4 )
+--      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+--      ] <+> namedScratchpadManageHook myScratchPads
+
+-- myScratchPads :: [NamedScratchpad]
+-- myScratchPads = [ NS "terminal" spawnTerm findTerm myFloat
+--                 , NS "emacs"    spawnEmacs findEmacs myFloat
+--                 , NS "htop"     spawnHtop findHtop myFloat
+--                 ]
+--   where
+--     spawnTerm  = myTerminal ++ " --class termOnSP"
+--     spawnHtop  = myTerminal ++ " --class htopOnSP -e htop"
+--     spawnEmacs = myEditorOnScratchPad
+--     findTerm   = appName =? "termOnSP"
+--     findHtop   = appName =? "htopOnSP"
+--     findEmacs  = title   =? "emacsOnSP"
+--     myFloat = customFloating $ W.RationalRect l t w h
+--                where
+--                  h = 0.9
+--                  w = 0.9
+--                  t = (1.0 - h)/2
+--                  l = (1.0 - w)/2
+
+------------------------------------------------------------------------
+-- Log Hook:
 
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
@@ -547,9 +676,9 @@ myKeys home =
     , ("M-M1-,"       , onGroup W.focusDown')  -- Switch focus to prev tab
 
     -- Scratchpads
-    , ("M-C-<Return>" , namedScratchpadAction myScratchPads "terminal")
-    , ("M-C-e"        , namedScratchpadAction myScratchPads "emacs")
-    , ("M-C-t"        , namedScratchpadAction myScratchPads "htop")
+    , ("M-C-<Return>" , namedScratchpadAction myScratchPads "termSP")
+    , ("M-C-e"        , namedScratchpadAction myScratchPads "editorSP")
+    , ("M-C-t"        , namedScratchpadAction myScratchPads "htopSP")
 
     -- Controls for mocp music player (SUPER-u followed by a key)
     -- , ("M-u p"          , spawn "mocp --play")
@@ -606,7 +735,8 @@ main = do
     -- xmproc <- spawnPipe "xmobar-x230"
     xmproc <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
     xmonad $ ewmh def
-        { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
+        { manageHook = myManageHook
+          -- manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
         -- Run xmonad commands from command line with "xmonadctl command". Commands include:
         -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
         -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run
