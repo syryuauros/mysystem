@@ -5,6 +5,7 @@
 
       config.load_autoconfig(False)
       config.set("colors.webpage.darkmode.enabled", True)
+      config.set("content.javascript.can_access_clipboard", True)
 
       config.bind('M', 'hint links spawn mpv {hint-url}')
       config.bind('Z', 'hint links spawn alacritty -e youtube-dl {hint-url}')
