@@ -25,6 +25,7 @@
     ../../services/syncthing
     ../../services/keyboard
     ../../services/redshift
+    ../../services/uim-korean
   ];
 
   # fonts.fontconfig.enable = true;

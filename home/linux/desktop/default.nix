@@ -22,7 +22,6 @@
 
     xscreensaver &
     setxkbmap -option caps:ctrl_modifier &
-    emacs --title emacsOnSP --daemon=emacsOnSP &
 
   '';
 
