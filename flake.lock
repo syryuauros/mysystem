@@ -21,6 +21,21 @@
         "type": "github"
       }
     },
+    "emacs-overlay": {
+      "locked": {
+        "lastModified": 1614889331,
+        "narHash": "sha256-UDghApk6tIOyc9GMOoe94icAPObjWtnBvSFGJCAmg9Q=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "65e4ae8ddec6c94263aefb4ec9d8294b600280ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -713,17 +728,18 @@
     },
     "myemacs": {
       "inputs": {
+        "emacs-overlay": "emacs-overlay",
         "flake-compat": "flake-compat_2",
         "flake-utils": "flake-utils_2",
         "nixpkgs": "nixpkgs",
         "stable": "stable"
       },
       "locked": {
-        "lastModified": 1614954148,
-        "narHash": "sha256-bGSTJe4M5zbjIxCKsKNSe7dzhVgNyxGhWc3DFqFnxVE=",
+        "lastModified": 1615016123,
+        "narHash": "sha256-VpIVqUM4+LbjaNbd+d+ZXXL6kO8i3L1FTsT2YpZ5/s8=",
         "ref": "master",
-        "rev": "a1d9e6322691362e0ac5b2e7476b4a026c73e0bd",
-        "revCount": 25,
+        "rev": "6b07886540f8ab767c67faee856d6d3055a81aab",
+        "revCount": 28,
         "type": "git",
         "url": "ssh://git@gitlab.com/wavetojj/myemacs3.git"
       },
