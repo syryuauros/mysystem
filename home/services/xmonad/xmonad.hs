@@ -453,22 +453,23 @@ data App
   | NameApp AppName AppCommand
   deriving Show
 
-audacious = ClassApp "Audacious"            "audacious"
-btm       = TitleApp "btm"                  "alacritty -t btm -e btm --color gruvbox --default_widget_type proc"
-calendar  = ClassApp "Gnome-calendar"       "gnome-calendar"
-eog       = NameApp  "eog"                  "eog"
-evince    = ClassApp "Evince"               "evince"
-gimp      = ClassApp "Gimp"                 "gimp"
-nautilus  = ClassApp "Org.gnome.Nautilus"   "nautilus"
-office    = ClassApp "libreoffice-draw"     "libreoffice-draw"
-pavuctrl  = ClassApp "Pavucontrol"          "pavucontrol"
-scr       = ClassApp "SimpleScreenRecorder" "simplescreenrecorder"
-spotify   = ClassApp "Spotify"              "myspotify"
-vlc       = ClassApp "Vlc"                  "vlc"
-yad       = ClassApp "Yad"                  "yad --text-info --text 'XMonad'"
-termSP    = NameApp  "termSP"               (myTerminal ++ " --class termSP")
-htopSP    = NameApp  "htopSP"               (myTerminal ++ " --class htopSP -e htop")
-editorSP  = TitleApp "editorSP"             myEditorOnScratchPad
+audacious  = ClassApp "Audacious"            "audacious"
+btm        = TitleApp "btm"                  "alacritty -t btm -e btm --color gruvbox --default_widget_type proc"
+calendar   = ClassApp "Gnome-calendar"       "gnome-calendar"
+eog        = NameApp  "eog"                  "eog"
+evince     = ClassApp "Evince"               "evince"
+gimp       = ClassApp "Gimp"                 "gimp"
+nautilus   = ClassApp "Org.gnome.Nautilus"   "nautilus"
+office     = ClassApp "libreoffice-draw"     "libreoffice-draw"
+pavuctrl   = ClassApp "Pavucontrol"          "pavucontrol"
+scr        = ClassApp "SimpleScreenRecorder" "simplescreenrecorder"
+spotify    = ClassApp "Spotify"              "myspotify"
+vlc        = ClassApp "Vlc"                  "vlc"
+yad        = ClassApp "Yad"                  "yad --text-info --text 'XMonad'"
+termSP     = NameApp  "termSP"               (myTerminal ++ " --class termSP")
+htopSP     = NameApp  "htopSP"               (myTerminal ++ " --class htopSP -e htop")
+editorSP   = TitleApp "editorSP"             myEditorOnScratchPad
+uimprefgtk = NameApp  "uim-pref-gtk"         "uim-pref-gtk"
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = manageApps <+> manageSpawn <+> manageScratchpads <+> manageDocks
@@ -492,6 +493,7 @@ myManageHook = manageApps <+> manageSpawn <+> manageScratchpads <+> manageDocks
             , eog
             , nautilus
             , pavuctrl
+            , uimprefgtk
             , scr
             ]                                  -?> doCenterFloat
     , match [ btm, evince, spotify, vlc, yad ] -?> doFullFloat
@@ -576,7 +578,8 @@ myLogHook = fadeInactiveLogHook fadeAmount
 myKeys :: String -> [(String, X ())]
 myKeys home =
     -- Xmonad
-    [ ("M-q"          , spawn "xmonad --recompile; xmonad --restart")
+    [ -- ("M-q"          , spawn "xmonad --recompile; xmonad --restart")
+      ("M-q"          , spawn "restart-xmonad.sh")
     , ("M-S-q"        , io exitSuccess)         -- Quits xmonad
 
     -- Launch programs

@@ -39,8 +39,9 @@
     xdotool
     trayer
 
-    acpilight              # xbacklight drop-in replacement
-    redshift
+    acpilight     # xbacklight drop-in replacement; adjust display brightness
+    redshift      # adjust display light temperature
+    pavucontrol   # control audio in/out
 
     myxmobar
     mynitrogen
@@ -55,6 +56,8 @@
 
     kcolorchooser
     nomacs
+
+    restart-xmonad
 
   ] ++ myfonts-collection;
 
