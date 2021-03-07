@@ -59,7 +59,7 @@
     nomacs
 
     restart-xmonad
-    nautilus
+    gnome3.nautilus
 
   ] ++ myfonts-collection;
 
