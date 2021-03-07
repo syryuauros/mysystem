@@ -47,6 +47,7 @@
     rnix-lsp
     imagemagick
     pass
+    cmatrix
 
     myemacs
     myvim
