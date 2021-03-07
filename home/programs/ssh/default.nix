@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 {
 
@@ -38,5 +38,11 @@
     };
 
   };
+
+
+  # FIXME
+  # home.activation.authorizedKeys = dagEntryAfter ["writeBoundary"] ''
+  #     install -D -m644 ${./authorized_keys} $HOME/.ssh/authorized_keys
+  # '';
 
 }
