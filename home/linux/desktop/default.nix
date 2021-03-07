@@ -20,7 +20,6 @@
   xsession.enable = true;
   xsession.initExtra = ''
 
-    xscreensaver &
     setxkbmap -option caps:ctrl_modifier &
 
   '';
