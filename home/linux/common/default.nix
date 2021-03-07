@@ -59,6 +59,7 @@
     nomacs
 
     restart-xmonad
+    nautilus
 
   ] ++ myfonts-collection;
 
