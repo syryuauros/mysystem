@@ -133,7 +133,8 @@ myDmenu :: String
 myDmenu = "dmenu_run"
 
 screenLocker :: String
-screenLocker = "yes | mylockscreen-1366"
+-- screenLocker = "yes | mylockscreen-1366"
+screenLocker = "xscreensaver & xscreensaver-command -activate"
 
 myTrayer :: String
 myTrayer =  "trayer --edge top --align right --widthtype request --padding 1 "
