@@ -25,7 +25,10 @@
       collection-xetex
       collection-pictures
       collection-pstricks
-      collection-mathscience;
+      collection-publishers
+      collection-mathscience
+    ;
+
   };
 
 }
