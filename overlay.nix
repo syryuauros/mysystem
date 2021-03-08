@@ -13,6 +13,7 @@
       collection-binextra
       collection-langenglish
       collection-langkorean
+      collection-langcjk
       collection-plaingeneric
       collection-fontutils
       collection-fontsextra
