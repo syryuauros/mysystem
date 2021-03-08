@@ -51,6 +51,7 @@
 
     myemacs
     myvim
+    mytex
   ];
 
   home.sessionVariables = {
