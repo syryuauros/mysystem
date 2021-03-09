@@ -24,7 +24,7 @@
 
     # make trackpad and trackpoint faster
     xinput --set-prop 10 322 1
-    xinput --set-prop 11 322 1
+    xinput --set-prop 12 322 1
 
     ${pkgs .xorg.xkbcomp}/bin/setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
 
