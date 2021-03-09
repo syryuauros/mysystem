@@ -840,11 +840,11 @@
         "stable": "stable_2"
       },
       "locked": {
-        "lastModified": 1613738815,
-        "narHash": "sha256-cWwKWCAluML86MdMfJ4c1/NnXit42jpJznK3V+Cd15w=",
+        "lastModified": 1615261806,
+        "narHash": "sha256-xTS5XOB9VEAzKPydasVXMGYlWRzXJLUCURZhZpnf95s=",
         "ref": "master",
-        "rev": "8e640989cde720373ad6470816a69f1c986c514b",
-        "revCount": 9,
+        "rev": "914ccd95746ab10adc0f51498db9caadd41739db",
+        "revCount": 12,
         "type": "git",
         "url": "ssh://git@gitlab.com/wavetojj/myfonts.git"
       },
