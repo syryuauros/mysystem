@@ -1064,17 +1064,17 @@
         "stable": "stable_18"
       },
       "locked": {
-        "lastModified": 1613640125,
-        "narHash": "sha256-ornTJB/XoyZbulHEP/cmM9MkCqVa2FceaeAQOtZgh1s=",
+        "lastModified": 1615562597,
+        "narHash": "sha256-sZD8ZW0QNC6vJbGFm0lNRxbCpQUVsxfAxklIcc5Sc6U=",
         "ref": "master",
-        "rev": "f5521e2cd12fc5551fe55162464a88dc3c9e3174",
-        "revCount": 1,
+        "rev": "0c80ff4cf718bed445479643aa4f840ddd8ff8a5",
+        "revCount": 2,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myvim2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/myvim.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myvim2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/myvim.git"
       }
     },
     "mywallpapers-1366": {
