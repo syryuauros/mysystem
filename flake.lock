@@ -735,17 +735,17 @@
         "stable": "stable"
       },
       "locked": {
-        "lastModified": 1615205405,
-        "narHash": "sha256-IhsKdfsm6xc9KNVgpcU4wkoo2JfspiVrgpv3p5ccI3Y=",
+        "lastModified": 1615559941,
+        "narHash": "sha256-Vv/OeJ9KQ2Dn4r9C58r+nnEBj6BnsIECCgk+PHMyhTE=",
         "ref": "master",
-        "rev": "a276299e78255d02098739e7e9f567d412d533c7",
-        "revCount": 33,
+        "rev": "861dd56d00821083be5b6c33785f63da93fe0e2c",
+        "revCount": 18,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myemacs3.git"
+        "url": "ssh://git@gitlab.com/wavetojj/myemacs.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myemacs3.git"
+        "url": "ssh://git@gitlab.com/wavetojj/myemacs.git"
       }
     },
     "myflow": {

@@ -21,7 +21,7 @@
     };
     nur.url = "github:nix-community/NUR/master";
 
-    myemacs.url           = "git+ssh://git@gitlab.com/wavetojj/myemacs3.git";
+    myemacs.url           = "git+ssh://git@gitlab.com/wavetojj/myemacs.git";
     myvim.url             = "git+ssh://git@gitlab.com/wavetojj/myvim2.git";
     myfonts.url           = "git+ssh://git@gitlab.com/wavetojj/myfonts.git";
     mylockscreen.url      = "git+ssh://git@gitlab.com/wavetojj/mylockscreen.git";
