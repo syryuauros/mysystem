@@ -20,9 +20,9 @@
     myxmobar.url          = "git+ssh://git@gitlab.com/wavetojj/myxmobar.git";
     mynitrogen.url        = "git+ssh://git@gitlab.com/wavetojj/mynitrogen.git";
 
-    myhaskell.url         = "git+ssh://git@gitlab.com/wavetojj/myhaskell2.git";
-    mypython.url          = "git+ssh://git@gitlab.com/wavetojj/mypython2.git";
-    myjupyter.url         = "git+ssh://git@gitlab.com/wavetojj/myjupyter2.git";
+    myhaskell.url         = "git+ssh://git@gitlab.com/wavetojj/myhaskell.git";
+    mypython.url          = "git+ssh://git@gitlab.com/wavetojj/mypython.git";
+    myjupyter.url         = "git+ssh://git@gitlab.com/wavetojj/myjupyter.git";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
   };

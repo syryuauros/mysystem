@@ -865,17 +865,17 @@
         "stable": "stable_6"
       },
       "locked": {
-        "lastModified": 1614078559,
-        "narHash": "sha256-jPKyCzONyd3vlVadTu8Qy6Jzf3LdNcO81AsShwxTtDg=",
+        "lastModified": 1615722259,
+        "narHash": "sha256-1ASRFe4F/prb//gfoXTsA3Qa6snqIzPn7iIdMZj5u9w=",
         "ref": "master",
-        "rev": "511fb64679201214ca929a7ca0fa079ef39bebbf",
-        "revCount": 14,
+        "rev": "2e9e0f4e1ecaa560f6691f6026fb4a23ed312743",
+        "revCount": 45,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myhaskell2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/myhaskell.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myhaskell2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/myhaskell.git"
       }
     },
     "myhaskell_2": {
@@ -890,17 +890,17 @@
         "stable": "stable_10"
       },
       "locked": {
-        "lastModified": 1614007783,
-        "narHash": "sha256-GLs9xgYDYsiTpEDnK5zbSJcVBXEXGxJQKFdzBrd/d0k=",
+        "lastModified": 1615722259,
+        "narHash": "sha256-1ASRFe4F/prb//gfoXTsA3Qa6snqIzPn7iIdMZj5u9w=",
         "ref": "master",
-        "rev": "98f505011e42aabccada11fe7daf29e168ea6cff",
-        "revCount": 13,
+        "rev": "2e9e0f4e1ecaa560f6691f6026fb4a23ed312743",
+        "revCount": 45,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myhaskell2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/myhaskell.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myhaskell2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/myhaskell.git"
       }
     },
     "myjupyter": {
@@ -916,17 +916,17 @@
         "stable": "stable_12"
       },
       "locked": {
-        "lastModified": 1614078793,
-        "narHash": "sha256-9vilqtX9ivDzXxyxcJXCJXfqsdXMjrBqVZIqubeiuQg=",
+        "lastModified": 1615725364,
+        "narHash": "sha256-yUFhnun/jJplHKAU604TI1iWpDwnDJH8YjL2f8CGByE=",
         "ref": "master",
-        "rev": "3e975cf10451fc1c6ac868b5efc8b36ee4c48565",
-        "revCount": 3,
+        "rev": "cc2a2efabc2c54620d578f793172209afe914c9e",
+        "revCount": 12,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myjupyter2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/myjupyter.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myjupyter2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/myjupyter.git"
       }
     },
     "mylockscreen": {
@@ -1023,17 +1023,17 @@
         "stable": "stable_11"
       },
       "locked": {
-        "lastModified": 1614077262,
-        "narHash": "sha256-W/ifOuRLNZSICc4Vg/fLtVyL1GgROsUEzlcouS7eKTY=",
+        "lastModified": 1615723485,
+        "narHash": "sha256-96ND9uj1wBAj8Ro+XPPBdD5ewOMhNSQJWrOwnU/2FKk=",
         "ref": "master",
-        "rev": "64531beb3964aa55096c99f859fcbffbcf2a2d63",
-        "revCount": 7,
+        "rev": "c7d265413037bd2ad6ebd94bc3ccafd0452aa81e",
+        "revCount": 13,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mypython2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/mypython.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mypython2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/mypython.git"
       }
     },
     "mypython_2": {
@@ -1044,17 +1044,17 @@
         "stable": "stable_17"
       },
       "locked": {
-        "lastModified": 1614186245,
-        "narHash": "sha256-T6jrqYCHefLDgotrK5RUDl7Q+JK/HYSiDH1mIMJ2YeM=",
+        "lastModified": 1615723485,
+        "narHash": "sha256-96ND9uj1wBAj8Ro+XPPBdD5ewOMhNSQJWrOwnU/2FKk=",
         "ref": "master",
-        "rev": "14996ee84b8c8dbfe926d3aeb59be5b9c7e07188",
-        "revCount": 10,
+        "rev": "c7d265413037bd2ad6ebd94bc3ccafd0452aa81e",
+        "revCount": 13,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mypython2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/mypython.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mypython2.git"
+        "url": "ssh://git@gitlab.com/wavetojj/mypython.git"
       }
     },
     "myvim": {
@@ -1190,11 +1190,11 @@
     },
     "nixpkgs_10": {
       "locked": {
-        "lastModified": 1613582597,
-        "narHash": "sha256-6LvipIvFuhyorHpUqK3HjySC5Y6gshXHFBhU9EJ4DoM=",
+        "lastModified": 1614029319,
+        "narHash": "sha256-PXu4Vf05f3E2vpl7/Iop/O+gw655O3SONYVFxbl0kuc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6b1057b452c55bb3b463f0d7055bc4ec3fd1f381",
+        "rev": "c7d0dbe094c988209edac801eb2a0cc21aa498d8",
         "type": "github"
       },
       "original": {
@@ -1206,11 +1206,11 @@
     },
     "nixpkgs_11": {
       "locked": {
-        "lastModified": 1613761605,
-        "narHash": "sha256-lUF6UPR96ZzQC0faNXBHLoLhNAdxZqYqDwz0PaIZ/7Y=",
+        "lastModified": 1614029319,
+        "narHash": "sha256-PXu4Vf05f3E2vpl7/Iop/O+gw655O3SONYVFxbl0kuc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9816b99e71c3504b0b4c1f8b2e004148460029d4",
+        "rev": "c7d0dbe094c988209edac801eb2a0cc21aa498d8",
         "type": "github"
       },
       "original": {
