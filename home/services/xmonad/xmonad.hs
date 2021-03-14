@@ -622,6 +622,8 @@ myKeys home =
     , ("M-C-<Left>"   , prevScreen)                                 -- Switch focus to prev monitor
     , ("M-S-<Right>"  , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws
     , ("M-S-<Left>"   , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
+    , ("M-C-l"        , nextScreen)                                 -- Switch focus to next monitor
+    , ("M-C-h"        , prevScreen)                                 -- Switch focus to prev monitor
     , ("M-S-l"        , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws
     , ("M-S-h"        , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
@@ -630,13 +632,13 @@ myKeys home =
     , ("M-S-t"        , sinkAll)                         -- Push ALL floating windows to tile
 
     -- Increase/decrease spacing (gaps)
-    , ("M-["          , decWindowSpacing 1)           -- Decrease window spacing
-    , ("M-]"          , incWindowSpacing 1)           -- Increase window spacing
+    , ("M-["          , decWindowSpacing 1)         -- Decrease window spacing
+    , ("M-]"          , incWindowSpacing 1)         -- Increase window spacing
     , ("M-S-["        , decScreenSpacing 1)         -- Decrease screen spacing
     , ("M-S-]"        , incScreenSpacing 1)         -- Increase screen spacing
 
     -- Layouts
-    , ("M-<Space>"    , sendMessage NextLayout)           -- Switch to next layout
+    , ("M-<Space>"    , sendMessage NextLayout)     -- Switch to next layout
     , ("M-S-<Space>"  , sendMessage FirstLayout)
     , ("M-C-1"        , sendMessage FirstLayout)
     , ("M-C-2"        , sendMessage FirstLayout >> replicateM_ 1 (sendMessage NextLayout))

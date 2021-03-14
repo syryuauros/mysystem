@@ -58,6 +58,7 @@
     kcolorchooser
     nomacs
 
+    extra-monitor
     restart-xmonad
     gnome3.nautilus
 

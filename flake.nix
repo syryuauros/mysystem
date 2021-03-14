@@ -101,7 +101,7 @@
         mypython.overlay
         myjupyter.overlay
 
-        (import ./overlay.nix {})
+        (import ./overlay.nix)
       ];
 
       overlay = nixpkgs.lib.composeManyExtensions self.overlays;
