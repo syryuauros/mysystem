@@ -1,3 +1,4 @@
+# This home configuration file is common for all accounts on a GNU/Linux machine
 { config, pkgs , lib , ... }:
 
 {
@@ -27,8 +28,6 @@
     ../../services/redshift
     ../../services/uim-korean
   ];
-
-  # fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
 
@@ -64,4 +63,12 @@
 
   ] ++ myfonts-collection;
 
+  xdg.configFile."mimeapps.list".text = ''
+    [Default Applications]
+    text/html=org.qutebrowser.qutebrowser.desktop
+    x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
+    x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
+    x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop
+    x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop
+  '';
 }
