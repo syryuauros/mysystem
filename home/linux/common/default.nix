@@ -55,15 +55,15 @@
     tree                 # display files in a tree view
     xclip                # clipboard support (also for neovim)
 
-    kcolorchooser
-    nomacs
-
     extra-monitor
     restart-xmonad
-    gnome3.nautilus
 
+    kcolorchooser
+    nomacs
     zoom-us
     google-chrome
+    gnome3.nautilus
+    libreoffice
 
   ] ++ myfonts-collection;
 
