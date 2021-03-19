@@ -24,15 +24,8 @@
 
   '';
 
-  home.packages = with pkgs; [
-    zoom-us
-  ];
-
   home.file = {
-
     ".config/xmobar/xmobarrc".source = ./xmobar/xmobarrc;
-    ".config/xmobar/xpm".source = ./xmobar/xpm;
-
   };
 
 }

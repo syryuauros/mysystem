@@ -30,16 +30,16 @@
 
   '';
 
+
   home.packages = with pkgs; [
-    myhaskell-xmonad
+    myhaskell-full
+    mypython-full
+    myjupyter-full
   ];
 
 
   home.file = {
-
     ".config/xmobar/xmobarrc".source = ./xmobar/xmobarrc;
-    ".config/xmobar/xpm".source = ./xmobar/xpm;
-
   };
 
 }

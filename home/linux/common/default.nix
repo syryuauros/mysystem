@@ -29,6 +29,7 @@
     ../../services/uim-korean
   ];
 
+
   home.packages = with pkgs; [
 
     networkmanager_dmenu   # networkmanager on dmenu
@@ -61,9 +62,11 @@
     restart-xmonad
     gnome3.nautilus
 
+    zoom-us
     google-chrome
 
   ] ++ myfonts-collection;
+
 
   xdg.configFile."mimeapps.list".text = ''
     [Default Applications]
@@ -73,4 +76,10 @@
     x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop
     x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop
   '';
+
+
+  home.file = {
+    ".config/xpm".source = ./xpm;
+  };
+
 }

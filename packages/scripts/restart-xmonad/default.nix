@@ -1,7 +1,10 @@
-{ runCommand }:
+{ runCommand }: let
 
-runCommand "restart-xmonad" { buidInputs = [ ]; } ''
+  name = "restart-xmonad";
+
+in runCommand name { buidInputs = [ ]; } ''
   mkdir -p $out/bin
-  cp ${./restart-xmonad.sh} $out/bin/restart-xmonad.sh
-  patchShebangs $out/bin/restart-xmonad.sh
+  outfile=$out/bin/${name}.sh
+  cp ${./. + "/${name}.sh"} $outfile
+  patchShebangs $outfile
 ''

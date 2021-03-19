@@ -1,7 +1,10 @@
-{ runCommand }:
+{ runCommand }: let
 
-runCommand "extra-xmonad" { buidInputs = [ ]; } ''
+  name = "extra-monitor";
+
+in runCommand name { buidInputs = [ ]; } ''
   mkdir -p $out/bin
-  cp ${./extra-monitor.sh} $out/bin/extra-monitor.sh
-  patchShebangs $out/bin/extra-monitor.sh
+  outfile=$out/bin/${name}.sh
+  cp ${./. + "/${name}.sh"} $outfile
+  patchShebangs $outfile
 ''

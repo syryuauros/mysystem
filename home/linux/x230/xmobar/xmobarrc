@@ -9,7 +9,7 @@ Config { font            = "xft:Mononoki Nerd Font:weight=bold:pixelsize=11:anti
        , bgColor         = "#282c34"
        , fgColor         = "#ff6c6b"
        , position        = Top
-       , iconRoot        = "/home/jj/.config/xmobar/xpm/"  -- default: "."
+       , iconRoot        = "/home/jj/.config/xpm/"  -- default: "."
 
        -- layout
        , sepChar =  "%"   -- delineator between plugin names and straight text
