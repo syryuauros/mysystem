@@ -61,6 +61,8 @@
     restart-xmonad
     gnome3.nautilus
 
+    google-chrome
+
   ] ++ myfonts-collection;
 
   xdg.configFile."mimeapps.list".text = ''

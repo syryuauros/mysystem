@@ -43,27 +43,27 @@ Config { font            = "xft:Mononoki Nerd Font:weight=bold:pixelsize=11:anti
                       Run Date "<fc=#46d9ff>  %b %d %Y (%H:%M)</fc>" "date" 50
 
                       -- battery monitor
-                    , Run Battery       [ "--template" , "Batt: <acstatus>"
-                                        , "--Low"      , "10"        -- units: %
-                                        , "--High"     , "80"        -- units: %
-                                        , "--low"      , "darkred"
-                                        , "--normal"   , "darkorange"
-                                        , "--high"     , "darkgreen"
+                    , Run Battery       [ "--template" , "<fc=#b194bb>Batt: <acstatus></fc>"
+                                        -- , "--Low"      , "10"        -- units: %
+                                        -- , "--High"     , "80"        -- units: %
+                                        -- , "--low"      , "darkred"
+                                        -- , "--normal"   , "darkorange"
+                                        -- , "--high"     , "darkgreen"
 
                                         , "--" -- battery specific options
                                                   -- discharging status
                                                   , "-o"	, "<left>% (<timeleft>)"
                                                   -- AC "on" status
-                                                  , "-O"	, "<fc=#dAA520>Charging</fc>"
+                                                  , "-O"	, "Charging"
                                                   -- charged status
-                                                  , "-i"	, "<fc=#006000>Charged</fc>"
+                                                  , "-i"	, "Charged"
                                         ] 50
 
                       -- Network up and down
                     , Run Network "wlp3s0" ["-t", " <rx>kb   <tx>kb"] 20
 
                     -- network activity monitor (dynamic interface resolution)
-                    , Run DynNetwork     [ "--template" , "<fc=#98be65><dev> <tx>kB/s|<rx>kB/s</fc>"
+                    , Run DynNetwork     [ "--template" , "<fc=#98be65>  <tx>kB/s  <rx>kB/s</fc>"
                                          -- , "--Low"      , "1000"       -- units: B/s
                                          -- , "--High"     , "5000"       -- units: B/s
                                          -- , "--low"      , "green"

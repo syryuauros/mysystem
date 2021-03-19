@@ -49,6 +49,7 @@
               "broadcom-sta"
               "cudatoolkit"
               "zoom"
+              "google-chrome"
             ];
           inherit hostname;
         };
