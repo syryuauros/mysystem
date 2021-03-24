@@ -32,6 +32,7 @@
   home.packages = with pkgs; [
     file
     fd
+    unzip
     ncdu
     du-dust
     exa
