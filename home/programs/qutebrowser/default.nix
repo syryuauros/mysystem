@@ -1,10 +1,26 @@
+{ pkgs, ... }:
+
 {
+
+  xdg.configFile."qutebrowser/dracula".source = pkgs.dracula-qutebrowser;
+
   programs.qutebrowser = {
     enable = true;
     extraConfig = ''
 
-      config.load_autoconfig(False)
-      config.set("colors.webpage.darkmode.enabled", True)
+      # dracula dark theme
+      import dracula.draw
+      dracula.draw.blood(c, {
+          'spacing': {
+              'vertical': 6,
+              'horizontal': 8
+          }
+      })
+
+      # if this is enabled, then the 'xd' binding does not work.
+      # config.set("colors.webpage.darkmode.enabled", True)
+      config.bind('xd', 'config-cycle colors.webpage.darkmode.enabled ;; restart')
+
       config.set("content.javascript.can_access_clipboard", True)
 
       config.bind('M', 'hint links spawn mpv {hint-url}')
@@ -13,7 +29,6 @@
       config.bind('xb', 'config-cycle statusbar.show always never')
       config.bind('xt', 'config-cycle tabs.show always never')
       config.bind('xx', 'config-cycle statusbar.show always never;; config-cycle tabs.show always never')
-      config.bind('xd', 'config-cycle colors.webpage.darkmode.enabled ;; restart')
 
     '';
   };

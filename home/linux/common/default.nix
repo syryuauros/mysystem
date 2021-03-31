@@ -65,6 +65,8 @@
     gnome3.nautilus
     libreoffice
 
+    dracula-qutebrowser
+
   ] ++ myfonts-collection;
 
 

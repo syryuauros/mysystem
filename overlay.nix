@@ -3,6 +3,7 @@ final: prev: with final;
 
   extra-monitor = callPackage ./packages/scripts/extra-monitor {};
   restart-xmonad = callPackage ./packages/scripts/restart-xmonad {};
+  dracula-qutebrowser = callPackage ./packages/dracula-qutebrowser {};
 
   mytex = texlive.combine {
     inherit (texlive)
