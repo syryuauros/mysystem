@@ -77,6 +77,7 @@
     x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
     x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop
     x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop
+    application/pdf=org.pwmt.zathura.desktop
   '';
 
 
