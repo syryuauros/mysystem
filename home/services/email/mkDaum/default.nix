@@ -73,11 +73,15 @@ in {
 
   programs.msmtp.extraConfig = ''
     account haedosa
+    auth on
+    from jj@haedosa.xyz
     host smtp.daum.net
     port 465
-    protocol smtp
+    tls on
+    tls_starttls off
+    tls_trust_file /etc/ssl/certs/ca-certificates.crt
     user dontorzz
-    passwordeval "pass email/jj@haedosa.xyz"
+    passwordeval pass email/jj@haedosa.xyz
   '';
 
 }
