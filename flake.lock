@@ -735,11 +735,11 @@
         "stable": "stable"
       },
       "locked": {
-        "lastModified": 1617975016,
-        "narHash": "sha256-PjHnpum0+E8CzBw73apN/KnZs96QYqs60fsJZqe/LjM=",
+        "lastModified": 1618556560,
+        "narHash": "sha256-ZjvtCjeC4NWVSNOm5iOwdTXYFrBfU9aaDTtnGxR0Pgo=",
         "ref": "master",
-        "rev": "8001d62b2f4fbefa99d913d6905a1b0a57c3f933",
-        "revCount": 23,
+        "rev": "85dcf741d9aa668d5d8e27635cd4ce382e252069",
+        "revCount": 24,
         "type": "git",
         "url": "ssh://git@gitlab.com/wavetojj/myemacs.git"
       },
