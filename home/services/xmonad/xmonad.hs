@@ -34,15 +34,15 @@ import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, Toggl
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
-import           XMonad.Hooks.ManageHelpers            ( (-?>)
-                                                       , composeOne
-                                                       , doCenterFloat
-                                                       , doFullFloat
-                                                       , isDialog
-                                                       , isFullscreen
-                                                       , isInProperty
-                                                       )
-import           XMonad.Hooks.InsertPosition           ( Focus(Newer)
+import XMonad.Hooks.ManageHelpers            ( (-?>)
+                                             , composeOne
+                                             , doCenterFloat
+                                             , doFullFloat
+                                             , isDialog
+                                             , isFullscreen
+                                             , isInProperty
+                                             )
+import XMonad.Hooks.InsertPosition           ( Focus(Newer)
                                                        , Position(Below)
                                                        , insertPosition
                                                        )
@@ -55,6 +55,7 @@ import XMonad.Layout.TwoPane
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.LayoutCombinators (JumpToLayout(..))
+import XMonad.Layout.Accordion
 
     -- Layouts modifiers
 import XMonad.Layout.LayoutModifier
@@ -380,6 +381,8 @@ threeCol = renamed [Replace "threeCol"]
 --          -- I cannot add spacing to this layout because it will
 --          -- add spacing between window and tabs which looks bad.
 --          $ tabbed shrinkText myTabTheme
+accordion = renamed [Replace "accordion"]
+          $ Accordion
 
 -- setting colors for tabs layout and tabs sublayout.
 myTabTheme = def { fontName            = myFont
@@ -413,6 +416,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  ||| threeCol
                                  ||| grid
                                  ||| noBorders monocle
+                                 ||| accordion
                                  -- ||| twopane
                                  --- ||| noBorders tabs
                                  --- ||| spirals
@@ -645,6 +649,7 @@ myKeys home =
     , ("M-C-3"        , sendMessage FirstLayout >> replicateM_ 2 (sendMessage NextLayout))
     , ("M-C-4"        , sendMessage FirstLayout >> replicateM_ 3 (sendMessage NextLayout))
     , ("M-C-5"        , sendMessage FirstLayout >> replicateM_ 4 (sendMessage NextLayout))
+    , ("M-C-6"        , sendMessage FirstLayout >> replicateM_ 5 (sendMessage NextLayout))
 
     , ("M-C-M1-<Up>"  , sendMessage Arrange)
     , ("M-C-M1-<Down>", sendMessage DeArrange)
