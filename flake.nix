@@ -50,6 +50,7 @@
               "cudatoolkit"
               "zoom"
               "google-chrome"
+              "anydesk"
             ];
           inherit hostname;
         };
