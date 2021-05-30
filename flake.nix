@@ -163,6 +163,17 @@
           ##       ^ this seem to make wifi not work
         };
 
+        l14 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = mkNixosModules {
+            user     = "jj";
+            hostname = "l14";
+            machine  = ./machines/linux/l14;
+            home     = ./home/linux/l14;
+          };
+        };
+
+
         mp = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = mkNixosModules {
@@ -228,6 +239,16 @@
           configuration = {
             imports = [ ./home/linux/x230 ];
             nixpkgs = nixpkgsConfig "x230";
+          };
+        };
+
+        l14 = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          homeDirectory = "/home/jj";
+          username = "jj";
+          configuration = {
+            imports = [ ./home/linux/l14 ];
+            nixpkgs = nixpkgsConfig "l14";
           };
         };
 
