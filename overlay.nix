@@ -5,6 +5,13 @@ final: prev: with final;
   restart-xmonad = callPackage ./packages/scripts/restart-xmonad {};
   dracula-qutebrowser = callPackage ./packages/dracula-qutebrowser {};
 
+  linuxPackages = prev.linuxPackages.extend (super: self: {
+    rtw89 = self.callPackage ./packages/rtw89 {};
+  });
+  linuxPackages_latest = prev.linuxPackages_latest.extend (super: self: {
+    rtw89 = self.callPackage ./packages/rtw89 {};
+  });
+
   mytex = texlive.combine {
     inherit (texlive)
       collection-basic
