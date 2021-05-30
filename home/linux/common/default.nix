@@ -39,6 +39,7 @@
     xorg.xrandr            # display manager (X Resize and Rotate protocol)
     xdotool
     trayer
+    pciutils
 
     acpilight     # xbacklight drop-in replacement; adjust display brightness
     redshift      # adjust display light temperature
