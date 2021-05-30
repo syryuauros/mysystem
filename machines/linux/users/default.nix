@@ -15,6 +15,7 @@
 
   users.users.web = {
     isNormalUser = false;
+    isSystemUser = true;
     uid = 1001;
     home = "/home/web";
     extraGroups = [ ];

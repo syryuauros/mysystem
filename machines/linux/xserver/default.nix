@@ -8,7 +8,7 @@
 
   services = {
 
-    gnome3.gnome-keyring.enable = true;
+    gnome.gnome-keyring.enable = true;
     upower.enable = true;
 
     dbus = {

@@ -4,8 +4,10 @@
 
   programs.htop = {
     enable = true;
-    sortDescending = true;
-    sortKey = "PERCENT_CPU";
+    settings = {
+      sortDescending = true;
+      sortKey = "PERCENT_CPU";
+    };
   };
 
 }
