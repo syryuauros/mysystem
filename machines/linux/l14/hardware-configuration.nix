@@ -9,6 +9,7 @@
     ];
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
+  hardware.firmware = with pkgs; [ rtw89-firmware ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ehci_pci" "usb_storage" "sd_mod" "sdhci_pci" ];

@@ -5,12 +5,13 @@ final: prev: with final;
   restart-xmonad = callPackage ./packages/scripts/restart-xmonad {};
   dracula-qutebrowser = callPackage ./packages/dracula-qutebrowser {};
 
-  linuxPackages = prev.linuxPackages.extend (super: self: {
+  linuxPackages = prev.linuxPackages.extend (self: super: {
     rtw89 = self.callPackage ./packages/rtw89 {};
   });
-  linuxPackages_latest = prev.linuxPackages_latest.extend (super: self: {
+  linuxPackages_latest = prev.linuxPackages_latest.extend (self: super: {
     rtw89 = self.callPackage ./packages/rtw89 {};
   });
+  rtw89-firmware = callPackage ./packages/rtw89-firmware {};
 
   mytex = texlive.combine {
     inherit (texlive)
