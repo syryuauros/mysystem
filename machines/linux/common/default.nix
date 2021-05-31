@@ -9,6 +9,7 @@
     ../services/blueman
     ../services/ssh
     ../services/geoclue2
+    ../services/tailscale
     ../hardware/acpilight
     ../hardware/audio
   ];
