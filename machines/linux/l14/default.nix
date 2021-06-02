@@ -28,6 +28,7 @@
     interfaces.enp2s0f0.useDHCP = true;
   };
 
+  services.xserver.videoDrivers = [ "amdgpu" ];
   services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
 
   # Configure network proxy if necessary
