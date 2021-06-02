@@ -19,15 +19,22 @@
 
       "mp" = {
         forwardX11 = true;
-        hostname = "192.168.0.118";
+        hostname = "100.109.194.18";
         user = "jj";
       };
 
       "x230" = {
         forwardX11 = true;
-        hostname = "192.168.0.105";
+        hostname = "100.88.21.60";
         user = "jj";
       };
+
+      "l14" = {
+        forwardX11 = true;
+        hostname = "100.72.169.29";
+        user = "jj";
+      };
+
 
       "mx9366" = {
         forwardX11 = true;
