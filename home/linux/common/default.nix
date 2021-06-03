@@ -65,6 +65,7 @@
     google-chrome
     gnome3.nautilus
     libreoffice
+    vlc
 
     dracula-qutebrowser
 
