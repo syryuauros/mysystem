@@ -6,8 +6,8 @@
     ../../common
     # ./bootstrap.nix
   ] ++ [
-    ./../services/skhd
-    ./../services/yabai
+    # ./../services/skhd
+    # ./../services/yabai
     # ./../services/spacebar
     ./../services/emacs
   ] ++ lib.filter lib.pathExists [ ./private.nix ];

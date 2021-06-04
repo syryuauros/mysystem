@@ -53,8 +53,6 @@
     myemacs
     myvim
     mytex
-
-    anydesk
   ];
 
   home.sessionVariables = {

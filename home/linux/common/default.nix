@@ -68,6 +68,7 @@
     vlc
 
     dracula-qutebrowser
+    anydesk
 
   ] ++ myfonts-collection;
 
