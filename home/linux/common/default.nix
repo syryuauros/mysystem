@@ -37,6 +37,7 @@
     xcape                  # keymaps modifier
     xorg.xkbcomp           # keymaps modifier
     xorg.xrandr            # display manager (X Resize and Rotate protocol)
+    arandr
     xdotool
     trayer
     pciutils
