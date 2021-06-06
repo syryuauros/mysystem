@@ -29,6 +29,7 @@
   };
 
   services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.xkbOptions = "caps:ctrl_modifier";
   # services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
 
   # Configure network proxy if necessary

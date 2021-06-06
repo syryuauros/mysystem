@@ -26,8 +26,8 @@
     xinput --set-prop "SynPS/2 Synaptics TouchPad" 322 1
     xinput --set-prop "TPPS/2 IBM TrackPoint" 322 1
 
-    # ${pkgs .xorg.xkbcomp}/bin/setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
-    ${pkgs .xorg.xkbcomp}/bin/setxkbmap -option caps:ctrl_modifier
+    # ${pkgs.xorg.xkbcomp}/bin/setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
+    ${pkgs.xorg.xkbcomp}/bin/setxkbmap -option caps:ctrl_modifier
 
   '';
 
