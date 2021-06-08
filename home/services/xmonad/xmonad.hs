@@ -150,7 +150,6 @@ myNormColor :: String
 myNormColor   = "#282c34"  -- Border color of normal windows
 
 myFocusColor :: String
--- myFocusColor  = "#906cff"  -- Border color of focused windows
 myFocusColor  = "#fffefe"  -- Border color of focused windows
 
 altMask :: KeyMask
@@ -622,12 +621,14 @@ myKeys home =
     -- Workspace s
     , ("M-<Right>"    , moveTo Next nonNSP)                         -- moveTo next workspace
     , ("M-<Left>"     , moveTo Prev nonNSP)                         -- moveTo previous workspace
-    , ("M-C-<Right>"  , nextScreen)                                 -- Switch focus to next monitor
+    , ("M-s"          , prevScreen)                                 -- Switch focus to prev monitor
+    , ("M-d"          , nextScreen)                                 -- Switch focus to next monitor
     , ("M-C-<Left>"   , prevScreen)                                 -- Switch focus to prev monitor
-    , ("M-S-<Right>"  , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws
-    , ("M-S-<Left>"   , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
+    , ("M-C-<Right>"  , nextScreen)                                 -- Switch focus to next monitor
     , ("M-C-l"        , nextScreen)                                 -- Switch focus to next monitor
     , ("M-C-h"        , prevScreen)                                 -- Switch focus to prev monitor
+    , ("M-S-<Right>"  , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws
+    , ("M-S-<Left>"   , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
     , ("M-S-l"        , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws
     , ("M-S-h"        , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
 
