@@ -614,7 +614,8 @@ myKeys home =
     , ("M-S-k"        , windows W.swapUp)       -- Swap focused window with prev window
     , ("M-S-<Tab>"    , rotSlavesDown)          -- Rotate all windows except master and keep focus in place
     , ("M-C-<Tab>"    , rotAllDown)             -- Rotate all the windows in the current stack
-    , ("M-a"          , toggleFocus)  -- Move focus to the master window
+    , ("M-g"          , toggleFocus)            -- Move focus to the lastly focused
+    , ("M-S-g"        , swapWithLast)           -- Move the focused to the lastly focused
 
     -- Kill windows
     , ("M-S-c"        , kill1)                  -- Kill the currently focused client
