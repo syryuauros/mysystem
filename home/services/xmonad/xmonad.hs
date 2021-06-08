@@ -34,6 +34,7 @@ import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, Toggl
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.RefocusLast
 import XMonad.Hooks.ManageHelpers            ( (-?>)
                                              , composeOne
                                              , doCenterFloat
@@ -613,6 +614,7 @@ myKeys home =
     , ("M-S-k"        , windows W.swapUp)       -- Swap focused window with prev window
     , ("M-S-<Tab>"    , rotSlavesDown)          -- Rotate all windows except master and keep focus in place
     , ("M-C-<Tab>"    , rotAllDown)             -- Rotate all the windows in the current stack
+    , ("M-a"          , toggleFocus)  -- Move focus to the master window
 
     -- Kill windows
     , ("M-S-c"        , kill1)                  -- Kill the currently focused client
@@ -761,7 +763,7 @@ main = do
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
-        , layoutHook         = showWName' myShowWNameTheme myLayoutHook
+        , layoutHook         = refocusLastLayoutHook $ showWName' myShowWNameTheme myLayoutHook
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
