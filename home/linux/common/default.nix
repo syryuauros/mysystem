@@ -84,6 +84,11 @@
     application/pdf=org.pwmt.zathura.desktop
   '';
 
+  xsession.initExtra = ''
+    # disable the middle button of Lenovo TrackPoint Keyboard II
+    xinput set-button-map "Lenovo TrackPoint Keyboard II Mouse" 1 0 3
+  '';
+
 
   home.file = {
     ".config/xpm".source = ./xpm;
