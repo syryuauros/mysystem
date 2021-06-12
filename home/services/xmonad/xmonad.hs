@@ -614,7 +614,10 @@ myKeys home =
     , ("M-C-M1-l"     , spawn screenLocker)
     , ("M-C-M1-f"     , spawn "flameshot full -p ~/captures/")
     , ("M-C-M1-c"     , spawn "flameshot gui -p ~/captures/")
-    -- , ("M-b"          , spawn (myBrowser ++ " www.youtube.com/c/DistroTube/"))
+
+    -- boring windoes
+    , ("M-b"          , B.markBoring)
+    , ("M-C-b"        , B.clearBoring)
     -- , ("M-S-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
     -- , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
     -- , ("M-S-<Return>", spawn "rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
