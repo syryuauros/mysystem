@@ -709,8 +709,10 @@ myKeys home =
     , ("M-M1-m"       , withFocused (sendMessage . MergeAll))
     , ("M-M1-u"       , withFocused (sendMessage . UnMerge))
     , ("M-M1-/"       , withFocused (sendMessage . UnMergeAll))
-    , ("M-M1-,"       , onGroup W.focusUp')      -- Switch focus to next tab
-    , ("M-M1-."       , onGroup W.focusDown')    -- Switch focus to prev tab
+    -- , ("M-M1-,"       , onGroup W.focusUp')      -- Switch focus to next tab
+    -- , ("M-M1-."       , onGroup W.focusDown')    -- Switch focus to prev tab
+    , ("M-M1-,"       , onGroup W.focusDown')    -- Switch focus to prev tab
+    , ("M-M1-."       , onGroup W.focusUp')      -- Switch focus to next tab
 
     -- Scratchpads
     , ("M-C-<Return>" , namedScratchpadAction myScratchPads "termSP")
