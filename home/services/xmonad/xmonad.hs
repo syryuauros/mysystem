@@ -1,5 +1,5 @@
   -- Base
-import XMonad
+import XMonad hiding ((|||))
 import System.Directory
 import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
@@ -55,7 +55,7 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.TwoPane
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.LayoutCombinators (JumpToLayout(..))
+import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.Accordion
 
     -- Layouts modifiers
@@ -360,13 +360,13 @@ grid     = renamed [Replace "grid"]
          $ limitWindows 12
          $ mySpacing 4
          $ Grid (16/10)
--- spirals  = renamed [Replace "spirals"]
---          $ windowNavigation
---          $ addTabs shrinkText myTabTheme
---          $ B.boringWindows
---          $ subLayout [] (smartBorders Simplest)
---          $ mySpacing' 2
---          $ spiral (6/7)
+spirals  = renamed [Replace "spirals"]
+         $ windowNavigation
+         $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
+         $ subLayout [] (smartBorders Simplest)
+         $ mySpacing' 2
+         $ spiral (6/7)
 threeCol = renamed [Replace "threeCol"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
@@ -427,16 +427,16 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                $ myDefaultLayout
              where
                myDefaultLayout =     tall
-                                 ||| magnify
-                                 ||| threeCol
-                                 ||| grid
                                  ||| noBorders monocle
+                                 ||| grid
+                                 ||| threeCol
+                                 ||| spirals
+                                 ||| magnify
                                  ||| accordion
-                                 -- ||| twopane
-                                 --- ||| noBorders tabs
-                                 --- ||| spirals
                                  --- ||| floats
                                  --- ||| threeRow
+                                 --- ||| noBorders tabs
+                                 --- ||| twopane
 
 myWorkspaces :: [String]
 myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
@@ -667,14 +667,15 @@ myKeys home =
     , ("M-S-]"        , incScreenSpacing 1)         -- Increase screen spacing
 
     -- Layouts
-    , ("M-<Space>"    , sendMessage NextLayout)     -- Switch to next layout
-    , ("M-S-<Space>"  , sendMessage FirstLayout)
-    , ("M-C-1"        , sendMessage FirstLayout)
-    , ("M-C-2"        , sendMessage FirstLayout >> replicateM_ 1 (sendMessage NextLayout))
-    , ("M-C-3"        , sendMessage FirstLayout >> replicateM_ 2 (sendMessage NextLayout))
-    , ("M-C-4"        , sendMessage FirstLayout >> replicateM_ 3 (sendMessage NextLayout))
-    , ("M-C-5"        , sendMessage FirstLayout >> replicateM_ 4 (sendMessage NextLayout))
-    , ("M-C-6"        , sendMessage FirstLayout >> replicateM_ 5 (sendMessage NextLayout))
+    , ("M-<Space> <Space>"    , sendMessage NextLayout)     -- Switch to next layout
+    -- , ("M-S-<Space>"  , sendMessage FirstLayout)
+    , ("M-<Space> 1"       , sendMessage $ JumpToLayout "tall")
+    , ("M-<Space> 2"       , sendMessage $ JumpToLayout "monocle")
+    , ("M-<Space> 3"       , sendMessage $ JumpToLayout "grid")
+    , ("M-<Space> 4"       , sendMessage $ JumpToLayout "threeCol")
+    , ("M-<Space> 5"       , sendMessage $ JumpToLayout "spirals")
+    , ("M-<Space> 6"       , sendMessage $ JumpToLayout "magnify")
+    , ("M-<Space> 7"       , sendMessage $ JumpToLayout "accordion")
 
     , ("M-C-M1-<Up>"  , sendMessage Arrange)
     , ("M-C-M1-<Down>", sendMessage DeArrange)
