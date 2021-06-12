@@ -72,6 +72,7 @@ import XMonad.Layout.Simplest
 import XMonad.Layout.Spacing
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.WindowNavigation
+import qualified XMonad.Layout.BoringWindows as B
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
@@ -318,6 +319,7 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 tall     = renamed [Replace "tall"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
          $ subLayout [] Simplest -- (smartBorders Simplest)
          $ limitWindows 12
          $ mySpacing 4
@@ -332,6 +334,7 @@ tall     = renamed [Replace "tall"]
 magnify  = renamed [Replace "magnify"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
          $ subLayout [] Simplest
          $ magnifier
          $ limitWindows 12
@@ -340,16 +343,19 @@ magnify  = renamed [Replace "magnify"]
 monocle  = renamed [Replace "monocle"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
          $ subLayout [] (smartBorders Simplest)
          $ limitWindows 20 Full
 floats   = renamed [Replace "floats"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
          $ subLayout [] Simplest
          $ limitWindows 20 simplestFloat
 grid     = renamed [Replace "grid"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
          $ subLayout [] Simplest
          $ limitWindows 12
          $ mySpacing 4
@@ -357,12 +363,14 @@ grid     = renamed [Replace "grid"]
 -- spirals  = renamed [Replace "spirals"]
 --          $ windowNavigation
 --          $ addTabs shrinkText myTabTheme
+--          $ B.boringWindows
 --          $ subLayout [] (smartBorders Simplest)
 --          $ mySpacing' 2
 --          $ spiral (6/7)
 threeCol = renamed [Replace "threeCol"]
          $ windowNavigation
          $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
          $ subLayout [] Simplest
          $ limitWindows 7
          $ mySpacing 4
@@ -370,6 +378,7 @@ threeCol = renamed [Replace "threeCol"]
 -- threeRow = renamed [Replace "threeRow"]
 --          $ windowNavigation
 --          $ addTabs shrinkText myTabTheme
+--          $ B.boringWindows
 --          $ subLayout [] (smartBorders Simplest)
 --          $ limitWindows 7
 --          $ mySpacing' 2
@@ -382,6 +391,12 @@ threeCol = renamed [Replace "threeCol"]
 --          -- add spacing between window and tabs which looks bad.
 --          $ tabbed shrinkText myTabTheme
 accordion = renamed [Replace "accordion"]
+          $ windowNavigation
+          $ addTabs shrinkText myTabTheme
+          $ B.boringWindows
+          $ subLayout [] Simplest
+          $ limitWindows 7
+          $ mySpacing 4
           $ Accordion
 
 -- setting colors for tabs layout and tabs sublayout.
@@ -606,9 +621,12 @@ myKeys home =
 
     -- Windows navigation
     , ("M-<Return>"   , promote)                -- Moves focused window to master, others maintain order
-    , ("M-m"          , windows W.focusMaster)  -- Move focus to the master window
-    , ("M-j"          , windows W.focusDown)    -- Move focus to the next window
-    , ("M-k"          , windows W.focusUp)      -- Move focus to the prev window
+    -- , ("M-m"          , windows W.focusMaster)  -- Move focus to the master window
+    -- , ("M-j"          , windows W.focusDown)    -- Move focus to the next window
+    -- , ("M-k"          , windows W.focusUp)      -- Move focus to the prev window
+    , ("M-m"          , B.focusMaster)             -- Move focus to the master window, skipiping hidden windows
+    , ("M-j"          , B.focusDown)               -- Move focus to the next window, skipiping hidden windows
+    , ("M-k"          , B.focusUp)                 -- Move focus to the prev window, skipiping hidden windows
     , ("M-S-m"        , windows W.swapMaster)   -- Swap the focused window and the master window
     , ("M-S-j"        , windows W.swapDown)     -- Swap focused window with next window
     , ("M-S-k"        , windows W.swapUp)       -- Swap focused window with prev window
@@ -687,8 +705,8 @@ myKeys home =
     , ("M-M1-m"       , withFocused (sendMessage . MergeAll))
     , ("M-M1-u"       , withFocused (sendMessage . UnMerge))
     , ("M-M1-/"       , withFocused (sendMessage . UnMergeAll))
-    , ("M-M1-."       , onGroup W.focusUp')    -- Switch focus to next tab
-    , ("M-M1-,"       , onGroup W.focusDown')  -- Switch focus to prev tab
+    , ("M-M1-,"       , onGroup W.focusUp')      -- Switch focus to next tab
+    , ("M-M1-."       , onGroup W.focusDown')    -- Switch focus to prev tab
 
     -- Scratchpads
     , ("M-C-<Return>" , namedScratchpadAction myScratchPads "termSP")
