@@ -7,7 +7,9 @@ import qualified XMonad.StackSet as W
 
     -- Actions
 import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
-import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
+import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..)
+                              , nextScreen, prevScreen
+                              , shiftPrevScreen, shiftNextScreen)
 import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
@@ -142,7 +144,7 @@ screenLocker = "xscreensaver & xscreensaver-command -activate"
 myTrayer :: String
 myTrayer =  "trayer --edge top --align right --widthtype request --padding 1 "
          <> "--SetDockType true --SetPartialStrut true --expand true --transparent true "
-         <> "--alpha 0 --tint 0x282c34  --height 25 --distance 1800 --distancefrom right &"
+         <> "--alpha 0 --tint 0x282c34  --height 20 --distance 0 --distancefrom right &"
 
 
 myBorderWidth :: Dimension
@@ -243,8 +245,8 @@ dtXPKeymap = M.fromList $
      , (xK_a, startOfLine)              -- move to the beginning of the line
      , (xK_e, endOfLine)                -- move to the end of the line
      , (xK_m, deleteString Next)        -- delete a character foward
-     , (xK_b, moveCursor Prev)          -- move cursor forward
-     , (xK_f, moveCursor Next)          -- move cursor backward
+     , (xK_k, moveCursor Prev)          -- move cursor forward
+     , (xK_j, moveCursor Next)          -- move cursor backward
      , (xK_BackSpace, killWord Prev)    -- kill the previous word
      , (xK_y, pasteString)              -- paste a string
      , (xK_g, quit)                     -- quit out of prompt
@@ -274,36 +276,7 @@ dtXPKeymap = M.fromList $
      , (xK_Escape, quit)
      ]
 
-archwiki, ebay, news, reddit, urban, yacy :: S.SearchEngine
 
-archwiki = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
-ebay     = S.searchEngine "ebay" "https://www.ebay.com/sch/i.html?_nkw="
-news     = S.searchEngine "news" "https://news.google.com/search?q="
-reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
-urban    = S.searchEngine "urban" "https://www.urbandictionary.com/define.php?term="
-yacy     = S.searchEngine "yacy" "http://localhost:8090/yacysearch.html?query="
-
--- This is the list of search engines that I want to use. Some are from
--- XMonad.Actions.Search, and some are the ones that I added above.
-searchList :: [(String, S.SearchEngine)]
-searchList = [ ("a", archwiki)
-             , ("d", S.duckduckgo)
-             , ("e", ebay)
-             , ("g", S.google)
-             , ("h", S.hoogle)
-             , ("i", S.images)
-             , ("n", news)
-             , ("r", reddit)
-             , ("s", S.stackage)
-             , ("t", S.thesaurus)
-             , ("v", S.vocabulary)
-             , ("b", S.wayback)
-             , ("u", urban)
-             , ("w", S.wikipedia)
-             , ("y", S.youtube)
-             , ("S-y", yacy)
-             , ("z", S.amazon)
-             ]
 
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -598,26 +571,36 @@ myLogHook = fadeInactiveLogHook fadeAmount
 myKeys :: String -> [(String, X ())]
 myKeys home =
     -- Xmonad
-    [ -- ("M-q"          , spawn "xmonad --recompile; xmonad --restart")
-      ("M-q"          , spawn "restart-xmonad.sh")
-    , ("M-S-q"        , io exitSuccess)         -- Quits xmonad
+    [ -- ("M-q"       , spawn "xmonad --recompile; xmonad --restart")
+      ("M-q"       , spawn "restart-xmonad.sh")
+    , ("M-S-q"     , io exitSuccess)         -- Quits xmonad
 
     -- Launch programs
-    , ("M-e"          , spawn myEditor)
-    , ("M-S-e"        , spawn myEmail)
-    , ("M-w"          , spawn myBrowser)
-    , ("M-S-<Return>" , spawn myTerminal)
-    , ("M-p"          , spawn myRofi)
-    , ("M-S-p"        , spawn myDmenu)
-    , ("M-i"          , spawn myTrayer)
-    , ("M-S-i"        , spawn "killall trayer")
-    , ("M-C-M1-l"     , spawn screenLocker)
-    , ("M-C-M1-f"     , spawn "flameshot full -p ~/captures/")
-    , ("M-C-M1-c"     , spawn "flameshot gui -p ~/captures/")
+    , ("M-p"       , spawn myRofi)
+    , ("M-S-p"     , spawn myDmenu)
+    , ("M-a e"     , spawn myEditor)
+    , ("M-a n"     , spawn myEmail)
+    , ("M-a w"     , spawn myBrowser)
+    , ("M-a t"     , spawn myTrayer)
+    , ("M-a y"     , spawn "killall trayer")
+    , ("M-a d"     , spawn "dmenu_run -i -p \"Run: \"")
+    , ("M-a l"     , spawn screenLocker)
+    , ("M-a f"     , spawn "mkdir -p ~/captures; flameshot full -p ~/captures/")
+    , ("M-a c"     , spawn "mkdir -p ~/captures; flameshot gui -p ~/captures/")
 
-    -- boring windoes
-    , ("M-b"          , B.markBoring)
-    , ("M-C-b"        , B.clearBoring)
+    -- Emacs (CTRL-e followed by a key)
+    , ("M-d d", spawn $ myEditor <> " --eval '(dired nil)'")       -- dired emacs file manager
+    , ("M-d s", spawn $ myEditor <> " --eval '(dired \"~/mysystem\")'")       -- dired emacs file manager
+
+    -- open to a website
+    , ("M-o g", safeSpawn myBrowser ["https://goolge.com"])
+    , ("M-o l w", safeSpawn myBrowser ["https://gitlab.com/wavetojj"])
+    , ("M-o l h", safeSpawn myBrowser ["https://gitlab.com/haedosa"])
+    , ("M-o l g", safeSpawn myBrowser ["http://libgen.rs/"])
+    , ("M-o y", safeSpawn myBrowser ["https://youtube.com"])
+    , ("M-o h", safeSpawn myBrowser ["https://hackage.haskell.org/"])
+
+
     -- , ("M-S-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
     -- , ("M-S-<Return>", spawn "dmenu_run -i -p \"Run: \"") -- Dmenu
     -- , ("M-S-<Return>", spawn "rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
@@ -630,31 +613,36 @@ myKeys home =
     , ("M-m"          , B.focusMaster)             -- Move focus to the master window, skipiping hidden windows
     , ("M-j"          , B.focusDown)               -- Move focus to the next window, skipiping hidden windows
     , ("M-k"          , B.focusUp)                 -- Move focus to the prev window, skipiping hidden windows
-    , ("M-S-m"        , windows W.swapMaster)   -- Swap the focused window and the master window
     , ("M-S-j"        , windows W.swapDown)     -- Swap focused window with next window
     , ("M-S-k"        , windows W.swapUp)       -- Swap focused window with prev window
-    , ("M-S-<Tab>"    , rotSlavesDown)          -- Rotate all windows except master and keep focus in place
     , ("M-C-<Tab>"    , rotAllDown)             -- Rotate all the windows in the current stack
+    , ("M-C-S-<Tab>"  , rotSlavesDown)          -- Rotate all windows except master and keep focus in place
     , ("M-n"          , toggleFocus)            -- Move focus to the lastly focused
     , ("M-S-n"        , swapWithLast)           -- Move the focused to the lastly focused
+
+    -- boring windows, which are skipped in navigation
+    , ("M-b"          , B.markBoring)
+    , ("M-C-b"        , B.clearBoring)
 
     -- Kill windows
     , ("M-S-c"        , kill1)                  -- Kill the currently focused client
     , ("M-S-a"        , killAll)                -- Kill all windows on current workspace
 
-    -- Workspace s
-    , ("M-<Right>"    , moveTo Next nonNSP)                         -- moveTo next workspace
-    , ("M-<Left>"     , moveTo Prev nonNSP)                         -- moveTo previous workspace
-    , ("M-s"          , prevScreen)                                 -- Switch focus to prev monitor
-    , ("M-d"          , nextScreen)                                 -- Switch focus to next monitor
-    , ("M-C-<Left>"   , prevScreen)                                 -- Switch focus to prev monitor
-    , ("M-C-<Right>"  , nextScreen)                                 -- Switch focus to next monitor
-    , ("M-C-l"        , nextScreen)                                 -- Switch focus to next monitor
-    , ("M-C-h"        , prevScreen)                                 -- Switch focus to prev monitor
-    , ("M-S-<Right>"  , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws
-    , ("M-S-<Left>"   , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
-    , ("M-S-l"        , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws
-    , ("M-S-h"        , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
+    -- Workspaces
+    , ("M-<Left>"     , moveTo Prev nonNSP)               -- moveTo previous workspace
+    , ("M-<Right>"    , moveTo Next nonNSP)               -- moveTo next workspace
+    , ("M-C-<Left>"   , prevScreen)                       -- Switch focus to prev monitor
+    , ("M-C-<Right>"  , nextScreen)                       -- Switch focus to next monitor
+    , ("M-C-h"        , prevScreen)                       -- Switch focus to prev monitor
+    , ("M-C-l"        , nextScreen)                       -- Switch focus to next monitor
+    , ("M-C-S-<Left>" , shiftPrevScreen >> prevScreen)    -- Shifts focused window to prev monitor and move
+    , ("M-C-S-<Right>", shiftNextScreen >> nextScreen)    -- Shifts focused window to next monitor and move
+    , ("M-C-S-h"      , shiftPrevScreen >> prevScreen)    -- Shifts focused window to prev monitor and move
+    , ("M-C-S-l"      , shiftNextScreen >> nextScreen)    -- Shifts focused window to next monitor and move
+    , ("M-S-<Left>"   , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws and move
+    , ("M-S-<Right>"  , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws and move
+    , ("M-S-h"        , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws and move
+    , ("M-S-l"        , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws and move
 
     -- Floating windows
     , ("M-t"          , withFocused $ windows . W.sink)  -- Push floating window back to tile
@@ -667,26 +655,24 @@ myKeys home =
     , ("M-S-]"        , incScreenSpacing 1)         -- Increase screen spacing
 
     -- Layouts
-    , ("M-<Space> <Space>"    , sendMessage NextLayout)     -- Switch to next layout
-    -- , ("M-S-<Space>"  , sendMessage FirstLayout)
-    , ("M-<Space> 1"       , sendMessage $ JumpToLayout "tall")
-    , ("M-<Space> 2"       , sendMessage $ JumpToLayout "monocle")
-    , ("M-<Space> 3"       , sendMessage $ JumpToLayout "grid")
-    , ("M-<Space> 4"       , sendMessage $ JumpToLayout "threeCol")
-    , ("M-<Space> 5"       , sendMessage $ JumpToLayout "spirals")
-    , ("M-<Space> 6"       , sendMessage $ JumpToLayout "magnify")
-    , ("M-<Space> 7"       , sendMessage $ JumpToLayout "accordion")
+    , ("M-<Space>"    , sendMessage NextLayout)
+    , ("M-` 1"        , sendMessage $ JumpToLayout "tall")
+    , ("M-` 2"        , sendMessage $ JumpToLayout "monocle")
+    , ("M-` 3"        , sendMessage $ JumpToLayout "grid")
+    , ("M-` 4"        , sendMessage $ JumpToLayout "threeCol")
+    , ("M-` 5"        , sendMessage $ JumpToLayout "spirals")
+    , ("M-` 6"        , sendMessage $ JumpToLayout "magnify")
+    , ("M-` 7"        , sendMessage $ JumpToLayout "accordion")
+    , ("M-` b"        , sendMessage $ MT.Toggle NOBORDERS)
+    , ("M-` r"        , sendMessage $ MT.Toggle MIRROR)
+    , ("M-` x"        , sendMessage $ MT.Toggle REFLECTX)
+    , ("M-` y"        , sendMessage $ MT.Toggle REFLECTY)
 
     , ("M-C-M1-<Up>"  , sendMessage Arrange)
     , ("M-C-M1-<Down>", sendMessage DeArrange)
-    , ("M-S-b"        , sendMessage $ MT.Toggle NOBORDERS)
-    , ("M-S-r"        , sendMessage $ MT.Toggle MIRROR)
-    , ("M-S-x"        , sendMessage $ MT.Toggle REFLECTX)
-    , ("M-S-y"        , sendMessage $ MT.Toggle REFLECTY)
     , ("M-f"          , sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts) -- Toggles noborder/full
     , ("M-S-f"        , sendMessage ToggleStruts)
     , ("M-C-f"        , sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
-
 
     -- Increase/decrease windows in the master pane or the stack
     , ("M-,"          , sendMessage (IncMasterN 1))      -- Increase number of clients in master pane
@@ -702,41 +688,22 @@ myKeys home =
 
     -- Sublayouts
     -- This is used to push windows to tabbed sublayouts, or pull them out of it.
-    , ("M-M1-h"       , sendMessage $ pullGroup L)
-    , ("M-M1-l"       , sendMessage $ pullGroup R)
-    , ("M-M1-k"       , sendMessage $ pullGroup U)
-    , ("M-M1-j"       , sendMessage $ pullGroup D)
-    , ("M-M1-m"       , withFocused (sendMessage . MergeAll))
-    , ("M-M1-u"       , withFocused (sendMessage . UnMerge))
-    , ("M-M1-/"       , withFocused (sendMessage . UnMergeAll))
+    , ("M-' h"       , sendMessage $ pullGroup L)
+    , ("M-' l"       , sendMessage $ pullGroup R)
+    , ("M-' k"       , sendMessage $ pullGroup U)
+    -- , ("M-' j"       , sendMessage $ pullGroup D)
+    , ("M-' m"       , withFocused (sendMessage . MergeAll))
+    , ("M-' u"       , withFocused (sendMessage . UnMerge))
+    , ("M-' /"       , withFocused (sendMessage . UnMergeAll))
     -- , ("M-M1-,"       , onGroup W.focusUp')      -- Switch focus to next tab
     -- , ("M-M1-."       , onGroup W.focusDown')    -- Switch focus to prev tab
-    , ("M-M1-,"       , onGroup W.focusDown')    -- Switch focus to prev tab
-    , ("M-M1-."       , onGroup W.focusUp')      -- Switch focus to next tab
+    , ("M-M1-j"       , onGroup W.focusDown')    -- Switch focus to prev tab
+    , ("M-M1-k"       , onGroup W.focusUp')      -- Switch focus to next tab
 
     -- Scratchpads
-    , ("M-C-<Return>" , namedScratchpadAction myScratchPads "termSP")
-    , ("M-C-e"        , namedScratchpadAction myScratchPads "editorSP")
-    , ("M-C-t"        , namedScratchpadAction myScratchPads "htopSP")
-
-    -- Controls for mocp music player (SUPER-u followed by a key)
-    -- , ("M-u p"          , spawn "mocp --play")
-    -- , ("M-u l"          , spawn "mocp --next")
-    -- , ("M-u h"          , spawn "mocp --previous")
-    -- , ("M-u <Space>"    , spawn "mocp --toggle-pause")
-
-    -- Emacs (CTRL-e followed by a key)
-        -- , ("C-e e", spawn "emacsclient -c -a 'emacs'")                            -- start emacs
-        -- , ("C-e b", spawn "emacsclient -c -a 'emacs' --eval '(ibuffer)'")         -- list emacs buffers
-        -- , ("C-e d", spawn "emacsclient -c -a 'emacs' --eval '(dired nil)'")       -- dired emacs file manager
-        -- , ("C-e i", spawn "emacsclient -c -a 'emacs' --eval '(erc)'")             -- erc emacs irc client
-        -- , ("C-e m", spawn "emacsclient -c -a 'emacs' --eval '(mu4e)'")            -- mu4e emacs email client
-        -- , ("C-e n", spawn "emacsclient -c -a 'emacs' --eval '(elfeed)'")          -- elfeed emacs rss client
-        -- , ("C-e s", spawn "emacsclient -c -a 'emacs' --eval '(eshell)'")          -- eshell within emacs
-        -- , ("C-e t", spawn "emacsclient -c -a 'emacs' --eval '(mastodon)'")        -- mastodon within emacs
-        -- , ("C-e v", spawn "emacsclient -c -a 'emacs' --eval '(+vterm/here nil)'") -- vterm within emacs
-        -- -- emms is an emacs audio player. I set it to auto start playing in a specific directory.
-        -- , ("C-e a", spawn "emacsclient -c -a 'emacs' --eval '(emms)' --eval '(emms-play-directory-tree \"~/Music/Non-Classical/70s-80s/\")'")
+    , ("M-z <Return>" , namedScratchpadAction myScratchPads "termSP")
+    , ("M-z e"        , namedScratchpadAction myScratchPads "editorSP")
+    , ("M-z t"        , namedScratchpadAction myScratchPads "htopSP")
 
     , ("M-M1-9" , spawn "xbacklight -inc 5")
     , ("M-M1-8" , spawn "xbacklight -dec 5")
@@ -767,6 +734,40 @@ myKeys home =
       mySelectSearch = S.selectSearchBrowser myBrowser
       nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
       nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
+
+-- This is the list of search engines that I want to use. Some are from
+-- XMonad.Actions.Search, and some are the ones that I added above.
+searchList :: [(String, S.SearchEngine)]
+searchList = [ ("S-a", archwiki)
+             , ("d", S.duckduckgo)
+             , ("e", ebay)
+             , ("g", S.google)
+             , ("h", S.hoogle)
+             , ("i", S.images)
+             , ("n", news)
+             , ("r", reddit)
+             , ("s", S.stackage)
+             , ("t", S.thesaurus)
+             , ("v", S.vocabulary)
+             , ("b", S.wayback)
+             , ("u", urban)
+             , ("w", S.wikipedia)
+             , ("y", S.youtube)
+             , ("S-y", yacy)
+             , ("a", S.amazon)
+             , ("l", libgen)
+             ]
+  where
+    archwiki, ebay, news, reddit, urban, yacy :: S.SearchEngine
+    archwiki = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
+    ebay     = S.searchEngine "ebay" "https://www.ebay.com/sch/i.html?_nkw="
+    news     = S.searchEngine "news" "https://news.google.com/search?q="
+    reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
+    urban    = S.searchEngine "urban" "https://www.urbandictionary.com/define.php?term="
+    yacy     = S.searchEngine "yacy" "http://localhost:8090/yacysearch.html?query="
+    libgen   = S.searchEngine "libgen" "http://libgen.rs/search.php?req="
+
+
 
 main :: IO ()
 main = do
