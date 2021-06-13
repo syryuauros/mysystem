@@ -35,11 +35,16 @@
         user = "jj";
       };
 
-
       "mx9366" = {
         forwardX11 = true;
         hostname = "192.168.0.119";
         user = "jj";
+      };
+
+      "gitdosa" = {
+        hostname = "gitlab.com";
+        user = "git";
+        identityFile = "~/.ssh/id_haedosa";
       };
 
     };
