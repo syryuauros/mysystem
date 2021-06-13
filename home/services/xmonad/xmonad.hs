@@ -622,7 +622,7 @@ myKeys home =
 
     -- boring windows, which are skipped in navigation
     , ("M-b"          , B.markBoring)
-    , ("M-C-b"        , B.clearBoring)
+    , ("M-S-b"        , B.clearBoring)
 
     -- Kill windows
     , ("M-S-c"        , kill1)                  -- Kill the currently focused client
