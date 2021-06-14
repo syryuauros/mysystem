@@ -733,19 +733,25 @@ myKeys home =
 
     -- Sublayouts
     -- This is used to push windows to tabbed sublayouts, or pull them out of it.
-    , ("M-' h"       , sendMessage $ pullGroup L)
-    , ("M-' l"       , sendMessage $ pullGroup R)
-    , ("M-' k"       , sendMessage $ pullGroup U)
-    -- , ("M-' j"       , sendMessage $ pullGroup D)
-    , ("M-' m"       , withFocused (sendMessage . MergeAll))
-    , ("M-' u"       , withFocused (sendMessage . UnMerge))
-    , ("M-' /"       , withFocused (sendMessage . UnMergeAll))
-    -- , ("M-M1-,"       , onGroup W.focusUp')      -- Switch focus to next tab
-    -- , ("M-M1-."       , onGroup W.focusDown')    -- Switch focus to prev tab
+    , ("M-' h"        , sendMessage $ pullGroup L)
+    , ("M-' l"        , sendMessage $ pullGroup R)
+    , ("M-' k"        , sendMessage $ pullGroup U)
+    , ("M-' j"        , sendMessage $ pullGroup D)
+    , ("M-' m"        , withFocused (sendMessage . MergeAll))
+    , ("M-' u"        , withFocused (sendMessage . UnMerge))
+    , ("M-' /"        , withFocused (sendMessage . UnMergeAll))
     , ("M-i"          , onGroup W.focusDown')    -- Switch focus to prev tab
     , ("M-u"          , onGroup W.focusUp')      -- Switch focus to next tab
-    , ("M-M1-k"       , onGroup W.focusDown')    -- Switch focus to prev tab
-    , ("M-M1-j"       , onGroup W.focusUp')      -- Switch focus to next tab
+
+    , ("M-M1-h"       , sendMessage $ pullGroup L)
+    , ("M-M1-l"       , sendMessage $ pullGroup R)
+    , ("M-M1-k"       , sendMessage $ pullGroup U)
+    , ("M-M1-j"       , sendMessage $ pullGroup D)
+    , ("M-M1-m"       , withFocused (sendMessage . MergeAll))
+    , ("M-M1-u"       , withFocused (sendMessage . UnMerge))
+    , ("M-M1-/"       , withFocused (sendMessage . UnMergeAll))
+    , ("M-M1-,"       , onGroup W.focusUp')      -- Switch focus to next tab
+    , ("M-M1-."       , onGroup W.focusDown')    -- Switch focus to prev tab
 
     -- Scratchpads
     , ("M-z <Return>" , namedScratchpadAction myScratchPads "termSP")
