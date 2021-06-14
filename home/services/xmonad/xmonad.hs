@@ -562,11 +562,56 @@ myScratchPads = scratchpadApp <$> [ termSP, htopSP, editorSP, scr, spotify ]
 --                  l = (1.0 - w)/2
 
 ------------------------------------------------------------------------
+
+
+main :: IO ()
+main = do
+    home <- getHomeDirectory
+    -- xmproc <- spawnPipe "xmobar-x230"
+    xmproc <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
+    xmonad $ ewmh def
+        { manageHook = myManageHook
+          -- manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
+        -- Run xmonad commands from command line with "xmonadctl command". Commands include:
+        -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
+        -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run
+        -- "xmonadctl 0" to generate full list of commands written to ~/.xsession-errors.
+        -- To compile xmonadctl: ghc -dynamic xmonadctl.hs
+        , handleEventHook    =   serverModeEventHookCmd
+                             <+> serverModeEventHook
+                             <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
+                             <+> docksEventHook
+        , modMask            = myModMask
+        , terminal           = myTerminal
+        , startupHook        = myStartupHook
+        , layoutHook         = refocusLastLayoutHook $ showWName' myShowWNameTheme myLayoutHook
+        , workspaces         = myWorkspaces
+        , borderWidth        = myBorderWidth
+        , normalBorderColor  = myNormColor
+        , focusedBorderColor = myFocusColor
+        , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
+                        { ppOutput          = hPutStrLn xmproc
+                        , ppCurrent         = xmobarColor "#98be65" "" . wrap "[" "]"                  -- Current workspace in xmobar
+                        , ppVisible         = xmobarColor "#98be65" ""               -- . clickable        -- Visible but not current workspace
+                        , ppHidden          = xmobarColor "#82AAFF" "" . wrap "*" "" -- . clickable   -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""               -- . clickable       -- Hidden workspaces (no windows)
+                        , ppTitle           = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
+                        , ppSep             =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
+                        , ppUrgent          = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
+                        , ppExtras          = [windowCount]                           -- # of windows current workspace
+                        , ppOrder           = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+                        }
+        } `additionalKeysP` myKeys home
+
+
 -- Log Hook:
 
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 1.0
+
+------------------------------------------------------------------------
+-- Key Bindings
 
 myKeys :: String -> [(String, X ())]
 myKeys home =
@@ -697,8 +742,10 @@ myKeys home =
     , ("M-' /"       , withFocused (sendMessage . UnMergeAll))
     -- , ("M-M1-,"       , onGroup W.focusUp')      -- Switch focus to next tab
     -- , ("M-M1-."       , onGroup W.focusDown')    -- Switch focus to prev tab
-    , ("M-M1-j"       , onGroup W.focusDown')    -- Switch focus to prev tab
-    , ("M-M1-k"       , onGroup W.focusUp')      -- Switch focus to next tab
+    , ("M-i"          , onGroup W.focusDown')    -- Switch focus to prev tab
+    , ("M-u"          , onGroup W.focusUp')      -- Switch focus to next tab
+    , ("M-M1-k"       , onGroup W.focusDown')    -- Switch focus to prev tab
+    , ("M-M1-j"       , onGroup W.focusUp')      -- Switch focus to next tab
 
     -- Scratchpads
     , ("M-z <Return>" , namedScratchpadAction myScratchPads "termSP")
@@ -766,44 +813,3 @@ searchList = [ ("S-a", archwiki)
     urban    = S.searchEngine "urban" "https://www.urbandictionary.com/define.php?term="
     yacy     = S.searchEngine "yacy" "http://localhost:8090/yacysearch.html?query="
     libgen   = S.searchEngine "libgen" "http://libgen.rs/search.php?req="
-
-
-
-main :: IO ()
-main = do
-    home <- getHomeDirectory
-    -- xmproc <- spawnPipe "xmobar-x230"
-    xmproc <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
-    xmonad $ ewmh def
-        { manageHook = myManageHook
-          -- manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
-        -- Run xmonad commands from command line with "xmonadctl command". Commands include:
-        -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
-        -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run
-        -- "xmonadctl 0" to generate full list of commands written to ~/.xsession-errors.
-        -- To compile xmonadctl: ghc -dynamic xmonadctl.hs
-        , handleEventHook    =   serverModeEventHookCmd
-                             <+> serverModeEventHook
-                             <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
-                             <+> docksEventHook
-        , modMask            = myModMask
-        , terminal           = myTerminal
-        , startupHook        = myStartupHook
-        , layoutHook         = refocusLastLayoutHook $ showWName' myShowWNameTheme myLayoutHook
-        , workspaces         = myWorkspaces
-        , borderWidth        = myBorderWidth
-        , normalBorderColor  = myNormColor
-        , focusedBorderColor = myFocusColor
-        , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
-                        { ppOutput          = hPutStrLn xmproc
-                        , ppCurrent         = xmobarColor "#98be65" "" . wrap "[" "]"                  -- Current workspace in xmobar
-                        , ppVisible         = xmobarColor "#98be65" ""               -- . clickable        -- Visible but not current workspace
-                        , ppHidden          = xmobarColor "#82AAFF" "" . wrap "*" "" -- . clickable   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""               -- . clickable       -- Hidden workspaces (no windows)
-                        , ppTitle           = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
-                        , ppSep             =  "<fc=#666666> <fn=1>|</fn> </fc>"          -- Separators in xmobar
-                        , ppUrgent          = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras          = [windowCount]                           -- # of windows current workspace
-                        , ppOrder           = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                        }
-        } `additionalKeysP` myKeys home
