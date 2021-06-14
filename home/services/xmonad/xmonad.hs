@@ -118,8 +118,9 @@ myTerminal = "alacritty"   -- Sets default terminal
 
 myBrowser :: String
 myBrowser = "qutebrowser"                      -- Sets qutebrowser as browser for tree select
--- myBrowser = "qutebrowser "               -- Sets qutebrowser as browser for tree select
--- myBrowser = myTerminal ++ " -e lynx " -- Sets lynx as browser for tree select
+
+myBrowser' :: String -> String
+myBrowser' url = "qutebrowser --target window " <> url                     -- Sets qutebrowser as browser for tree select
 
 myEditor :: String
 myEditor = "emacsclient -c -a emacs "  -- Sets emacs as editor for tree select
@@ -634,16 +635,24 @@ myKeys home =
     , ("M-a c"     , spawn "mkdir -p ~/captures; flameshot gui -p ~/captures/")
 
     -- Emacs (CTRL-e followed by a key)
-    , ("M-d d", spawn $ myEditor <> " --eval '(dired nil)'")       -- dired emacs file manager
-    , ("M-d s", spawn $ myEditor <> " --eval '(dired \"~/mysystem\")'")       -- dired emacs file manager
+    , ("M-d d"   , spawn $ myEditor <> " --eval '(dired nil)'")       -- dired emacs file manager
+    , ("M-d s"   , spawn $ myEditor <> " --eval '(dired \"~/mysystem\")'")       -- dired emacs file manager
+    , ("M-d x"   , spawn $ myEditor <> " --eval '(find-file \"~/mysystem/home/services/xmonad/xmonad.hs\")'")
+    , ("M-d e"   , spawn $ myEditor <> " --eval '(find-file \"~/myemacs/myDefault.org\")'")
+    , ("M-d m"   , spawn $ myEditor <> " --eval '(find-file \"~/memo/memo.org\")'")
+    , ("M-d S-s" , spawn $ myEditor <> " --eval '(find-file \"~/study/study.org\")'")
+    , ("M-d f"   , spawn $ myEditor <> " --eval '(find-file \"~/finance/finance.org\")'")
+    , ("M-d h"   , spawn $ myEditor <> " --eval '(find-file \"~/haedosa/README.org\")'")
+    , ("M-d S-h" , spawn $ myEditor <> " --eval '(find-file \"~/health/health.org\")'")
 
     -- open to a website
-    , ("M-o g", safeSpawn myBrowser ["https://goolge.com"])
-    , ("M-o l w", safeSpawn myBrowser ["https://gitlab.com/wavetojj"])
-    , ("M-o l h", safeSpawn myBrowser ["https://gitlab.com/haedosa"])
-    , ("M-o l g", safeSpawn myBrowser ["http://libgen.rs/"])
-    , ("M-o y", safeSpawn myBrowser ["https://youtube.com"])
-    , ("M-o h", safeSpawn myBrowser ["https://hackage.haskell.org/"])
+    , ("M-o g"   , spawn $ myBrowser' "https://google.com")
+    , ("M-o l w" , spawn $ myBrowser' "https://gitlab.com/wavetojj")
+    , ("M-o l h" , spawn $ myBrowser' "https://gitlab.com/haedosa")
+    , ("M-o l g" , spawn $ myBrowser' "http://libgen.rs/")
+    , ("M-o y"   , spawn $ myBrowser' "https://youtube.com")
+    , ("M-o h"   , spawn $ myBrowser' "https://hackage.haskell.org/")
+    , ("M-o f"   , spawn "nautilus")
 
 
     -- , ("M-S-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
