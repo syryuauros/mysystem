@@ -749,8 +749,8 @@ myKeys home =
     , ("M-' m"        , withFocused (sendMessage . MergeAll))
     , ("M-' u"        , withFocused (sendMessage . UnMerge))
     , ("M-' /"        , withFocused (sendMessage . UnMergeAll))
-    , ("M-i"          , onGroup W.focusDown')    -- Switch focus to prev tab
-    , ("M-u"          , onGroup W.focusUp')      -- Switch focus to next tab
+    , ("M-i"          , onGroup W.focusUp')    -- Switch focus to prev tab
+    , ("M-u"          , onGroup W.focusDown')      -- Switch focus to next tab
 
     , ("M-M1-h"       , sendMessage $ pullGroup L)
     , ("M-M1-l"       , sendMessage $ pullGroup R)
