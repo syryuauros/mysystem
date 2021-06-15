@@ -685,6 +685,8 @@ myKeys home =
     -- Workspaces
     , ("M-<Left>"     , moveTo Prev nonNSP)               -- moveTo previous workspace
     , ("M-<Right>"    , moveTo Next nonNSP)               -- moveTo next workspace
+    , ("M-M1-h"       , moveTo Prev nonNSP)               -- moveTo previous workspace
+    , ("M-M1-l"       , moveTo Next nonNSP)               -- moveTo next workspace
     , ("M-C-<Left>"   , prevScreen)                       -- Switch focus to prev monitor
     , ("M-C-<Right>"  , nextScreen)                       -- Switch focus to next monitor
     , ("M-C-h"        , prevScreen)                       -- Switch focus to prev monitor
@@ -752,15 +754,15 @@ myKeys home =
     , ("M-u"          , onGroup W.focusDown')  -- Switch focus to next tab
     , ("M-i"          , onGroup W.focusUp')    -- Switch focus to prev tab
 
-    , ("M-M1-h"       , sendMessage $ pullGroup L)
-    , ("M-M1-l"       , sendMessage $ pullGroup R)
-    , ("M-M1-k"       , sendMessage $ pullGroup U)
-    , ("M-M1-j"       , sendMessage $ pullGroup D)
-    , ("M-M1-m"       , withFocused (sendMessage . MergeAll))
-    , ("M-M1-u"       , withFocused (sendMessage . UnMerge))
-    , ("M-M1-/"       , withFocused (sendMessage . UnMergeAll))
-    , ("M-M1-,"       , onGroup W.focusDown')  -- Switch focus to next tab
-    , ("M-M1-."       , onGroup W.focusUp')    -- Switch focus to prev tab
+    , ("M-C-M1-h"       , sendMessage $ pullGroup L)
+    , ("M-C-M1-l"       , sendMessage $ pullGroup R)
+    , ("M-C-M1-k"       , sendMessage $ pullGroup U)
+    , ("M-C-M1-j"       , sendMessage $ pullGroup D)
+    , ("M-C-M1-m"       , withFocused (sendMessage . MergeAll))
+    , ("M-C-M1-u"       , withFocused (sendMessage . UnMerge))
+    , ("M-C-M1-/"       , withFocused (sendMessage . UnMergeAll))
+    , ("M-C-M1-,"       , onGroup W.focusDown')  -- Switch focus to next tab
+    , ("M-C-M1-."       , onGroup W.focusUp')    -- Switch focus to prev tab
 
     -- Scratchpads
     , ("M-z <Return>" , namedScratchpadAction myScratchPads "termSP")
