@@ -635,8 +635,9 @@ myKeys home =
     , ("M-a c"     , spawn "mkdir -p ~/captures; flameshot gui -p ~/captures/")
 
     -- Emacs (CTRL-e followed by a key)
-    , ("M-d d"   , spawn $ myEditor <> " --eval '(dired nil)'")       -- dired emacs file manager
-    , ("M-d s"   , spawn $ myEditor <> " --eval '(dired \"~/mysystem\")'")       -- dired emacs file manager
+    , ("M-d d"   , spawn $ myEditor <> " --eval '(dired nil)'")
+    , ("M-d S-d" , spawn $ myEditor <> " --eval '(dired \"~/Downloads\")'")
+    , ("M-d s"   , spawn $ myEditor <> " --eval '(dired \"~/mysystem\")'")
     , ("M-d x"   , spawn $ myEditor <> " --eval '(find-file \"~/mysystem/home/services/xmonad/xmonad.hs\")'")
     , ("M-d e"   , spawn $ myEditor <> " --eval '(find-file \"~/myemacs/myDefault.org\")'")
     , ("M-d m"   , spawn $ myEditor <> " --eval '(find-file \"~/memo/memo.org\")'")
