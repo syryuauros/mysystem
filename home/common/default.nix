@@ -47,6 +47,7 @@
     syncthing
     rnix-lsp
     imagemagick
+    inkscape
     pass
     cmatrix
 
