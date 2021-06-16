@@ -652,7 +652,10 @@ myKeys home =
     , ("M-o l h" , spawn $ myBrowser' "https://gitlab.com/haedosa")
     , ("M-o l g" , spawn $ myBrowser' "http://libgen.rs/")
     , ("M-o y"   , spawn $ myBrowser' "https://youtube.com")
-    , ("M-o h"   , spawn $ myBrowser' "https://hackage.haskell.org/")
+    , ("M-o h h" , spawn $ myBrowser' "https://hackage.haskell.org/")
+    , ("M-o h g" , spawn $ myBrowser' "https://hoogle.haskell.org/")
+    , ("M-o n p" , spawn $ myBrowser' "https://search.nixos.org/packages?channel=unstable")
+    , ("M-o n o" , spawn $ myBrowser' "https://search.nixos.org/options?channel=unstable")
     , ("M-o f"   , spawn "nautilus")
 
 
@@ -821,13 +824,17 @@ searchList = [ ("S-a", archwiki)
              , ("S-y", yacy)
              , ("a", S.amazon)
              , ("l", libgen)
+             , ("p", nixosPkgs)
+             , ("o", nixosOpts)
              ]
   where
-    archwiki, ebay, news, reddit, urban, yacy :: S.SearchEngine
-    archwiki = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
-    ebay     = S.searchEngine "ebay" "https://www.ebay.com/sch/i.html?_nkw="
-    news     = S.searchEngine "news" "https://news.google.com/search?q="
-    reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
-    urban    = S.searchEngine "urban" "https://www.urbandictionary.com/define.php?term="
-    yacy     = S.searchEngine "yacy" "http://localhost:8090/yacysearch.html?query="
-    libgen   = S.searchEngine "libgen" "http://libgen.rs/search.php?req="
+    archwiki, ebay, news, reddit, urban, yacy, libgen, nixosPkgs, nixosOpts :: S.SearchEngine
+    archwiki  = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
+    ebay      = S.searchEngine "ebay" "https://www.ebay.com/sch/i.html?_nkw="
+    news      = S.searchEngine "news" "https://news.google.com/search?q="
+    reddit    = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
+    urban     = S.searchEngine "urban" "https://www.urbandictionary.com/define.php?term="
+    yacy      = S.searchEngine "yacy" "http://localhost:8090/yacysearch.html?query="
+    libgen    = S.searchEngine "libgen" "http://libgen.rs/search.php?req="
+    nixosPkgs = S.searchEngine "nixosPkgs" "https://search.nixos.org/packages?channel=unstable&query="
+    nixosOpts = S.searchEngine "nixosOpts" "https://search.nixos.org/options?channel=unstable&query="
