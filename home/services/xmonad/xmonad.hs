@@ -825,8 +825,8 @@ searchList = [ ("S-a", archwiki)
              , ("l", libgen)
              , ("p", nixosPkgs)
              , ("o", nixosOpts)
-             , ("h g", S.hoogle)
-             , ("h h", hackage)
+             , ("h", S.hoogle)
+             , ("S-h", hackage)
              ]
   where
     archwiki, ebay, news, reddit, urban, yacy, libgen, nixosPkgs, nixosOpts :: S.SearchEngine
