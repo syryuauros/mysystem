@@ -810,7 +810,6 @@ searchList = [ ("S-a", archwiki)
              , ("d", S.duckduckgo)
              , ("e", ebay)
              , ("g", S.google)
-             , ("h", S.hoogle)
              , ("i", S.images)
              , ("n", news)
              , ("r", reddit)
@@ -826,6 +825,8 @@ searchList = [ ("S-a", archwiki)
              , ("l", libgen)
              , ("p", nixosPkgs)
              , ("o", nixosOpts)
+             , ("h g", S.hoogle)
+             , ("h h", hackage)
              ]
   where
     archwiki, ebay, news, reddit, urban, yacy, libgen, nixosPkgs, nixosOpts :: S.SearchEngine
@@ -838,3 +839,4 @@ searchList = [ ("S-a", archwiki)
     libgen    = S.searchEngine "libgen" "http://libgen.rs/search.php?req="
     nixosPkgs = S.searchEngine "nixosPkgs" "https://search.nixos.org/packages?channel=unstable&query="
     nixosOpts = S.searchEngine "nixosOpts" "https://search.nixos.org/options?channel=unstable&query="
+    hackage   = S.searchEngine "hackage" "https://hackage.haskell.org/packages/search?terms="
