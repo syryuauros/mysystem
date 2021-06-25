@@ -46,7 +46,7 @@
     redshift      # adjust display light temperature
     pavucontrol   # control audio in/out
 
-    myxmobar
+    xmobar
     mynitrogen
     mylockscreen
 

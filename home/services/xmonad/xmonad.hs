@@ -568,7 +568,6 @@ myScratchPads = scratchpadApp <$> [ termSP, htopSP, editorSP, scr, spotify ]
 main :: IO ()
 main = do
     home <- getHomeDirectory
-    -- xmproc <- spawnPipe "xmobar-x230"
     xmproc <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
     xmonad $ ewmh def
         { manageHook = myManageHook

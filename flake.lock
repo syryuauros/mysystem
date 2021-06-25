@@ -498,21 +498,6 @@
         "type": "github"
       }
     },
-    "flake-utils_22": {
-      "locked": {
-        "lastModified": 1610051610,
-        "narHash": "sha256-U9rPz/usA1/Aohhk7Cmc2gBrEEKRzcW4nwPWMPwja4Y=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "3982c9903e93927c2164caa727cd3f6a0e6d14cc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "flake-utils_3": {
       "locked": {
         "lastModified": 1610051610,
@@ -1191,26 +1176,6 @@
         "url": "ssh://git@gitlab.com/wavetojj/mywallpapers-1366.git"
       }
     },
-    "myxmobar": {
-      "inputs": {
-        "flake-utils": "flake-utils_22",
-        "nixpkgs": "nixpkgs_21",
-        "stable": "stable_21"
-      },
-      "locked": {
-        "lastModified": 1613837696,
-        "narHash": "sha256-GPYuznRnNVOkv/CcnJ4vDKxh7mmuua0t2Jr1zz64Qvo=",
-        "ref": "master",
-        "rev": "aafcd38d8365129791ecb4ebc041c0e9f3e81528",
-        "revCount": 3,
-        "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myxmobar.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myxmobar.git"
-      }
-    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1622521809,
@@ -1436,22 +1401,6 @@
     },
     "nixpkgs_21": {
       "locked": {
-        "lastModified": 1613582597,
-        "narHash": "sha256-6LvipIvFuhyorHpUqK3HjySC5Y6gshXHFBhU9EJ4DoM=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "6b1057b452c55bb3b463f0d7055bc4ec3fd1f381",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_22": {
-      "locked": {
         "lastModified": 1622545032,
         "narHash": "sha256-1Y+2LFqnMBEH9OZzMBdLWl6GWFt/xzNz0V5X+m05Ing=",
         "owner": "nixos",
@@ -1609,11 +1558,10 @@
         "mypython": "mypython_2",
         "myvim": "myvim",
         "mywallpapers-1366": "mywallpapers-1366_3",
-        "myxmobar": "myxmobar",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_22",
+        "nixpkgs": "nixpkgs_21",
         "nur": "nur",
-        "stable": "stable_22"
+        "stable": "stable_21"
       }
     },
     "stable": {
@@ -1825,22 +1773,6 @@
       }
     },
     "stable_21": {
-      "locked": {
-        "lastModified": 1613772719,
-        "narHash": "sha256-jZ6KiCOaDOZJHMDFnBO1fHPrDqDUmOkihPWXavyGa98=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "38eaa62f28384bc5f6c394e2a99bd6a4913fc71f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-20.09",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "stable_22": {
       "locked": {
         "lastModified": 1622689964,
         "narHash": "sha256-SDvBKMlTtRoMjNrfOMMO+7VNRW7AomvOt1uZK7gg37o=",

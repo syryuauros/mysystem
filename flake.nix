@@ -17,7 +17,6 @@
     myfonts.url           = "git+ssh://git@gitlab.com/wavetojj/myfonts.git";
     mylockscreen.url      = "git+ssh://git@gitlab.com/wavetojj/mylockscreen.git";
     mywallpapers-1366.url = "git+ssh://git@gitlab.com/wavetojj/mywallpapers-1366.git";
-    myxmobar.url          = "git+ssh://git@gitlab.com/wavetojj/myxmobar.git";
     mynitrogen.url        = "git+ssh://git@gitlab.com/wavetojj/mynitrogen.git";
 
     myhaskell.url         = "git+ssh://git@gitlab.com/wavetojj/myhaskell.git";
@@ -30,7 +29,7 @@
   outputs =
     inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils, nur
            , myemacs, myvim, myfonts, mylockscreen, mywallpapers-1366
-           , myxmobar, mynitrogen, nixos-hardware
+           , mynitrogen, nixos-hardware
            , myhaskell, mypython, myjupyter, ... }:
 
     let
@@ -96,7 +95,6 @@
         myfonts.overlay
         mylockscreen.overlay
         mywallpapers-1366.overlay
-        myxmobar.overlay
         mynitrogen.overlay
 
         myhaskell.overlay
@@ -173,6 +171,15 @@
           };
         };
 
+        t14 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = mkNixosModules {
+            user     = "jj";
+            hostname = "t14";
+            machine  = ./machines/linux/t14;
+            home     = ./home/linux/t14;
+          };
+        };
 
         mp = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -249,6 +256,16 @@
           configuration = {
             imports = [ ./home/linux/l14 ];
             nixpkgs = nixpkgsConfig "l14";
+          };
+        };
+
+        t14 = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          homeDirectory = "/home/jj";
+          username = "jj";
+          configuration = {
+            imports = [ ./home/linux/t14 ];
+            nixpkgs = nixpkgsConfig "t14";
           };
         };
 

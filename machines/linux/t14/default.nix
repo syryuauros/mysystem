@@ -4,32 +4,22 @@
     ../../common
     ../../linux/common
     ./hardware-configuration.nix
-    ./web-services.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.useOSProber = true;
 
   networking = {
-    hostName = "l14";
+    hostName = "t14";
     networkmanager = {
       enable   = true;
       packages = [
         pkgs.networkmanager
         pkgs.networkmanager_openvpn ];
     };
-
-    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-    # Per-interface useDHCP will be mandatory in the future, so this generated config
-    # replicates the default behaviour.
-    useDHCP = false;
-    interfaces.enp2s0f0.useDHCP = true;
-    interfaces.wlp3s0.useDHCP = true;
   };
 
-  services.xserver.videoDrivers = [ "amdgpu" ];
   services.xserver.xkbOptions = "caps:ctrl_modifier";
   # services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
 
@@ -43,6 +33,6 @@
   # # this value at the release version of the first install of this system.
   # # Before changing this value read the documentation for this option
   # # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  # system.stateVersion = "20.03"; # Did you read the comment?
+  # system.stateVersion = "21.05"; # Did you read the comment?
 
 }

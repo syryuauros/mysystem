@@ -40,7 +40,7 @@
 
 
   home.file = {
-    ".config/xmobar/xmobarrc".source = ./xmobar/xmobarrc;
+    ".config/xmobar/xmobarrc".source = ../../services/xmonad/xmobarrc-laptop;
   };
 
 }
