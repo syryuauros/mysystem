@@ -78,6 +78,7 @@ import qualified XMonad.Layout.BoringWindows as B
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+import XMonad.Layout.Groups.Helpers (swapMaster)
 
     -- Prompt
 import XMonad.Prompt
@@ -664,6 +665,7 @@ myKeys home =
 
     -- Windows navigation
     , ("M-<Return>"   , promote)                -- Moves focused window to master, others maintain order
+    , ("M-S-m"        , swapMaster)                -- Moves focused window to master, others maintain order
     -- , ("M-m"          , windows W.focusMaster)  -- Move focus to the master window
     -- , ("M-j"          , windows W.focusDown)    -- Move focus to the next window
     -- , ("M-k"          , windows W.focusUp)      -- Move focus to the prev window
