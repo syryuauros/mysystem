@@ -70,6 +70,7 @@
 
     dracula-qutebrowser
     anydesk
+    virtualbox
 
   ] ++ myfonts-collection;
 
