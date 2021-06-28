@@ -124,7 +124,7 @@ myBrowser' :: String -> String
 myBrowser' url = "qutebrowser --target window " <> url                     -- Sets qutebrowser as browser for tree select
 
 myEditor :: String
-myEditor = "emacsclient -c -a emacs "  -- Sets emacs as editor for tree select
+myEditor = "emacsclient -c -a 'emacs --fg-daemon'"  -- Sets emacs as editor for tree select
 -- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor for tree select
 
 myEmail :: String
