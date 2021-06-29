@@ -181,6 +181,16 @@
           };
         };
 
+        x1 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = mkNixosModules {
+            user     = "jj";
+            hostname = "x1";
+            machine  = ./machines/linux/x1;
+            home     = ./home/linux/x1;
+          };
+        };
+
         mp = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = mkNixosModules {
@@ -266,6 +276,16 @@
           configuration = {
             imports = [ ./home/linux/t14 ];
             nixpkgs = nixpkgsConfig "t14";
+          };
+        };
+
+        x1 = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          homeDirectory = "/home/jj";
+          username = "jj";
+          configuration = {
+            imports = [ ./home/linux/x1 ];
+            nixpkgs = nixpkgsConfig "x1";
           };
         };
 
