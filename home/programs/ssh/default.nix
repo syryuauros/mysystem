@@ -41,6 +41,12 @@
         user = "jj";
       };
 
+      "x1" = {
+        forwardX11 = true;
+        hostname = "100.71.10.111";
+        user = "jj";
+      };
+
       "mx9366" = {
         forwardX11 = true;
         hostname = "192.168.0.119";
