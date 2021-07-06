@@ -71,6 +71,7 @@
     dracula-qutebrowser
     anydesk
     virtualbox
+    slack
 
   ] ++ myfonts-collection;
 

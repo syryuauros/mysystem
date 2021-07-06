@@ -50,6 +50,7 @@
               "zoom"
               "google-chrome"
               "anydesk"
+              "slack"
             ];
           inherit hostname;
         };
