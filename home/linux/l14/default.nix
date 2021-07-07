@@ -23,9 +23,11 @@
   xsession.initExtra = ''
 
     # make trackpad and trackpoint faster
-    xinput set-prop "SynPS/2 Synaptics TouchPad" 322 1
-    xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
-    xinput set-prop "TPPS/2 Elan TrackPoint" 322 1
+    xinput set-prop "ELAN0672:00 04F3:3187 Touchpad" 335 1
+    xinput set-prop "TPPS/2 Elan TrackPoint" 335 0.5
+
+    # disble the trackpad
+    xinput set-prop "ELAN0672:00 04F3:3187 Touchpad" "Device Enabled" 0
 
     # Below does not work. Maybe overwritten by something somewhere
     # ${pkgs.xorg.xkbcomp}/bin/setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
