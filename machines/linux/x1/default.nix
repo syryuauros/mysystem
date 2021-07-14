@@ -19,6 +19,7 @@
   };
 
   # services.xserver.xkbOptions = "caps:ctrl_modifier";
-  services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
+  # This stared not working as of 2021-07-15
+  # services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
 
 }

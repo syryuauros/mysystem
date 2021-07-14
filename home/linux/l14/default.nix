@@ -29,9 +29,7 @@
     # disble the trackpad
     xinput set-prop "ELAN0672:00 04F3:3187 Touchpad" "Device Enabled" 0
 
-    # Below does not work. Maybe overwritten by something somewhere
-    # ${pkgs.xorg.xkbcomp}/bin/setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
-    ${pkgs.xorg.xkbcomp}/bin/setxkbmap -option caps:ctrl_modifier
+    setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
 
   '';
 
