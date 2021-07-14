@@ -6,13 +6,13 @@ inputs: final: prev: with final;
   dracula-qutebrowser = callPackage ./packages/dracula-qutebrowser {};
   mychemacs2 = callPackage ./packages/mychemacs2 {  inherit inputs; };
 
-  linuxPackages = prev.linuxPackages.extend (self: super: {
-    rtw89 = self.callPackage ./packages/rtw89 {};
-  });
-  linuxPackages_latest = prev.linuxPackages_latest.extend (self: super: {
-    rtw89 = self.callPackage ./packages/rtw89 {};
-  });
-  rtw89-firmware = callPackage ./packages/rtw89-firmware {};
+  # linuxPackages = prev.linuxPackages.extend (self: super: {
+  #   rtw89 = self.callPackage ./packages/rtw89 {};
+  # });
+  # linuxPackages_latest = prev.linuxPackages_latest.extend (self: super: {
+  #   rtw89 = self.callPackage ./packages/rtw89 {};
+  # });
+  # rtw89-firmware = callPackage ./packages/rtw89-firmware {};
 
 
   # failed to pass the test on mac 2021-06-04

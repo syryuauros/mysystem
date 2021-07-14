@@ -18,10 +18,10 @@
   # boot.kernelParams = [ "amd_iommu=off" "amdgpu.dc=0" "amdgpu.gpu_recovery=1" ];
   # boot.kernelParams = [ "mem_sleep_default=deep" "amd_iommu=off" "amdgpu.gpu_recovery=1" ];
   # boot.kernelParams = [ "iommu=soft" "acpi_backlight=vendor" "amdgpu.gpu_recovery=1" ];
-  boot.kernelParams = [ "iommu=soft" "acpi_backlight=vendor" "amdgpu.gpu_recovery=1" ];
+  # boot.kernelParams = [ "iommu=soft" "acpi_backlight=vendor" "amdgpu.gpu_recovery=1" ];
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ehci_pci" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "amdgpu" "kvm-amd" "rtw89core" "k10temp" "zenpower" ];
+  boot.kernelModules = [ "amdgpu" "kvm-amd" "k10temp"];
   boot.extraModulePackages = [ pkgs.linuxPackages_latest.rtw89 ];
   boot.hardwareScan = true;
 
