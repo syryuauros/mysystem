@@ -1,9 +1,10 @@
-final: prev: with final;
+inputs: final: prev: with final;
 {
 
   extra-monitor = callPackage ./packages/scripts/extra-monitor {};
   restart-xmonad = callPackage ./packages/scripts/restart-xmonad {};
   dracula-qutebrowser = callPackage ./packages/dracula-qutebrowser {};
+  mychemacs2 = callPackage ./packages/mychemacs2 {  inherit inputs; };
 
   linuxPackages = prev.linuxPackages.extend (self: super: {
     rtw89 = self.callPackage ./packages/rtw89 {};

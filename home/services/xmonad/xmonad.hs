@@ -124,14 +124,14 @@ myBrowser' :: String -> String
 myBrowser' url = "qutebrowser --target window " <> url                     -- Sets qutebrowser as browser for tree select
 
 myEditor :: String
-myEditor = "emacsclient -c -a 'emacs --fg-daemon'"  -- Sets emacs as editor for tree select
+myEditor = "myemacsclient -c -a 'myemacs --fg-daemon'"  -- Sets myemacs as editor for tree select
 -- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor for tree select
 
 myEmail :: String
-myEmail = "emacsclient -c -a emacs --eval '(notmuch)'"
+myEmail = "myemacsclient -c -a myemacs --eval '(notmuch)'"
 
 myEditorOnScratchPad :: String
-myEditorOnScratchPad = "emacsclient -s editorSP -c -a 'emacs --title editorSP --fg-daemon=editorSP'"
+myEditorOnScratchPad = "myemacsclient -s editorSP -c -a 'myemacs --title editorSP --fg-daemon=editorSP'"
 
 myRofi :: String
 myRofi = "rofi -modi drun,ssh,window -show drun -show-icons"
@@ -168,7 +168,7 @@ myStartupHook :: X ()
 myStartupHook = do
           -- spawnOnce "nm-applet &"
           -- spawnOnce "volumeicon &"
-          -- spawnOnce "emacs --title emacsOnSP --daemon=emacsOnSP"  -- this makes the login time slow
+          -- spawnOnce "myemacs --title myemacsOnSP --daemon=myemacsOnSP"  -- this makes the login time slow
           -- spawnOnce myTrayer
           -- spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
           -- spawnOnce "urxvtd -q -o -f &"      -- urxvt daemon for better performance
@@ -227,7 +227,7 @@ editPrompt home = do
 
 openInEditor :: String -> X ()
 openInEditor path =
-    safeSpawn "emacsclient" ["-c", "-a", "emacs", path]
+    safeSpawn "myemacsclient" ["-c", "-a", "myemacs", path]
 
 scrotPrompt :: String -> Bool -> X ()
 scrotPrompt home select = do

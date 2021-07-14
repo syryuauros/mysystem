@@ -11,6 +11,8 @@
     home-manager = { url = "github:nix-community/home-manager/master"; inputs.nixpkgs.follows = "nixpkgs"; };
     darwin = { url = "github:LnL7/nix-darwin/master"; inputs.nixpkgs.follows = "nixpkgs"; };
     nur.url = "github:nix-community/NUR/master";
+    chemacs2 = { url = "github:plexus/chemacs2"; flake = false; };
+    nix-doom-emacs.url = "github:wavetojj/nix-doom-emacs";
 
     myemacs.url           = "git+ssh://git@gitlab.com/wavetojj/myemacs.git";
     myvim.url             = "git+ssh://git@gitlab.com/wavetojj/myvim.git";
@@ -28,6 +30,7 @@
 
   outputs =
     inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils, nur
+           , chemacs2, nix-doom-emacs
            , myemacs, myvim, myfonts, mylockscreen, mywallpapers-1366
            , mynitrogen, nixos-hardware
            , myhaskell, mypython, myjupyter, ... }:
@@ -65,7 +68,10 @@
         {
           nixpkgs = nixpkgsConfig hostname;
           users.users.${user}.home = "/Users/${user}";
-          home-manager.users.${user} = home;
+          home-manager.users.${user} = {
+            imports = [ nix-doom-emacs.hmModule
+                        home ];
+          };
 
           networking.computerName = user + "-" + hostname;
           networking.hostName = hostname;
@@ -82,12 +88,15 @@
         home-manager.nixosModules.home-manager
         {
           nixpkgs = nixpkgsConfig hostname;
-          home-manager.users.${user} = home;
+          home-manager.users.${user} = {
+            imports = [ nix-doom-emacs.hmModule
+                        home ];
+          };
           networking.hostName = hostname;
         }
       ];
 
-    in {
+    in rec {
 
       overlays = [
         nur.overlay
@@ -102,7 +111,7 @@
         mypython.overlay
         myjupyter.overlay
 
-        (import ./overlay.nix)
+        (import ./overlay.nix inputs)
       ];
 
       overlay = nixpkgs.lib.composeManyExtensions self.overlays;
