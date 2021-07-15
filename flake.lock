@@ -1395,11 +1395,11 @@
         "rotate-text": "rotate-text"
       },
       "locked": {
-        "lastModified": 1626270310,
-        "narHash": "sha256-5f6P2Q+9kcFQILe9H/VfUMfRMDWZ1Sv7xlaqWCYn+hg=",
+        "lastModified": 1626358608,
+        "narHash": "sha256-TMpl2qkDCWeWtJNW3SD9GRiLtw+OaI4MA4dDpEZbo9w=",
         "owner": "wavetojj",
         "repo": "nix-doom-emacs",
-        "rev": "20d2d9716511755a119636221cc70cc8a3c10f4c",
+        "rev": "bbfce9a5a3c96239eed3d0bf47cc58bb1bf8c277",
         "type": "github"
       },
       "original": {

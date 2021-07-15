@@ -13,8 +13,10 @@
     nur.url = "github:nix-community/NUR/master";
     chemacs2 = { url = "github:plexus/chemacs2"; flake = false; };
     nix-doom-emacs.url = "github:wavetojj/nix-doom-emacs";
+    # myhmatrix.url = "git+file:///home/jj/myhmatrix";
 
     myemacs.url           = "git+ssh://git@gitlab.com/wavetojj/myemacs.git";
+    # myemacs.url           = "git+file:///home/jj/Org/myemacs";
     myvim.url             = "git+ssh://git@gitlab.com/wavetojj/myvim.git";
     myfonts.url           = "git+ssh://git@gitlab.com/wavetojj/myfonts.git";
     mylockscreen.url      = "git+ssh://git@gitlab.com/wavetojj/mylockscreen.git";
@@ -110,6 +112,8 @@
         myhaskell.overlay
         mypython.overlay
         myjupyter.overlay
+
+        nix-doom-emacs.overlay
 
         (import ./overlay.nix inputs)
       ];
