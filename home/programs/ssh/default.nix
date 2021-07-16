@@ -59,8 +59,14 @@
         identityFile = "~/.ssh/id_haedosa";
       };
 
-      "gitwave" = {
+      "wavelab" = {
         hostname = "gitlab.com";
+        user = "git";
+        identityFile = "~/.ssh/id_wavetojj";
+      };
+
+      "wavehub" = {
+        hostname = "github.com";
         user = "git";
         identityFile = "~/.ssh/id_wavetojj";
       };
