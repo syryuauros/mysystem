@@ -64,8 +64,8 @@
       };
 
 
-      mkDarwinModules = { user, hostname, home, machine }: [
-        machine
+      mkDarwinModules = { user, hostname, home, nixos }: [
+        nixos
         home-manager.darwinModules.home-manager
         {
           nixpkgs = nixpkgsConfig hostname;
@@ -85,8 +85,8 @@
       ];
 
 
-      mkNixosModules = { user, hostname, home, machine }: [
-        machine
+      mkNixosModules = { user, hostname, home, nixos }: [
+        nixos
         home-manager.nixosModules.home-manager
         {
           nixpkgs = nixpkgsConfig hostname;
@@ -141,7 +141,7 @@
           modules = mkDarwinModules {
             user     = "jj";
             hostname = "mbp15";
-            machine  = ./machines/darwin/mbp15;
+            nixos    = ./nixos/darwin/mbp15;
             home     = ./home/darwin/mbp15;
           };
 
@@ -168,7 +168,7 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "x230";
-            machine  = ./machines/linux/x230;
+            nixos    = ./nixos/linux/x230;
             home     = ./home/linux/x230;
           };
           # } ++ [ nixos-hardware.nixosModules.lenovo-thinkpad-x230 ] ;
@@ -180,7 +180,7 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "l14";
-            machine  = ./machines/linux/l14;
+            nixos    = ./nixos/linux/l14;
             home     = ./home/linux/l14;
           };
         };
@@ -190,7 +190,7 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "t14";
-            machine  = ./machines/linux/t14;
+            nixos    = ./nixos/linux/t14;
             home     = ./home/linux/t14;
           };
         };
@@ -200,7 +200,7 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "x1";
-            machine  = ./machines/linux/x1;
+            nixos    = ./nixos/linux/x1;
             home     = ./home/linux/x1;
           };
         };
@@ -210,7 +210,7 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "mp";
-            machine  = ./machines/linux/mp;
+            nixos    = ./nixos/linux/mp;
             home     = ./home/linux/mp;
           };
         };
@@ -220,7 +220,7 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "mx9366";
-            machine  = ./machines/linux/mx9366;
+            nixos    = ./nixos/linux/mx9366;
             home     = ./home/linux/mx9366;
           };
         };
