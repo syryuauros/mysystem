@@ -15,7 +15,7 @@
     nix-doom-emacs.url = "github:wavetojj/nix-doom-emacs";
     # myhmatrix.url = "git+file:///home/jj/myhmatrix";
 
-    myemacs.url           = "git+ssh://git@gitlab.com/wavetojj/myemacs.git";
+    myemacs.url           = "git+ssh://git@gitlab.com/jjdosa/myemacs.git";
     # myemacs.url           = "git+file:///home/jj/Org/myemacs";
     myvim.url             = "git+ssh://git@gitlab.com/wavetojj/myvim.git";
     myfonts.url           = "git+ssh://git@gitlab.com/wavetojj/myfonts.git";
