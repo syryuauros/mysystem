@@ -24,8 +24,13 @@
 
     # make trackpad and trackpoint faster
     xinput set-prop "SynPS/2 Synaptics TouchPad" 322 1
-    xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
     xinput set-prop "TPPS/2 Elan TrackPoint" 322 1
+
+    # disable the trackpad
+    xinput set-prop "ELAN0672:00 04F3:3187 Touchpad" "Device Enabled" 0
+
+    # disable the middle button click of the trackpoint
+    xinput set-button-map "TPPS/2 Elan TrackPoint" 1 0 3
 
     setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
 
