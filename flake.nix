@@ -17,15 +17,15 @@
 
     myemacs.url           = "git+ssh://git@gitlab.com/jjdosa/myemacs.git";
     # myemacs.url           = "git+file:///home/jj/Org/myemacs";
-    myvim.url             = "git+ssh://git@gitlab.com/wavetojj/myvim.git";
-    myfonts.url           = "git+ssh://git@gitlab.com/wavetojj/myfonts.git";
-    mylockscreen.url      = "git+ssh://git@gitlab.com/wavetojj/mylockscreen.git";
-    mywallpapers-1366.url = "git+ssh://git@gitlab.com/wavetojj/mywallpapers-1366.git";
-    mynitrogen.url        = "git+ssh://git@gitlab.com/wavetojj/mynitrogen.git";
+    myvim.url             = "git+ssh://git@wavelab/wavetojj/myvim.git";
+    myfonts.url           = "git+ssh://git@wavelab/wavetojj/myfonts.git";
+    mylockscreen.url      = "git+ssh://git@wavelab/wavetojj/mylockscreen.git";
+    mywallpapers-1366.url = "git+ssh://git@wavelab/wavetojj/mywallpapers-1366.git";
+    mynitrogen.url        = "git+ssh://git@wavelab/wavetojj/mynitrogen.git";
 
-    myhaskell.url         = "git+ssh://git@gitlab.com/wavetojj/myhaskell.git";
-    mypython.url          = "git+ssh://git@gitlab.com/wavetojj/mypython.git";
-    myjupyter.url         = "git+ssh://git@gitlab.com/wavetojj/myjupyter.git";
+    myhaskell.url         = "git+ssh://git@wavelab/wavetojj/myhaskell.git";
+    mypython.url          = "git+ssh://git@wavelab/wavetojj/mypython.git";
+    myjupyter.url         = "git+ssh://git@wavelab/wavetojj/myjupyter.git";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
   };

@@ -40,11 +40,11 @@
     "doom-emacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1623114989,
-        "narHash": "sha256-btRwMu76Gnn9lW7YbzDAgWjlJx61tCT+e3kByNx97aw=",
+        "lastModified": 1626364216,
+        "narHash": "sha256-T0a51ksNOQTpLLEJGpX0wVh2oGP1PsqS6odWAHlqOpw=",
         "owner": "hlissner",
         "repo": "doom-emacs",
-        "rev": "2731685095d1e6101b3215aa689426e1834ce00f",
+        "rev": "4230ab9ae618194e347a89230857cd38d687a3bd",
         "type": "github"
       },
       "original": {
@@ -57,11 +57,11 @@
     "doom-snippets": {
       "flake": false,
       "locked": {
-        "lastModified": 1622216706,
-        "narHash": "sha256-Dsl5T1OFPy++md0Lo0pKUqcpCW6T5WDF2sjeB/IVi1g=",
+        "lastModified": 1625547004,
+        "narHash": "sha256-V+ytAjB4ZZ+5dJJAu1OY7SbnqrokX5PVBWs0AsgQ8Vs=",
         "owner": "hlissner",
         "repo": "doom-snippets",
-        "rev": "bc613f448eed1bd363e61c41691a61e9fd139534",
+        "rev": "5c0eb5bd70f035cefb981c2ce64f4367498bdda6",
         "type": "github"
       },
       "original": {
@@ -88,11 +88,11 @@
     "emacs-overlay_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1624554642,
-        "narHash": "sha256-NxmdchtWVW3rs/ufAvNR51eVAqJy4sWnEHbUlCnmPKI=",
+        "lastModified": 1626426670,
+        "narHash": "sha256-E8ltob4uldTy6skwnOUj0e1MM3AePaXv+D6rOqFggWU=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "f89641db533ebdfe3be6ce745a5856be3c15b853",
+        "rev": "c9dfd38aeb665ce84e341f86dd1bfac5b33073d8",
         "type": "github"
       },
       "original": {
@@ -809,11 +809,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1626073055,
-        "narHash": "sha256-vocByfpVu6m9zvtJugDvmd6/9iT2HJuG4tmDICKd0lI=",
+        "lastModified": 1626356862,
+        "narHash": "sha256-4ONLWH4UygF4pI0XBej8+2OMUrdb8HsUUFsiRDFmjrk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "775cb20bd4af7781fbf336fb201df02ee3d544bb",
+        "rev": "c476cc61b2dd8c7f868b213b7757b565bdf2bb7d",
         "type": "github"
       },
       "original": {
@@ -1039,11 +1039,11 @@
         "rev": "e74e06427e8c0bb1eda82e8d85848f0763fc1030",
         "revCount": 13,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myfonts.git"
+        "url": "ssh://git@wavelab/wavetojj/myfonts.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myfonts.git"
+        "url": "ssh://git@wavelab/wavetojj/myfonts.git"
       }
     },
     "myhaskell": {
@@ -1065,11 +1065,11 @@
         "rev": "aa881af4b2d4c1abc45e4377d973b99734d7d2be",
         "revCount": 47,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myhaskell.git"
+        "url": "ssh://git@wavelab/wavetojj/myhaskell.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myhaskell.git"
+        "url": "ssh://git@wavelab/wavetojj/myhaskell.git"
       }
     },
     "myhaskell_2": {
@@ -1158,11 +1158,11 @@
         "rev": "b67efe55dc61fa7b1105650d397442a1314b776b",
         "revCount": 13,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myjupyter.git"
+        "url": "ssh://git@wavelab/wavetojj/myjupyter.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myjupyter.git"
+        "url": "ssh://git@wavelab/wavetojj/myjupyter.git"
       }
     },
     "mylockscreen": {
@@ -1179,11 +1179,11 @@
         "rev": "c90de76d420c3fa43cf5bcee3f2ecf8053c7f5e5",
         "revCount": 4,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mylockscreen.git"
+        "url": "ssh://git@wavelab/wavetojj/mylockscreen.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mylockscreen.git"
+        "url": "ssh://git@wavelab/wavetojj/mylockscreen.git"
       }
     },
     "mynitrogen": {
@@ -1200,11 +1200,11 @@
         "rev": "b4c048fbe8feaa8921b78d620dd7187e4458e298",
         "revCount": 4,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mynitrogen.git"
+        "url": "ssh://git@wavelab/wavetojj/mynitrogen.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mynitrogen.git"
+        "url": "ssh://git@wavelab/wavetojj/mynitrogen.git"
       }
     },
     "myplot": {
@@ -1286,11 +1286,11 @@
         "rev": "c7d265413037bd2ad6ebd94bc3ccafd0452aa81e",
         "revCount": 13,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mypython.git"
+        "url": "ssh://git@wavelab/wavetojj/mypython.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mypython.git"
+        "url": "ssh://git@wavelab/wavetojj/mypython.git"
       }
     },
     "myvim": {
@@ -1306,11 +1306,11 @@
         "rev": "0c80ff4cf718bed445479643aa4f840ddd8ff8a5",
         "revCount": 2,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myvim.git"
+        "url": "ssh://git@wavelab/wavetojj/myvim.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/myvim.git"
+        "url": "ssh://git@wavelab/wavetojj/myvim.git"
       }
     },
     "mywallpapers-1366": {
@@ -1366,11 +1366,11 @@
         "rev": "66cb84cbd8b0ce09919706313ab29e4307fc96ee",
         "revCount": 3,
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mywallpapers-1366.git"
+        "url": "ssh://git@wavelab/wavetojj/mywallpapers-1366.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@gitlab.com/wavetojj/mywallpapers-1366.git"
+        "url": "ssh://git@wavelab/wavetojj/mywallpapers-1366.git"
       }
     },
     "nix-doom-emacs": {
@@ -1395,11 +1395,11 @@
         "rotate-text": "rotate-text"
       },
       "locked": {
-        "lastModified": 1626358608,
-        "narHash": "sha256-TMpl2qkDCWeWtJNW3SD9GRiLtw+OaI4MA4dDpEZbo9w=",
+        "lastModified": 1626452937,
+        "narHash": "sha256-QUJFRnJZFOjIVOAhaXFVQbcVh7ZjMZ2/JgcAtNe60kY=",
         "owner": "wavetojj",
         "repo": "nix-doom-emacs",
-        "rev": "bbfce9a5a3c96239eed3d0bf47cc58bb1bf8c277",
+        "rev": "cdf175cf9883cb09689c8b95e4625331089721e6",
         "type": "github"
       },
       "original": {
@@ -1666,11 +1666,11 @@
     },
     "nixpkgs_22": {
       "locked": {
-        "lastModified": 1624561540,
-        "narHash": "sha256-izJ2PYZMGMsSkg+e7c9A1x3t/yOLT+qzUM6WQsc2tqo=",
+        "lastModified": 1626412499,
+        "narHash": "sha256-X73graSPsqjylNEwWscUnZHna8CDF9kjDvB4SEKidTI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c6a049a3d32293b24c0f894a840872cf67fd7c11",
+        "rev": "91ffffd90404331e0af54fa3fb8063f2f849a321",
         "type": "github"
       },
       "original": {
@@ -1681,11 +1681,11 @@
     },
     "nixpkgs_23": {
       "locked": {
-        "lastModified": 1626046891,
-        "narHash": "sha256-Zt8saH+hAehXskW0iFAzk+iMillYoFBxvLReYNqGT9E=",
+        "lastModified": 1626464457,
+        "narHash": "sha256-u2PCh/+8vQSLwf0mPpKHKQ8hAPB3l4uNZR3r0TdK2Lg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d8f8f31af9d77a48220e4e8a301d1e79774cb7d2",
+        "rev": "c6c4a3d45ab200f17805d2d86a1ff1cc7ca2b186",
         "type": "github"
       },
       "original": {
@@ -1825,11 +1825,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1626275541,
-        "narHash": "sha256-ZlbHScLA+pmbEl29ZwB9IzSsuEw+/0xQ+s88yuJvVS4=",
+        "lastModified": 1626533759,
+        "narHash": "sha256-mAhztxf5XQlIPEGjTp5p5vDSz2Ex9FlsUyPpBlMMchU=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "a03563cb4eef954a620538e9bb5a7b90a9b71c9d",
+        "rev": "4f5fb1327c67064ef15ae20151360c86f6d44b3e",
         "type": "github"
       },
       "original": {
@@ -1858,11 +1858,11 @@
     "org-mode": {
       "flake": false,
       "locked": {
-        "lastModified": 1624525995,
-        "narHash": "sha256-1eximAnDXKC+midwicoKko1cHF3ElCEOzzkUUWC8G4M=",
+        "lastModified": 1626291384,
+        "narHash": "sha256-HxsTCj03rRES2o7I4yNAWM1jeAzqCvUdnwlwc+NkPEQ=",
         "owner": "emacs-straight",
         "repo": "org-mode",
-        "rev": "5c07b279e0737b19e91c1d1b21016d9b4c8ffa62",
+        "rev": "604bfd9d755770e12c368c15148780ec723211df",
         "type": "github"
       },
       "original": {
@@ -1906,11 +1906,11 @@
     "revealjs": {
       "flake": false,
       "locked": {
-        "lastModified": 1623242337,
-        "narHash": "sha256-u3gZ13x40cjK1k9HTNnqRrp3io0tDTu6JPGd05mGJGw=",
+        "lastModified": 1625811744,
+        "narHash": "sha256-Y67nVqcovn2PbHXmWOFWMq10Qz2ZIRyyWEO6qsZLbIM=",
         "owner": "hakimel",
         "repo": "reveal.js",
-        "rev": "ade234576e8ddd683cf16d0d8bb0236f37cf1a99",
+        "rev": "b18f12d964ef80bd9ffb061aae48ff4c15fb43ad",
         "type": "github"
       },
       "original": {
