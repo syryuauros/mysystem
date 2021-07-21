@@ -3,6 +3,7 @@
   imports = [
     ../../common
     ../../linux/common
+    ../virtualisation
     ./hardware-configuration.nix
   ];
 
