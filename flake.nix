@@ -56,6 +56,7 @@
               "google-chrome"
               "anydesk"
               "slack"
+              "Oracle_VM_VirtualBox_Extension_Pack"
             ];
           inherit hostname;
         };
