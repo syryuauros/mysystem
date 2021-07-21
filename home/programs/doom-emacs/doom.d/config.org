@@ -31,3 +31,18 @@
 (setq display-line-numbers-type t)
 
 #+end_src
+
+* Dired
+
+FIXME: This does not work. I am getting wrong type argument error.
+
+#+begin_src emacs-lisp :tangle no
+
+(map!
+  (:map dired-mode-map
+    :n "h" #'dired-single-up-directory
+    :n "l" #'dired-single-buffer
+    :n "<left>" #'dired-single-up-directory
+    :n "<right>" #'dired-single-buffer))
+
+#+end_src
