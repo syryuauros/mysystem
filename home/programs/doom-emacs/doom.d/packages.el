@@ -48,3 +48,8 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+(package! envrc)
+(package! lsp-haskell)
+(package! lsp-ui)
+(package! all-the-icons-dired)

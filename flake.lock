@@ -928,11 +928,11 @@
         "stable": "stable"
       },
       "locked": {
-        "lastModified": 1626533789,
-        "narHash": "sha256-rAWFTjLAbyh/Ug1o52qVFco08CQ7jmfCy+ABECzg50w=",
+        "lastModified": 1626859228,
+        "narHash": "sha256-5CPDtN8HcmvJVMyPGMnscPsSguJQj0+MQDSsren8s6E=",
         "ref": "master",
-        "rev": "ca8624ab70b88ad93fdd3509ba2606b3e6c9f781",
-        "revCount": 56,
+        "rev": "36db4315600ba82a898c2a906ccd4609e0e4bd83",
+        "revCount": 57,
         "type": "git",
         "url": "ssh://git@gitlab.com/jjdosa/myemacs.git"
       },
