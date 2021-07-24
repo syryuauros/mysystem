@@ -23,11 +23,11 @@
   xsession.initExtra = ''
 
     # make trackpad and trackpoint faster
-    xinput set-prop "SynPS/2 Synaptics Touchpad" 335 1
+    xinput set-prop "SynPS/2 Synaptics TouchPad" 335 1
     xinput set-prop "TPPS/2 Elan TrackPoint" 335 0.5
 
     # disable the trackpad
-    xinput set-prop "SynPS/2 Synaptics Touchpad" "Device Enabled" 0
+    xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
 
     # disable the middle button click of the trackpoint
     xinput set-button-map "TPPS/2 Elan TrackPoint" 1 0 3
