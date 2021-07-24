@@ -13,29 +13,17 @@
     nur.url = "github:nix-community/NUR/master";
     chemacs2 = { url = "github:plexus/chemacs2"; flake = false; };
     nix-doom-emacs.url = "github:wavetojj/nix-doom-emacs";
-    # myhmatrix.url = "git+file:///home/jj/myhmatrix";
-
-    myemacs.url           = "git+ssh://git@gitlab.com/jjdosa/myemacs.git";
-    # myemacs.url           = "git+file:///home/jj/Org/myemacs";
-    myvim.url             = "git+ssh://git@wavelab/wavetojj/myvim.git";
-    myfonts.url           = "git+ssh://git@wavelab/wavetojj/myfonts.git";
-    mylockscreen.url      = "git+ssh://git@wavelab/wavetojj/mylockscreen.git";
-    mywallpapers-1366.url = "git+ssh://git@wavelab/wavetojj/mywallpapers-1366.git";
-    mynitrogen.url        = "git+ssh://git@wavelab/wavetojj/mynitrogen.git";
-
-    myhaskell.url         = "git+ssh://git@wavelab/wavetojj/myhaskell.git";
-    mypython.url          = "git+ssh://git@wavelab/wavetojj/mypython.git";
-    myjupyter.url         = "git+ssh://git@wavelab/wavetojj/myjupyter.git";
-
+    jupyter_contrib_core = { url = "github:Jupyter-contrib/jupyter_contrib_core"; flake = false; };
+    jupyter_nbextensions_configurator = { url = "github:Jupyter-contrib/jupyter_nbextensions_configurator"; flake = false; };
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
   };
 
   outputs =
     inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils, nur
            , chemacs2, nix-doom-emacs
-           , myemacs, myvim, myfonts, mylockscreen, mywallpapers-1366
-           , mynitrogen, nixos-hardware
-           , myhaskell, mypython, myjupyter, ... }:
+           , jupyter_contrib_core, jupyter_nbextensions_configurator
+           , ... }:
 
     let
 
@@ -103,19 +91,22 @@
 
       overlays = [
         nur.overlay
-        myemacs.overlay
-        myvim.overlay
-        myfonts.overlay
-        mylockscreen.overlay
-        mywallpapers-1366.overlay
-        mynitrogen.overlay
-
-        myhaskell.overlay
-        mypython.overlay
-        myjupyter.overlay
-
         nix-doom-emacs.overlay
-
+        (import ./packages/myemacs/overlay.nix)
+        (import ./packages/myvim/overlay.nix)
+        (import ./packages/myfonts/overlay.nix)
+        (import ./packages/mylockscreen/overlay.nix)
+        (import ./packages/mywallpapers-1366/overlay.nix)
+        (import ./packages/mynitrogen/overlay.nix)
+        (import ./packages/myflow/overlay.nix)
+        (import ./packages/myplot/overlay.nix)
+        (import ./packages/myhaskell/overlay.nix)
+        (import ./packages/mypython/overlay.nix)
+        (import ./packages/myjupyter/overlay.nix)
+        (import ./packages/myjupyter/jupyter-overlay.nix {
+          inherit
+            jupyter_contrib_core
+            jupyter_nbextensions_configurator; })
         (import ./overlay.nix inputs)
       ];
 
