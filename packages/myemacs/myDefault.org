@@ -684,6 +684,12 @@ https://github.com/travisbhartwell/nix-emacs
   "C-S-e"         'ivy-switch-buffer-kill
 )
 
+(general-define-key
+  :keymaps '(ivy-occur-grep-mode-map)
+  "C-d"         'evil-scroll-down
+  "D"           'ivy-occur-delete-candidate
+)
+
 ;; (general-define-key
 ;;   :keymaps 'ivy-switch-buffer-map
 ;;   "C-S-e"    'ivy-switch-buffer-kill
