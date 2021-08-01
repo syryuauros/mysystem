@@ -667,8 +667,8 @@ myKeys home =
     , ("M-<Return>"   , promote)                -- Moves focused window to master, others maintain order
     , ("M-S-m"        , swapMaster)                -- Moves focused window to master, others maintain order
     -- , ("M-m"          , windows W.focusMaster)  -- Move focus to the master window
-    -- , ("M-j"          , windows W.focusDown)    -- Move focus to the next window
-    -- , ("M-k"          , windows W.focusUp)      -- Move focus to the prev window
+    , ("M-M1-j"       , windows W.focusDown)    -- Move focus to the next window
+    , ("M-M1-k"       , windows W.focusUp)      -- Move focus to the prev window
     , ("M-m"          , B.focusMaster)             -- Move focus to the master window, skipiping hidden windows
     , ("M-j"          , B.focusDown)               -- Move focus to the next window, skipiping hidden windows
     , ("M-k"          , B.focusUp)                 -- Move focus to the prev window, skipiping hidden windows
