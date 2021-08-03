@@ -559,6 +559,16 @@ https://github.com/travisbhartwell/nix-emacs
 
 #+end_src
 
+*** Git Gutter
+
+#+begin_src emacs-lisp
+
+(use-package git-gutter
+  :config (global-git-gutter-mode t)
+)
+
+#+end_src
+
 *** Darkroom
 
 #+begin_src emacs-lisp

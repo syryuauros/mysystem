@@ -245,6 +245,8 @@ let
     pdf-view-restore
     org-pdftools
 
+    git-gutter
+
   ]) ++
   # ELPA packages
   (with epkgs.elpaPackages; [
