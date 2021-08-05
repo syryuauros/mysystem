@@ -1306,10 +1306,14 @@ If there is no such buffer, start a new `shell' with NAME."
            ("C-k"        . company-select-previous)
            ("C-d"        . company-next-page)
            ("C-u"        . company-previous-page)
-           ("<tab>"      . company-complete)
-           ("TAB"        . company-complete)
+           ("TAB"        . company-select-common-or-cycle)
+           ("<tab>"      . company-select-common-or-cycle)
            ("RET"        . nil)
            ("<return>"   . nil)
+           ("S-RET"      . company-complete)
+           ("<S-return>" . company-complete)
+           ("C-RET"      . company-complete)
+           ("<C-return>" . company-complete)
          )
   :config
   (general-define-key
@@ -1318,7 +1322,7 @@ If there is no such buffer, start a new `shell' with NAME."
 )
 
 #+end_src
-
+comp
 
 #+end_src
 

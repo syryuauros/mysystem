@@ -134,3 +134,18 @@ FIXME: This does not work. I am getting wrong type argument error.
     :n "<right>" #'dired-single-buffer))
 
 #+end_src
+
+* Company
+
+#+begin_src emacs-lisp
+
+(map! :map company-active-map
+      "TAB"        #'company-select-common-or-cycle
+      "<tab>"      #'company-select-common-or-cycle
+      "RET"        nil
+      "<return>"   nil
+      "S-RET"      #'company-complete
+      "<S-return>" #'company-complete
+)
+
+#+end_src
