@@ -149,3 +149,11 @@ FIXME: This does not work. I am getting wrong type argument error.
 )
 
 #+end_src
+
+* Counsel-rg
+
+#+begin_src emacs-lisp
+
+(map! :leader "r" #'counsel-rg)
+
+#+end_src
