@@ -73,6 +73,8 @@
     virtualbox
     slack
 
+    wireguard
+
   ] ++ myfonts-collection;
 
 

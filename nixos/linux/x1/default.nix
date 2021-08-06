@@ -5,6 +5,7 @@
     ../../linux/common
     ../virtualisation
     ./hardware-configuration.nix
+    ./wireguard
   ];
 
   # Use the systemd-boot EFI boot loader.
