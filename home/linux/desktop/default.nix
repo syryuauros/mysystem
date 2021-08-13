@@ -7,7 +7,7 @@
   ];
 
   xresources.properties = {
-    "Xft.dpi" = 160;
+    "Xft.dpi" = 100;
     "Xft.autohint" = 0;
     "Xft.hintstyle" = "hintfull";
     "Xft.hinting" = 1;
@@ -19,9 +19,7 @@
 
   xsession.enable = true;
   xsession.initExtra = ''
-
-    setxkbmap -option caps:ctrl_modifier &
-
+    setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
   '';
 
   home.file = {
