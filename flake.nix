@@ -217,6 +217,16 @@
           };
         };
 
+        mini5i = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = mkNixosModules {
+            user     = "jj";
+            hostname = "mini5i";
+            nixos    = ./nixos/linux/mini5i;
+            home     = ./home/linux/mini5i;
+          };
+        };
+
       };
 
 
@@ -302,6 +312,16 @@
           configuration = {
             imports = [ ./home/linux/mx9366 ];
             nixpkgs = nixpkgsConfig "mx9366";
+          };
+        };
+
+        mini5i = home-manager.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          homeDirectory = "/home/jj";
+          username = "jj";
+          configuration = {
+            imports = [ ./home/linux/mini5i ];
+            nixpkgs = nixpkgsConfig "mini5i";
           };
         };
 
