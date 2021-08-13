@@ -20,4 +20,6 @@
     };
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
 }
