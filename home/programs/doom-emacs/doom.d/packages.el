@@ -52,4 +52,12 @@
 (package! envrc)
 (package! lsp-haskell)
 (package! lsp-ui)
+
 (package! all-the-icons-dired)
+(package! dired-hide-dotfiles)
+(package! dired-ranger)
+
+;; This does not work I don't know why..
+;; (package! evil-plugins
+;;   :recipe (:host github :repo "tarao/evil-plugins"
+;;            :files ("*.el")))

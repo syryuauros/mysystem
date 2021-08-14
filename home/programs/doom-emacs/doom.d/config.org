@@ -1,4 +1,3 @@
-
 * Name and Address
 
 #+begin_src emacs-lisp
@@ -57,16 +56,6 @@
 
 #+end_src
 
-* All-the-icons-dired
-
-#+begin_src emacs-lisp
-
-(use-package! all-the-icons-dired
-  :after all-the-icons dired
-  :hook (dired-mode . all-the-icons-dired-mode))
-
-#+end_src
-
 * lsp
 ** lsp
 
@@ -121,17 +110,41 @@
 #+end_src
 
 * Dired
+** Dired-hide-dotfiles
 
-FIXME: This does not work. I am getting wrong type argument error.
+#+begin_src emacs-lisp
 
-#+begin_src emacs-lisp :tangle no
+(use-package! dired-hide-dotfiles
+  :after dired
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+    (map! (:map dired-mode-map
+           :n "H" #'dired-hide-dotfiles-mode)))
 
-(map!
-  (:map dired-mode-map
-    :n "h" #'dired-single-up-directory
-    :n "l" #'dired-single-buffer
-    :n "<left>" #'dired-single-up-directory
-    :n "<right>" #'dired-single-buffer))
+#+end_src
+
+** Dired-ranger
+
+#+begin_src emacs-lisp
+
+(use-package! dired-ranger
+  :after dired
+  :bind (:map dired-mode-map
+          ("C-c b" . dired-ranger-bookmark)
+          ("C-c v" . dired-ranger-bookmark-visit)
+          ("C-c p" . dired-ranger-paste)
+          ("C-c y" . dired-ranger-copy)
+          ("C-c x" . dired-ranger-move))
+)
+#+end_src
+
+** All-the-icons-dired
+
+#+begin_src emacs-lisp
+
+(use-package! all-the-icons-dired
+  :after all-the-icons dired
+  :hook (dired-mode . all-the-icons-dired-mode))
 
 #+end_src
 
