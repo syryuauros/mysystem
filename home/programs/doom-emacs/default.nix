@@ -1,8 +1,8 @@
 {
 
-  programs.doom-emacs = {
-    enable = true;
-    doomPrivateDir = ./doom.d;
-  };
+  # programs.doom-emacs = {
+  #   enable = true;
+  #   doomPrivateDir = ./doom.d;
+  # };
 
 }
