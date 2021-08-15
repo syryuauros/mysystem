@@ -5,6 +5,7 @@
     ../../../linux/common
     ./hardware-configuration.nix
     ./web-services.nix
+    ./wireguard
   ];
 
   # Use the systemd-boot EFI boot loader.
