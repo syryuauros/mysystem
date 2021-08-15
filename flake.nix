@@ -133,8 +133,8 @@
           modules = mkDarwinModules {
             user     = "jj";
             hostname = "mbp15";
-            nixos    = ./nixos/darwin/mbp15;
-            home     = ./home/darwin/mbp15;
+            nixos    = ./nixos/darwin/hosts/mbp15;
+            home     = ./home/darwin/hosts/mbp15;
           };
 
         };
@@ -160,8 +160,8 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "x230";
-            nixos    = ./nixos/linux/x230;
-            home     = ./home/linux/x230;
+            nixos    = ./nixos/linux/hosts/hosts/x230;
+            home     = ./home/linux/hosts/hosts/x230;
           };
           # } ++ [ nixos-hardware.nixosModules.lenovo-thinkpad-x230 ] ;
           ##       ^ this seem to make wifi not work
@@ -172,8 +172,8 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "l14";
-            nixos    = ./nixos/linux/l14;
-            home     = ./home/linux/l14;
+            nixos    = ./nixos/linux/hosts/l14;
+            home     = ./home/linux/hosts/l14;
           };
         };
 
@@ -182,8 +182,8 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "t14";
-            nixos    = ./nixos/linux/t14;
-            home     = ./home/linux/t14;
+            nixos    = ./nixos/linux/hosts/t14;
+            home     = ./home/linux/hosts/t14;
           };
         };
 
@@ -192,8 +192,8 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "x1";
-            nixos    = ./nixos/linux/x1;
-            home     = ./home/linux/x1;
+            nixos    = ./nixos/linux/hosts/x1;
+            home     = ./home/linux/hosts/x1;
           };
         };
 
@@ -202,8 +202,8 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "mp";
-            nixos    = ./nixos/linux/mp;
-            home     = ./home/linux/mp;
+            nixos    = ./nixos/linux/hosts/mp;
+            home     = ./home/linux/hosts/mp;
           };
         };
 
@@ -212,8 +212,8 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "mx9366";
-            nixos    = ./nixos/linux/mx9366;
-            home     = ./home/linux/mx9366;
+            nixos    = ./nixos/linux/hosts/mx9366;
+            home     = ./home/linux/hosts/mx9366;
           };
         };
 
@@ -222,8 +222,8 @@
           modules = mkNixosModules {
             user     = "jj";
             hostname = "mini5i";
-            nixos    = ./nixos/linux/mini5i;
-            home     = ./home/linux/mini5i;
+            nixos    = ./nixos/linux/hosts/mini5i;
+            home     = ./home/linux/hosts/mini5i;
           };
         };
 
@@ -250,7 +250,7 @@
           homeDirectory = "/Users/jj";
           username = "jj";
           configuration = {
-            imports = [ ./home/darwin/mbp15 ];
+            imports = [ ./home/darwin/hosts/mbp15 ];
             nixpkgs = nixpkgsConfig "mbp15";
           };
         };
@@ -260,7 +260,7 @@
           homeDirectory = "/home/jj";
           username = "jj";
           configuration = {
-            imports = [ ./home/linux/mp ];
+            imports = [ ./home/linux/hosts/mp ];
             nixpkgs = nixpkgsConfig "mp";
           };
         };
@@ -270,7 +270,7 @@
           homeDirectory = "/home/jj";
           username = "jj";
           configuration = {
-            imports = [ ./home/linux/x230 ];
+            imports = [ ./home/linux/hosts/x230 ];
             nixpkgs = nixpkgsConfig "x230";
           };
         };
@@ -280,7 +280,7 @@
           homeDirectory = "/home/jj";
           username = "jj";
           configuration = {
-            imports = [ ./home/linux/l14 ];
+            imports = [ ./home/linux/hosts/l14 ];
             nixpkgs = nixpkgsConfig "l14";
           };
         };
@@ -290,7 +290,7 @@
           homeDirectory = "/home/jj";
           username = "jj";
           configuration = {
-            imports = [ ./home/linux/t14 ];
+            imports = [ ./home/linux/hosts/t14 ];
             nixpkgs = nixpkgsConfig "t14";
           };
         };
@@ -300,7 +300,7 @@
           homeDirectory = "/home/jj";
           username = "jj";
           configuration = {
-            imports = [ ./home/linux/x1 ];
+            imports = [ ./home/linux/hosts/x1 ];
             nixpkgs = nixpkgsConfig "x1";
           };
         };
@@ -310,7 +310,7 @@
           homeDirectory = "/home/jj";
           username = "jj";
           configuration = {
-            imports = [ ./home/linux/mx9366 ];
+            imports = [ ./home/linux/hosts/mx9366 ];
             nixpkgs = nixpkgsConfig "mx9366";
           };
         };
@@ -320,7 +320,7 @@
           homeDirectory = "/home/jj";
           username = "jj";
           configuration = {
-            imports = [ ./home/linux/mini5i ];
+            imports = [ ./home/linux/hosts/mini5i ];
             nixpkgs = nixpkgsConfig "mini5i";
           };
         };

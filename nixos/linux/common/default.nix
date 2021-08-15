@@ -12,6 +12,7 @@
     ../services/tailscale
     ../hardware/acpilight
     ../hardware/audio
+    ../distributed-build
   ];
 
   fonts.fontconfig.enable = true;

@@ -50,9 +50,8 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
 
-    # trustedUsers = [ "${config.user.name}" "root" "@admin" "@wheel" ];
     trustedUsers = [
-      "root" "@admin" "@wheel" "jj"
+      "root" "@admin" "@wheel"
     ];
 
     gc = {

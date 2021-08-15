@@ -6,6 +6,7 @@
   services.openssh.enable = true;
   services.openssh.forwardX11 = true;
 
-  # services.openssh.permitRootLogin = "yes";
+  services.openssh.permitRootLogin = "yes";
+
 
 }
