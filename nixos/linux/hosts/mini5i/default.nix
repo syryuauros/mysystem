@@ -6,6 +6,7 @@
     ../../virtualisation
     ./hardware-configuration.nix
     ./wireguard
+    # ./wg-quick
   ];
 
   # Use the systemd-boot EFI boot loader.
