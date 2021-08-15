@@ -19,4 +19,9 @@
 		builders-use-substitutes = true
 	'';
 
+  programs.ssh.extraConfig = ''
+    Host builder
+      HostName 100.72.169.29
+  '';
+
 }
