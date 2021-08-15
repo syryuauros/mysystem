@@ -24,6 +24,7 @@
     hashedPassword = "$6$RC/dgA4OT$1pf89X8r1iv.DSbzpXR.rj57hSTZE70t.hxB.Olj8Axwz7mf.v8MGgjySvCnzM2EOC4Nf3jYSz7y1hnn6CIkK/";
   };
 
+  # This keys for the distributed builds
   users.users.root = {
     hashedPassword = "$6$T80JsrUCydok0S$5/CAsrhK77RRPP3QlqAFjOgjp9CEo/0LUUXwkmT9Tjmsz08DfY5.FkLp3SU3EhlLesH2aq7FGVBBEc07s3R7u/";
     openssh.authorizedKeys.keys = [
