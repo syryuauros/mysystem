@@ -5,7 +5,7 @@
     ../../../linux/common
     ./hardware-configuration.nix
     ./web-services.nix
-    ./wireguard
+    (import ../../wireguard "10.100.0.4/24")
   ];
 
   # Use the systemd-boot EFI boot loader.

@@ -1,15 +1,16 @@
-{ ... }:
+ip : { ... }:
 {
 
   networking.firewall = {
-    allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
+    allowedUDPPorts = [ 51820 ];
   };
 
   networking.wireguard.interfaces = {
-    wg0 = {
-      ips = [ "10.100.0.4/24" ];
+
+    haedosa0 = {
+      ips = [ ip ];
       listenPort = 51820;
-      privateKeyFile = "/home/jj/wireguard-keys/private";
+      privateKeyFile = "/home/jj/.wireguard-keys/private";
       peers = [
         {
           publicKey = "iFb4Ua34391/8hwCY3F3a3ceMZggkvZqo4dQZqi3ATo=";
