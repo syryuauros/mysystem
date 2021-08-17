@@ -71,6 +71,11 @@
         identityFile = "~/.ssh/id_wavetojj";
       };
 
+      "legion5i" = {
+        forwardX11 = true;
+        hostname = "10.100.0.5";
+      };
+
     };
 
   };

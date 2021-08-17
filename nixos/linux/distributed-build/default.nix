@@ -5,11 +5,11 @@
   nix.distributedBuilds = true;
   nix.buildMachines = [
     {
-      hostName = "builder";
+      hostName = "legion5i";
       sshUser = "root";
-      sshKey = "/root/.ssh/id_builder";
+      sshKey = "/home/jj/.ssh/id_builder";
       system = "x86_64-linux";
-      maxJobs = 4;
+      maxJobs = 6;
       speedFactor = 2;
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       mandatoryFeatures = [ ];
@@ -20,8 +20,8 @@
 	'';
 
   programs.ssh.extraConfig = ''
-    Host builder
-      HostName 100.72.169.29
+    Host legion5i
+      HostName 10.100.0.5
   '';
 
 }
