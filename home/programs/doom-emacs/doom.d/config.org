@@ -208,3 +208,47 @@
 )
 
 #+end_src
+
+* Whitespace
+
+#+begin_src emacs-lisp
+(use-package! whitespace
+  :custom (whitespace-style '(face tabs trailing
+                              space-before-tab
+                              newline empty
+                              space-after-tab))
+  :hook (((prog-mode org-mode) . whitespace-mode)
+         (before-save . delete-trailing-whitespace))
+)
+#+end_src
+
+* Undo-tree
+
+#+begin_src emacs-lisp
+
+(use-package! undo-tree
+  :hook (((prog-mode org-mode) . undo-tree-mode))
+)
+
+#+end_src
+
+* Windsize
+
+#+begin_src emacs-lisp
+
+(use-package! windsize
+  :custom
+  (windsize-cols 1)
+  (windsize-rows 1)
+  :commands windsize-left windsize-right
+            windsize-up windsize-down
+)
+
+(map!
+  "C-S-h" #'windsize-left
+  "C-S-l" #'windsize-right
+  "C-S-k" #'windsize-up
+  "C-S-j" #'windsize-down
+)
+
+#+end_src
