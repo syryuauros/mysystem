@@ -5,7 +5,7 @@
   nix.distributedBuilds = true;
   nix.buildMachines = [
     {
-      hostName = "legion5i";
+      hostName = "10.100.0.5";
       sshUser = "root";
       sshKey = "/home/jj/.ssh/id_builder";
       system = "x86_64-linux";
@@ -15,13 +15,10 @@
       mandatoryFeatures = [ ];
     }
   ];
-	nix.extraOptions = ''
-		builders-use-substitutes = true
-	'';
-
-  programs.ssh.extraConfig = ''
-    Host legion5i
-      HostName 10.100.0.5
+  nix.extraOptions = ''
+    builders-use-substitutes = true
   '';
+
+  services.openssh.knownHosts."10.100.0.5".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF3TcmfKYL5jExLJXGHNs1HIKTrSCsUEoHtx0D7TtHiO";
 
 }
