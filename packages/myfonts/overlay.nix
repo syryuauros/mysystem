@@ -34,11 +34,12 @@ in {
 
   myfonts-collection = with final; [
     # myfonts
-    noto-sans-kr
-    noto-serif-kr
+    # noto-sans-kr
+    # noto-serif-kr
     # nerdfonts
+    seoul-hangan
     mynerdfonts
-    # noto-fonts-cjk
+    noto-fonts-cjk
     # noto-fonts
     material-design-icons
     weather-icons

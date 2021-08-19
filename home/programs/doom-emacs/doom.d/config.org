@@ -15,6 +15,50 @@
 
 #+end_src
 
+* Font
+** Set the Face Font
+
+#+begin_src emacs-lisp
+
+(use-package! face-remap
+  :custom-face
+  (default ((t (:family "Mononoki Nerd Font"))))
+  (fixed-pitch ((t (:family "Mononoki Nerd Font"))))
+  (variable-pitch ((t (:family "SeoulHangang CB"))))
+)
+
+#+end_src
+
+** Mixed-pitch
+
+#+begin_src emacs-lisp
+
+(use-package! mixed-pitch
+  :hook
+  (org-mode . mixed-pitch-mode)
+)
+
+#+end_src
+
+** Org Header Font Style
+
+#+begin_src emacs-lisp
+
+(defun my/org-hearder-size()
+  (dolist (face '((org-level-1 . 1.3)
+                  (org-level-2 . 1.2)
+                  (org-level-3 . 1.1)
+                  (org-level-4 . 1.1)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.0)
+                  (org-level-7 . 1.0)
+                  (org-level-8 . 1.0)))
+    (set-face-attribute (car face) nil :height (cdr face)))
+)
+
+(add-hook 'org-mode-hook #'my/org-hearder-size)
+
+#+end_src
 * Hangul
 
 #+begin_src emacs-lisp
