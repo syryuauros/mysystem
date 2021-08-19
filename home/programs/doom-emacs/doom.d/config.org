@@ -246,11 +246,17 @@
 
 #+end_src
 
-* Org
+* Org Mode
+** Org Archive
 
 #+begin_src emacs-lisp
 
-(setq org-directory "~/Org/")
+  (defun my/org-archive()
+    (setq
+      org-archive-mark-done nil
+      org-archive-location "%s_arxiv::"
+    )
+  )
 
 #+end_src
 
@@ -258,39 +264,41 @@
 
 #+begin_src emacs-lisp
 
-  (setq org-capture-templates `(
-    ("h" "Haedosa" entry
-      (file+olp+datetree ,(concat org-directory "/haedosa/README.org"))
-      "* %? %U\n%a\n%i"
-    )
-    ("s" "shapemaster" entry
-      (file+olp+datetree ,(concat org-directory "/shapemaster/README.org"))
-      "* %? %U\n%a\n%i"
-    )
-    ("e" "ebeam" entry
-      (file+olp+datetree ,(concat org-directory "/ebeam/README.org"))
-      "* %? %U\n%a\n%i"
-    )
-    ("m" "Memo" entry
-      (file+olp+datetree ,(concat org-directory "/memo/memo.org"))
-      "* %? %U\n%a\n%i"
-    )
-    ("f" "Finance" entry
-    (file+olp+datetree ,(concat org-directory "/finance/finance.org"))
-      "* %? %U\n%a\n%i"
-    )
-    ("H" "Health" entry
-    (file+olp+datetree ,(concat org-directory "/health/health.org"))
-      "* %? %U\n%a\n%i"
-    )
-    ("d"                                       ;; key
-    "Diary"                                    ;; description
-    entry                                      ;; type
-    (file+olp+datetree ,(concat org-directory "/personal/diary.org")) ;; target
-    "* %U\n%a\n%?"                             ;; template
-    ;:tree-type week
-    )
-  ))
+  (defun my/org-capture()
+     (setq org-capture-templates `(
+            ("h" "Haedosa" entry
+              (file+olp+datetree ,(concat org-directory "/haedosa/README.org"))
+              "* %? %U\n%a\n%i"
+            )
+            ("s" "shapemaster" entry
+              (file+olp+datetree ,(concat org-directory "/shapemaster/README.org"))
+              "* %? %U\n%a\n%i"
+            )
+            ("e" "ebeam" entry
+              (file+olp+datetree ,(concat org-directory "/ebeam/README.org"))
+              "* %? %U\n%a\n%i"
+            )
+            ("m" "Memo" entry
+              (file+olp+datetree ,(concat org-directory "/memo/memo.org"))
+              "* %? %U\n%a\n%i"
+            )
+            ("f" "Finance" entry
+            (file+olp+datetree ,(concat org-directory "/finance/finance.org"))
+              "* %? %U\n%a\n%i"
+            )
+            ("H" "Health" entry
+            (file+olp+datetree ,(concat org-directory "/health/health.org"))
+              "* %? %U\n%a\n%i"
+            )
+            ("d"                                       ;; key
+            "Diary"                                    ;; description
+            entry                                      ;; type
+            (file+olp+datetree ,(concat org-directory "/personal/diary.org")) ;; target
+            "* %U\n%a\n%?"                             ;; template
+            ;:tree-type week
+            )
+          ))
+  )
 
 #+end_src
 
@@ -298,21 +306,84 @@
 
 #+begin_src emacs-lisp
 
-  (setq org-agenda-files
-      (list
-        (concat org-directory "/haedosa/README.org")
-        (concat org-directory "/shapemaster/README.org")
-        (concat org-directory "/ebeam/README.org")
-        (concat org-directory "/memo/memo.org")
-        (concat org-directory "/health/health.org")
-        (concat org-directory "/study/study.org")
-        (concat org-directory "/personal/note.org")
-        (concat org-directory "/personal/focus.org")
-        (concat org-directory "/personal/diary.org")
-      )
+  (defun my/org-agenda()
+    (setq org-agenda-files
+       (list
+          (concat org-directory "/haedosa/README.org")
+          (concat org-directory "/shapemaster/README.org")
+          (concat org-directory "/ebeam/README.org")
+          (concat org-directory "/memo/memo.org")
+          (concat org-directory "/health/health.org")
+          (concat org-directory "/study/study.org")
+          (concat org-directory "/personal/note.org")
+          (concat org-directory "/personal/focus.org")
+          (concat org-directory "/personal/diary.org")
+       )
+    )
+
+    (setq org-agenda-ndays 7
+          org-agenda-show-all-dates t)
   )
 
-  (setq org-agenda-ndays 7
-        org-agenda-show-all-dates t)
+#+end_src
+
+** Org Babel
+
+#+begin_src emacs-lisp
+
+  (defun my/org-babel()
+
+    (org-babel-do-load-languages
+      'org-babel-load-languages
+      '((haskell . t)
+        (emacs-lisp . t)
+        (shell . t)
+        (sql . t)
+        (ruby . t)
+        (python . t)
+        (maxima . t)
+        (C . t)
+        (R . t)
+        (latex . t)
+        (ditaa . t)
+        (java . t))
+    )
+
+    (setq org-catch-invisible-edits           'show
+          org-src-preserve-indentation        t
+          org-src-tab-acts-natively           t
+          org-fontify-quote-and-verse-blocks  t
+          org-return-follows-link             t
+          org-edit-src-content-indentation    0
+          org-src-fontify-natively            t
+          org-confirm-babel-evaluate          nil
+    )
+  )
+
+#+end_src
+
+** Org
+
+#+begin_src emacs-lisp
+
+(use-package! org
+  :custom
+  (org-directory                       "~/Ocean/Org")
+  (org-ellipsis                        " ▾")
+  (org-src-fontify-natively            t)
+  (org-src-tab-acts-natively           t)
+  (org-hide-block-startup              nil)
+  (org-src-preserve-indentation        t)
+  (org-startup-folded                  'content)
+  (org-startup-indented                t)
+  (org-startup-with-inline-images      nil)
+  (org-hide-leading-stars              t)
+  (org-export-with-sub-superscripts (quote {}))
+  :config
+  (my/org-archive)
+  (my/org-capture)
+  (my/org-agenda)
+  (my/org-babel)
+)
 
 #+end_src
