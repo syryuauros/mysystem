@@ -3,7 +3,7 @@
 {
   services.emacs = {
     enable = true;
-    package = pkgs.emacs;
+    package = pkgs.doom-emacs;
     client.enable = true;
   };
 }
