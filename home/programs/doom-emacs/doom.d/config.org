@@ -199,11 +199,13 @@
 
 #+end_src
 
-* Counsel-rg
+* Custom Keybindings
 
 #+begin_src emacs-lisp
 
-(map! :leader "r" #'counsel-rg)
+(map! :leader
+      "r" #'counsel-rg
+      "d" #'dired-jump')
 
 #+end_src
 
