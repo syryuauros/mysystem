@@ -124,14 +124,14 @@ myBrowser' :: String -> String
 myBrowser' url = "qutebrowser --target window " <> url                     -- Sets qutebrowser as browser for tree select
 
 myEditor :: String
-myEditor = "myemacsclient -c -a 'myemacs --fg-daemon'"  -- Sets myemacs as editor for tree select
+myEditor = "emacsclient -c -a 'emacs --fg-daemon'"  -- Sets emacs as editor for tree select
 -- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor for tree select
 
 myEmail :: String
-myEmail = "myemacsclient -c -a myemacs --eval '(notmuch)'"
+myEmail = "emacsclient -c -a emacs --eval '(notmuch)'"
 
 myEditorOnScratchPad :: String
-myEditorOnScratchPad = "myemacsclient -s editorSP -c -a 'myemacs --title editorSP --fg-daemon=editorSP'"
+myEditorOnScratchPad = "emacsclient -s editorSP -c -a 'emacs --title editorSP --fg-daemon=editorSP'"
 
 myRofi :: String
 myRofi = "rofi -modi drun,ssh,window -show drun -show-icons"
@@ -168,7 +168,7 @@ myStartupHook :: X ()
 myStartupHook = do
           -- spawnOnce "nm-applet &"
           -- spawnOnce "volumeicon &"
-          -- spawnOnce "myemacs --title myemacsOnSP --daemon=myemacsOnSP"  -- this makes the login time slow
+          -- spawnOnce "emacs --title emacsOnSP --daemon=emacsOnSP"  -- this makes the login time slow
           -- spawnOnce myTrayer
           -- spawnOnce "kak -d -s mysession &"  -- kakoune daemon for better performance
           -- spawnOnce "urxvtd -q -o -f &"      -- urxvt daemon for better performance
@@ -227,7 +227,7 @@ editPrompt home = do
 
 openInEditor :: String -> X ()
 openInEditor path =
-    safeSpawn "myemacsclient" ["-c", "-a", "myemacs", path]
+    safeSpawn "emacsclient" ["-c", "-a", "emacs", path]
 
 scrotPrompt :: String -> Bool -> X ()
 scrotPrompt home select = do
@@ -636,15 +636,15 @@ myKeys home =
 
     -- Emacs (CTRL-e followed by a key)
     , ("M-d d"   , spawn $ myEditor <> " --eval '(dired nil)'")
+    , ("M-d c"   , spawn $ myEditor <> " --eval '(dired \"~/capture\")'")
     , ("M-d S-d" , spawn $ myEditor <> " --eval '(dired \"~/Downloads\")'")
     , ("M-d s"   , spawn $ myEditor <> " --eval '(dired \"~/mysystem\")'")
-    , ("M-d x"   , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/mysystem/home/services/xmonad/xmonad.hs\")'")
-    , ("M-d e"   , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/myemacs/myDefault.org\")'")
+    , ("M-d x"   , spawn $ myEditor <> " --eval '(find-file \"~/mysystem/home/services/xmonad/xmonad.hs\")'")
     , ("M-d m"   , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/memo/memo.org\")'")
     , ("M-d S-s" , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/study/study.org\")'")
     , ("M-d f"   , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/finance/finance.org\")'")
     , ("M-d h"   , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/haedosa/README.org\")'")
-    , ("M-d S-h" , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/health/health.org\")'")
+    , ("M-d S-h" , spawn $ myEditor <> " --eval '(find-file \"~/haedosa\")'")
 
     -- open to a website
     , ("M-o g"   , spawn $ myBrowser' "https://google.com")
