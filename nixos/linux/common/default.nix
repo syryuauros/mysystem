@@ -12,6 +12,7 @@
     ../services/tailscale
     ../hardware/acpilight
     ../hardware/audio
+    ../hardware/keyboard
     ../distributed-build
   ];
 
