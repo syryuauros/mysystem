@@ -74,6 +74,7 @@
     slack
 
     wireguard
+    wally-cli
 
   ] ++ myfonts-collection;
 
