@@ -408,6 +408,22 @@
 
 #+end_src
 
+** Org id
+
+=org-id-new= creates an uuid (e.g. A11DC7CB-D0ED-4C63-9941-8E692945823A), which
+is served as org-attach path. What bugged me for while is that the uuid is in
+the downcase on linux (e.g. a11dc7cb-d0ed-4c63-9941-8e692945823a) while it is in
+the upcase on mac (e.g. A11DC7CB-D0ED-4C63-9941-8E692945823A). This discrepancy
+causes conflict in syncing files between linux and mac.
+
+#+begin_src emacs-lisp
+
+  (defun my/org-id()
+    (advice-add 'org-id-new :filter-return #'upcase)
+  )
+
+#+end_src
+
 ** Org
 
 #+begin_src emacs-lisp
@@ -424,12 +440,14 @@
   (org-startup-indented                t)
   (org-startup-with-inline-images      nil)
   (org-hide-leading-stars              t)
+  (org-attach-id-dir                   "data/")
   (org-export-with-sub-superscripts (quote {}))
   :config
   (my/org-archive)
   (my/org-capture)
   (my/org-agenda)
   (my/org-babel)
+  (my/org-id)
 )
 
 #+end_src
