@@ -52,6 +52,8 @@
       "10.100.0.5:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
     ];
 
+    requireSignedBinaryCaches = false;
+
     trustedUsers = [
       "root" "@admin" "@wheel"
     ];
