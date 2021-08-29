@@ -37,6 +37,7 @@ in {
     # noto-sans-kr
     # noto-serif-kr
     # nerdfonts
+    symbola
     seoul-hangan
     mynerdfonts
     noto-fonts-cjk
