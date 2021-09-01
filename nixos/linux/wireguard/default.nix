@@ -22,7 +22,7 @@ ip : { ... }:
                          "10.100.0.6/32"
                          "10.100.0.7/32"
                        ];
-          endpoint = "haedosa.xyz:51820";
+          endpoint = "3.34.133.42:51820";
           persistentKeepalive = 25;
         }
       ];

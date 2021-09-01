@@ -47,10 +47,17 @@
       "http://10.100.0.5"
     ];
 
+    trustedBinaryCaches = [
+      "https://cache.nixos.org/"
+      "http://10.100.0.5"
+    ];
+
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "10.100.0.5:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
     ];
+
+    requireSignedBinaryCaches = true;
 
     trustedUsers = [
       "root" "@admin" "@wheel"

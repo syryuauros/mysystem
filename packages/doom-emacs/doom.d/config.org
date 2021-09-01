@@ -166,11 +166,11 @@
 (use-package! dired-ranger
   :after dired
   :bind (:map dired-mode-map
-          ("C-c b" . dired-ranger-bookmark)
-          ("C-c v" . dired-ranger-bookmark-visit)
-          ("C-c p" . dired-ranger-paste)
-          ("C-c y" . dired-ranger-copy)
-          ("C-c x" . dired-ranger-move))
+          ("C-c C-b" . dired-ranger-bookmark)
+          ("C-c C-v" . dired-ranger-bookmark-visit)
+          ("C-c C-p" . dired-ranger-paste)
+          ("C-c C-y" . dired-ranger-copy)
+          ("C-c C-x" . dired-ranger-move))
 )
 #+end_src
 

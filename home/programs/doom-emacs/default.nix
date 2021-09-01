@@ -2,7 +2,7 @@
 
   programs.doom-emacs = {
     enable = true;
-    doomPrivateDir = ./doom.d;
+    doomPrivateDir = ../../../packages/doom-emacs/doom.d;
   };
 
 }
