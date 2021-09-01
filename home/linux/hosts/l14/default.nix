@@ -8,7 +8,7 @@
 
 
   xresources.properties = {
-    "Xft.dpi" = 90;
+    "Xft.dpi" = 120;
     "Xft.autohint" = 0;
     "Xft.hintstyle" = "hintfull";
     "Xft.hinting" = 1;
