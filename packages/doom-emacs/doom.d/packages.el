@@ -59,3 +59,4 @@
 
 (package! undo-tree)
 (package! windsize)
+(package! string-inflection)

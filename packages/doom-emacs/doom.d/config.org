@@ -451,3 +451,11 @@ causes conflict in syncing files between linux and mac.
 )
 
 #+end_src
+
+* String-Inflection
+
+#+begin_src emacs-lisp
+
+(use-package! string-inflection)
+
+#+end_src
