@@ -19,6 +19,6 @@
     builders-use-substitutes = true
   '';
 
-  services.openssh.knownHosts."10.100.0.5".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF3TcmfKYL5jExLJXGHNs1HIKTrSCsUEoHtx0D7TtHiO";
+  services.openssh.knownHosts."10.100.0.5".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOy9IObSEcyb3+3gGXuG8uUGIUiWAuW6hPjoq0059SvZ";
 
 }
