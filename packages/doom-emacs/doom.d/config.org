@@ -205,7 +205,9 @@
 
 (map! :leader
       "r" #'counsel-rg
-      "d" #'dired-jump)
+      ">" #'counsel-fzf
+      "d" #'dired-jump
+      )
 
 #+end_src
 
