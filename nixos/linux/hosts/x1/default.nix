@@ -20,6 +20,7 @@
     };
   };
 
+  security.sudo.wheelNeedsPassword = false;
   # services.xserver.xkbOptions = "caps:ctrl_modifier";
   # This stared not working as of 2021-07-15
   # services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
