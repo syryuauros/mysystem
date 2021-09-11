@@ -569,7 +569,9 @@ myScratchPads = scratchpadApp <$> [ termSP, htopSP, editorSP, scr, spotify ]
 main :: IO ()
 main = do
     home <- getHomeDirectory
-    xmproc <- spawnPipe "xmobar $HOME/.config/xmobar/xmobarrc"
+    xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc"
+    xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.config/xmobar/xmobarrc"
+    xmproc2 <- spawnPipe "xmobar -x 2 $HOME/.config/xmobar/xmobarrc"
     xmonad $ ewmh def
         { manageHook = myManageHook
           -- manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
@@ -591,7 +593,7 @@ main = do
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
         , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
-                        { ppOutput          = hPutStrLn xmproc
+                        { ppOutput          = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x >> hPutStrLn xmproc2 x
                         , ppCurrent         = xmobarColor "#98be65" "" . wrap "[" "]"                  -- Current workspace in xmobar
                         , ppVisible         = xmobarColor "#98be65" ""               -- . clickable        -- Visible but not current workspace
                         , ppHidden          = xmobarColor "#82AAFF" "" . wrap "*" "" -- . clickable   -- Hidden workspaces in xmobar
