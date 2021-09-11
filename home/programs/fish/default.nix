@@ -14,6 +14,7 @@
     promptInit = ''
       starship init fish | source
       any-nix-shell fish --info-right | source
+      fish_vi_key_bindings
     '';
     shellAliases = {
       # cat  = "bat";
