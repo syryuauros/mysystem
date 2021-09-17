@@ -76,6 +76,18 @@
         hostname = "10.100.0.5";
       };
 
+      "builder1" = {
+        hostname = "10.100.100.1";
+        user = "root";
+        identityFile = "~/.ssh/id_builder";
+      };
+
+      "builder2" = {
+        hostname = "10.100.100.2";
+        user = "root";
+        identityFile = "~/.ssh/id_builder";
+      };
+
     };
 
   };

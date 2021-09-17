@@ -43,27 +43,22 @@
     '';
 
     binaryCaches = [
-      "http://10.100.0.5"
       "http://10.100.100.1"
       "http://10.100.100.2"
       "https://cache.nixos.org/"
     ];
 
     trustedBinaryCaches = [
-      "http://10.100.0.5"
       "http://10.100.100.1"
       "http://10.100.100.2"
       "https://cache.nixos.org/"
     ];
 
     binaryCachePublicKeys = [
-      "10.100.0.5:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
       "10.100.100.1:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
       "10.100.100.2:R7X06/w5h5SfUO4ZvTkkfIjHHEDhrOFYLoQjYVIrFLM="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
-
-    requireSignedBinaryCaches = true;
 
     trustedUsers = [
       "root" "@admin" "@wheel"
