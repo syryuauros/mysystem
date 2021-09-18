@@ -24,6 +24,8 @@
   # Set your time zone.
   time.timeZone = "Asia/Seoul";
 
+  security.sudo.wheelNeedsPassword = false;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ 80 8081 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
