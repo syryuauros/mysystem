@@ -178,13 +178,13 @@
           };
         };
 
-        t14 = nixpkgs.lib.nixosSystem {
+        legion5 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = mkNixosModules {
             user     = "jj";
-            hostname = "t14";
-            nixos    = ./nixos/linux/hosts/t14;
-            home     = ./home/linux/hosts/t14;
+            hostname = "legion5";
+            nixos    = ./nixos/linux/hosts/legion5;
+            home     = ./home/linux/hosts/legion5;
           };
         };
 
@@ -286,13 +286,13 @@
           };
         };
 
-        t14 = home-manager.lib.homeManagerConfiguration {
+        legion5 = home-manager.lib.homeManagerConfiguration {
           system = "x86_64-linux";
           homeDirectory = "/home/jj";
           username = "jj";
           configuration = {
-            imports = [ ./home/linux/hosts/t14 ];
-            nixpkgs = nixpkgsConfig "t14";
+            imports = [ ./home/linux/hosts/legion5 ];
+            nixpkgs = nixpkgsConfig "legion5";
           };
         };
 

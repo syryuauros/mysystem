@@ -11,12 +11,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
-    hostName = "t14";
+    hostName = "legion5";
     networkmanager = {
       enable   = true;
       packages = [
         pkgs.networkmanager
-        pkgs.networkmanager_openvpn ];
+      ];
     };
   };
 

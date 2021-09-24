@@ -9,23 +9,22 @@
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.availableKernelModules = [ "thunderbolt" "nvme" "xhci_pci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  boot.hardwareScan = true;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/c9add72e-d789-45a2-8fd0-aed7a40e11a2";
+    { device = "/dev/disk/by-uuid/2fe53f4b-d270-486a-96f6-aa47a0e9552e";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/1EF4-B706";
+    { device = "/dev/disk/by-uuid/09EC-98CB";
       fsType = "vfat";
     };
 
-  swapDevices = [];
+  swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
