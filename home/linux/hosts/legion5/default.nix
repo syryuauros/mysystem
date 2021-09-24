@@ -8,7 +8,7 @@
 
 
   xresources.properties = {
-    "Xft.dpi" = 90;
+    "Xft.dpi" = 100;
     "Xft.autohint" = 0;
     "Xft.hintstyle" = "hintfull";
     "Xft.hinting" = 1;
@@ -24,8 +24,8 @@
 
     # make trackpad and trackpoint faster
     xinput set-prop "SynPS/2 Synaptics TouchPad" 322 1
-    xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
-    xinput set-prop "TPPS/2 Elan TrackPoint" 322 1
+    # xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
+    # xinput set-prop "TPPS/2 Elan TrackPoint" 322 1
 
     setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
 

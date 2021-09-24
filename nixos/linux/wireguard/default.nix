@@ -1,4 +1,4 @@
-ip : { ... }:
+ips : { ... }:
 {
 
   networking.firewall = {
@@ -8,14 +8,23 @@ ip : { ... }:
   networking.wireguard.interfaces = {
 
     haedosa0 = {
-      ips = [ ip ];
+      ips = ips;
       listenPort = 51820;
+
+      # Create your wireguard keys
+      # ```sh
+      # umask 077
+      # mkdir ~/.wireguard-keys
+      # wg genkey > ~/.wireguard-keys/private
+      # wg pubkey < ~/.wireguard-keys/private > ~/.wireguard-keys/public
+      # ```
       privateKeyFile = "/home/jj/.wireguard-keys/private";
       peers = [
         {
           publicKey = "iFb4Ua34391/8hwCY3F3a3ceMZggkvZqo4dQZqi3ATo=";
           allowedIPs = [ "10.100.0.1/32"
                          "10.100.0.2/32"
+                         "10.100.0.22/32"
                          "10.100.0.3/32"
                          "10.100.0.4/32"
                          "10.100.0.6/32"

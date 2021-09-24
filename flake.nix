@@ -88,6 +88,94 @@
         }
       ];
 
+      # This keys for the distributed builds
+      root = {
+        hashedPassword = "$6$T80JsrUCydok0S$5/CAsrhK77RRPP3QlqAFjOgjp9CEo/0LUUXwkmT9Tjmsz08DfY5.FkLp3SU3EhlLesH2aq7FGVBBEc07s3R7u/";
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOxtKP75Zobhn/Jioh9Wp1poDoePTm0suv3vufcRCdP0 root@x1"
+        ];
+      };
+
+      hosts = {
+
+        x1 = {
+          ip = "10.100.0.2";
+          wg-ips = [ "10.100.0.2/24" ] ; # to set up the wireguard
+          configuration = ./nixos/linux/hosts/x1;
+          home = ./home/linux/hosts/x1;
+        };
+
+        legion5 = {
+          ip = "10.100.0.22";
+          wg-ips = [ "10.100.0.22/24" ]; # to set up the wireguard
+          configuration = ./nixos/linux/hosts/legion5;
+          home = ./home/linux/hosts/legion5;
+        };
+
+        l14 = {
+          ip = "100.72.169.29";
+          wg-ips = [ "10.100.0.4/24" ]; # to set up the wireguard
+          configuration = ./nixos/linux/hosts/l14;
+          home = ./home/linux/hosts/l14;
+        };
+
+        mp = {
+          ip = "100.72.169.29";
+          wg-ips = [ "10.100.100.2/24" ]; # to set up the wireguard
+          configuration = ./nixos/linux/hosts/mp;
+          home = ./home/linux/hosts/mp;
+        };
+
+
+      };
+
+      users = {
+
+        # inherit root;
+
+        jj = {
+          isNormalUser = true;
+          uid = 1000;
+          home = "/home/jj";
+          extraGroups = [ "wheel" "networkmanager" "audio" "video" ];
+          hashedPassword = "$6$3nKguLgJMB$leFSKrvWiUAXiay8MJ8i66.ZzufIhkrrbxzv625DV28xSYGBCLp62pyIp4U3s8miHcOdJZpWLgDMEoWljPtT0.";
+          openssh.authorizedKeys.keys = [
+            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC+XEhhqkpyVtUSu+t2JT3j5QxHUGBwCOiOwyc/4Ukpk8F2XP+ac5i9QuFd+yKXeoQcmgke6y+h7HjVBMDYD5OJRq6N4ep9dfU6svGccVNScbh+dOB+WtzrZco7euddOhtjT4pbSoyhImg5AJxA0SgvHnoTTq4nvMYAbCG9xSWz353FV1nrJPLo0bpEOSqdeb3HTgDntcMv9KaNGHe6hzGIPBQvW/y2FQ3hiHtDS+WIBQzPrQnRRslrCr7hcBwniYfKBdgjENK2yLIgDSoTwUXYFTMZgrjBejCo33+bR2Jrk66isEOR7oThHsI7vnxjSlUKmQ4o+B4e1lsILIyW0GPz0s/vrdTfZdqt+eZ38NJhqJD7mDruhuBf1NNE/rNWazu36afSQnRXhv9XgHo1cF1NMtC10grOrA5fUylGRHS8tS2RZHJ9OXgxBcV0bdIbqOu7jFRTzvm36dcMyJrALrz4ZEg/BJ7IOgtd1cTpcvxcQzDZSd+mSPHaY82urSH7QCc= jj@x1"
+          ];
+        };
+
+      };
+
+      mkNixOSConfiguration = name: host: nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+
+          ({ pkgs, ... }: {
+            users.mutableUsers = false;
+            users.extraUsers = users;
+          })
+          (import ./nixos/linux/wireguard host.wg-ips)
+          host.configuration
+          home-manager.nixosModules.home-manager
+          {
+            nixpkgs = {
+              config = {
+                allowUnfree = true;
+                hostName = name;
+              };
+              overlays = [ self.overlay ];
+            };
+            home-manager.users =
+              (nixpkgs.lib.mapAttrs (username: user:
+                {  imports = [ nix-doom-emacs.hmModule
+                               host.home
+                            ];
+                }
+              ) users);
+          }
+        ];
+      };
+
     in rec {
 
       overlays = [
@@ -108,7 +196,7 @@
           inherit
             jupyter_contrib_core
             jupyter_nbextensions_configurator; })
-        (import ./overlay.nix inputs)
+        (import ./overlay.nix { inherit inputs mkNixOSConfiguration hosts; })
       ];
 
       overlay = nixpkgs.lib.composeManyExtensions self.overlays;
@@ -142,211 +230,33 @@
 
       };
 
+      nixosConfigurations = (nixpkgs.lib.mapAttrs mkNixOSConfiguration hosts);
 
-      #--------------------------------------------------------------------------
-      #
-      #  NixOS Configurations
-      #
-      #  How to run:
-      #     > nixos-rebuild build --flake .#x230
-      #
-      #  Or change mbp15 to one of other nixos configurations
-      #
-      #--------------------------------------------------------------------------
+      nixosPackages = (nixpkgs.lib.mapAttrs
+        (name: host: host.config.system.build.toplevel)
+        self.nixosConfigurations);
 
-      nixosConfigurations = {
-
-        x230 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = mkNixosModules {
-            user     = "jj";
-            hostname = "x230";
-            nixos    = ./nixos/linux/hosts/hosts/x230;
-            home     = ./home/linux/hosts/hosts/x230;
-          };
-          # } ++ [ nixos-hardware.nixosModules.lenovo-thinkpad-x230 ] ;
-          ##       ^ this seem to make wifi not work
-        };
-
-        l14 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = mkNixosModules {
-            user     = "jj";
-            hostname = "l14";
-            nixos    = ./nixos/linux/hosts/l14;
-            home     = ./home/linux/hosts/l14;
-          };
-        };
-
-        legion5 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = mkNixosModules {
-            user     = "jj";
-            hostname = "legion5";
-            nixos    = ./nixos/linux/hosts/legion5;
-            home     = ./home/linux/hosts/legion5;
-          };
-        };
-
-        x1 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = mkNixosModules {
-            user     = "jj";
-            hostname = "x1";
-            nixos    = ./nixos/linux/hosts/x1;
-            home     = ./home/linux/hosts/x1;
-          };
-        };
-
-        mp = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = mkNixosModules {
-            user     = "jj";
-            hostname = "mp";
-            nixos    = ./nixos/linux/hosts/mp;
-            home     = ./home/linux/hosts/mp;
-          };
-        };
-
-        mx9366 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = mkNixosModules {
-            user     = "jj";
-            hostname = "mx9366";
-            nixos    = ./nixos/linux/hosts/mx9366;
-            home     = ./home/linux/hosts/mx9366;
-          };
-        };
-
-        mini5i = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = mkNixosModules {
-            user     = "jj";
-            hostname = "mini5i";
-            nixos    = ./nixos/linux/hosts/mini5i;
-            home     = ./home/linux/hosts/mini5i;
-          };
-        };
-
+  } // flake-utils.lib.eachDefaultSystem (system:
+    let
+      pkgs = import nixpkgs {
+        inherit system;
+        config = {};
+        overlays = [ self.overlay ];
       };
 
+    in rec {
+      devShell = import ./develop.nix { inherit pkgs; };
 
-      #--------------------------------------------------------------------------
-      #
-      #  Home Configurations
-      #
-      #  To build, for mac,
-      #  > nix build .#homeConfigurations.darwin.activationPackage
-      #  or, for linux,
-      #  > nix build .#homeConfigurations.linux.activationPackage
-      #  then run
-      #  > ./result/activate
-      #
-      #--------------------------------------------------------------------------
+      defaultPackage = pkgs.deploy;
+      packages = {
+        deploy = pkgs.deploy;
+      } // self.nixosPackages;
 
-      homeConfigurations = {
+      defaultApp = apps.deploy;
+      apps = {
+        # add other apps here
+      } // pkgs.nixOSApps;
+    }
 
-        mbp15 = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-darwin";
-          homeDirectory = "/Users/jj";
-          username = "jj";
-          configuration = {
-            imports = [ ./home/darwin/hosts/mbp15 ];
-            nixpkgs = nixpkgsConfig "mbp15";
-          };
-        };
-
-        mp = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          homeDirectory = "/home/jj";
-          username = "jj";
-          configuration = {
-            imports = [ ./home/linux/hosts/mp ];
-            nixpkgs = nixpkgsConfig "mp";
-          };
-        };
-
-        x230 = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          homeDirectory = "/home/jj";
-          username = "jj";
-          configuration = {
-            imports = [ ./home/linux/hosts/x230 ];
-            nixpkgs = nixpkgsConfig "x230";
-          };
-        };
-
-        l14 = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          homeDirectory = "/home/jj";
-          username = "jj";
-          configuration = {
-            imports = [ ./home/linux/hosts/l14 ];
-            nixpkgs = nixpkgsConfig "l14";
-          };
-        };
-
-        legion5 = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          homeDirectory = "/home/jj";
-          username = "jj";
-          configuration = {
-            imports = [ ./home/linux/hosts/legion5 ];
-            nixpkgs = nixpkgsConfig "legion5";
-          };
-        };
-
-        x1 = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          homeDirectory = "/home/jj";
-          username = "jj";
-          configuration = {
-            imports = [ ./home/linux/hosts/x1 ];
-            nixpkgs = nixpkgsConfig "x1";
-          };
-        };
-
-        mx9366 = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          homeDirectory = "/home/jj";
-          username = "jj";
-          configuration = {
-            imports = [ ./home/linux/hosts/mx9366 ];
-            nixpkgs = nixpkgsConfig "mx9366";
-          };
-        };
-
-        mini5i = home-manager.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          homeDirectory = "/home/jj";
-          username = "jj";
-          configuration = {
-            imports = [ ./home/linux/hosts/mini5i ];
-            nixpkgs = nixpkgsConfig "mini5i";
-          };
-        };
-
-      };
-
-
-    } //
-
-    #--------------------------------------------------------------------------
-    #
-    #  devShell fo this flake
-    #
-    #  How to run:
-    #  > nix develop
-    #
-    #--------------------------------------------------------------------------
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            nixFlakes
-          ];
-        };
-      });
+  );
 }

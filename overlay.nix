@@ -1,4 +1,4 @@
-inputs: final: prev: with final;
+{ mkNixOSConfiguration, hosts, inputs }: final: prev: with final;
 {
 
   extra-monitor = callPackage ./packages/scripts/extra-monitor {};
@@ -52,5 +52,38 @@ inputs: final: prev: with final;
     ;
 
   };
+
+
+  deploy = let
+    profile = "/nix/var/nix/profiles/system";
+  in writeScriptBin "deploy" ''
+    host="$1"
+    store="$2"
+    # nix-copy-closure --to --use-substitutes $host $store
+    nix-copy-closure --to $host $store
+    ssh $host sudo nix-env --profile ${profile} --set $store
+    ssh $host sudo ${profile}/bin/switch-to-configuration switch
+  '';
+
+  nixOSApps = (pkgs.lib.mapAttrs
+    (name: host: let
+      nixOSConf = mkNixOSConfiguration name host;
+      nixOSPkg = nixOSConf.config.system.build.toplevel;
+    in
+    {
+      type = "app";
+      program = let
+        profile = "/nix/var/nix/profiles/system";
+        prog = pkgs.writeScriptBin "deploy" ''
+          host="${host.ip}"
+          store="${nixOSPkg}"
+          # nix-copy-closure --to --use-substitutes $host $store
+          nix-copy-closure --to $host $store
+          ssh $host sudo nix-env --profile ${profile} --set $store
+          ssh $host sudo ${profile}/bin/switch-to-configuration switch
+        '';
+      in "${prog}/bin/deploy";
+    })
+    hosts);
 
 }

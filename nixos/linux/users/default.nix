@@ -20,9 +20,12 @@
     isSystemUser = true;
     uid = 1001;
     home = "/home/web";
+    group = "web";
     extraGroups = [ ];
     hashedPassword = "$6$RC/dgA4OT$1pf89X8r1iv.DSbzpXR.rj57hSTZE70t.hxB.Olj8Axwz7mf.v8MGgjySvCnzM2EOC4Nf3jYSz7y1hnn6CIkK/";
   };
+
+  users.groups.web = {};
 
   # This keys for the distributed builds
   users.users.root = {

@@ -3,7 +3,7 @@
 {
 
   imports = [
-    ../users
+    # ../users
     ../i18n
     ../xserver
     ../services/blueman

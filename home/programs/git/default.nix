@@ -12,6 +12,9 @@ let
       prompt = false;
     };
     pull.rebase = false;
+    init = {
+      defaultBranch = "master";
+    };
   };
 in
 {
