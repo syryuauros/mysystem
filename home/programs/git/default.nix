@@ -40,7 +40,7 @@ in
       key = "6A9DC1FC403B1F49";
       signByDefault = false;
     };
-    userEmail = "wavetojj@gmail.com";
+    userEmail = "jj@haedosa.xyz";
     userName = "JJ Kim";
   };
 }

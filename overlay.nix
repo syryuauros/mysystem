@@ -13,17 +13,11 @@
   #   rtw89 = self.callPackage ./packages/rtw89 {};
   # });
   # rtw89-firmware = callPackage ./packages/rtw89-firmware {};
-  #
 
   doom-emacs = mk-doom-emacs {
     doomPrivateDir = ./packages/doom-emacs/doom.d;
   };
 
-
-  # failed to pass the test on mac 2021-06-04
-  nixUnstable = prev.nixUnstable.overrideAttrs (o: {
-    doInstallCheck = false;
-  });
 
   mytex = texlive.combine {
     inherit (texlive)

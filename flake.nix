@@ -4,8 +4,8 @@
 
   inputs = {
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    stable.url = "github:nixos/nixpkgs/nixos-20.09";
+    nixpkgs.url = "github:nixos/nixpkgs";
+    newpkgs.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils/master";
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     home-manager = { url = "github:nix-community/home-manager/master"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -20,7 +20,7 @@
   };
 
   outputs =
-    inputs@{ self, nixpkgs, darwin, home-manager, flake-compat, flake-utils, nur
+    inputs@{ self, nixpkgs, newpkgs, darwin, home-manager, flake-compat, flake-utils, nur
            , chemacs2, nix-doom-emacs
            , jupyter_contrib_core, jupyter_nbextensions_configurator
            , ... }:
@@ -29,24 +29,28 @@
 
       lib = nixpkgs.lib;
 
+      allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
+        [ # whitelist for firefox
+          "firefox-beta-bin"
+          "firefox-beta-bin-unwrapped"
+          "languagetool"
+          "lastpass-password-manager"
+          "broadcom-sta"
+          "cudatoolkit"
+          "zoom"
+          "google-chrome"
+          "anydesk"
+          "slack"
+          "Oracle_VM_VirtualBox_Extension_Pack"
+          "symbola"
+          "nvidia-x11"
+          "nvidia-settings"
+        ];
+
       nixpkgsConfig = hostname: with inputs; {
 
         config = {
-          allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
-            [ # whitelist for firefox
-              "firefox-beta-bin"
-              "firefox-beta-bin-unwrapped"
-              "languagetool"
-              "lastpass-password-manager"
-              "broadcom-sta"
-              "cudatoolkit"
-              "zoom"
-              "google-chrome"
-              "anydesk"
-              "slack"
-              "Oracle_VM_VirtualBox_Extension_Pack"
-              "symbola"
-            ];
+          inherit allowUnfreePredicate;
           inherit hostname;
         };
 
@@ -146,8 +150,19 @@
 
       };
 
-      mkNixOSConfiguration = name: host: nixpkgs.lib.nixosSystem {
+
+
+      mkNixOSConfiguration = let
+
         system = "x86_64-linux";
+        pkgs2 = import newpkgs {
+          inherit system;
+          config = { inherit allowUnfreePredicate; };
+          overlays = [ self.overlay ];
+        };
+
+      in name: host: nixpkgs.lib.nixosSystem {
+        inherit system;
         modules = [
 
           ({ pkgs, ... }: {
@@ -160,10 +175,14 @@
           {
             nixpkgs = {
               config = {
-                allowUnfree = true;
+                # allowUnfree = true;
+                inherit allowUnfreePredicate;
                 hostName = name;
               };
-              overlays = [ self.overlay ];
+              overlays = [
+                (self: super: { newpkgs = pkgs2; })
+                self.overlay
+              ];
             };
             home-manager.users =
               (nixpkgs.lib.mapAttrs (username: user:
@@ -238,8 +257,9 @@
 
   } // flake-utils.lib.eachDefaultSystem (system:
     let
+
       pkgs = import nixpkgs {
-        inherit system;
+        inherit system newpkgs;
         config = {};
         overlays = [ self.overlay ];
       };
