@@ -17,7 +17,7 @@
       enable   = true;
       packages = [
         pkgs.networkmanager
-        pkgs.networkmanager_openvpn ];
+      ];
     };
 
     # The global useDHCP flag is deprecated, therefore explicitly set to false here.

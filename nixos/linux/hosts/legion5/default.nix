@@ -1,5 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+let
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec -a "$0" "$@"
+  '';
+in
 {
+
   imports = [
     ../../../common
     ../../../linux/common
@@ -20,9 +30,31 @@
     };
   };
 
+  services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
+
+  environment.systemPackages = [ nvidia-offload ];
+
   # services.xserver.xkbOptions = "caps:ctrl_modifier";
   services.xserver.videoDrivers = [ "nvidia"  ];
-  services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
+  hardware.nvidia.prime = {
+    sync.enable = true;
+    # offload.enable = true;
+
+    # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+    intelBusId = "PCI:0:2:0";
+
+    # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+    nvidiaBusId = "PCI:1:0:0";
+  };
+
+  specialisation = {
+    external-display.configuration = {
+      system.nixos.tags = [ "external-display" ];
+      hardware.nvidia.prime.offload.enable = lib.mkForce false;
+      hardware.nvidia.powerManagement.enable = lib.mkForce false;
+    };
+  };
+
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
