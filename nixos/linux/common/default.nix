@@ -26,6 +26,10 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+  # services.logind.lidSwitch = "ignore";
+  services.logind.lidSwitchExternalPower = "ignore";
+  services.logind.lidSwitchDocked = "ignore";
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ 80 8081 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
