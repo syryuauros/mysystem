@@ -1,11 +1,11 @@
 { runCommand }: let
 
-  name = "extra-monitor";
+  name = "mysetxkbmap";
 
 in runCommand name { buidInputs = [ ]; } ''
   outdir=$out/bin
   mkdir -p $outdir
-  cp ${./.}/*.sh $outdir
+  cp ${./.}/* $outdir
   for i in $outdir/*.sh;
   do
     patchShebangs $i

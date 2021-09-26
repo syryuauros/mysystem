@@ -59,6 +59,7 @@
 
     extra-monitor
     restart-xmonad
+    mysetxkbmap
 
     kcolorchooser
     nomacs

@@ -132,7 +132,6 @@
           home = ./home/linux/hosts/mp;
         };
 
-
       };
 
       users = {

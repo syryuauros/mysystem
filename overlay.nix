@@ -3,6 +3,7 @@
 
   extra-monitor = callPackage ./packages/scripts/extra-monitor {};
   restart-xmonad = callPackage ./packages/scripts/restart-xmonad {};
+  mysetxkbmap = callPackage ./packages/scripts/mysetxkbmap {};
   dracula-qutebrowser = callPackage ./packages/dracula-qutebrowser {};
   mychemacs2 = callPackage ./packages/mychemacs2 {  inherit inputs; };
 
