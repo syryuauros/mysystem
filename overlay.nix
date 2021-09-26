@@ -80,4 +80,6 @@
     })
     hosts);
 
+  git = prev.git.overrideAttrs (old:{ doTest = false; });
+
 }

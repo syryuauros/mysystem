@@ -22,7 +22,7 @@
     ../programs/git
     ../programs/zathura
     ../programs/mpv
-    ../programs/doom-emacs
+    # ../programs/doom-emacs
     ../services/email
   ] ++
   lib.filter lib.pathExists [
@@ -53,8 +53,8 @@
     cmatrix
 
     # myemacs  # emacs is installed as emacs
-    mymyemacs  # emacs is installed as myemacs
-    # doom-emacs
+    pkgs.opkgs.mymyemacs  # emacs is installed as myemacs
+    doom-emacs
     myvim
     mytex
   ];

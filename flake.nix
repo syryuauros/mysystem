@@ -4,8 +4,9 @@
 
   inputs = {
 
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     newpkgs.url = "github:nixos/nixpkgs";
+    oldpkgs.url = "github:nixos/nixpkgs/91ffffd90404331e0af54fa3fb8063f2f849a321";
     flake-utils.url = "github:numtide/flake-utils/master";
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     home-manager = { url = "github:nix-community/home-manager/master"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -20,7 +21,7 @@
   };
 
   outputs =
-    inputs@{ self, nixpkgs, newpkgs, darwin, home-manager, flake-compat, flake-utils, nur
+    inputs@{ self, nixpkgs, newpkgs, oldpkgs, darwin, home-manager, flake-compat, flake-utils, nur
            , chemacs2, nix-doom-emacs
            , jupyter_contrib_core, jupyter_nbextensions_configurator
            , ... }:
@@ -150,18 +151,20 @@
 
       };
 
+      system = "x86_64-linux";
+      npkgs = import newpkgs {
+        inherit system;
+        config = { inherit allowUnfreePredicate; };
+        overlays = [ self.overlay ];
+      };
+      opkgs = import oldpkgs {
+        inherit system;
+        config = { inherit allowUnfreePredicate; };
+        overlays = [ self.overlay ];
+      };
 
 
-      mkNixOSConfiguration = let
-
-        system = "x86_64-linux";
-        pkgs2 = import newpkgs {
-          inherit system;
-          config = { inherit allowUnfreePredicate; };
-          overlays = [ self.overlay ];
-        };
-
-      in name: host: nixpkgs.lib.nixosSystem {
+      mkNixOSConfiguration = name: host: nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
 
@@ -180,7 +183,7 @@
                 hostName = name;
               };
               overlays = [
-                (self: super: { newpkgs = pkgs2; })
+                (self: super: { inherit npkgs opkgs;})
                 self.overlay
               ];
             };

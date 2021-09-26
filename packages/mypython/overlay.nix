@@ -38,7 +38,7 @@ final: prev: with final; {
       pygments
       mutagen
 
-      python-language-server
+      # python-language-server
     ];
 
     ml-nocuda = p: with p; [
