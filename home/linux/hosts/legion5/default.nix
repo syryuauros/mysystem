@@ -22,12 +22,8 @@
   xsession.enable = true;
   xsession.initExtra = ''
 
-    # make trackpad and trackpoint faster
-    xinput set-prop "SynPS/2 Synaptics TouchPad" 322 1
-    # xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
-    # xinput set-prop "TPPS/2 Elan TrackPoint" 322 1
-
-    setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
+    setxkbmap -option caps:ctrl_modifier
+    legion5-two-qhd.sh
 
   '';
 
