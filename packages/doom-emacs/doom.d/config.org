@@ -22,9 +22,10 @@
 
 (use-package! face-remap
   :custom-face
-  (default ((t (:family "Mononoki Nerd Font"))))
-  (fixed-pitch ((t (:family "Mononoki Nerd Font"))))
-  (variable-pitch ((t (:family "SeoulHangang CB"))))
+  (default ((t (:family "Mononoki Nerd Font Mono"))))
+  (fixed-pitch ((t (:family "Mononoki Nerd Font Mono"))))
+  ;; (variable-pitch ((t (:family "SeoulHangang CB"))))
+  (variable-pitch ((t (:family "Noto Sans CJK KR"))))
 )
 
 ;; M-x counsel-fonts for other font options
