@@ -53,7 +53,7 @@
     cmatrix
 
     # myemacs  # emacs is installed as emacs
-    pkgs.opkgs.mymyemacs  # emacs is installed as myemacs
+    mymyemacs  # emacs is installed as myemacs
     doom-emacs
     myvim
     mytex
