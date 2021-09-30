@@ -27,6 +27,14 @@
   (variable-pitch ((t (:family "SeoulHangang CB"))))
 )
 
+;; M-x counsel-fonts for other font options
+;; (use-package! face-remap
+;;   :custom-face
+;;   (default ((t (:family "SauceCodePro Nerd Font Mono"))))
+;;   (fixed-pitch ((t (:family "SauceCodePro Nerd Font Mono"))))
+;;   (variable-pitch ((t (:family "SauceCodePro Nerd Font"))))
+;; )
+
 #+end_src
 
 ** Mixed-pitch
