@@ -470,3 +470,21 @@ causes conflict in syncing files between linux and mac.
 (use-package! string-inflection)
 
 #+end_src
+
+* Additional Lookup Providers
+
+#+begin_src emacs-lisp
+
+(mapc (lambda (x) (add-to-list '+lookup-provider-url-alist x))
+      (list
+        '("Hackage"           "http://hackage.haskell.org/package/%s")
+        '("Hoogle"            "http://www.haskell.org/hoogle/?q=%s")
+        '("Haedosa Gitlab"    "https://gitlab.com/search?group_id=12624055&search=%s")
+        '("Dictionary"        "http://dictionary.reference.com/browse/%s")
+        '("Thesaurus"         "http://thesaurus.reference.com/search?q=%s")
+        '("Google Scholar"    "https://scholar.google.com/scholar?q=%s")
+        '("Nix Packages"      "https://search.nixos.org/packages?channel=unstable&query=%s")
+        '("Nix Options"       "https://search.nixos.org/options?channel=unstable&query=%s")
+        '("Libgen"            "http://libgen.rs/search.php?req=%s")))
+
+#+end_src
