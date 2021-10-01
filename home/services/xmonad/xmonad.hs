@@ -106,6 +106,7 @@ import           XMonad.Util.NamedScratchpad           ( NamedScratchpad(..)
                                                        )
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
+import XMonad.Layout.MultiColumns (multiCol)
 
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
@@ -288,92 +289,6 @@ mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
--- Defining a bunch of layouts, many that I don't use.
--- limitWindows n sets maximum number of windows displayed for layout.
--- mySpacing n sets the gap size around the windows.
-tall     = renamed [Replace "tall"]
-         $ windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] Simplest -- (smartBorders Simplest)
-         $ limitWindows 12
-         $ mySpacing 4
-         $ ResizableTall 1 (3/100) (1/2) []
--- twopane  = renamed [Replace "twopane"]
---          $ windowNavigation
---          $ addTabs shrinkText myTabTheme
---          $ subLayout [] Simplest -- (smartBorders Simplest)
---          $ limitWindows 12
---          $ mySpacing 4
---          $ TwoPane (3/100) (1/2)
-magnify  = renamed [Replace "magnify"]
-         $ windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] Simplest
-         $ magnifier
-         $ limitWindows 12
-         $ mySpacing 4
-         $ ResizableTall 1 (3/100) (1/2) []
-monocle  = renamed [Replace "monocle"]
-         $ windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] (smartBorders Simplest)
-         $ limitWindows 20 Full
-floats   = renamed [Replace "floats"]
-         $ windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] Simplest
-         $ limitWindows 20 simplestFloat
-grid     = renamed [Replace "grid"]
-         $ windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] Simplest
-         $ limitWindows 12
-         $ mySpacing 4
-         $ Grid (16/10)
-spirals  = renamed [Replace "spirals"]
-         $ windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] (smartBorders Simplest)
-         $ mySpacing' 2
-         $ spiral (6/7)
-threeCol = renamed [Replace "threeCol"]
-         $ windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] Simplest
-         $ limitWindows 7
-         $ mySpacing 4
-         $ ThreeCol 1 (3/100) (1/2)
--- threeRow = renamed [Replace "threeRow"]
---          $ windowNavigation
---          $ addTabs shrinkText myTabTheme
---          $ B.boringWindows
---          $ subLayout [] (smartBorders Simplest)
---          $ limitWindows 7
---          $ mySpacing' 2
---          -- Mirror takes a layout and rotates it by 90 degrees.
---          -- So we are applying Mirror to the ThreeCol layout.
---          $ Mirror
---          $ ThreeCol 1 (3/100) (1/2)
--- tabs     = renamed [Replace "tabs"]
---          -- I cannot add spacing to this layout because it will
---          -- add spacing between window and tabs which looks bad.
---          $ tabbed shrinkText myTabTheme
-accordion = renamed [Replace "accordion"]
-          $ windowNavigation
-          $ addTabs shrinkText myTabTheme
-          $ B.boringWindows
-          $ subLayout [] Simplest
-          $ limitWindows 7
-          $ mySpacing 4
-          $ Accordion
-
 -- setting colors for tabs layout and tabs sublayout.
 myTabTheme = def { fontName            = myFont
                  , activeColor         = "#8EA4B7"
@@ -393,6 +308,116 @@ myShowWNameTheme = def
     , swn_color             = "#ffffff"
     }
 
+
+-- Defining a bunch of layouts, many that I don't use.
+-- limitWindows n sets maximum number of windows displayed for layout.
+-- mySpacing n sets the gap size around the windows.
+mySubLayout = windowArrange
+            $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
+            $ mkToggle (single MIRROR)
+            . mkToggle (single REFLECTX)
+            . mkToggle (single REFLECTY)
+            $ (    Simplest
+               ||| subTall
+               ||| subMultiCol
+              )
+  where
+    subTall = mySpacing 1
+            $ windowNavigation
+            $ Tall 1 0.02 0.5
+    subMultiCol = mySpacing 1
+                $ windowNavigation
+                $ multiCol [1] 0 0.02 0.5
+
+tall = renamed [Replace "tall"]
+     $ windowNavigation
+     $ addTabs shrinkText myTabTheme
+     $ B.boringWindows
+     $ subLayout [0,1] mySubLayout
+     $ mySpacing 4
+     $ ResizableTall 1 (3/100) (1/2) []
+
+myMultiCol = renamed [Replace "multiCol"]
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ B.boringWindows
+           $ subLayout [] mySubLayout
+           $ mySpacing 4
+           $ multiCol [1] 0 0.02 0.5
+-- twopane  = renamed [Replace "twopane"]
+--          $ windowNavigation
+--          $ addTabs shrinkText myTabTheme
+--          $ subLayout [] Simplest -- (smartBorders Simplest)
+--          $ limitWindows 12
+--          $ mySpacing 4
+--          $ TwoPane (3/100) (1/2)
+magnify  = renamed [Replace "magnify"]
+         $ windowNavigation
+         $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
+         $ subLayout [] mySubLayout
+         $ magnifier
+         $ mySpacing 4
+         $ ResizableTall 1 (3/100) (1/2) []
+monocle  = renamed [Replace "monocle"]
+         $ windowNavigation
+         $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
+         $ subLayout [] (smartBorders mySubLayout)
+         $ limitWindows 20 Full
+floats   = renamed [Replace "floats"]
+         $ windowNavigation
+         $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
+         $ subLayout [] mySubLayout
+           simplestFloat
+grid     = renamed [Replace "grid"]
+         $ windowNavigation
+         $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
+         $ subLayout [] mySubLayout
+         $ mySpacing 4
+         $ Grid (16/10)
+spirals  = renamed [Replace "spirals"]
+         $ windowNavigation
+         $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
+         $ subLayout [] (smartBorders mySubLayout)
+         $ mySpacing' 2
+         $ limitWindows 12
+         $ spiral (6/7)
+threeCol = renamed [Replace "threeCol"]
+         $ windowNavigation
+         $ addTabs shrinkText myTabTheme
+         $ B.boringWindows
+         $ subLayout [] mySubLayout
+         $ mySpacing 4
+         $ ThreeCol 1 (3/100) (1/2)
+
+-- threeRow = renamed [Replace "threeRow"]
+--          $ windowNavigation
+--          $ addTabs shrinkText myTabTheme
+--          $ B.boringWindows
+--          $ subLayout [] (smartBorders Simplest)
+--          $ limitWindows 7
+--          $ mySpacing' 2
+--          -- Mirror takes a layout and rotates it by 90 degrees.
+--          -- So we are applying Mirror to the ThreeCol layout.
+--          $ Mirror
+--          $ ThreeCol 1 (3/100) (1/2)
+-- tabs     = renamed [Replace "tabs"]
+--          -- I cannot add spacing to this layout because it will
+--          -- add spacing between window and tabs which looks bad.
+--          $ tabbed shrinkText myTabTheme
+accordion = renamed [Replace "accordion"]
+          $ windowNavigation
+          $ addTabs shrinkText myTabTheme
+          $ B.boringWindows
+          $ subLayout [] mySubLayout
+          $ limitWindows 7
+          $ mySpacing 4
+            Accordion
+
 -- The layout hook
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
@@ -402,6 +427,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                $ myDefaultLayout
              where
                myDefaultLayout =     tall
+                                 ||| myMultiCol
                                  ||| noBorders monocle
                                  ||| grid
                                  ||| threeCol
@@ -637,7 +663,7 @@ myKeys home =
     , ("M-a c"     , spawn "mkdir -p ~/captures; flameshot gui -p ~/captures/")
 
     -- Emacs (CTRL-e followed by a key)
-    , ("M-d d"   , spawn $ myEditor <> " --eval '(dired nil)'")
+
     , ("M-d c"   , spawn $ myEditor <> " --eval '(dired \"~/capture\")'")
     , ("M-d S-d" , spawn $ myEditor <> " --eval '(dired \"~/Downloads\")'")
     , ("M-d s"   , spawn $ myEditor <> " --eval '(dired \"~/mysystem\")'")
@@ -666,20 +692,24 @@ myKeys home =
     -- , ("M-S-<Return>", spawn "rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
 
     -- Windows navigation
-    , ("M-<Return>"   , promote)                -- Moves focused window to master, others maintain order
+    , ("M-<Return>"   , promote)                   -- Moves focused window to master, others maintain order
     , ("M-S-m"        , swapMaster)                -- Moves focused window to master, others maintain order
     -- , ("M-m"          , windows W.focusMaster)  -- Move focus to the master window
-    , ("M-M1-j"       , windows W.focusDown)    -- Move focus to the next window
-    , ("M-M1-k"       , windows W.focusUp)      -- Move focus to the prev window
+    , ("M-M1-j"       , windows W.focusDown)       -- Move focus to the next window
+    , ("M-M1-k"       , windows W.focusUp)         -- Move focus to the prev window
     , ("M-m"          , B.focusMaster)             -- Move focus to the master window, skipiping hidden windows
+    , ("M-h"          , B.focusUp)                 -- Move focus to the prev window, skipiping hidden windows
     , ("M-j"          , B.focusDown)               -- Move focus to the next window, skipiping hidden windows
     , ("M-k"          , B.focusUp)                 -- Move focus to the prev window, skipiping hidden windows
-    , ("M-S-j"        , windows W.swapDown)     -- Swap focused window with next window
-    , ("M-S-k"        , windows W.swapUp)       -- Swap focused window with prev window
-    , ("M-C-<Tab>"    , rotAllDown)             -- Rotate all the windows in the current stack
-    , ("M-C-S-<Tab>"  , rotSlavesDown)          -- Rotate all windows except master and keep focus in place
-    , ("M-n"          , toggleFocus)            -- Move focus to the lastly focused
-    , ("M-S-n"        , swapWithLast)           -- Move the focused to the lastly focused
+    , ("M-l"          , B.focusDown)               -- Move focus to the next window, skipiping hidden windows
+    , ("M-S-h"        , windows W.swapUp)          -- Swap focused window with prev window
+    , ("M-S-j"        , windows W.swapDown)        -- Swap focused window with next window
+    , ("M-S-k"        , windows W.swapUp)          -- Swap focused window with prev window
+    , ("M-S-l"        , windows W.swapDown)        -- Swap focused window with next window
+    , ("M-C-<Tab>"    , rotAllDown)                -- Rotate all the windows in the current stack
+    , ("M-C-S-<Tab>"  , rotSlavesDown)             -- Rotate all windows except master and keep focus in place
+    , ("M-n"          , toggleFocus)               -- Move focus to the lastly focused
+    , ("M-S-n"        , swapWithLast)              -- Move the focused to the lastly focused
 
     -- boring windows, which are skipped in navigation
     , ("M-b"          , B.markBoring)
@@ -690,46 +720,40 @@ myKeys home =
     , ("M-S-a"        , killAll)                -- Kill all windows on current workspace
 
     -- Workspaces
-    , ("M-<Left>"     , moveTo Prev nonNSP)               -- moveTo previous workspace
-    , ("M-<Right>"    , moveTo Next nonNSP)               -- moveTo next workspace
-    , ("M-M1-h"       , moveTo Prev nonNSP)               -- moveTo previous workspace
-    , ("M-M1-l"       , moveTo Next nonNSP)               -- moveTo next workspace
-    , ("M-C-<Left>"   , prevScreen)                       -- Switch focus to prev monitor
-    , ("M-C-<Right>"  , nextScreen)                       -- Switch focus to next monitor
-    , ("M-C-h"        , prevScreen)                       -- Switch focus to prev monitor
-    , ("M-C-l"        , nextScreen)                       -- Switch focus to next monitor
-    , ("M-C-S-<Left>" , shiftPrevScreen >> prevScreen)    -- Shifts focused window to prev monitor and move
-    , ("M-C-S-<Right>", shiftNextScreen >> nextScreen)    -- Shifts focused window to next monitor and move
-    , ("M-C-S-h"      , shiftPrevScreen >> prevScreen)    -- Shifts focused window to prev monitor and move
-    , ("M-C-S-l"      , shiftNextScreen >> nextScreen)    -- Shifts focused window to next monitor and move
-    , ("M-S-<Left>"   , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws and move
-    , ("M-S-<Right>"  , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws and move
-    , ("M-S-h"        , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws and move
-    , ("M-S-l"        , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws and move
+    , ("M-["     , moveTo Prev nonNSP)               -- moveTo previous workspace
+    , ("M-]"     , moveTo Next nonNSP)               -- moveTo next workspace
+    , ("M-S-["   , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws and move
+    , ("M-S-]"   , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws and move
+    , ("M-C-["   , prevScreen)                       -- Switch focus to prev monitor
+    , ("M-C-]"   , nextScreen)                       -- Switch focus to next monitor
+    , ("M-C-S-[" , shiftPrevScreen >> prevScreen)    -- Shifts focused window to prev monitor and move
+    , ("M-C-S-]" , shiftNextScreen >> nextScreen)    -- Shifts focused window to next monitor and move
 
     -- Floating windows
     , ("M-t"          , withFocused $ windows . W.sink)  -- Push floating window back to tile
     , ("M-S-t"        , sinkAll)                         -- Push ALL floating windows to tile
 
     -- Increase/decrease spacing (gaps)
-    , ("M-["          , decWindowSpacing 1)         -- Decrease window spacing
-    , ("M-]"          , incWindowSpacing 1)         -- Increase window spacing
-    , ("M-S-["        , decScreenSpacing 1)         -- Decrease screen spacing
-    , ("M-S-]"        , incScreenSpacing 1)         -- Increase screen spacing
+    , ("M--"          , decWindowSpacing 1)         -- Decrease window spacing
+    , ("M-="          , incWindowSpacing 1)         -- Increase window spacing
+    , ("M-S--"        , decScreenSpacing 1)         -- Decrease screen spacing
+    , ("M-S-="        , incScreenSpacing 1)         -- Increase screen spacing
 
     -- Layouts
     , ("M-<Space>"    , sendMessage NextLayout)
-    , ("M-` 1"        , sendMessage $ JumpToLayout "tall")
-    , ("M-` 2"        , sendMessage $ JumpToLayout "monocle")
-    , ("M-` 3"        , sendMessage $ JumpToLayout "grid")
-    , ("M-` 4"        , sendMessage $ JumpToLayout "threeCol")
-    , ("M-` 5"        , sendMessage $ JumpToLayout "spirals")
-    , ("M-` 6"        , sendMessage $ JumpToLayout "magnify")
-    , ("M-` 7"        , sendMessage $ JumpToLayout "accordion")
-    , ("M-` b"        , sendMessage $ MT.Toggle NOBORDERS)
-    , ("M-` r"        , sendMessage $ MT.Toggle MIRROR)
-    , ("M-` x"        , sendMessage $ MT.Toggle REFLECTX)
-    , ("M-` y"        , sendMessage $ MT.Toggle REFLECTY)
+    , ("M-C-1"        , sendMessage $ JumpToLayout "tall")
+    , ("M-C-2"        , sendMessage $ JumpToLayout "multiCol")
+    , ("M-C-3"        , sendMessage $ JumpToLayout "monocle")
+    , ("M-C-4"        , sendMessage $ JumpToLayout "grid")
+    , ("M-C-5"        , sendMessage $ JumpToLayout "threeCol")
+    , ("M-C-6"        , sendMessage $ JumpToLayout "spirals")
+    , ("M-C-7"        , sendMessage $ JumpToLayout "magnify")
+    , ("M-C-8"        , sendMessage $ JumpToLayout "accordion")
+    , ("M-C-b"        , sendMessage $ MT.Toggle NOBORDERS)
+    , ("M-r"          , sendMessage $ MT.Toggle MIRROR)
+    , ("M-x"          , sendMessage $ MT.Toggle REFLECTX)
+    , ("M-y"          , sendMessage $ MT.Toggle REFLECTY)
+
 
     , ("M-C-M1-<Up>"  , sendMessage Arrange)
     , ("M-C-M1-<Down>", sendMessage DeArrange)
@@ -737,44 +761,48 @@ myKeys home =
     , ("M-S-f"        , sendMessage ToggleStruts)
     , ("M-C-f"        , sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
 
+
     -- Increase/decrease windows in the master pane or the stack
     , ("M-,"          , sendMessage (IncMasterN 1))      -- Increase number of clients in master pane
     , ("M-."          , sendMessage (IncMasterN (-1)))   -- Decrease number of clients in master pane
-    , ("M-S-,"        , increaseLimit)                   -- Increase number of windows
-    , ("M-S-."        , decreaseLimit)                   -- Decrease number of windows
+    -- , ("M-C-,"        , increaseLimit)                   -- Increase number of windows
+    -- , ("M-C-."        , decreaseLimit)                   -- Decrease number of windows
+
 
     -- Window resizing
-    , ("M-h"          , sendMessage Shrink)              -- Shrink horiz window width
-    , ("M-l"          , sendMessage Expand)              -- Expand horiz window width
+    , ("M-C-h"        , sendMessage Shrink)              -- Shrink horiz window width
+    , ("M-C-l"        , sendMessage Expand)              -- Expand horiz window width
     , ("M-C-j"        , sendMessage MirrorShrink)        -- Shrink vert window width
     , ("M-C-k"        , sendMessage MirrorExpand)        -- Exoand vert window width
 
-    -- Sublayouts
-    -- This is used to push windows to tabbed sublayouts, or pull them out of it.
-    , ("M-' h"        , sendMessage $ pullGroup L)
-    , ("M-' l"        , sendMessage $ pullGroup R)
-    , ("M-' k"        , sendMessage $ pullGroup U)
-    , ("M-' j"        , sendMessage $ pullGroup D)
-    , ("M-' m"        , withFocused (sendMessage . MergeAll))
-    , ("M-' u"        , withFocused (sendMessage . UnMerge))
-    , ("M-' /"        , withFocused (sendMessage . UnMergeAll))
+
+    -- SubLayouts
+    , ("M-C-<Space>"  , toSubl NextLayout)
+    , ("M-C-r"        , toSubl $ MT.Toggle MIRROR)
+    , ("M-C-x"        , toSubl $ MT.Toggle REFLECTX)
+    , ("M-C-y"        , toSubl $ MT.Toggle REFLECTY)
+    , ("M-C-,"        , toSubl $ IncMasterN 1)  -- Switch focus to next tab
+    , ("M-C-."        , toSubl $ IncMasterN (-1))    -- Switch focus to prev tab
+
+    , ("M-C-S-h"      , sendMessage $ pullGroup L)
+    , ("M-C-S-l"      , sendMessage $ pullGroup R)
+    , ("M-C-S-k"      , sendMessage $ pullGroup U)
+    , ("M-C-S-j"      , sendMessage $ pullGroup D)
+    , ("M-C-S-m"      , withFocused (sendMessage . MergeAll))
+    , ("M-C-S-u"      , withFocused (sendMessage . UnMerge))
+    , ("M-C-S-/"      , withFocused (sendMessage . UnMergeAll))
+
     , ("M-u"          , onGroup W.focusDown')  -- Switch focus to next tab
     , ("M-i"          , onGroup W.focusUp')    -- Switch focus to prev tab
+    , ("M-S-,"        , onGroup W.focusDown')  -- Switch focus to next tab
+    , ("M-S-."        , onGroup W.focusUp')    -- Switch focus to prev tab
 
-    , ("M-C-M1-h"       , sendMessage $ pullGroup L)
-    , ("M-C-M1-l"       , sendMessage $ pullGroup R)
-    , ("M-C-M1-k"       , sendMessage $ pullGroup U)
-    , ("M-C-M1-j"       , sendMessage $ pullGroup D)
-    , ("M-C-M1-m"       , withFocused (sendMessage . MergeAll))
-    , ("M-C-M1-u"       , withFocused (sendMessage . UnMerge))
-    , ("M-C-M1-/"       , withFocused (sendMessage . UnMergeAll))
-    , ("M-C-M1-,"       , onGroup W.focusDown')  -- Switch focus to next tab
-    , ("M-C-M1-."       , onGroup W.focusUp')    -- Switch focus to prev tab
 
     -- Scratchpads
     , ("M-z <Return>" , namedScratchpadAction myScratchPads "termSP")
     , ("M-z e"        , namedScratchpadAction myScratchPads "editorSP")
     , ("M-z t"        , namedScratchpadAction myScratchPads "htopSP")
+
 
     , ("M-M1-9" , spawn "xbacklight -inc 5")
     , ("M-M1-8" , spawn "xbacklight -dec 5")
