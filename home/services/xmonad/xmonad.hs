@@ -96,7 +96,8 @@ import Control.Monad (replicateM_)
 import Text.Printf
 
    -- Utilities
-import XMonad.Util.EZConfig (additionalKeysP)
+-- Utilities
+import XMonad.Util.EZConfig (additionalKeysP, mkKeymap)
 -- import XMonad.Util.NamedScratchpad
 import           XMonad.Util.NamedScratchpad           ( NamedScratchpad(..)
                                                        , customFloating
@@ -107,6 +108,7 @@ import           XMonad.Util.NamedScratchpad           ( NamedScratchpad(..)
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 import XMonad.Layout.MultiColumns (multiCol)
+import XMonad.Actions.Submap (submap)
 
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
@@ -598,7 +600,8 @@ main = do
     xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc"
     xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.config/xmobar/xmobarrc"
     xmproc2 <- spawnPipe "xmobar -x 2 $HOME/.config/xmobar/xmobarrc"
-    xmonad $ ewmh def
+    xmonad $ let
+      conf = ewmh def
         { manageHook = myManageHook
           -- manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
         -- Run xmonad commands from command line with "xmonadctl command". Commands include:
@@ -630,7 +633,8 @@ main = do
                         , ppExtras          = [windowCount]                           -- # of windows current workspace
                         , ppOrder           = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
-        } `additionalKeysP` myKeys home
+        }
+        in conf `additionalKeysP` myKeys home conf
 
 
 -- Log Hook:
@@ -642,8 +646,38 @@ myLogHook = fadeInactiveLogHook fadeAmount
 ------------------------------------------------------------------------
 -- Key Bindings
 
-myKeys :: String -> [(String, X ())]
-myKeys home =
+mySubLayoutKeys :: [(String, X ())]
+mySubLayoutKeys =
+    [
+      ("<Space>"  , toSubl NextLayout)
+    , ("r"        , toSubl $ MT.Toggle MIRROR)
+    , ("x"        , toSubl $ MT.Toggle REFLECTX)
+    , ("y"        , toSubl $ MT.Toggle REFLECTY)
+    , (","        , toSubl $ IncMasterN 1)  -- Switch focus to next tab
+    , ("."        , toSubl $ IncMasterN (-1))    -- Switch focus to prev tab
+
+    , ("m"        , withFocused (sendMessage . MergeAll))
+    , ("u"        , withFocused (sendMessage . UnMerge))
+    , ("/"        , withFocused (sendMessage . UnMergeAll))
+
+    , ("u"        , onGroup W.focusDown')  -- Switch focus to next tab
+    , ("i"        , onGroup W.focusUp')    -- Switch focus to prev tab
+    , ("S-,"      , onGroup W.focusDown')  -- Switch focus to next tab
+    , ("S-."      , onGroup W.focusUp')    -- Switch focus to prev tab
+
+    -- Window resizing
+    , ("h"        , toSubl Shrink)              -- Shrink horiz window width
+    , ("l"        , toSubl Expand)              -- Expand horiz window width
+    , ("j"        , toSubl MirrorShrink)        -- Shrink vert window width
+    , ("k"        , toSubl MirrorExpand)        -- Exoand vert window width
+    , ("M-h"      , toSubl Shrink)              -- Shrink horiz window width
+    , ("M-l"      , toSubl Expand)              -- Expand horiz window width
+    , ("M-j"      , toSubl MirrorShrink)        -- Shrink vert window width
+    , ("M-k"      , toSubl MirrorExpand)        -- Exoand vert window width
+    ]
+
+myKeys :: String -> XConfig l -> [(String, X ())]
+myKeys home conf =
     -- Xmonad
     [ -- ("M-q"       , spawn "xmonad --recompile; xmonad --restart")
       ("M-q"       , spawn "restart-xmonad.sh")
@@ -695,8 +729,8 @@ myKeys home =
     , ("M-<Return>"   , promote)                   -- Moves focused window to master, others maintain order
     , ("M-S-m"        , swapMaster)                -- Moves focused window to master, others maintain order
     -- , ("M-m"          , windows W.focusMaster)  -- Move focus to the master window
-    , ("M-M1-j"       , windows W.focusDown)       -- Move focus to the next window
-    , ("M-M1-k"       , windows W.focusUp)         -- Move focus to the prev window
+    , ("M-C-M1-j"       , windows W.focusDown)       -- Move focus to the next window
+    , ("M-C-M1-k"       , windows W.focusUp)         -- Move focus to the prev window
     , ("M-m"          , B.focusMaster)             -- Move focus to the master window, skipiping hidden windows
     , ("M-h"          , B.focusUp)                 -- Move focus to the prev window, skipiping hidden windows
     , ("M-j"          , B.focusDown)               -- Move focus to the next window, skipiping hidden windows
@@ -784,18 +818,24 @@ myKeys home =
     , ("M-C-,"        , toSubl $ IncMasterN 1)  -- Switch focus to next tab
     , ("M-C-."        , toSubl $ IncMasterN (-1))    -- Switch focus to prev tab
 
-    , ("M-C-S-h"      , sendMessage $ pullGroup L)
-    , ("M-C-S-l"      , sendMessage $ pullGroup R)
-    , ("M-C-S-k"      , sendMessage $ pullGroup U)
-    , ("M-C-S-j"      , sendMessage $ pullGroup D)
-    , ("M-C-S-m"      , withFocused (sendMessage . MergeAll))
-    , ("M-C-S-u"      , withFocused (sendMessage . UnMerge))
-    , ("M-C-S-/"      , withFocused (sendMessage . UnMergeAll))
+    , ("M-M1-h"      , sendMessage $ pullGroup L)
+    , ("M-M1-l"      , sendMessage $ pullGroup R)
+    , ("M-M1-k"      , sendMessage $ pullGroup U)
+    , ("M-M1-j"      , sendMessage $ pullGroup D)
+    , ("M-M1-m"      , withFocused (sendMessage . MergeAll))
+    , ("M-M1-u"      , withFocused (sendMessage . UnMerge))
+    , ("M-M1-/"      , withFocused (sendMessage . UnMergeAll))
+
+    , ("M-C-S-h"      , toSubl Shrink)              -- Shrink horiz window width
+    , ("M-C-S-l"      , toSubl Expand)              -- Expand horiz window width
+    , ("M-C-S-j"      , toSubl MirrorShrink)        -- Shrink vert window width
+    , ("M-C-S-k"      , toSubl MirrorExpand)        -- Exoand vert window width
 
     , ("M-u"          , onGroup W.focusDown')  -- Switch focus to next tab
     , ("M-i"          , onGroup W.focusUp')    -- Switch focus to prev tab
     , ("M-S-,"        , onGroup W.focusDown')  -- Switch focus to next tab
     , ("M-S-."        , onGroup W.focusUp')    -- Switch focus to prev tab
+    , ("M-g"          , submap $ conf  `mkKeymap` mySubLayoutKeys)
 
 
     -- Scratchpads
