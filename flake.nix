@@ -121,8 +121,8 @@
         p15 = {
           ip = "192.168.68.63";
           wg-ips = [ "10.100.0.3/24" ]; # to set up the wireguard
-          configuration = ./nixos/linux/hosts/legion5;
-          home = ./home/linux/hosts/legion5;
+          configuration = ./nixos/linux/hosts/p15;
+          home = ./home/linux/hosts/p15;
         };
 
         l14 = {

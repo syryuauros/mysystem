@@ -19,12 +19,9 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1;
-  };
 
   networking = {
-    hostName = "legion5";
+    hostName = "p15";
     networkmanager = {
       enable   = true;
       packages = [
