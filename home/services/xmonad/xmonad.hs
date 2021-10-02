@@ -650,7 +650,7 @@ mySubLayoutKeys :: [(String, X ())]
 mySubLayoutKeys =
     [
       ("<Space>"  , toSubl NextLayout)
-    , ("r"        , toSubl $ MT.Toggle MIRROR)
+    , ("`"        , toSubl $ MT.Toggle MIRROR)
     , ("x"        , toSubl $ MT.Toggle REFLECTX)
     , ("y"        , toSubl $ MT.Toggle REFLECTY)
     , (","        , toSubl $ IncMasterN 1)  -- Switch focus to next tab
@@ -784,7 +784,7 @@ myKeys home conf =
     , ("M-C-7"        , sendMessage $ JumpToLayout "magnify")
     , ("M-C-8"        , sendMessage $ JumpToLayout "accordion")
     , ("M-C-b"        , sendMessage $ MT.Toggle NOBORDERS)
-    , ("M-r"          , sendMessage $ MT.Toggle MIRROR)
+    , ("M-`"          , sendMessage $ MT.Toggle MIRROR)
     , ("M-x"          , sendMessage $ MT.Toggle REFLECTX)
     , ("M-y"          , sendMessage $ MT.Toggle REFLECTY)
 
