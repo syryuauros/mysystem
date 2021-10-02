@@ -39,6 +39,8 @@ ips : { ... }:
                          "10.100.0.5/32" "10.100.100.1/32"  # builder1 (legion 5i)
                          "10.100.100.2/32"  # builder2 (legion 5i)
 
+                         "10.100.0.0/16"   # This allows all ips starting with 10.100
+
                        ];
           endpoint = "3.34.133.42:51820";
           persistentKeepalive = 25;
