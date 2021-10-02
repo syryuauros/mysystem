@@ -812,7 +812,7 @@ myKeys home conf =
 
     -- SubLayouts
     , ("M-C-<Space>"  , toSubl NextLayout)
-    , ("M-C-r"        , toSubl $ MT.Toggle MIRROR)
+    , ("M-C-`"        , toSubl $ MT.Toggle MIRROR)
     , ("M-C-x"        , toSubl $ MT.Toggle REFLECTX)
     , ("M-C-y"        , toSubl $ MT.Toggle REFLECTY)
     , ("M-C-,"        , toSubl $ IncMasterN 1)  -- Switch focus to next tab
