@@ -31,7 +31,7 @@
 
   programs.ssh.extraConfig = ''
     Host builder1
-      HostName 10.100.100.1
+      HostName 10.10.100.1
       User root
       IdentityFile /home/jj/.ssh/id_builder
     Host builder2
