@@ -105,19 +105,19 @@
       hosts = {
 
         x1 = {
-          ip = "10.100.0.2";
+          ip = "10.10.0.2";
           configuration = ./nixos/linux/hosts/x1;
           home = ./home/linux/hosts/x1;
         };
 
         legion5 = {
-          ip = "10.100.0.22";
+          ip = "10.10.0.22";
           configuration = ./nixos/linux/hosts/legion5;
           home = ./home/linux/hosts/legion5;
         };
 
         p15 = {
-          ip = "10.100.0.3";
+          ip = "10.10.0.3";
           configuration = ./nixos/linux/hosts/p15;
           home = ./home/linux/hosts/p15;
         };
