@@ -14,6 +14,7 @@ in
     ../../../common
     ../../../linux/common
     ./hardware-configuration.nix
+    (import ../../wireguard [ "10.100.0.22/32" ] [ "10.10.0.22/32" ])
   ];
 
   # Use the systemd-boot EFI boot loader.

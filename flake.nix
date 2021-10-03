@@ -106,38 +106,28 @@
 
         x1 = {
           ip = "10.100.0.2";
-          wg-ips = [ "10.100.0.2/32" ] ; # to set up the wireguard
           configuration = ./nixos/linux/hosts/x1;
           home = ./home/linux/hosts/x1;
         };
 
         legion5 = {
           ip = "10.100.0.22";
-          wg-ips = [ "10.100.0.22/32" ]; # to set up the wireguard
           configuration = ./nixos/linux/hosts/legion5;
           home = ./home/linux/hosts/legion5;
         };
 
         p15 = {
           ip = "10.100.0.3";
-          wg-ips = [ "10.100.0.3/32" ]; # to set up the wireguard
           configuration = ./nixos/linux/hosts/p15;
           home = ./home/linux/hosts/p15;
         };
 
-        l14 = {
-          ip = "100.72.169.29";
-          wg-ips = [ "10.100.0.4/32" ]; # to set up the wireguard
-          configuration = ./nixos/linux/hosts/l14;
-          home = ./home/linux/hosts/l14;
-        };
-
-        mp = {
-          ip = "100.72.169.29";
-          wg-ips = [ "10.100.100.2/32" ]; # to set up the wireguard
-          configuration = ./nixos/linux/hosts/mp;
-          home = ./home/linux/hosts/mp;
-        };
+        # mp = {
+        #   ip = "100.72.169.29";
+        #   wg-ips = [ "10.100.100.2/32" ]; # to set up the wireguard
+        #   configuration = ./nixos/linux/hosts/mp;
+        #   home = ./home/linux/hosts/mp;
+        # };
 
       };
 
@@ -179,7 +169,6 @@
             users.mutableUsers = false;
             users.extraUsers = users;
           })
-          (import ./nixos/linux/wireguard host.wg-ips)
           host.configuration
           home-manager.nixosModules.home-manager
           {

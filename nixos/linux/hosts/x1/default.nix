@@ -5,7 +5,7 @@
     ../../../linux/common
     ../../virtualisation
     ./hardware-configuration.nix
-    # (import ../../wireguard "10.100.0.2/24")
+    (import ../../wireguard [ "10.100.0.2/32" ] [ "10.10.0.2/32" ])
   ];
 
   # Use the systemd-boot EFI boot loader.
