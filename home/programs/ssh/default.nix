@@ -77,7 +77,7 @@
       };
 
       "builder1" = {
-        hostname = "10.100.100.1";
+        hostname = "10.10.100.1";
         user = "root";
         identityFile = "~/.ssh/id_builder";
       };
