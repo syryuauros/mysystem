@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleContexts #-}
   -- Base
 import XMonad hiding ((|||))
 import System.Directory
@@ -331,16 +332,21 @@ mySubLayout = windowArrange
                 $ windowNavigation
                 $ multiCol [1] 0 0.02 0.5
 
-tall = renamed [Replace "tall"]
-     $ windowNavigation
+tall = windowNavigation
      $ addTabs shrinkText myTabTheme
      $ B.boringWindows
-     $ subLayout [0,1] mySubLayout
+     $ subLayout [] mySubLayout
      $ mySpacing 4
      $ ResizableTall 1 (3/100) (1/2) []
 
-myMultiCol = renamed [Replace "multiCol"]
-           $ windowNavigation
+tall2 = windowNavigation
+      $ addTabs shrinkText myTabTheme
+      $ B.boringWindows
+      $ subLayout [] mySubLayout
+      $ mySpacing 4
+      $ ResizableTall 2 (3/100) (2/3) []
+
+myMultiCol = windowNavigation
            $ addTabs shrinkText myTabTheme
            $ B.boringWindows
            $ subLayout [] mySubLayout
@@ -353,43 +359,37 @@ myMultiCol = renamed [Replace "multiCol"]
 --          $ limitWindows 12
 --          $ mySpacing 4
 --          $ TwoPane (3/100) (1/2)
-magnify  = renamed [Replace "magnify"]
-         $ windowNavigation
+magnify  = windowNavigation
          $ addTabs shrinkText myTabTheme
          $ B.boringWindows
          $ subLayout [] mySubLayout
          $ magnifier
          $ mySpacing 4
          $ ResizableTall 1 (3/100) (1/2) []
-monocle  = renamed [Replace "monocle"]
-         $ windowNavigation
+monocle  = windowNavigation
          $ addTabs shrinkText myTabTheme
          $ B.boringWindows
          $ subLayout [] (smartBorders mySubLayout)
          $ limitWindows 20 Full
-floats   = renamed [Replace "floats"]
-         $ windowNavigation
+floats   = windowNavigation
          $ addTabs shrinkText myTabTheme
          $ B.boringWindows
          $ subLayout [] mySubLayout
            simplestFloat
-grid     = renamed [Replace "grid"]
-         $ windowNavigation
+grid     = windowNavigation
          $ addTabs shrinkText myTabTheme
          $ B.boringWindows
          $ subLayout [] mySubLayout
          $ mySpacing 4
          $ Grid (16/10)
-spirals  = renamed [Replace "spirals"]
-         $ windowNavigation
+spirals  = windowNavigation
          $ addTabs shrinkText myTabTheme
          $ B.boringWindows
          $ subLayout [] (smartBorders mySubLayout)
          $ mySpacing' 2
          $ limitWindows 12
          $ spiral (6/7)
-threeCol = renamed [Replace "threeCol"]
-         $ windowNavigation
+threeCol = windowNavigation
          $ addTabs shrinkText myTabTheme
          $ B.boringWindows
          $ subLayout [] mySubLayout
@@ -411,8 +411,7 @@ threeCol = renamed [Replace "threeCol"]
 --          -- I cannot add spacing to this layout because it will
 --          -- add spacing between window and tabs which looks bad.
 --          $ tabbed shrinkText myTabTheme
-accordion = renamed [Replace "accordion"]
-          $ windowNavigation
+accordion =  windowNavigation
           $ addTabs shrinkText myTabTheme
           $ B.boringWindows
           $ subLayout [] mySubLayout
@@ -421,26 +420,30 @@ accordion = renamed [Replace "accordion"]
             Accordion
 
 -- The layout hook
-myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
-               $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
-               . mkToggle (single MIRROR)
-               . mkToggle (single REFLECTX)
-               . mkToggle (single REFLECTY)
-               $ myDefaultLayout
+myLayoutHook = avoidStruts
+             $ mouseResize
+               myDefaultLayout
              where
-               myDefaultLayout =     tall
-                                 ||| myMultiCol
-                                 ||| noBorders monocle
-                                 ||| grid
-                                 ||| threeCol
-                                 ||| spirals
-                                 ||| magnify
-                                 ||| accordion
-                                 --- ||| floats
-                                 --- ||| threeRow
-                                 --- ||| noBorders tabs
-                                 --- ||| twopane
-
+               myDefaultLayout =   renamed [Replace "tall"] (mkToggleAll tall)
+                               ||| renamed [Replace "tall2"] (mkToggleAll tall2)
+                               ||| renamed [Replace "multiCol"] (mkToggleAll myMultiCol)
+                               ||| renamed [Replace "monocle"] (mkToggleAll (noBorders monocle))
+                               ||| renamed [Replace "grid"] (mkToggleAll grid)
+                               ||| renamed [Replace "threeCol"] (mkToggleAll threeCol)
+                               ||| renamed [Replace "spirals"] (mkToggleAll spirals)
+                               ||| renamed [Replace "magnify"] (mkToggleAll magnify)
+                               ||| renamed [Replace "accordion"] (mkToggleAll accordion)
+                               --- ||| floats
+                               --- ||| threeRow
+                               --- ||| noBorders tabs
+                               --- ||| twopane
+               mkToggleAll l = windowArrange
+                             $ T.toggleLayouts floats
+                             $ mkToggle (NBFULL ?? NOBORDERS ?? EOT)
+                             . mkToggle (single MIRROR)
+                             . mkToggle (single REFLECTX)
+                             . mkToggle (single REFLECTY)
+                             $ l
 myWorkspaces :: [String]
 myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 
@@ -776,13 +779,14 @@ myKeys home conf =
     -- Layouts
     , ("M-<Space>"    , sendMessage NextLayout)
     , ("M-C-1"        , sendMessage $ JumpToLayout "tall")
-    , ("M-C-2"        , sendMessage $ JumpToLayout "multiCol")
-    , ("M-C-3"        , sendMessage $ JumpToLayout "monocle")
-    , ("M-C-4"        , sendMessage $ JumpToLayout "grid")
-    , ("M-C-5"        , sendMessage $ JumpToLayout "threeCol")
-    , ("M-C-6"        , sendMessage $ JumpToLayout "spirals")
-    , ("M-C-7"        , sendMessage $ JumpToLayout "magnify")
-    , ("M-C-8"        , sendMessage $ JumpToLayout "accordion")
+    , ("M-C-2"        , sendMessage $ JumpToLayout "tall2")
+    , ("M-C-3"        , sendMessage $ JumpToLayout "multiCol")
+    , ("M-C-4"        , sendMessage $ JumpToLayout "monocle")
+    , ("M-C-5"        , sendMessage $ JumpToLayout "grid")
+    , ("M-C-6"        , sendMessage $ JumpToLayout "threeCol")
+    , ("M-C-7"        , sendMessage $ JumpToLayout "spirals")
+    , ("M-C-8"        , sendMessage $ JumpToLayout "magnify")
+    , ("M-C-9"        , sendMessage $ JumpToLayout "accordion")
     , ("M-C-b"        , sendMessage $ MT.Toggle NOBORDERS)
     , ("M-`"          , sendMessage $ MT.Toggle MIRROR)
     , ("M-x"          , sendMessage $ MT.Toggle REFLECTX)
