@@ -47,12 +47,6 @@
         user = "jj";
       };
 
-      "mx9366" = {
-        forwardX11 = true;
-        hostname = "192.168.0.119";
-        user = "jj";
-      };
-
       "gitdosa" = {
         hostname = "gitlab.com";
         user = "git";
@@ -71,13 +65,18 @@
         identityFile = "~/.ssh/id_wavetojj";
       };
 
-      "legion5i" = {
+      "legion5" = {
         forwardX11 = true;
-        hostname = "10.100.0.5";
+        hostname = "10.10.0.22";
+      };
+
+      "p15" = {
+        forwardX11 = true;
+        hostname = "10.10.0.3";
       };
 
       "builder1" = {
-        hostname = "10.100.100.1";
+        hostname = "10.10.100.1";
         user = "root";
         identityFile = "~/.ssh/id_builder";
       };
