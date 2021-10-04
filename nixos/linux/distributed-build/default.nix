@@ -29,33 +29,33 @@
     builders-use-substitutes = true
   '';
 
-  # programs.ssh.extraConfig = ''
-  #   Host builder1
-  #     HostName 10.10.100.1
-  #     User root
-  #     IdentityFile /home/jj/.ssh/id_builder
-  #   Host builder2
-  #     HostName 10.10.100.2
-  #     User root
-  #     IdentityFile /home/jj/.ssh/id_builder
-  # '';
-
   programs.ssh.extraConfig = ''
     Host builder1
-      HostName 121.136.244.64
+      HostName 10.10.100.1
       User root
-      Port 101
       IdentityFile /home/jj/.ssh/id_builder
     Host builder2
-      HostName 121.136.244.64
+      HostName 10.10.100.2
       User root
-      Port 102
       IdentityFile /home/jj/.ssh/id_builder
   '';
 
-  # services.openssh.knownHosts."10.10.100.1".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOy9IObSEcyb3+3gGXuG8uUGIUiWAuW6hPjoq0059SvZ";
-  # services.openssh.knownHosts."10.10.100.2".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGpvlvAsXnWatOi0JLmrzy6ri443CuvujgW4k86i91Sn";
-  services.openssh.knownHosts."[121.136.244.64]:101".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOy9IObSEcyb3+3gGXuG8uUGIUiWAuW6hPjoq0059SvZ";
-  services.openssh.knownHosts."[121.136.244.64]:102".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGpvlvAsXnWatOi0JLmrzy6ri443CuvujgW4k86i91Sn";
+  # programs.ssh.extraConfig = ''
+  #   Host builder1
+  #     HostName 121.136.244.64
+  #     User root
+  #     Port 101
+  #     IdentityFile /home/jj/.ssh/id_builder
+  #   Host builder2
+  #     HostName 121.136.244.64
+  #     User root
+  #     Port 102
+  #     IdentityFile /home/jj/.ssh/id_builder
+  # '';
+
+  services.openssh.knownHosts."10.10.100.1".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOy9IObSEcyb3+3gGXuG8uUGIUiWAuW6hPjoq0059SvZ";
+  services.openssh.knownHosts."10.10.100.2".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGpvlvAsXnWatOi0JLmrzy6ri443CuvujgW4k86i91Sn";
+  # services.openssh.knownHosts."[121.136.244.64]:101".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOy9IObSEcyb3+3gGXuG8uUGIUiWAuW6hPjoq0059SvZ";
+  # services.openssh.knownHosts."[121.136.244.64]:102".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGpvlvAsXnWatOi0JLmrzy6ri443CuvujgW4k86i91Sn";
 
 }

@@ -69,19 +69,31 @@
         hostname = "10.10.0.3";
       };
 
-      "builder1" = {
-        hostname = "121.136.244.64";
-        user = "root";
-        port = 101;
-        identityFile = "~/.ssh/id_builder";
-      };
+      # "builder1" = {
+      #   hostname = "10.10.100.1";
+      #   user = "root";
+      #   identityFile = "~/.ssh/id_builder";
+      # };
 
-      "builder2" = {
-        hostname = "121.136.244.64";
-        user = "root";
-        port = 102;
-        identityFile = "~/.ssh/id_builder";
-      };
+      # "builder2" = {
+      #   hostname = "10.10.100.2";
+      #   user = "root";
+      #   identityFile = "~/.ssh/id_builder";
+      # };
+
+      # "builder1" = {
+      #   hostname = "121.136.244.64";
+      #   user = "root";
+      #   port = 101;
+      #   identityFile = "~/.ssh/id_builder";
+      # };
+
+      # "builder2" = {
+      #   hostname = "121.136.244.64";
+      #   user = "root";
+      #   port = 102;
+      #   identityFile = "~/.ssh/id_builder";
+      # };
 
     };
 
