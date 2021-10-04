@@ -29,9 +29,9 @@
         user = "jj";
       };
 
-      "l14" = {
+      "gateway" = {
         forwardX11 = true;
-        hostname = "100.72.169.29";
+        hostname = "121.136.244.64";
         user = "jj";
       };
 
@@ -39,6 +39,16 @@
         forwardX11 = true;
         hostname = "100.71.10.111";
         user = "jj";
+      };
+
+      "legion5" = {
+        forwardX11 = true;
+        hostname = "10.10.0.22";
+      };
+
+      "p15" = {
+        forwardX11 = true;
+        hostname = "10.10.0.3";
       };
 
       "gitdosa" = {
@@ -59,15 +69,6 @@
         identityFile = "~/.ssh/id_wavetojj";
       };
 
-      "legion5" = {
-        forwardX11 = true;
-        hostname = "10.10.0.22";
-      };
-
-      "p15" = {
-        forwardX11 = true;
-        hostname = "10.10.0.3";
-      };
 
       # "builder1" = {
       #   hostname = "10.10.100.1";
