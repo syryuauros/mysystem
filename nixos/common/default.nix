@@ -43,25 +43,29 @@
     '';
 
     binaryCaches = [
-      "http://10.10.100.1"
-      "http://10.10.100.2"
+      "http://haedosa.xyz:201"
+      "http://haedosa.xyz:202"
+      # "http://10.10.100.1"
+      # "http://10.10.100.2"
       "https://cache.nixos.org/"
     ];
 
     trustedBinaryCaches = [
-      "http://10.10.100.1"
-      "http://10.10.100.2"
+      "http://haedosa.xyz:201"
+      "http://haedosa.xyz:202"
+      "http://192.168.100.54:201"
+      "http://192.168.100.54:202"
       "https://cache.nixos.org/"
       "http://10.100.100.1"
       "http://10.100.100.2"
+      "http://10.10.100.1"
+      "http://10.10.100.2"
     ];
 
     binaryCachePublicKeys = [
-      "10.10.100.1:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
-      "10.10.100.2:R7X06/w5h5SfUO4ZvTkkfIjHHEDhrOFYLoQjYVIrFLM="
+      "builder1:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
+      "builder2:R7X06/w5h5SfUO4ZvTkkfIjHHEDhrOFYLoQjYVIrFLM="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "10.100.100.1:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
-      "10.100.100.2:R7X06/w5h5SfUO4ZvTkkfIjHHEDhrOFYLoQjYVIrFLM="
     ];
 
     trustedUsers = [

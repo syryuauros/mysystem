@@ -111,6 +111,7 @@
         };
 
         legion5 = {
+          # ip = "192.168.100.57";
           ip = "10.10.0.22";
           configuration = ./nixos/linux/hosts/legion5;
           home = ./home/linux/hosts/legion5;

@@ -35,12 +35,6 @@
         user = "jj";
       };
 
-      "t14" = {
-        forwardX11 = true;
-        hostname = "100.91.40.108";
-        user = "jj";
-      };
-
       "x1" = {
         forwardX11 = true;
         hostname = "100.71.10.111";
@@ -76,14 +70,16 @@
       };
 
       "builder1" = {
-        hostname = "10.10.100.1";
+        hostname = "121.136.244.64";
         user = "root";
+        port = 101;
         identityFile = "~/.ssh/id_builder";
       };
 
       "builder2" = {
-        hostname = "10.10.100.2";
+        hostname = "121.136.244.64";
         user = "root";
+        port = 102;
         identityFile = "~/.ssh/id_builder";
       };
 
