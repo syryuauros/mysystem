@@ -344,7 +344,7 @@ tall2 = windowNavigation
       $ B.boringWindows
       $ subLayout [] mySubLayout
       $ mySpacing 4
-      $ ResizableTall 2 (3/100) (2/3) []
+      $ ResizableTall 1 (3/100) (2/3) []
 
 myMultiCol = windowNavigation
            $ addTabs shrinkText myTabTheme
