@@ -42,7 +42,7 @@
 
 
   home.packages = with pkgs; [
-    # myhaskell-full
+    myhaskell-full
     # mypython-full
     # myjupyter-full
   ];
