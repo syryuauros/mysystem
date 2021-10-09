@@ -16,12 +16,12 @@
   boot.hardwareScan = true;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/5dde1b22-a118-4d95-a3bf-dce675b6d3f4";
+    { device = "/dev/disk/by-label/root";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/A4B1-0DA1";
+    { device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
     };
 
