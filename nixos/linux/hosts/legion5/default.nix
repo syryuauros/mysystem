@@ -39,7 +39,37 @@ in
   environment.systemPackages = [ nvidia-offload ];
 
   # services.xserver.xkbOptions = "caps:ctrl_modifier";
-  services.xserver.videoDrivers = [ "nvidia"  ];
+  # services.xserver.videoDrivers = [ "nvidia"  ];
+
+  services.xserver = {
+    videoDrivers = [ "intel" "nvidia" ];
+
+    config = ''
+      Section "Device"
+          Identifier  "Intel Graphics"
+          Driver      "intel"
+          #Option      "AccelMethod"  "sna" # default
+          #Option      "AccelMethod"  "uxa" # fallback
+          Option      "TearFree"        "true"
+          Option      "SwapbuffersWait" "true"
+          BusID       "PCI:0:2:0"
+          #Option      "DRI" "2"             # DRI3 is now default
+      EndSection
+
+      Section "Device"
+          Identifier "nvidia"
+          Driver "nvidia"
+          BusID "PCI:1:0:0"
+          Option "AllowEmptyInitialConfiguration"
+      EndSection
+    '';
+    screenSection = ''
+      Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+      Option         "AllowIndirectGLXProtocol" "off"
+      Option         "TripleBuffer" "on"
+    '';
+  };
+
   hardware.nvidia.prime = {
     sync.enable = true;
     # offload.enable = true;
@@ -58,18 +88,5 @@ in
       hardware.nvidia.powerManagement.enable = lib.mkForce false;
     };
   };
-
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # # This value determines the NixOS release from which the default
-  # # settings for stateful data, like file locations and database versions
-  # # on your system were taken. It‘s perfectly fine and recommended to leave
-  # # this value at the release version of the first install of this system.
-  # # Before changing this value read the documentation for this option
-  # # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  # system.stateVersion = "21.05"; # Did you read the comment?
 
 }
