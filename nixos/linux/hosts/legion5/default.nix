@@ -34,6 +34,7 @@ in
     };
   };
 
+
   services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
 
   environment.systemPackages = [ nvidia-offload ];

@@ -11,9 +11,13 @@
   boot.kernelPackages = pkgs.npkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [ "thunderbolt" "nvme" "xhci_pci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "kvm-intel" "v4l2loopback" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
   boot.hardwareScan = true;
+
+  boot.extraModprobeConfig = ''
+    options v4l2loopback exclusive_caps=1 max_buffers=2
+  '';
 
   fileSystems."/" =
     { device = "/dev/disk/by-label/root";

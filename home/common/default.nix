@@ -57,6 +57,10 @@
     doom-emacs
     myvim
     mytex
+
+    gphoto2
+    ffmpeg
+    v4l-utils
   ];
 
   home.sessionVariables = {
