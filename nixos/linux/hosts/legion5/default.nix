@@ -82,6 +82,8 @@ in
     nvidiaBusId = "PCI:1:0:0";
   };
 
+  hardware.nvidia.modesetting.enable = true;
+
   specialisation = {
     external-display.configuration = {
       system.nixos.tags = [ "external-display" ];
