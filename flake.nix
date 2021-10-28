@@ -112,7 +112,7 @@
           hds0ips = [ "10.10.0.2/32" ];
         };
 
-        x1-1 = {
+        mirror = {
           ip = "192.168.0.59";
           configuration = ./nixos/linux/hosts/x1;
           home = ./home/linux/hosts/x1;
