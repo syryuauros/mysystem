@@ -113,7 +113,7 @@
         };
 
         mirror = {
-          ip = "192.168.0.59";
+          ip = "10.10.0.21";
           configuration = ./nixos/linux/hosts/x1;
           home = ./home/linux/hosts/x1;
           haedosa0ips = [ "10.100.0.21/32" ];
