@@ -77,6 +77,8 @@
       options = "--delete-older-than 30d";
     };
 
+    requireSignedBinaryCaches = false;
+
     # buildCores = 8;
     # maxJobs = 8;
     # readOnlyStore = true;

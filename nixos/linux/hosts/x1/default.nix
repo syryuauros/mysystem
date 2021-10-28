@@ -1,11 +1,11 @@
-{ config, pkgs, ... }:
+haedosa0ips: hds0ips: { config, pkgs, ... }:
 {
   imports = [
     ../../../common
     ../../../linux/common
     ../../virtualisation
     ./hardware-configuration.nix
-    (import ../../wireguard [ "10.100.0.2/32" ] [ "10.10.0.2/32" ])
+    (import ../../wireguard haedosa0ips hds0ips)
   ];
 
   # Use the systemd-boot EFI boot loader.

@@ -108,6 +108,16 @@
           ip = "10.10.0.2";
           configuration = ./nixos/linux/hosts/x1;
           home = ./home/linux/hosts/x1;
+          haedosa0ips = [ "10.100.0.2/32" ];
+          hds0ips = [ "10.10.0.2/32" ];
+        };
+
+        x1-1 = {
+          ip = "192.168.0.59";
+          configuration = ./nixos/linux/hosts/x1;
+          home = ./home/linux/hosts/x1;
+          haedosa0ips = [ "10.100.0.21/32" ];
+          hds0ips = [ "10.10.0.21/32" ];
         };
 
         legion5 = {
@@ -115,12 +125,16 @@
           ip = "10.10.0.22";
           configuration = ./nixos/linux/hosts/legion5;
           home = ./home/linux/hosts/legion5;
+          haedosa0ips = [ "10.100.0.22/32" ];
+          hds0ips = [ "10.10.0.22/32" ];
         };
 
         p15 = {
           ip = "10.10.0.3";
           configuration = ./nixos/linux/hosts/p15;
           home = ./home/linux/hosts/p15;
+          haedosa0ips = [ "10.100.0.3/32" ];
+          hds0ips = [ "10.10.0.3/32" ];
         };
 
         # mp = {
@@ -170,7 +184,7 @@
             users.mutableUsers = false;
             users.extraUsers = users;
           })
-          host.configuration
+          (import host.configuration host.haedosa0ips host.hds0ips)
           home-manager.nixosModules.home-manager
           {
             nixpkgs = {
