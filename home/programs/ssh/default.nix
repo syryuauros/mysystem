@@ -37,7 +37,13 @@
 
       "x1" = {
         forwardX11 = true;
-        hostname = "100.71.10.111";
+        hostname = "10.10.0.2";
+        user = "jj";
+      };
+
+      "mirror" = {
+        forwardX11 = true;
+        hostname = "10.10.0.21";
         user = "jj";
       };
 
@@ -55,6 +61,13 @@
         hostname = "gitlab.com";
         user = "git";
         identityFile = "~/.ssh/id_haedosa";
+      };
+
+
+      "github" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/id_ed25519";
       };
 
       "wavelab" = {
