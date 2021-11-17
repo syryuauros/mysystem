@@ -122,10 +122,10 @@ myTerminal = "alacritty"   -- Sets default terminal
 -- myTerminal = "kitty"   -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "qutebrowser"                      -- Sets qutebrowser as browser for tree select
+myBrowser = "brave"
 
 myBrowser' :: String -> String
-myBrowser' url = "qutebrowser --target window " <> url                     -- Sets qutebrowser as browser for tree select
+myBrowser' url = "brave " <> url
 
 myEditor :: String
 myEditor = "emacsclient -c -a 'emacs --fg-daemon'"  -- Sets emacs as editor for tree select
