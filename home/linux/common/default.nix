@@ -23,7 +23,7 @@
     ../../services/flameshot
     ../../services/xcape
     ../../services/xmonad
-    ../../services/syncthing
+    # ../../services/syncthing
     ../../services/keyboard
     ../../services/redshift
     ../../services/uim-korean

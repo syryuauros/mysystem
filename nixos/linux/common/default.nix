@@ -14,6 +14,7 @@
     ../hardware/audio
     ../hardware/keyboard
     ../distributed-build
+    ../services/syncthing
   ];
 
   fonts.fontconfig.enable = true;
