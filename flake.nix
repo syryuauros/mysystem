@@ -121,7 +121,6 @@
         };
 
         bogota = {
-          # ip = "192.168.100.57";
           ip = "10.10.0.22";
           configuration = import ./nixos/linux/hosts/legion5 "bogota";
           home = ./home/linux/hosts/legion5;
@@ -130,8 +129,7 @@
         };
 
         lapaz = {
-          # ip = "10.10.0.23";
-          ip = "192.168.0.69";
+          ip = "10.10.0.23";
           configuration = import ./nixos/linux/hosts/x1 "lapaz";
           home = ./home/linux/hosts/x1;
           haedosa0ips = [ "10.100.0.23/32" ];
