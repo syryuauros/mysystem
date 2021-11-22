@@ -77,6 +77,8 @@
 
     wireguard
     wally-cli
+    magic-wormhole
+    xorg.xev
 
   ] ++ myfonts-collection;
 

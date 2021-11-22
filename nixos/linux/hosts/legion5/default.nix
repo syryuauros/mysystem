@@ -1,4 +1,4 @@
-haedosa0ips: hds0ips: { config, pkgs, lib, ... }:
+hostName: haedosa0ips: hds0ips: { config, pkgs, lib, ... }:
 let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -25,7 +25,7 @@ in
   };
 
   networking = {
-    hostName = "legion5";
+    inherit hostName;
     networkmanager = {
       enable   = true;
       packages = [

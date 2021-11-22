@@ -104,44 +104,54 @@
 
       hosts = {
 
-        x1 = {
+        urubamba = {
           ip = "10.10.0.2";
-          configuration = ./nixos/linux/hosts/x1;
+          configuration = import ./nixos/linux/hosts/x1 "urubamba";
           home = ./home/linux/hosts/x1;
           haedosa0ips = [ "10.100.0.2/32" ];
           hds0ips = [ "10.10.0.2/32" ];
         };
 
-        mirror = {
+        lima = {
           ip = "10.10.0.21";
-          configuration = ./nixos/linux/hosts/x1;
+          configuration = import ./nixos/linux/hosts/x1 "lima";
           home = ./home/linux/hosts/x1;
           haedosa0ips = [ "10.100.0.21/32" ];
           hds0ips = [ "10.10.0.21/32" ];
         };
 
-        legion5 = {
+        bogota = {
           # ip = "192.168.100.57";
           ip = "10.10.0.22";
-          configuration = ./nixos/linux/hosts/legion5;
+          configuration = import ./nixos/linux/hosts/legion5 "bogota";
           home = ./home/linux/hosts/legion5;
           haedosa0ips = [ "10.100.0.22/32" ];
           hds0ips = [ "10.10.0.22/32" ];
         };
 
-        p15 = {
-          ip = "10.10.0.3";
-          configuration = ./nixos/linux/hosts/p15;
-          home = ./home/linux/hosts/p15;
-          haedosa0ips = [ "10.100.0.3/32" ];
-          hds0ips = [ "10.10.0.3/32" ];
+        lapaz = {
+          # ip = "10.10.0.23";
+          ip = "192.168.0.69";
+          configuration = import ./nixos/linux/hosts/x1 "lapaz";
+          home = ./home/linux/hosts/x1;
+          haedosa0ips = [ "10.100.0.23/32" ];
+          hds0ips = [ "10.10.0.23/32" ];
         };
+
+        # p15 = {
+        #   ip = "10.10.0.3";
+        #   configuration = import ./nixos/linux/hosts/p15;
+        #   home = ./home/linux/hosts/p15;
+        #   haedosa0ips = [ "10.100.0.3/32" ];
+        #   hds0ips = [ "10.10.0.3/32" ];
+        # };
 
         # mp = {
         #   ip = "100.72.169.29";
-        #   wg-ips = [ "10.100.100.2/32" ]; # to set up the wireguard
-        #   configuration = ./nixos/linux/hosts/mp;
+        #   configuration = import ./nixos/linux/hosts/mp;
         #   home = ./home/linux/hosts/mp;
+        #   haedosa0ips = [ "10.100.0.3/32" ];
+        #   hds0ips = [ "10.10.0.3/32" ];
         # };
 
       };
@@ -184,7 +194,7 @@
             users.mutableUsers = false;
             users.extraUsers = users;
           })
-          (import host.configuration host.haedosa0ips host.hds0ips)
+          (host.configuration host.haedosa0ips host.hds0ips)
           home-manager.nixosModules.home-manager
           {
             nixpkgs = {

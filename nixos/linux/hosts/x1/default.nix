@@ -1,4 +1,4 @@
-haedosa0ips: hds0ips: { config, pkgs, ... }:
+hostName: haedosa0ips: hds0ips: { config, pkgs, ... }:
 {
   imports = [
     ../../../common
@@ -13,7 +13,7 @@ haedosa0ips: hds0ips: { config, pkgs, ... }:
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
-    hostName = "x1";
+    inherit hostName;
     networkmanager = {
       enable   = true;
       packages = [ pkgs.networkmanager ];

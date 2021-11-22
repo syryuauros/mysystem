@@ -35,21 +35,26 @@
         user = "jj";
       };
 
-      "x1" = {
+      "urubamba" = {
         forwardX11 = true;
         hostname = "10.10.0.2";
         user = "jj";
       };
 
-      "mirror" = {
+      "lima" = {
         forwardX11 = true;
         hostname = "10.10.0.21";
         user = "jj";
       };
 
-      "legion5" = {
+      "bogota" = {
         forwardX11 = true;
         hostname = "10.10.0.22";
+      };
+
+      "lapaz" = {
+        forwardX11 = true;
+        hostname = "10.10.0.23";
       };
 
       "p15" = {
@@ -62,7 +67,6 @@
         user = "git";
         identityFile = "~/.ssh/id_haedosa";
       };
-
 
       "github" = {
         hostname = "github.com";
@@ -83,31 +87,20 @@
       };
 
 
-      # "builder1" = {
-      #   hostname = "10.10.100.1";
-      #   user = "root";
-      #   identityFile = "~/.ssh/id_builder";
-      # };
+      "b1" = {
+        forwardX11 = true;
+        hostname = "10.10.100.1";
+      };
 
-      # "builder2" = {
-      #   hostname = "10.10.100.2";
-      #   user = "root";
-      #   identityFile = "~/.ssh/id_builder";
-      # };
+      "b2" = {
+        forwardX11 = true;
+        hostname = "10.10.100.2";
+      };
 
-      # "builder1" = {
-      #   hostname = "121.136.244.64";
-      #   user = "root";
-      #   port = 101;
-      #   identityFile = "~/.ssh/id_builder";
-      # };
-
-      # "builder2" = {
-      #   hostname = "121.136.244.64";
-      #   user = "root";
-      #   port = 102;
-      #   identityFile = "~/.ssh/id_builder";
-      # };
+      "b3" = {
+        forwardX11 = true;
+        hostname = "10.10.100.3";
+      };
 
     };
 
