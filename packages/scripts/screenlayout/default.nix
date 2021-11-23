@@ -1,6 +1,6 @@
 { runCommand }: let
 
-  name = "extra-monitor";
+  name = "screenlayout";
 
 in runCommand name { buidInputs = [ ]; } ''
   outdir=$out/bin

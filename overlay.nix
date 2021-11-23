@@ -1,7 +1,7 @@
 { mkNixOSConfiguration, hosts, inputs }: final: prev: with final;
 {
 
-  extra-monitor = callPackage ./packages/scripts/extra-monitor {};
+  screenlayout = callPackage ./packages/scripts/screenlayout {};
   restart-xmonad = callPackage ./packages/scripts/restart-xmonad {};
   mysetxkbmap = callPackage ./packages/scripts/mysetxkbmap {};
   dracula-qutebrowser = callPackage ./packages/dracula-qutebrowser {};

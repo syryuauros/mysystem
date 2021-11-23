@@ -57,7 +57,7 @@
     tree                 # display files in a tree view
     xclip                # clipboard support (also for neovim)
 
-    extra-monitor
+    screenlayout
     restart-xmonad
     mysetxkbmap
 
