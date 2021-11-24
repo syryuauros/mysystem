@@ -15,6 +15,7 @@
     ../hardware/keyboard
     ../distributed-build
     ../services/syncthing
+    ../nfs
   ];
 
   fonts.fontconfig.enable = true;
