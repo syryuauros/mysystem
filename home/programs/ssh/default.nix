@@ -102,6 +102,16 @@
         hostname = "10.10.100.3";
       };
 
+      "b4" = {
+        forwardX11 = true;
+        hostname = "10.10.100.4";
+      };
+
+      "b5" = {
+        forwardX11 = true;
+        hostname = "10.10.100.5";
+      };
+
     };
 
   };
