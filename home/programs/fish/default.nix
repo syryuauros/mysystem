@@ -11,7 +11,7 @@
     ####  which shadows pathes that are supposed to be exposed.
     #   ${any-nix-shell} fish --info-right | source
     # '';
-    promptInit = ''
+    interactiveShellInit = ''
       starship init fish | source
       any-nix-shell fish --info-right | source
       fish_vi_key_bindings
