@@ -56,6 +56,7 @@
     mymyemacs  # emacs is installed as myemacs
     doom-emacs
     myvim
+    mytmux
     mytex
 
     gphoto2

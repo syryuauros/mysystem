@@ -224,6 +224,7 @@
         nix-doom-emacs.overlay
         (import ./packages/myemacs/overlay.nix)
         (import ./packages/myvim/overlay.nix)
+        (import ./packages/mytmux/overlay.nix)
         (import ./packages/myfonts/overlay.nix)
         (import ./packages/mylockscreen/overlay.nix)
         (import ./packages/mywallpapers-1366/overlay.nix)
