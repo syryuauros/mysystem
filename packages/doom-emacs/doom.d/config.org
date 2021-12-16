@@ -259,9 +259,20 @@
 
 #+end_src
 
+** Evil-shift-width
+
+#+begin_src emacs-lisp
+
+(setq-default tab-width 2)
+(setq-default evil-shift-width tab-width)
+(setq-default indent-tabs-mode nil)
+
+#+end_src
+
 * Whitespace
 
 #+begin_src emacs-lisp
+
 (use-package! whitespace
   :custom (whitespace-style '(face tabs trailing
                               space-before-tab
@@ -270,6 +281,7 @@
   :hook (((prog-mode org-mode) . whitespace-mode)
          (before-save . delete-trailing-whitespace))
 )
+
 #+end_src
 
 * Undo-tree
