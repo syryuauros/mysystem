@@ -5,6 +5,8 @@
   programs.home-manager.enable = true;
   xdg.enable = true;
 
+  programs.bash.enable = true;
+
   imports = [
     ../programs/alacritty
     ../programs/kitty
