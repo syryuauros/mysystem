@@ -16,6 +16,7 @@
     ../distributed-build
     ../services/syncthing
     ../nfs
+    ../ipfs
   ];
 
   fonts.fontconfig.enable = true;
