@@ -19,6 +19,7 @@
     jupyter_nbextensions_configurator = { url = "github:Jupyter-contrib/jupyter_nbextensions_configurator"; flake = false; };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     agenix.url = "github:ryantm/agenix";
+    deploy-rs.url = "github:serokell/deploy-rs";
 
   };
 
@@ -31,6 +32,7 @@
     let
 
       lib = nixpkgs.lib;
+      inherit (builtins) mapAttrs;
 
       allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg)
         [ # whitelist for firefox
@@ -49,37 +51,6 @@
           "nvidia-x11"
           "nvidia-settings"
         ];
-
-      nixpkgsConfig = hostname: with inputs; {
-
-        config = {
-          inherit allowUnfreePredicate;
-          inherit hostname;
-        };
-
-        overlays = self.overlays;
-      };
-
-
-      mkDarwinModules = { user, hostname, home, nixos }: [
-        nixos
-        home-manager.darwinModules.home-manager
-        {
-          nixpkgs = nixpkgsConfig hostname;
-          users.users.${user}.home = "/Users/${user}";
-          home-manager.users.${user} = {
-            imports = [ nix-doom-emacs.hmModule
-                        home ];
-          };
-
-          networking.computerName = user + "-" + hostname;
-          networking.hostName = hostname;
-          networking.knownNetworkServices = [
-            "Wi-Fi"
-            "USB 10/100/1000 LAN"
-          ];
-        }
-      ];
 
 
       # This keys for the distributed builds
@@ -128,22 +99,6 @@
           wg-key = ./secrets/wg-lapaz.age;
         };
 
-        # p15 = {
-        #   ip = "10.10.0.3";
-        #   configuration = import ./nixos/linux/hosts/p15;
-        #   home = ./home/linux/hosts/p15;
-        #   haedosa0ips = [ "10.100.0.3/32" ];
-        #   hds0ips = [ "10.10.0.3/32" ];
-        # };
-
-        # mp = {
-        #   ip = "100.72.169.29";
-        #   configuration = import ./nixos/linux/hosts/mp;
-        #   home = ./home/linux/hosts/mp;
-        #   haedosa0ips = [ "10.100.0.3/32" ];
-        #   hds0ips = [ "10.10.0.3/32" ];
-        # };
-
       };
 
       users = {
@@ -171,6 +126,7 @@
         overlays = [ self.overlay ];
       };
 
+      pkgs = import nixpkgs pkgsConfig;
       npkgs = import newpkgs pkgsConfig;
       opkgs = import oldpkgs pkgsConfig;
 
@@ -199,7 +155,7 @@
                 {
                   # nixpkgs = pkgsConfig;
                   home-manager.users =
-                    (nixpkgs.lib.mapAttrs (username: user:
+                    (mapAttrs (username: user:
                       {  imports = [ nix-doom-emacs.hmModule
                                      host.home
                                   ];
@@ -213,10 +169,11 @@
 
     in rec {
 
-      overlays = with inputs; [
+      overlay = nixpkgs.lib.composeManyExtensions (with inputs; [
         nur.overlay
         nix-doom-emacs.overlay
         agenix.overlay
+        deploy-rs.overlay
         (self: super: { inherit npkgs opkgs;})
         (import ./packages/myemacs/overlay.nix)
         (import ./packages/myvim/overlay.nix)
@@ -235,61 +192,45 @@
             jupyter_contrib_core
             jupyter_nbextensions_configurator; })
         (import ./overlay.nix { inherit inputs mkNixOSConfiguration hosts; })
-      ];
-
-      overlay = nixpkgs.lib.composeManyExtensions self.overlays;
+      ]);
 
 
-      #--------------------------------------------------------------------------
-      #
-      #  Darwin Configurations
-      #
-      #  How to run:
-      #   1. Build darwin-rebuild for this flake first
-      #     > nix build .#darwinConfigurations.mbp15.system
-      #   2. Then use ./result/sw/bin/darwin-rebuild to switch
-      #     > ./result/sw/bin/darwin-rebuild switch --flake .#mbp15
-      #
-      #  Or change mbp15 to one of other darwin configurations
-      #
-      #--------------------------------------------------------------------------
+      nixosConfigurations = mapAttrs mkNixOSConfiguration hosts;
 
-      darwinConfigurations = {
+      deploy = {
+        magicRollback = true;
+        autoRollback = true;
 
-        mbp15 = darwin.lib.darwinSystem {
-          modules = mkDarwinModules {
-            user     = "jj";
-            hostname = "mbp15";
-            nixos    = ./nixos/darwin/hosts/mbp15;
-            home     = ./home/darwin/hosts/mbp15;
-          };
+        sshUser = "jj";
+        user = "root";
+        sshOpts = [ "-p" "22" ];
 
-        };
-
+        nodes = mapAttrs (name: host:
+          let
+            nixosConfig = mkNixOSConfiguration name host;
+          in {
+            hostname = host.ip;
+            profiles.system.path = inputs.deploy-rs.lib.${system}.activate.nixos nixosConfig;
+          }) hosts;
       };
 
-      nixosConfigurations = (nixpkgs.lib.mapAttrs mkNixOSConfiguration hosts);
-
-      nixosPackages = (nixpkgs.lib.mapAttrs
-        (name: host: host.config.system.build.toplevel)
-        self.nixosConfigurations);
+      checks =
+        mapAttrs (_: lib: lib.deployChecks self.deploy) inputs.deploy-rs.lib;
 
   } // flake-utils.lib.eachDefaultSystem (system:
     let
 
-      pkgs = import nixpkgs {
-        inherit system newpkgs;
-        config = {};
-        overlays = [ self.overlay ];
-      };
+      nixosPackages = (mapAttrs
+        (name: host: host.config.system.build.toplevel)
+        self.nixosConfigurations);
 
     in rec {
       devShell = import ./develop.nix { inherit pkgs; };
 
-      defaultPackage = pkgs.deploy;
+      # defaultPackage = pkgs.deploy;
       packages = {
-        deploy = pkgs.deploy;
-      } // self.nixosPackages;
+        # deploy = pkgs.deploy;
+      } // nixosPackages;
 
       defaultApp = apps.deploy;
       apps = {

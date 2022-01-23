@@ -81,6 +81,7 @@
     xorg.xev
 
     agenix
+    deploy-rs.deploy-rs
 
   ] ++ myfonts-collection;
 
