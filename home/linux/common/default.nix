@@ -80,6 +80,8 @@
     magic-wormhole
     xorg.xev
 
+    agenix
+
   ] ++ myfonts-collection;
 
 

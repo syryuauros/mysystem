@@ -1,16 +1,18 @@
-haedosa0ips: hds0ips: { ... }:
+wg-key: haedosa0ips: hds0ips: { config, ... }:
 {
 
   networking.firewall = {
     allowedUDPPorts = [ 51820 51821 ];
   };
 
+  age.secrets.wg.file = wg-key;
+
   networking.wireguard.interfaces = {
 
     haedosa0 = {
       ips = haedosa0ips;
       listenPort = 51820;
-      privateKeyFile = "/home/jj/.wireguard-keys/private";
+      privateKeyFile = config.age.secrets.wg.path;
       peers = [
         {
           publicKey = "iFb4Ua34391/8hwCY3F3a3ceMZggkvZqo4dQZqi3ATo=";
@@ -24,7 +26,7 @@ haedosa0ips: hds0ips: { ... }:
     hds0 = {
       ips = hds0ips;
       listenPort = 51821;
-      privateKeyFile = "/home/jj/.wireguard-keys/private";
+      privateKeyFile = config.age.secrets.wg.path;
       peers = [
         {
           publicKey = "i0ZorMa8S9fT8/TI/U01K5HGhYPGRESnrq36k2I7MBU=";

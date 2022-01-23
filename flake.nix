@@ -18,6 +18,7 @@
     jupyter_contrib_core = { url = "github:Jupyter-contrib/jupyter_contrib_core"; flake = false; };
     jupyter_nbextensions_configurator = { url = "github:Jupyter-contrib/jupyter_nbextensions_configurator"; flake = false; };
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    agenix.url = "github:ryantm/agenix";
 
   };
 
@@ -81,19 +82,6 @@
       ];
 
 
-      mkNixosModules = { user, hostname, home, nixos }: [
-        nixos
-        home-manager.nixosModules.home-manager
-        {
-          nixpkgs = nixpkgsConfig hostname;
-          home-manager.users.${user} = {
-            imports = [ nix-doom-emacs.hmModule
-                        home ];
-          };
-          networking.hostName = hostname;
-        }
-      ];
-
       # This keys for the distributed builds
       root = {
         hashedPassword = "$6$T80JsrUCydok0S$5/CAsrhK77RRPP3QlqAFjOgjp9CEo/0LUUXwkmT9Tjmsz08DfY5.FkLp3SU3EhlLesH2aq7FGVBBEc07s3R7u/";
@@ -106,34 +94,38 @@
 
         urubamba = {
           ip = "10.10.0.2";
-          configuration = import ./nixos/linux/hosts/x1 "urubamba";
+          configuration = ./nixos/linux/hosts/x1;
           home = ./home/linux/hosts/x1;
           haedosa0ips = [ "10.100.0.2/32" ];
           hds0ips = [ "10.10.0.2/32" ];
+          wg-key = ./secrets/wg-urubamba.age;
         };
 
         lima = {
           ip = "10.10.0.21";
-          configuration = import ./nixos/linux/hosts/x1 "lima";
+          configuration = ./nixos/linux/hosts/x1;
           home = ./home/linux/hosts/x1;
           haedosa0ips = [ "10.100.0.21/32" ];
           hds0ips = [ "10.10.0.21/32" ];
+          wg-key = ./secrets/wg-lima.age;
         };
 
         bogota = {
           ip = "10.10.0.22";
-          configuration = import ./nixos/linux/hosts/legion5 "bogota";
+          configuration = ./nixos/linux/hosts/legion5;
           home = ./home/linux/hosts/legion5;
           haedosa0ips = [ "10.100.0.22/32" ];
           hds0ips = [ "10.10.0.22/32" ];
+          wg-key = ./secrets/wg-bogota.age;
         };
 
         lapaz = {
           ip = "10.10.0.23";
-          configuration = import ./nixos/linux/hosts/x1 "lapaz";
+          configuration = ./nixos/linux/hosts/x1;
           home = ./home/linux/hosts/x1;
           haedosa0ips = [ "10.100.0.23/32" ];
           hds0ips = [ "10.10.0.23/32" ];
+          wg-key = ./secrets/wg-lapaz.age;
         };
 
         # p15 = {
@@ -166,62 +158,66 @@
           hashedPassword = "$6$3nKguLgJMB$leFSKrvWiUAXiay8MJ8i66.ZzufIhkrrbxzv625DV28xSYGBCLp62pyIp4U3s8miHcOdJZpWLgDMEoWljPtT0.";
           openssh.authorizedKeys.keys = [
             "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC+XEhhqkpyVtUSu+t2JT3j5QxHUGBwCOiOwyc/4Ukpk8F2XP+ac5i9QuFd+yKXeoQcmgke6y+h7HjVBMDYD5OJRq6N4ep9dfU6svGccVNScbh+dOB+WtzrZco7euddOhtjT4pbSoyhImg5AJxA0SgvHnoTTq4nvMYAbCG9xSWz353FV1nrJPLo0bpEOSqdeb3HTgDntcMv9KaNGHe6hzGIPBQvW/y2FQ3hiHtDS+WIBQzPrQnRRslrCr7hcBwniYfKBdgjENK2yLIgDSoTwUXYFTMZgrjBejCo33+bR2Jrk66isEOR7oThHsI7vnxjSlUKmQ4o+B4e1lsILIyW0GPz0s/vrdTfZdqt+eZ38NJhqJD7mDruhuBf1NNE/rNWazu36afSQnRXhv9XgHo1cF1NMtC10grOrA5fUylGRHS8tS2RZHJ9OXgxBcV0bdIbqOu7jFRTzvm36dcMyJrALrz4ZEg/BJ7IOgtd1cTpcvxcQzDZSd+mSPHaY82urSH7QCc= jj@x1"
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIXifjBn6gkBCKkpJJAbB1pJC1zSUljf8SFnPqvB6vIR jj"
           ];
         };
 
       };
 
       system = "x86_64-linux";
-      npkgs = import newpkgs {
-        inherit system;
-        config = { inherit allowUnfreePredicate; };
-        overlays = [ self.overlay ];
-      };
-      opkgs = import oldpkgs {
+      pkgsConfig = {
         inherit system;
         config = { inherit allowUnfreePredicate; };
         overlays = [ self.overlay ];
       };
 
+      npkgs = import newpkgs pkgsConfig;
+      opkgs = import oldpkgs pkgsConfig;
 
       mkNixOSConfiguration = name: host: nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
 
           ({ pkgs, ... }: {
+
+            nixpkgs = pkgsConfig;
+
             users.mutableUsers = false;
             users.extraUsers = users;
-          })
-          (host.configuration host.haedosa0ips host.hds0ips)
-          home-manager.nixosModules.home-manager
-          {
-            nixpkgs = {
-              config = {
-                # allowUnfree = true;
-                inherit allowUnfreePredicate;
-                hostName = name;
-              };
-              overlays = [
-                (self: super: { inherit npkgs opkgs;})
-                self.overlay
-              ];
+
+            networking = {
+              hostName = name;
+              networkmanager.enable = true;
             };
-            home-manager.users =
-              (nixpkgs.lib.mapAttrs (username: user:
-                {  imports = [ nix-doom-emacs.hmModule
-                               host.home
-                            ];
+
+            imports = with host;
+              [
+                configuration
+                (import ./nixos/linux/wireguard wg-key haedosa0ips hds0ips)
+                inputs.agenix.nixosModules.age
+                home-manager.nixosModules.home-manager
+                {
+                  # nixpkgs = pkgsConfig;
+                  home-manager.users =
+                    (nixpkgs.lib.mapAttrs (username: user:
+                      {  imports = [ nix-doom-emacs.hmModule
+                                     host.home
+                                  ];
+                      }
+                    ) users);
                 }
-              ) users);
-          }
+              ];
+          })
         ];
       };
 
     in rec {
 
-      overlays = [
+      overlays = with inputs; [
         nur.overlay
         nix-doom-emacs.overlay
+        agenix.overlay
+        (self: super: { inherit npkgs opkgs;})
         (import ./packages/myemacs/overlay.nix)
         (import ./packages/myvim/overlay.nix)
         (import ./packages/mytmux/overlay.nix)

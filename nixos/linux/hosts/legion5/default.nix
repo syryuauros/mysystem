@@ -1,4 +1,4 @@
-hostName: haedosa0ips: hds0ips: { config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -14,7 +14,7 @@ in
     ../../../common
     ../../../linux/common
     ./hardware-configuration.nix
-    (import ../../wireguard haedosa0ips hds0ips)
+    # (import ../../wireguard haedosa0ips hds0ips)
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -24,15 +24,15 @@ in
     "net.ipv4.ip_forward" = 1;
   };
 
-  networking = {
-    inherit hostName;
-    networkmanager = {
-      enable   = true;
-      packages = [
-        pkgs.networkmanager
-      ];
-    };
-  };
+  # networking = {
+  #   inherit hostName;
+  #   networkmanager = {
+  #     enable   = true;
+  #     packages = [
+  #       pkgs.networkmanager
+  #     ];
+  #   };
+  # };
 
 
   services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
