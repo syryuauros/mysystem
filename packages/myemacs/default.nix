@@ -89,10 +89,10 @@ let
     evil-plugins
   ]) ++
   # ORG packages
-  (with epkgs.orgPackages; [
-    org
-    org-plus-contrib
-  ]) ++
+  #(with epkgs.orgPackages; [
+  #  org
+  #  org-plus-contrib
+  #]) ++
   # MELPA packages
   (with epkgs.melpaPackages; [
     use-package

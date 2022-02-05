@@ -9,7 +9,7 @@ final: prev: with final; {
 
     };
 
-  in prev.python38.override (old: {
+  in prev.python3.override (old: {
     packageOverrides =
       lib.composeExtensions
         (old.packageOverrides or (_: _: {}))

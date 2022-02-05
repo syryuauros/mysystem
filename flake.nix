@@ -4,27 +4,35 @@
 
   inputs = {
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs.url = "github:nixos/nixpkgs/91ffffd90404331e0af54fa3fb8063f2f849a321";
-    newpkgs.url = "github:nixos/nixpkgs";
-    oldpkgs.url = "github:nixos/nixpkgs/91ffffd90404331e0af54fa3fb8063f2f849a321";
-    flake-utils.url = "github:numtide/flake-utils/master";
-    flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
-    home-manager = { url = "github:nix-community/home-manager/master"; inputs.nixpkgs.follows = "nixpkgs"; };
+    haedosa.url = "github:haedosa/nixpkgs";
+    nixpkgs.follows = "haedosa/nixpkgs";
+    flake-utils.follows = "haedosa/flake-utils";
+    home-manager.follows = "haedosa/home-manager";
+
     darwin = { url = "github:LnL7/nix-darwin/master"; inputs.nixpkgs.follows = "nixpkgs"; };
     nur.url = "github:nix-community/NUR/master";
     chemacs2 = { url = "github:plexus/chemacs2"; flake = false; };
-    nix-doom-emacs.url = "github:wavetojj/nix-doom-emacs";
     jupyter_contrib_core = { url = "github:Jupyter-contrib/jupyter_contrib_core"; flake = false; };
     jupyter_nbextensions_configurator = { url = "github:Jupyter-contrib/jupyter_nbextensions_configurator"; flake = false; };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     agenix.url = "github:ryantm/agenix";
-    deploy-rs.url = "github:serokell/deploy-rs";
+
+    deploy-rs = {
+      url ="github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-doom-emacs = {
+      url = "github:haedosa/nix-doom-emacs";
+      # url = "/home/jj/jjdosa/nix-doom-emacs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
   };
 
   outputs =
-    inputs@{ self, nixpkgs, newpkgs, oldpkgs, darwin, home-manager, flake-compat, flake-utils, nur
+    inputs@{ self, nixpkgs, darwin, home-manager, flake-utils, nur
            , chemacs2, nix-doom-emacs
            , jupyter_contrib_core, jupyter_nbextensions_configurator
            , ... }:
@@ -70,6 +78,7 @@
           haedosa0ips = [ "10.100.0.2/32" ];
           hds0ips = [ "10.10.0.2/32" ];
           wg-key = ./secrets/wg-urubamba.age;
+          private-key = ./secrets/sshkey.age;
         };
 
         lima = {
@@ -79,6 +88,7 @@
           haedosa0ips = [ "10.100.0.21/32" ];
           hds0ips = [ "10.10.0.21/32" ];
           wg-key = ./secrets/wg-lima.age;
+          private-key = ./secrets/sshkey.age;
         };
 
         bogota = {
@@ -88,6 +98,7 @@
           haedosa0ips = [ "10.100.0.22/32" ];
           hds0ips = [ "10.10.0.22/32" ];
           wg-key = ./secrets/wg-bogota.age;
+          private-key = ./secrets/sshkey.age;
         };
 
         lapaz = {
@@ -97,6 +108,7 @@
           haedosa0ips = [ "10.100.0.23/32" ];
           hds0ips = [ "10.10.0.23/32" ];
           wg-key = ./secrets/wg-lapaz.age;
+          private-key = ./secrets/sshkey.age;
         };
 
       };
@@ -127,8 +139,6 @@
       };
 
       pkgs = import nixpkgs pkgsConfig;
-      npkgs = import newpkgs pkgsConfig;
-      opkgs = import oldpkgs pkgsConfig;
 
       mkNixOSConfiguration = name: host: nixpkgs.lib.nixosSystem {
         inherit system;
@@ -174,7 +184,6 @@
         nix-doom-emacs.overlay
         agenix.overlay
         deploy-rs.overlay
-        (self: super: { inherit npkgs opkgs;})
         (import ./packages/myemacs/overlay.nix)
         (import ./packages/myvim/overlay.nix)
         (import ./packages/mytmux/overlay.nix)
