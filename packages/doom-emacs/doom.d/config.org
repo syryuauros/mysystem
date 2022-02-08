@@ -500,3 +500,15 @@ causes conflict in syncing files between linux and mac.
         '("Libgen"            "http://libgen.rs/search.php?req=%s")))
 
 #+end_src
+
+* lsp-mode issue
+
+https://github.com/hlissner/doom-emacs/issues/5904
+
+#+begin_src emacs-lisp
+
+;; add to $DOOMDIR/config.el
+(after! lsp-mode
+  (advice-remove #'lsp #'+lsp-dont-prompt-to-install-servers-maybe-a))
+
+#+end_src
