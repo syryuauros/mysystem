@@ -6,6 +6,8 @@
 
     haedosa.url = "github:haedosa/nixpkgs";
     nixpkgs.follows = "haedosa/nixpkgs";
+
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     flake-utils.follows = "haedosa/flake-utils";
     home-manager.follows = "haedosa/home-manager";
 
@@ -23,8 +25,9 @@
     };
 
     nix-doom-emacs = {
-      url = "github:haedosa/nix-doom-emacs";
+      # url = "github:nix-community/nix-doom-emacs";
       # url = "/home/jj/jjdosa/nix-doom-emacs";
+      url = "github:haedosa/nix-doom-emacs";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
