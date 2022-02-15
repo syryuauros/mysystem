@@ -7,6 +7,8 @@ let
   bogota = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAl5/ozkuWmVXtqSOJetfMA1OWF+LZ4IqsYkNhsQcGb6";
   lapaz = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKa+MtYN20MlkctttUkg2RpOTNLRbfvqeTLwqbJoUj2o";
 
+  systems = [ lima urubamba bogota lapaz ];
+
 in
 {
 
@@ -21,4 +23,8 @@ in
 
   # pubkey = GaDfcKdWItmWd3Raj3Ak5Kr5PNagVG4sCaQiBR3XIC0=
   "wg-lapaz.age".publicKeys = [ jj lapaz ];
+
+  # swarm.key for the private ipfs
+  "ipfs-swarm-key.age".publicKeys = [ jj ] ++ systems;
+
 }
