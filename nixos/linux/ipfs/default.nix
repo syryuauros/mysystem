@@ -6,30 +6,28 @@ in {
 
   services.ipfs = {
     enable = true;
-    user = "ipfs";
-    group = "ipfs";
     autoMount = true;
     extraConfig = {
       Bootstrap = [
-        "/ip4/10.10.0.2/tcp/4001/p2p/12D3KooWCf2DohGh15Uw7gNafRs9NS1auQLstuLsaQD5ZoXRoxme"
-        "/ip4/10.10.0.21/tcp/4001/p2p/12D3KooWCw74c382m6vq8YHqfHN1BeEjGgdhotgDVrgRrAfuuyzb"
-        "/ip4/10.10.0.22/tcp/4001/p2p/12D3KooWMTZ2acbt3LauakRNoamg7j1awY2rYYihJEjtmpUqkHe7"
+        "/ip4/10.10.0.2/tcp/4001/p2p/12D3KooWMkZZFJ6oSVDEz7CZNcZPYpL289Y5ws3SD3UTSGbpRd29"
+        "/ip4/10.10.0.21/tcp/4001/p2p/12D3KooWBSpgEmP1d7cHpGui1QQqyC68eoUZWMuwM7rDbcj776KV"
+        "/ip4/10.10.0.22/tcp/4001/p2p/12D3KooWLATaGuMcWMZbwFZzgB8KByjQJ9aaGGGT2CxGkpzu4AiD"
       ];
       Swarm.AddrFilters = null;
     };
   };
 
+  systemd.services.ipfs.environment = {
+    LIBP2P_FORCE_PNET = "1";
+  };
+
   security.wrappers = {
-    ipfs = let
-      pipfs = pkgs.runCommand "pipfs" { buildInputs = [ pkgs.makeWrapper ]; } ''
-        makeWrapper ${cfg.package}/bin/ipfs $out/bin/ipfs --set LIBP2P_FORCE_PNET 1
-      '';
-    in {
+    ipfs = {
       setuid = true;
       permissions = "u+rx,g+x";
       owner = cfg.user;
       group = cfg.group;
-      source = "${pipfs}/bin/ipfs";
+      source = "${cfg.package}/bin/ipfs";
     };
   };
 
@@ -40,6 +38,5 @@ in {
     group = cfg.group;
     symlink = false;
   };
-
 
 }
