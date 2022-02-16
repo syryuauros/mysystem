@@ -130,7 +130,10 @@
 
 #+begin_src emacs-lisp
 
-(setq lsp-ui-doc-position 'top)
+(after! lsp-ui
+  (setq lsp-ui-doc-position 'top)
+  (setq lsp-ui-doc-show-with-cursor t)
+  (setq lsp-ui-sideline-show-code-actions t))
 
 (defun my/cycle-lsp-ui-doc-position ()
   (interactive)
@@ -154,6 +157,17 @@
 
 #+end_src
 
+** lsp-mode issue
+
+https://github.com/hlissner/doom-emacs/issues/5904
+
+#+begin_src emacs-lisp
+
+;; add to $DOOMDIR/config.el
+(after! lsp-mode
+  (advice-remove #'lsp #'+lsp-dont-prompt-to-install-servers-maybe-a))
+
+#+end_src
 * Dired
 ** Dired-hide-dotfiles
 
@@ -498,17 +512,5 @@ causes conflict in syncing files between linux and mac.
         '("Nix Packages"      "https://search.nixos.org/packages?channel=unstable&query=%s")
         '("Nix Options"       "https://search.nixos.org/options?channel=unstable&query=%s")
         '("Libgen"            "http://libgen.rs/search.php?req=%s")))
-
-#+end_src
-
-* lsp-mode issue
-
-https://github.com/hlissner/doom-emacs/issues/5904
-
-#+begin_src emacs-lisp
-
-;; add to $DOOMDIR/config.el
-(after! lsp-mode
-  (advice-remove #'lsp #'+lsp-dont-prompt-to-install-servers-maybe-a))
 
 #+end_src

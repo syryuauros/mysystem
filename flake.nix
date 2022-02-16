@@ -6,8 +6,8 @@
 
     haedosa.url = "github:haedosa/nixpkgs";
     nixpkgs.follows = "haedosa/nixpkgs";
-
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+
     flake-utils.follows = "haedosa/flake-utils";
     home-manager.follows = "haedosa/home-manager";
 
