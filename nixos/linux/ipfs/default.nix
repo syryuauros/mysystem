@@ -12,6 +12,7 @@ in {
         "/ip4/10.10.0.2/tcp/4001/p2p/12D3KooWMkZZFJ6oSVDEz7CZNcZPYpL289Y5ws3SD3UTSGbpRd29"
         "/ip4/10.10.0.21/tcp/4001/p2p/12D3KooWBSpgEmP1d7cHpGui1QQqyC68eoUZWMuwM7rDbcj776KV"
         "/ip4/10.10.0.22/tcp/4001/p2p/12D3KooWLATaGuMcWMZbwFZzgB8KByjQJ9aaGGGT2CxGkpzu4AiD"
+        "/ip4/10.10.0.22/tcp/4001/p2p/12D3KooWMGmS1S41npB5rF82NetPmbS51fXggBdj1d2Yvq4tVjEZ"
       ];
       Swarm.AddrFilters = null;
     };
