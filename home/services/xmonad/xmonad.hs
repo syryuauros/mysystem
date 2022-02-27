@@ -153,15 +153,6 @@ myTrayer =  "trayer --edge top --align right --widthtype request --padding 1 "
          <> "--alpha 0 --tint 0x282c34  --height 20 --distance 0 --distancefrom right &"
 
 
-myBorderWidth :: Dimension
-myBorderWidth = 2          -- Sets border width for windows
-
-myNormColor :: String
-myNormColor   = "#282c34"  -- Border color of normal windows
-
-myFocusColor :: String
-myFocusColor  = "#fffefe"  -- Border color of focused windows
-
 altMask :: KeyMask
 altMask = mod1Mask         -- Setting this for use in xprompts
 
@@ -621,9 +612,9 @@ main = do
         , startupHook        = myStartupHook
         , layoutHook         = refocusLastLayoutHook $ showWName' myShowWNameTheme myLayoutHook
         , workspaces         = myWorkspaces
-        , borderWidth        = myBorderWidth
-        , normalBorderColor  = myNormColor
-        , focusedBorderColor = myFocusColor
+        , borderWidth        = 2
+        , normalBorderColor  = "#b3afc2"
+        , focusedBorderColor = "#ffd700"
         , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
                         { ppOutput          = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x >> hPutStrLn xmproc2 x
                         , ppCurrent         = xmobarColor "#98be65" "" . wrap "[" "]"                  -- Current workspace in xmobar
