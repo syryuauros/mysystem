@@ -109,10 +109,10 @@
 (use-package! lsp-mode
   :custom
   (lsp-completion-enable-additional-text-edit nil)
+  (lsp-lens-enable nil)
   :hook (lsp-mode . (lambda ()
      (lsp-ui-mode)
      (lsp-ui-doc-mode)
-     (lsp-lens-mode 0)
    ))
 )
 
