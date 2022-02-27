@@ -112,6 +112,7 @@
   :hook (lsp-mode . (lambda ()
      (lsp-ui-mode)
      (lsp-ui-doc-mode)
+     (lsp-lens-mode 0)
    ))
 )
 
