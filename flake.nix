@@ -11,7 +11,7 @@
     home-manager.follows = "haedosa/home-manager";
 
     darwin = { url = "github:LnL7/nix-darwin/master"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nur.url = "github:nix-community/NUR/master";
+    nur.url = "github:nix-community/NUR";
     chemacs2 = { url = "github:plexus/chemacs2"; flake = false; };
     jupyter_contrib_core = { url = "github:Jupyter-contrib/jupyter_contrib_core"; flake = false; };
     jupyter_nbextensions_configurator = { url = "github:Jupyter-contrib/jupyter_nbextensions_configurator"; flake = false; };

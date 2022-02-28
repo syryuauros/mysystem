@@ -74,6 +74,7 @@
     anydesk
     virtualbox
     slack
+    nur.repos.ilya-fedin.kotatogram-desktop
 
     wireguard
     wally-cli
