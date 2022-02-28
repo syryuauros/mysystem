@@ -75,6 +75,7 @@
     virtualbox
     slack
     nur.repos.ilya-fedin.kotatogram-desktop
+    pdfarranger
 
     wireguard
     wally-cli
