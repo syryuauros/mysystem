@@ -10,7 +10,7 @@ in {
     extraConfig = {
       Bootstrap = [
         "/ip4/10.10.0.1/tcp/4001/p2p/12D3KooWMgtMTRF9R1Hah2r66X1ug2aLGoAg8XyURs9hufgDHrxB" # gateway
-        "/ip4/10.10.0.2/tcp/4001/p2p/12D3KooWMkZZFJ6oSVDEz7CZNcZPYpL289Y5ws3SD3UTSGbpRd29" # urubamba
+        "/ip4/10.10.0.2/tcp/4001/p2p/12D3KooWC5DURAfojXCjKjoKmDREbVncgRrbyJGB69UNpXm6QoNi" # urubamba
         "/ip4/10.10.0.21/tcp/4001/p2p/12D3KooWBSpgEmP1d7cHpGui1QQqyC68eoUZWMuwM7rDbcj776KV" # lima
         "/ip4/10.10.0.22/tcp/4001/p2p/12D3KooWLATaGuMcWMZbwFZzgB8KByjQJ9aaGGGT2CxGkpzu4AiD" # bogota
         "/ip4/10.10.0.23/tcp/4001/p2p/12D3KooWSSiJAaNqaiD5zhGcdMdMsHQNf5PqgNwBD3jCQKM1ca2e" # lapaz
