@@ -10,9 +10,7 @@
     flake-utils.follows = "haedosa/flake-utils";
     home-manager.follows = "haedosa/home-manager";
 
-    darwin = { url = "github:LnL7/nix-darwin/master"; inputs.nixpkgs.follows = "nixpkgs"; };
     nur.url = "github:nix-community/NUR";
-    chemacs2 = { url = "github:plexus/chemacs2"; flake = false; };
     jupyter_contrib_core = { url = "github:Jupyter-contrib/jupyter_contrib_core"; flake = false; };
     jupyter_nbextensions_configurator = { url = "github:Jupyter-contrib/jupyter_nbextensions_configurator"; flake = false; };
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -34,8 +32,8 @@
   };
 
   outputs =
-    inputs@{ self, nixpkgs, darwin, home-manager, flake-utils, nur
-           , chemacs2, nix-doom-emacs
+    inputs@{ self, nixpkgs, home-manager, flake-utils, nur
+           , nix-doom-emacs
            , jupyter_contrib_core, jupyter_nbextensions_configurator
            , ... }:
 
@@ -75,8 +73,8 @@
 
         urubamba = {
           ip = "10.10.0.2";
-          configuration = ./nixos/linux/hosts/x1;
-          home = ./home/linux/hosts/x1;
+          configuration = ./nixos/x1;
+          home = ./home/x1;
           haedosa0ips = [ "10.100.0.2/32" ];
           hds0ips = [ "10.10.0.2/32" ];
           wg-key = ./secrets/wg-urubamba.age;
@@ -85,8 +83,8 @@
 
         lima = {
           ip = "10.10.0.21";
-          configuration = ./nixos/linux/hosts/x1;
-          home = ./home/linux/hosts/x1;
+          configuration = ./nixos/x1;
+          home = ./home/x1;
           haedosa0ips = [ "10.100.0.21/32" ];
           hds0ips = [ "10.10.0.21/32" ];
           wg-key = ./secrets/wg-lima.age;
@@ -95,8 +93,8 @@
 
         bogota = {
           ip = "10.10.0.22";
-          configuration = ./nixos/linux/hosts/legion5;
-          home = ./home/linux/hosts/legion5;
+          configuration = ./nixos/legion5;
+          home = ./home/legion5;
           haedosa0ips = [ "10.100.0.22/32" ];
           hds0ips = [ "10.10.0.22/32" ];
           wg-key = ./secrets/wg-bogota.age;
@@ -105,8 +103,8 @@
 
         lapaz = {
           ip = "10.10.0.23";
-          configuration = ./nixos/linux/hosts/x1;
-          home = ./home/linux/hosts/x1;
+          configuration = ./nixos/x1;
+          home = ./home/x1;
           haedosa0ips = [ "10.100.0.23/32" ];
           hds0ips = [ "10.10.0.23/32" ];
           wg-key = ./secrets/wg-lapaz.age;
@@ -161,7 +159,7 @@
             imports = with host;
               [
                 configuration
-                (import ./nixos/linux/wireguard wg-key haedosa0ips hds0ips)
+                (import ./nixos/wireguard wg-key haedosa0ips hds0ips)
                 inputs.agenix.nixosModules.age
                 home-manager.nixosModules.home-manager
                 {
