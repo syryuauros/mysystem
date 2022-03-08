@@ -137,6 +137,7 @@
 
     agenix
     deploy-rs.deploy-rs
+    gimp
 
   ] ++ myfonts-collection;
 
