@@ -692,10 +692,10 @@ myKeys home conf =
 
     -- Emacs (CTRL-e followed by a key)
 
-    , ("M-d c"   , spawn $ myEditor <> " --eval '(dired \"~/capture\")'")
-    , ("M-d S-d" , spawn $ myEditor <> " --eval '(dired \"~/Downloads\")'")
-    , ("M-d s"   , spawn $ myEditor <> " --eval '(dired \"~/mysystem\")'")
-    , ("M-d x"   , spawn $ myEditor <> " --eval '(find-file \"~/mysystem/home/services/xmonad/xmonad.hs\")'")
+    , ("M-d c"   , spawn $ myEditor <> " --eval '(dired \"~/captures\")'")
+    , ("M-d d"   , spawn $ myEditor <> " --eval '(dired \"~/Downloads\")'")
+    , ("M-d s"   , spawn $ myEditor <> " --eval '(dired \"~/jjdosa/mysystem\")'")
+    , ("M-d x"   , spawn $ myEditor <> " --eval '(find-file \"~/jjdosa/mysystem/home/services/xmonad/xmonad.hs\")'")
     , ("M-d m"   , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/memo/memo.org\")'")
     , ("M-d S-s" , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/study/study.org\")'")
     , ("M-d f"   , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/finance/finance.org\")'")
