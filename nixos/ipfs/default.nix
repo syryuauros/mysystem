@@ -22,6 +22,7 @@ in {
         "/ip4/10.10.100.3/tcp/4001/p2p/12D3KooWDiGWsMM8FRYN5TLDdgZoaaByuaenBDaAYP623WQn8U7T" # builder3
         "/ip4/10.10.100.4/tcp/4001/p2p/12D3KooWHLdp4WFHDZoQ2VxQbFihgNpNY2q18ikEZTs3iqXvn5A3" # builder4
         "/ip4/10.10.100.5/tcp/4001/p2p/12D3KooWKNyyb8Wyii74h92CTNy3RrG64LTnHZoEjNNayiLzvHbN" # builder5
+        "/ip4/10.10.100.6/tcp/4001/p2p/12D3KooWRjJZqXsRFmsc6nEifC5U9xwccWDwPDZbjeQbar1EEEXY" # builder6
       ];
       Swarm.AddrFilters = null;
       Swarm.Transports.Network.Relay = true;

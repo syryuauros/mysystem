@@ -5,6 +5,14 @@
   nix.distributedBuilds = true;
   nix.buildMachines = [
     {
+      hostName = "builder6";
+      system = "x86_64-linux";
+      maxJobs = 64;
+      speedFactor = 20;
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      mandatoryFeatures = [ ];
+    }
+    {
       hostName = "builder3";
       system = "x86_64-linux";
       maxJobs = 6;
@@ -70,6 +78,10 @@
       HostName 10.10.100.5
       User root
       IdentityFile /home/jj/.ssh/id_builder
+    Host builder6
+      HostName 10.10.100.6
+      User root
+      IdentityFile /home/jj/.ssh/id_builder
   '';
 
   services.openssh.knownHosts."10.10.100.1".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOy9IObSEcyb3+3gGXuG8uUGIUiWAuW6hPjoq0059SvZ";
@@ -77,5 +89,6 @@
   services.openssh.knownHosts."10.10.100.3".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJRy4shsolok43LnXTrwWnPyJ+Gna6JYLQKxO66w8ZN";
   services.openssh.knownHosts."10.10.100.4".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPsGAj/2BqvU6EUKaeW0ojVNl9yIH+N89z5+LvHsnx8k";
   services.openssh.knownHosts."10.10.100.5".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIFkD/jGF/atiNoGlN8WVBUinEfntOr6Vs96B2DWnvUO";
+  services.openssh.knownHosts."10.10.100.6".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINsRBagBDoPmuzq1jk8G6PiG6qKXwnG1lWy1dXQGLEgb";
 
 }
