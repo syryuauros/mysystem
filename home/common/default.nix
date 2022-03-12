@@ -138,6 +138,7 @@
     agenix
     deploy-rs.deploy-rs
     gimp
+    sweethome3d.application
 
   ] ++ myfonts-collection;
 
