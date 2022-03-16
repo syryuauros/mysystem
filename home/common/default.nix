@@ -11,6 +11,7 @@
     ../programs/alacritty
     ../programs/kitty
     ../programs/fish
+    ../programs/bash
     ../programs/zsh
     ../programs/starship
     ../programs/fzf

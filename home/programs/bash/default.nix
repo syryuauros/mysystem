@@ -1,13 +1,8 @@
 { config, pkgs, lib, ... }:
 
 {
-  programs.zsh = {
+  programs.bash = {
     enable = true;
-    enableAutosuggestions = true;
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-    };
     shellAliases = {
       cat  = "bat";
       du   = "ncdu --color dark -rr -x";
@@ -17,9 +12,11 @@
       ecc  = "emacsclient -c";
       ping = "prettyping";
       ".." = "cd ..";
-      "-" = "cd -";
       p = "pushd";
-      d = "dirs";
+      d = "dirs -v";
     };
+    initExtra = ''
+      set -o vi
+    '';
   };
 }
