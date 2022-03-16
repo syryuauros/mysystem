@@ -128,7 +128,8 @@
     anydesk
     virtualbox
     slack
-    nur.repos.ilya-fedin.kotatogram-desktop
+    # nur.repos.ilya-fedin.kotatogram-desktop
+    kotatogram-desktop
     pdfarranger
 
     wireguard
