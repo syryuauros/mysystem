@@ -10,14 +10,6 @@ in {
     extraConfig = {
       Bootstrap = [
         "/ip4/10.10.0.1/tcp/4001/p2p/12D3KooWMgtMTRF9R1Hah2r66X1ug2aLGoAg8XyURs9hufgDHrxB" # gateway
-        "/ip4/10.10.0.2/tcp/4001/p2p/12D3KooWC5DURAfojXCjKjoKmDREbVncgRrbyJGB69UNpXm6QoNi" # urubamba
-        "/ip4/10.10.0.21/tcp/4001/p2p/12D3KooWN3yz1id1qZj7PraSFopk4JFWsWmstvg8eCZtAUpoazjR" # lima
-        "/ip4/10.10.0.22/tcp/4001/p2p/12D3KooWLATaGuMcWMZbwFZzgB8KByjQJ9aaGGGT2CxGkpzu4AiD" # bogota
-        "/ip4/10.10.0.23/tcp/4001/p2p/12D3KooWSSiJAaNqaiD5zhGcdMdMsHQNf5PqgNwBD3jCQKM1ca2e" # lapaz
-        "/ip4/10.10.0.6/tcp/4001/p2p/12D3KooWEJ5S6pqYkcBJ1ovSpjTzLr7mKZtdaoKqAH1FRYN2d1Dg" # kw
-        "/ip4/10.10.0.8/tcp/4001/p2p/12D3KooWJZ9MwxKe3Yo9aQh2LHnyosjNhqGvC6ryGNJu89idCKMt" # sth
-        "/ip4/10.10.0.100/tcp/4001/p2p/12D3KooWFKzK5YTGP33EanwNsn8vuyTaXh56oprKQsPKhj1xZNpC" # js
-        "/ip4/10.10.1.2/tcp/4001/p2p/12D3KooWPDSeka5CTujRWLMysE8ZXWbgoVwLic6EgPmdagNxH8zd" # hoonju
         "/ip4/10.10.100.1/tcp/4001/p2p/12D3KooWAb5FX2fVPRA9SC72paEYpbjHrmCcggRYZ23e44iaBx4U" # builder1
         "/ip4/10.10.100.2/tcp/4001/p2p/12D3KooWNmp9JToPSrwZuW7JUgcAA7X8BNqqdscx3ePRAsqNDvn2" # builder2
         "/ip4/10.10.100.3/tcp/4001/p2p/12D3KooWSb2srJGvzywVCpMK9Uc6moUbi1mPPz1NsGUcTQVfeeP6" # builder3
