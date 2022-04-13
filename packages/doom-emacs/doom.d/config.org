@@ -330,6 +330,17 @@ https://github.com/hlissner/doom-emacs/issues/5904
 
 #+end_src
 
+* Winum
+
+#+begin_src emacs-lisp
+
+(use-package! winum
+  :config
+  (winum-mode 1)
+)
+
+#+end_src
+
 * Org Mode
 ** Org Archive
 
