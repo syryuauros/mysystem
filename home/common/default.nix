@@ -72,8 +72,10 @@
     rnix-lsp
     imagemagick
     inkscape
+    graphviz
     pass
     cmatrix
+    tokei
 
     # myemacs  # emacs is installed as emacs
     mymyemacs  # emacs is installed as myemacs
