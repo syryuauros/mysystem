@@ -1,6 +1,7 @@
 {-# LANGUAGE FlexibleContexts #-}
-  -- Base
-import XMonad hiding ((|||))
+
+
+import XMonad hiding (Tall, (|||))
 import System.Directory
 import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
@@ -8,9 +9,11 @@ import qualified XMonad.StackSet as W
 
     -- Actions
 import XMonad.Actions.CopyWindow (kill1, killAllOtherCopies)
-import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..)
+import XMonad.Actions.CycleWS ( moveTo, shiftTo, WSType(..)
                               , nextScreen, prevScreen
-                              , shiftPrevScreen, shiftNextScreen)
+                              , shiftPrevScreen, shiftNextScreen
+                              , toggleWS
+                              )
 import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
@@ -110,6 +113,7 @@ import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
 import XMonad.Layout.MultiColumns (multiCol)
 import XMonad.Actions.Submap (submap)
+import XMonad.Layout.HintedTile (HintedTile(HintedTile), Alignment (TopLeft), Orientation (Tall, Wide))
 
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
@@ -318,31 +322,22 @@ mySubLayout = windowArrange
   where
     subTall = mySpacing 1
             $ windowNavigation
-            $ Tall 1 0.02 0.5
+            $ ResizableTall 1 (3/100) (1/2) []
     subMultiCol = mySpacing 1
                 $ windowNavigation
                 $ multiCol [1] 0 0.02 0.5
 
-tall = windowNavigation
+mkLayout layout = windowNavigation
      $ addTabs shrinkText myTabTheme
      $ B.boringWindows
-     $ subLayout [] mySubLayout
+     $ subLayout [] (smartBorders mySubLayout)
      $ mySpacing 4
-     $ ResizableTall 1 (3/100) (1/2) []
+     layout
 
-tall2 = windowNavigation
-      $ addTabs shrinkText myTabTheme
-      $ B.boringWindows
-      $ subLayout [] mySubLayout
-      $ mySpacing 4
-      $ ResizableTall 1 (3/100) (2/3) []
-
-myMultiCol = windowNavigation
-           $ addTabs shrinkText myTabTheme
-           $ B.boringWindows
-           $ subLayout [] mySubLayout
-           $ mySpacing 4
-           $ multiCol [1] 0 0.02 0.5
+tall = mkLayout $ ResizableTall 1 (3/100) (1/2) []
+wide = Mirror tall
+grid = mkLayout $ Grid (16/10)
+myMultiCol = mkLayout $ multiCol [1] 0 0.02 0.5
 -- twopane  = renamed [Replace "twopane"]
 --          $ windowNavigation
 --          $ addTabs shrinkText myTabTheme
@@ -350,42 +345,14 @@ myMultiCol = windowNavigation
 --          $ limitWindows 12
 --          $ mySpacing 4
 --          $ TwoPane (3/100) (1/2)
-magnify  = windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] mySubLayout
-         $ magnifier
-         $ mySpacing 4
-         $ ResizableTall 1 (3/100) (1/2) []
-monocle  = windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] (smartBorders mySubLayout)
-         $ limitWindows 20 Full
-floats   = windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] mySubLayout
-           simplestFloat
-grid     = windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] mySubLayout
-         $ mySpacing 4
-         $ Grid (16/10)
-spirals  = windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] (smartBorders mySubLayout)
+magnify  = mkLayout $ ResizableTall 1 (3/100) (1/2) []
+monocle  = mkLayout $ limitWindows 20 Full
+floats   = mkLayout simplestFloat
+spirals  = mkLayout
          $ mySpacing' 2
          $ limitWindows 12
          $ spiral (6/7)
-threeCol = windowNavigation
-         $ addTabs shrinkText myTabTheme
-         $ B.boringWindows
-         $ subLayout [] mySubLayout
-         $ mySpacing 4
-         $ ThreeCol 1 (3/100) (1/2)
+threeCol = mkLayout $ ThreeCol 1 (3/100) (1/2)
 
 -- threeRow = renamed [Replace "threeRow"]
 --          $ windowNavigation
@@ -402,13 +369,7 @@ threeCol = windowNavigation
 --          -- I cannot add spacing to this layout because it will
 --          -- add spacing between window and tabs which looks bad.
 --          $ tabbed shrinkText myTabTheme
-accordion =  windowNavigation
-          $ addTabs shrinkText myTabTheme
-          $ B.boringWindows
-          $ subLayout [] mySubLayout
-          $ limitWindows 7
-          $ mySpacing 4
-            Accordion
+accordion = mkLayout Accordion
 
 -- The layout hook
 myLayoutHook = avoidStruts
@@ -416,10 +377,10 @@ myLayoutHook = avoidStruts
                myDefaultLayout
              where
                myDefaultLayout =   renamed [Replace "tall"] (mkToggleAll tall)
-                               ||| renamed [Replace "tall2"] (mkToggleAll tall2)
+                               ||| renamed [Replace "wide"] (mkToggleAll wide)
+                               ||| renamed [Replace "grid"] (mkToggleAll grid)
                                ||| renamed [Replace "multiCol"] (mkToggleAll myMultiCol)
                                ||| renamed [Replace "monocle"] (mkToggleAll (noBorders monocle))
-                               ||| renamed [Replace "grid"] (mkToggleAll grid)
                                ||| renamed [Replace "threeCol"] (mkToggleAll threeCol)
                                ||| renamed [Replace "spirals"] (mkToggleAll spirals)
                                ||| renamed [Replace "magnify"] (mkToggleAll magnify)
@@ -674,12 +635,13 @@ myKeys :: String -> XConfig l -> [(String, X ())]
 myKeys home conf =
     -- Xmonad
     [ -- ("M-q"       , spawn "xmonad --recompile; xmonad --restart")
-      ("M-q"       , spawn "restart-xmonad.sh")
-    , ("M-S-q"     , io exitSuccess)         -- Quits xmonad
+      -- ("M-q"       , spawn "restart-xmonad.sh")
+      ("M-C-q"     , spawn "restart-xmonad.sh")
+    , ("M-C-S-q"   , io exitSuccess)         -- Quits xmonad
 
     -- Launch programs
-    , ("M-p"       , spawn myRofi)
-    , ("M-S-p"     , spawn myDmenu)
+    , ("M-p"       , spawn myDmenu)
+    , ("M-S-p"     , spawn myRofi)
     , ("M-a e"     , spawn myEditor)
     , ("M-a n"     , spawn myEmail)
     , ("M-a w"     , spawn myBrowser)
@@ -750,6 +712,7 @@ myKeys home conf =
     -- Workspaces
     , ("M-["     , moveTo Prev nonNSP)               -- moveTo previous workspace
     , ("M-]"     , moveTo Next nonNSP)               -- moveTo next workspace
+    , ("M-`"     , toggleWS)
     , ("M-S-["   , shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws and move
     , ("M-S-]"   , shiftTo Next nonNSP >> moveTo Next nonNSP)  -- Shifts focused window to next ws and move
     , ("M-C-["   , prevScreen)                       -- Switch focus to prev monitor
@@ -770,16 +733,16 @@ myKeys home conf =
     -- Layouts
     , ("M-<Space>"    , sendMessage NextLayout)
     , ("M-C-1"        , sendMessage $ JumpToLayout "tall")
-    , ("M-C-2"        , sendMessage $ JumpToLayout "tall2")
-    , ("M-C-3"        , sendMessage $ JumpToLayout "multiCol")
-    , ("M-C-4"        , sendMessage $ JumpToLayout "monocle")
-    , ("M-C-5"        , sendMessage $ JumpToLayout "grid")
+    , ("M-C-2"        , sendMessage $ JumpToLayout "wide")
+    , ("M-C-3"        , sendMessage $ JumpToLayout "grid")
+    , ("M-C-4"        , sendMessage $ JumpToLayout "multiCol")
+    , ("M-C-5"        , sendMessage $ JumpToLayout "monocle")
     , ("M-C-6"        , sendMessage $ JumpToLayout "threeCol")
     , ("M-C-7"        , sendMessage $ JumpToLayout "spirals")
     , ("M-C-8"        , sendMessage $ JumpToLayout "magnify")
     , ("M-C-9"        , sendMessage $ JumpToLayout "accordion")
     , ("M-C-b"        , sendMessage $ MT.Toggle NOBORDERS)
-    , ("M-`"          , sendMessage $ MT.Toggle MIRROR)
+    , ("M-r"          , sendMessage $ MT.Toggle MIRROR)
     , ("M-x"          , sendMessage $ MT.Toggle REFLECTX)
     , ("M-y"          , sendMessage $ MT.Toggle REFLECTY)
 
@@ -807,7 +770,7 @@ myKeys home conf =
 
     -- SubLayouts
     , ("M-C-<Space>"  , toSubl NextLayout)
-    , ("M-C-`"        , toSubl $ MT.Toggle MIRROR)
+    , ("M-C-r"        , toSubl $ MT.Toggle MIRROR)
     , ("M-C-x"        , toSubl $ MT.Toggle REFLECTX)
     , ("M-C-y"        , toSubl $ MT.Toggle REFLECTY)
     , ("M-C-,"        , toSubl $ IncMasterN 1)  -- Switch focus to next tab
@@ -862,6 +825,12 @@ myKeys home conf =
     -- Look at "search engines" section of this config for values for "k".
     ++ [("M-s   " ++ k, myPromptSearch f) | (k,f) <- searchList ]
     ++ [("M-S-s " ++ k, mySelectSearch f) | (k,f) <- searchList ]
+
+    -- screen view and shift
+    ++ [("M-" ++ m ++ k, screenWorkspace sc >>= flip whenJust (windows . f))
+         | (k,sc) <- zip ["q", "w", "e"] [0..]
+         , (f, m) <- [(W.view, ""), (W.shift, "S-")]
+         ]
     -- The following lines are needed for named scratchpads.
     where
       myPromptSearch = S.promptSearchBrowser myXPConfig' myBrowser
