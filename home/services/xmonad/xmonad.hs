@@ -16,7 +16,8 @@ import XMonad.Actions.CycleWS ( moveTo, shiftTo, WSType(..)
                               )
 import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
-import XMonad.Actions.Promote
+import XMonad.Actions.SwapPromote (swapHybrid)
+import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import qualified XMonad.Actions.TreeSelect as TS
 import XMonad.Actions.WindowGo (runOrRaise)
@@ -683,7 +684,7 @@ myKeys home conf =
     -- , ("M-S-<Return>", spawn "rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\"") -- Rofi
 
     -- Windows navigation
-    , ("M-<Return>"   , promote)                   -- Moves focused window to master, others maintain order
+    , ("M-<Return>"   , whenX (swapHybrid True) dwmpromote)                   -- Moves focused window to master, others maintain order
     , ("M-S-m"        , swapMaster)                -- Moves focused window to master, others maintain order
     -- , ("M-m"          , windows W.focusMaster)  -- Move focus to the master window
     , ("M-k"          , B.focusUp)                 -- Move focus to the prev window, skipiping hidden windows
