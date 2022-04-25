@@ -7,6 +7,8 @@ in {
   services.ipfs = {
     enable = true;
     autoMount = true;
+    gatewayAddress = "/ip4/0.0.0.0/tcp/8080";
+    apiAddress = "/ip4/0.0.0.0/tcp/5001";
     extraConfig = {
       Bootstrap = [
         "/ip4/10.10.0.1/tcp/4001/p2p/12D3KooWMgtMTRF9R1Hah2r66X1ug2aLGoAg8XyURs9hufgDHrxB" # gateway
