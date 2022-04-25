@@ -126,10 +126,11 @@ myTerminal = "alacritty"   -- Sets default terminal
 -- myTerminal = "kitty"   -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "brave"
+myBrowser = "qutebrowser"
+-- myBrowser = "brave"
 
 myBrowser' :: String -> String
-myBrowser' url = "brave " <> url
+myBrowser' url = concat [myBrowser, " ", url]
 
 myEditor :: String
 myEditor = "emacsclient -c -a 'emacs --fg-daemon'"  -- Sets emacs as editor for tree select
