@@ -20,11 +20,11 @@ in {
         "/ip4/10.10.100.6/tcp/4001/p2p/12D3KooWRjJZqXsRFmsc6nEifC5U9xwccWDwPDZbjeQbar1EEEXY" # builder6
       ];
       Swarm.AddrFilters = null;
-      Swarm.Transports.Network.Relay = true;
-      Swarm.EnableAutoRelay = true;
-      # Swarm.AutoRelay.Enabled = true;
+      # Swarm.Transports.Network.Relay = true;
+      # Swarm.EnableAutoRelay = true;
+      # # Swarm.AutoRelay.Enabled = true;
       # Swarm.RelayService.Enabled = true;
-      Discovery.MDNS.Enabled = true;
+      # Discovery.MDNS.Enabled = true;
     };
   };
 

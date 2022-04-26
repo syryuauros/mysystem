@@ -98,15 +98,9 @@
     # ../users
     ../i18n
     ../xserver
-    ../services/blueman
-    ../services/ssh
-    ../services/geoclue2
-    # ../services/tailscale
-    ../hardware/acpilight
-    ../hardware/audio
-    ../hardware/keyboard
+    ../services
+    ../hardware
     ../distributed-build
-    ../services/syncthing
     ../nfs
     ../ipfs
   ];

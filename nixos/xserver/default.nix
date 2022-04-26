@@ -2,10 +2,6 @@
 
 {
 
-  imports = [
-    ../services/keyboard
-  ];
-
   services = {
 
     gnome.gnome-keyring.enable = true;
@@ -48,7 +44,11 @@
     };
   };
 
-  hardware.bluetooth.enable = true;
+
+  services.xserver.layout = "us";
+  # services.xserver.xkbVariant = ",dvorak";
+  # xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin"; # set separatedly for each machine
+
 
   systemd.services.upower.enable = true;
 }
