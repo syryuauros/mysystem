@@ -145,6 +145,13 @@
               ((eq x 'at-point) 'top))))
 )
 
+(defun set-lsp-ui-doc-size()
+  (interactive)
+  (setq lsp-ui-doc-text-scale-level 2)
+  (setq lsp-ui-doc-max-width 300)
+  (setq lsp-ui-doc-max-height 50))
+
+
 #+end_src
 
 ** lsp-haskell
@@ -153,8 +160,11 @@
 
 (use-package! lsp-haskell
   :hook ((haskell-mode . lsp-deferred)
-         (haskell-mode . (lambda () (lsp-ui-mode)
-                                    (lsp-ui-doc-mode)))))
+         (haskell-mode . (lambda ()
+                           (set-tab-width)
+                           (set-lsp-ui-doc-size)
+                           (lsp-ui-mode)
+                           (lsp-ui-doc-mode)))))
 
 #+end_src
 
@@ -281,6 +291,13 @@ https://github.com/hlissner/doom-emacs/issues/5904
 (setq-default tab-width 2)
 (setq-default evil-shift-width tab-width)
 (setq-default indent-tabs-mode nil)
+
+(defun set-tab-width()
+  (interactive)
+  (setq tab-width 2)
+  (setq evil-shift-width tab-width)
+  (setq indent-tabs-mode nil))
+
 
 #+end_src
 
