@@ -551,3 +551,26 @@ causes conflict in syncing files between linux and mac.
         '("Libgen"            "http://libgen.rs/search.php?req=%s")))
 
 #+end_src
+
+* Avy Keybindings
+
+#+begin_src emacs-lisp
+
+(map! :leader
+      (:prefix-map ("a" . "avy")
+        :desc "avy-goto-char-2" "2" #'avy-goto-char-2
+        :desc "avy-goto-char-timer" "a" #'avy-goto-char-timer
+        :desc "avy-goto-line" "l" #'avy-goto-line
+        :desc "avy-goto-word-0" "w" #'avy-goto-word-0
+        :desc "avy-goto-subword-0" "s" #'avy-goto-subword-0
+        :desc "avy-resume" "r" #'avy-resume
+        :desc "avy-transpose-lines-in-region" "t" #'avy-transpose-lines-in-region
+        (:prefix ("c" . "copy")
+           :desc "avy-copy-region" "r" #'avy-copy-region
+           :desc "avy-copy-line" "l" #'avy-copy-line)
+        (:prefix ("m" . "move")
+           :desc "avy-move-region" "r" #'avy-move-region
+           :desc "avy-move-line" "l" #'avy-move-line)
+      ))
+
+#+end_src
