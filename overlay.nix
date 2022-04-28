@@ -4,6 +4,7 @@
   screenlayout = callPackage ./packages/scripts/screenlayout {};
   restart-xmonad = callPackage ./packages/scripts/restart-xmonad {};
   mysetxkbmap = callPackage ./packages/scripts/mysetxkbmap {};
+  dmenu-scripts = callPackage ./packages/scripts/dmenu-scripts {};
   dracula-qutebrowser = callPackage ./packages/dracula-qutebrowser {};
   mychemacs2 = callPackage ./packages/mychemacs2 {  inherit inputs; };
 

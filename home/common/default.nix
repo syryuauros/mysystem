@@ -76,6 +76,7 @@
     pass
     cmatrix
     tokei
+    sqlite
 
     # myemacs  # emacs is installed as emacs
     mymyemacs  # emacs is installed as myemacs
@@ -116,6 +117,7 @@
     screenlayout
     restart-xmonad
     mysetxkbmap
+    dmenu-scripts
 
     kcolorchooser
     nomacs
@@ -143,6 +145,7 @@
     deploy-rs.deploy-rs
     gimp
     sweethome3d.application
+
 
   ] ++ myfonts-collection;
 

@@ -115,6 +115,7 @@ import XMonad.Util.SpawnOnce
 import XMonad.Layout.MultiColumns (multiCol)
 import XMonad.Actions.Submap (submap)
 import XMonad.Layout.HintedTile (HintedTile(HintedTile), Alignment (TopLeft), Orientation (Tall, Wide))
+import XMonad.Util.XSelection (getSelection)
 
 myFont :: String
 myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
@@ -203,12 +204,6 @@ myXPConfig = def
       , maxComplRows        = Nothing      -- set to 'Just 5' for 5 rows
       }
 
--- The same config above minus the autocomplete feature which is annoying
--- on certain Xprompts, like the search engine prompts.
-myXPConfig' :: XPConfig
-myXPConfig' = myXPConfig
-      { autoComplete        = Nothing
-      }
 
 calcPrompt c ans =
     inputPrompt c (trim ans) ?+ \input ->
@@ -642,41 +637,23 @@ myKeys home conf =
     , ("M-C-S-q"   , io exitSuccess)         -- Quits xmonad
 
     -- Launch programs
-    , ("M-p"       , spawn myDmenu)
-    , ("M-S-p"     , spawn myRofi)
-    , ("M-a e"     , spawn myEditor)
-    , ("M-a n"     , spawn myEmail)
-    , ("M-a w"     , spawn myBrowser)
-    , ("M-a t"     , spawn myTrayer)
-    , ("M-a y"     , spawn "killall trayer")
-    , ("M-a d"     , spawn "dmenu_run -i -p \"Run: \"")
-    , ("M-a l"     , spawn screenLocker)
-    , ("M-a f"     , spawn "mkdir -p ~/captures; flameshot full -p ~/captures/")
-    , ("M-a c"     , spawn "mkdir -p ~/captures; flameshot gui -p ~/captures/")
+    , ("M-p"     , spawn myDmenu)
+    , ("M-S-p"   , spawn myRofi)
 
-    -- Emacs (CTRL-e followed by a key)
+    , ("M-a n"   , spawn myEmail)
+    , ("M-a w"   , spawn "dm-wifi.sh")
+    , ("M-a t"   , spawn myTrayer)
+    , ("M-a y"   , spawn "killall trayer")
+    , ("M-a l"   , spawn screenLocker)
+    , ("M-a c"   , spawn "mkdir -p ~/captures; flameshot full -p ~/captures/")
+    , ("M-a f"   , spawn "nautilus")
 
-    , ("M-d c"   , spawn $ myEditor <> " --eval '(dired \"~/captures\")'")
-    , ("M-d d"   , spawn $ myEditor <> " --eval '(dired \"~/Downloads\")'")
-    , ("M-d s"   , spawn $ myEditor <> " --eval '(dired \"~/jjdosa/mysystem\")'")
-    , ("M-d x"   , spawn $ myEditor <> " --eval '(find-file \"~/jjdosa/mysystem/home/services/xmonad/xmonad.hs\")'")
-    , ("M-d m"   , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/memo/memo.org\")'")
-    , ("M-d S-s" , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/study/study.org\")'")
-    , ("M-d f"   , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/finance/finance.org\")'")
-    , ("M-d h"   , spawn $ myEditor <> " --eval '(find-file \"~/Ocean/Org/haedosa/README.org\")'")
-    , ("M-d S-h" , spawn $ myEditor <> " --eval '(find-file \"~/haedosa\")'")
-
-    -- open to a website
-    , ("M-o g"   , spawn $ myBrowser' "https://google.com")
-    , ("M-o l w" , spawn $ myBrowser' "https://gitlab.com/wavetojj")
-    , ("M-o l h" , spawn $ myBrowser' "https://gitlab.com/haedosa")
-    , ("M-o l g" , spawn $ myBrowser' "http://libgen.rs/")
-    , ("M-o y"   , spawn $ myBrowser' "https://youtube.com")
-    , ("M-o h h" , spawn $ myBrowser' "https://hackage.haskell.org/")
-    , ("M-o h g" , spawn $ myBrowser' "https://hoogle.haskell.org/")
-    , ("M-o n p" , spawn $ myBrowser' "https://search.nixos.org/packages?channel=unstable")
-    , ("M-o n o" , spawn $ myBrowser' "https://search.nixos.org/options?channel=unstable")
-    , ("M-o f"   , spawn "nautilus")
+    , ("M-s"     , spawn "dm-search.sh")
+    , ("M-b"     , spawn "dm-bookmarks.sh")
+    , ("M-v"     , spawn "dm-qutebrowser-history.sh")
+    , ("M-c"     , spawn "mkdir -p ~/captures; flameshot gui -p ~/captures/")
+    , ("M-d"     , spawn myEditor)
+    , ("M-o"     , spawn "dmenu_run -i -p \"Run: \"")
 
 
     -- , ("M-S-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
@@ -704,8 +681,8 @@ myKeys home conf =
     , ("M-S-n"        , swapWithLast)              -- Move the focused to the lastly focused
 
     -- boring windows, which are skipped in navigation
-    , ("M-b"          , B.markBoring)
-    , ("M-S-b"        , B.clearBoring)
+    , ("M-S-b"        , B.markBoring)
+    , ("M-C-b"        , B.clearBoring)
 
     -- Kill windows
     , ("M-S-c"        , kill1)                  -- Kill the currently focused client
@@ -825,8 +802,8 @@ myKeys home conf =
     ]
     -- Appending search engine prompts to keybindings list.
     -- Look at "search engines" section of this config for values for "k".
-    ++ [("M-s   " ++ k, myPromptSearch f) | (k,f) <- searchList ]
     ++ [("M-S-s " ++ k, mySelectSearch f) | (k,f) <- searchList ]
+    ++ [("M-C-s " ++ k, myPromptSearch f) | (k,f) <- searchList ]
 
     -- screen view and shift
     ++ [("M-" ++ m ++ k, screenWorkspace sc >>= flip whenJust (windows . f))
@@ -835,7 +812,10 @@ myKeys home conf =
          ]
     -- The following lines are needed for named scratchpads.
     where
-      myPromptSearch = S.promptSearchBrowser myXPConfig' myBrowser
+      myPromptSearch = let
+          myXPConfig' = myXPConfig { autoComplete = Nothing
+                                   , defaultText = "" }
+        in S.promptSearchBrowser myXPConfig' myBrowser
       mySelectSearch = S.selectSearchBrowser myBrowser
       nonNSP          = WSIs (return (\ws -> W.tag ws /= "NSP"))
       nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "NSP"))
