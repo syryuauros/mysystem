@@ -301,6 +301,14 @@ https://github.com/hlissner/doom-emacs/issues/5904
 
 #+end_src
 
+** Evil-Snipe
+
+#+begin_src emacs-lisp
+
+(setq-default evil-snipe-scope 'buffer)
+
+#+end_src
+
 * Whitespace
 
 #+begin_src emacs-lisp
