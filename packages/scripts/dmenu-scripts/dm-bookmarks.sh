@@ -4,6 +4,7 @@ DMENU="dmenu -i -l 20 -p"
 DMBROWSER="qutebrowser"
 
 declare -a bookmarks=(
+ "https://daum.net"
  "https://gitlab.com/haedosa"
  "https://gitlab.com/haedosa/fmmdosa"
  "https://gitlab.com/haedosa/mldosa"
