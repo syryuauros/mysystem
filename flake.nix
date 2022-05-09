@@ -58,6 +58,7 @@
           "symbola"
           "nvidia-x11"
           "nvidia-settings"
+          "brgenml1lpr"
         ];
 
 

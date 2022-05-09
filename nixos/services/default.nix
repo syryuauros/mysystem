@@ -30,6 +30,11 @@
 
   services.clipmenu.enable = true;
 
+  services.printing.enable = true;
+  services.printing.drivers = [
+    pkgs.brlaser pkgs.brgenml1lpr pkgs.brgenml1cupswrapper
+  ];
+
   # services.tailscale = {
   #   enable = true;
   # };
