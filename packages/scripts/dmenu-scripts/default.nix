@@ -4,5 +4,6 @@
   for f in $out/bin/*.sh;
   do
     patchShebangs $f
+    chmod +x $f
   done
 ''
