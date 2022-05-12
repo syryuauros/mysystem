@@ -650,10 +650,11 @@ myKeys home conf =
 
     , ("M-s"     , spawn "dm-search.sh")
     , ("M-b"     , spawn "dm-bookmarks.sh")
-    , ("M-v"     , spawn "dm-qutebrowser-history.sh")
+    , ("M-v"     , spawn "clipmenu")
     , ("M-c"     , spawn "mkdir -p ~/captures; flameshot gui -p ~/captures/")
     , ("M-d"     , spawn myEditor)
     , ("M-o"     , spawn "dmenu_run -i -p \"Run: \"")
+    , ("M-/"     , spawn "dm-qutebrowser-history.sh")
 
 
     -- , ("M-S-<Return>", shellPrompt myXPConfig) -- Xmonad Shell Prompt
