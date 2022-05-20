@@ -49,6 +49,7 @@
       # "http://10.10.100.1"
       # "http://10.10.100.2"
       "https://cache.nixos.org/"
+      "https://hydra.iohk.io"
     ];
 
     trustedBinaryCaches = [
@@ -58,6 +59,7 @@
       "http://192.168.100.54:201"
       "http://192.168.100.54:202"
       "https://cache.nixos.org/"
+      "https://hydra.iohk.io"
       "http://10.100.100.1"
       "http://10.100.100.2"
       "http://10.10.100.1"
@@ -70,6 +72,7 @@
       "builder2:R7X06/w5h5SfUO4ZvTkkfIjHHEDhrOFYLoQjYVIrFLM="
       "builder3:ICrJJg0EV8V5n90xghprYM7hEZg+dJ5T06gyaHqZtKU="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
     ];
 
     trustedUsers = [
