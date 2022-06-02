@@ -27,7 +27,7 @@
     ../programs/mpv
     # ../programs/doom-emacs
     ../programs/rofi
-    # ../programs/firefox
+    ../programs/firefox
     ../programs/qutebrowser
     ../programs/zathura
     ../programs/xscreensaver

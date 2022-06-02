@@ -22,8 +22,6 @@
     };
 
     nix-doom-emacs = {
-      # url = "github:nix-community/nix-doom-emacs";
-      # url = "/home/jj/jjdosa/nix-doom-emacs";
       url = "github:haedosa/nix-doom-emacs";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
@@ -59,6 +57,7 @@
           "nvidia-x11"
           "nvidia-settings"
           "brgenml1lpr"
+          "grammarly"
         ];
 
 

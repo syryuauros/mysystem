@@ -62,20 +62,15 @@ in
       ublock-origin
       unpaywall
       vimium
+      tridactyl
+      grammarly
     ];
-
-    package = pkgs.firefox-beta-bin;
 
     profiles = {
       default = {
         id = 0;
         settings = shared-settings;
       };
-
-      # chatroulette = {
-      #   id = 1;
-      #   settings = shared-settings;
-      # };
     };
   };
 }
