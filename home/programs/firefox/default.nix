@@ -64,6 +64,7 @@ in
       vimium
       tridactyl
       grammarly
+      surfingkeys
     ];
 
     profiles = {
