@@ -128,7 +128,8 @@ myTerminal = "alacritty"   -- Sets default terminal
 -- myTerminal = "kitty"   -- Sets default terminal
 
 myBrowser :: String
-myBrowser = "qutebrowser"
+myBrowser = "firefox"
+-- myBrowser = "qutebrowser"
 -- myBrowser = "brave"
 
 myBrowser' :: String -> String
@@ -648,8 +649,8 @@ myKeys home conf =
     , ("M-a c"   , spawn "mkdir -p ~/captures; flameshot full -p ~/captures/")
     , ("M-a f"   , spawn "nautilus")
 
-    , ("M-s"     , spawn "dm-search.sh")
-    , ("M-b"     , spawn "dm-bookmarks.sh")
+    , ("M-s"     , spawn $ "dm-search.sh")
+    , ("M-b"     , spawn $ "dm-bookmarks.sh")
     , ("M-v"     , spawn "clipmenu")
     , ("M-c"     , spawn "mkdir -p ~/captures; flameshot gui -p ~/captures/")
     , ("M-d"     , spawn myEditor)

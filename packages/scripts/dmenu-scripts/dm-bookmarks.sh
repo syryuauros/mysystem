@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 DMENU="dmenu -i -l 20 -p"
-DMBROWSER="qutebrowser"
 
 declare -a bookmarks=(
  "https://daum.net"
@@ -12,12 +11,17 @@ declare -a bookmarks=(
  "https://gitlab.com/haedosa/fitdosa"
 )
 
-
+declare -a browsers=(
+  "firefox"
+  "qutebrowser"
+  "brave"
+)
 
 main() {
 
-  url=$(printf '%s\n' "${bookmarks[@]}" | sort | ${DMENU} 'Choose a url:' "$@") || exit 1
-  ${DMBROWSER} "${url}"
+  browser=$(printf '%s\n' "${browsers[@]}" | ${DMENU} 'Choose a browser:')
+  url=$(printf '%s\n' "${bookmarks[@]}" | ${DMENU} 'Choose a url:')
+  ${browser} "${url}"
 
 }
 

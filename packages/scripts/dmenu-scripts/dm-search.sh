@@ -2,9 +2,6 @@
 
 DMENU="dmenu -i -l 20 -p"
 
-DMBROWSER="qutebrowser"
-
-
 declare -A websearch
 websearch[bing]="https://www.bing.com/search?q="
 websearch[brave]="https://search.brave.com/search?q="
@@ -23,20 +20,26 @@ websearch[scholar]="https://scholar.google.com/scholar?q="
 websearch[sourceforge]="https://sourceforge.net/directory/?q="
 websearch[stackoverflow]="https://stackoverflow.com/search?q="
 websearch[libgen]="http://libgen.rs/search.php?req="
-websearch[nixosPkgs]="https://search.nixos.org/packages?channel=unstable&query="
-websearch[nixosOpts]="https://search.nixos.org/options?channel=unstable&query="
+websearch[nixosPackages]="https://search.nixos.org/packages?channel=unstable&query="
+websearch[nixosOptions]="https://search.nixos.org/options?channel=unstable&query="
 websearch[hackage]="https://hackage.haskell.org/packages/search?terms="
 websearch[hoogle]="https://hoogle.haskell.org/?hoogle="
 websearch[haedosaGitlab]="https://gitlab.com/search?group_id=12624055&search="
 
 
+declare -a browsers=(
+  "firefox"
+  "qutebrowser"
+  "brave"
+)
 
 main() {
 
-  engine=$(printf '%s\n' "${!websearch[@]}" | sort | ${DMENU} 'Choose search engine:' "$@") || exit 1
+  browser=$(printf '%s\n' "${browsers[@]}" | ${DMENU} 'Choose a browser:')
+  engine=$(printf '%s\n' "${!websearch[@]}" | ${DMENU} 'Choose search engine:')
   url="${websearch["${engine}"]}"
   query=$(echo "$engine" | ${DMENU} 'Enter search query:')
-  ${DMBROWSER} "${url}${query}"
+  $browser "${url}${query}"
 
 }
 

@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 
-
 DMENU="dmenu -i -l 20 -p"
-
-DMBROWSER="qutebrowser"
-DMEDITOR="emacsclient -c -a emacs"
-
 
 main() {
 
