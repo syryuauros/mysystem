@@ -84,6 +84,27 @@
 
 #+end_src
 
+* Backup
+
+#+begin_src emacs-lisp
+
+(setq-default backup-directory-alist '(("" . "~/.backup"))
+              make-backup-files t
+              vc-make-backup-files t
+              backup-by-copying t
+              version-control t
+              delete-old-versions t
+              kept-new-versions 99
+              kept-old-versions 0
+)
+
+(defun force-backup-of-buffer ()
+  (setq buffer-backed-up nil)
+  (backup-buffer))
+(add-hook 'before-save-hook  'force-backup-of-buffer)
+
+#+end_src
+
 * Envrc
 
 #+begin_src emacs-lisp
