@@ -19,9 +19,9 @@
     };
     folders = {
 
-      Lake = {
-        path = "/home/jj/Lake";
-        devices = [ "lapaz" "lima" ];
+      Ocean = {
+        path = "/home/jj/Ocean";
+        devices = [ "lapaz" "lima" "bogota" "urubamba" "mbp15" ];
         versioning = {
           type = "staggered";
           params = {
@@ -31,8 +31,8 @@
         };
       };
 
-      Ocean = {
-        path = "/home/jj/Ocean";
+      Dropbox = {
+        path = "/home/jj/Dropbox";
         devices = [ "lapaz" "lima" "bogota" "urubamba" "mbp15" ];
         versioning = {
           type = "staggered";
