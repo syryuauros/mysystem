@@ -58,6 +58,7 @@
           "nvidia-settings"
           "brgenml1lpr"
           "grammarly"
+          "dropbox"
         ];
 
 

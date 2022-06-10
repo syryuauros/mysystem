@@ -2,7 +2,8 @@
 
 
   imports = [
-    ./syncthing
+    ./syncthing.nix
+    ./dropbox.nix
   ];
 
   services.blueman.enable = true;
