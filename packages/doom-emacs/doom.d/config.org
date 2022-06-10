@@ -525,7 +525,7 @@ causes conflict in syncing files between linux and mac.
 
 (use-package! org
   :custom
-  (org-directory                       "~/Ocean/Org")
+  (org-directory                       "~/Org")
   (org-ellipsis                        " ▾")
   (org-src-fontify-natively            t)
   (org-src-tab-acts-natively           t)
