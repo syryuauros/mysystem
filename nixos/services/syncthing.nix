@@ -21,7 +21,7 @@
 
       Ocean = {
         path = "/home/jj/Ocean";
-        devices = [ "lapaz" "lima" "bogota" "urubamba" "mbp15" ];
+        devices = [ "lapaz" "lima" "bogota" "mbp15" ];
         versioning = {
           type = "staggered";
           params = {
