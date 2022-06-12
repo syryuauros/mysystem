@@ -146,6 +146,8 @@
     gimp
     sweethome3d.application
 
+    (agda.withPackages (ps : with ps; [ standard-library ]))
+
 
   ] ++ myfonts-collection;
 
