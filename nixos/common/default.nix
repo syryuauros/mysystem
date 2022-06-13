@@ -122,6 +122,15 @@
   services.logind.lidSwitchExternalPower = "ignore";
   services.logind.lidSwitchDocked = "ignore";
 
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "262144";
+    }
+  ];
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ 80 8081 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
