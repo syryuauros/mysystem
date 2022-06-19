@@ -330,6 +330,19 @@ https://github.com/hlissner/doom-emacs/issues/5904
 
 #+end_src
 
+* Rg
+
+#+begin_src emacs-lisp
+
+(use-package! rg
+  :commands (rg rg-menu)
+  :bind ("C-c s" . rg-menu)
+  :config
+  (message "rg loaded")
+)
+
+#+end_src
+
 * Whitespace
 
 #+begin_src emacs-lisp

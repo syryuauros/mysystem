@@ -61,3 +61,4 @@
 (package! windsize)
 (package! string-inflection)
 (package! winum)
+(package! rg)
