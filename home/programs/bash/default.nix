@@ -4,10 +4,11 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      cat  = "bat";
-      du   = "ncdu --color dark -rr -x";
       # ls   = "exa";
-      ll   = "ls -a";
+      du   = "ncdu --color dark";
+      la   = "ls -a";
+      ll   = "ls -l";
+      lla  = "ls -al";
       ec   = "emacsclient";
       ecc  = "emacsclient -c";
       ping = "prettyping";
