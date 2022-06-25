@@ -182,6 +182,38 @@
                       {  imports = [ nix-doom-emacs.hmModule
                                      host.home
                                   ];
+
+                         home.file.".nixpkgs".source = inputs.nixpkgs;
+                         systemd.user.sessionVariables."NIX_PATH" =
+                           lib.mkForce "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
+                         # xdg.configFile."nixpkgs/config.nix".source = ./nix/config.nix;
+
+                         # Re-expose self and nixpkgs as flakes.
+                         xdg.configFile."nix/registry.json".text = builtins.toJSON {
+                           version = 2;
+                           flakes =
+                             let
+                               toInput = input:
+                                 {
+                                   type = "path";
+                                   path = input.outPath;
+                                 } // (
+                                   lib.filterAttrs
+                                     (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
+                                     input
+                                 );
+                             in
+                             [
+                               {
+                                 from = { id = "self"; type = "indirect"; };
+                                 to = toInput inputs.self;
+                               }
+                               {
+                                 from = { id = "nixpkgs"; type = "indirect"; };
+                                 to = toInput inputs.nixpkgs;
+                               }
+                             ];
+                         };
                       }
                     ) users);
                 }
