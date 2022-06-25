@@ -143,11 +143,15 @@
 
       mkNixOSConfiguration = name: host: nixpkgs.lib.nixosSystem {
         inherit system;
+        specialArgs = { inherit inputs; };
         modules = [
 
           ({ pkgs, ... }: {
 
             nixpkgs = pkgsConfig;
+
+            environment.etc.nixpkgs.source = inputs.nixpkgs;
+            nix.nixPath = [ "nixpkgs=/etc/nixpkgs" ];
 
             users.mutableUsers = false;
             users.extraUsers = users;
@@ -155,6 +159,14 @@
             networking = {
               hostName = name;
               networkmanager.enable = true;
+            };
+
+            nix.registry = {
+              self.flake = inputs.self;
+              nixpkgs = {
+                from = { id = "nixpkgs"; type = "indirect"; };
+                flake = inputs.nixpkgs;
+              };
             };
 
             imports = with host;
