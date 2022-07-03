@@ -43,13 +43,15 @@
     '';
 
     binaryCaches = [
-      "http://haedosa.xyz:203"
       "http://haedosa.xyz:201"
       "http://haedosa.xyz:202"
+      "http://haedosa.xyz:203"
       # "http://10.10.100.1"
       # "http://10.10.100.2"
       "https://cache.nixos.org/"
       "https://hydra.iohk.io"
+      "https://cachix.cachix.org"
+      "https://nix-community.cachix.org"
     ];
 
     trustedBinaryCaches = [
@@ -73,6 +75,8 @@
       "builder3:ICrJJg0EV8V5n90xghprYM7hEZg+dJ5T06gyaHqZtKU="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+      "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
 
     trustedUsers = [
