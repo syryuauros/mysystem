@@ -4,7 +4,7 @@
 
   inputs = {
 
-    haedosa.url = "github:haedosa/flakes";
+    haedosa.url = "github:haedosa/flakes/22.05";
     nixpkgs.follows = "haedosa/nixpkgs";
 
     flake-utils.follows = "haedosa/flake-utils";
@@ -21,11 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-doom-emacs = {
-      url = "github:haedosa/nix-doom-emacs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
+    nix-doom-emacs.url = "github:jjdosa/nix-doom-emacs";
 
   };
 
@@ -56,7 +52,6 @@
           "symbola"
           "nvidia-x11"
           "nvidia-settings"
-          "brgenml1lpr"
           "grammarly"
           "dropbox"
         ];
@@ -236,8 +231,8 @@
         (import ./packages/mylockscreen/overlay.nix)
         (import ./packages/mywallpapers-1366/overlay.nix)
         (import ./packages/mynitrogen/overlay.nix)
-        (import ./packages/myflow/overlay.nix)
-        (import ./packages/myplot/overlay.nix)
+        # (import ./packages/myflow/overlay.nix)
+        # (import ./packages/myplot/overlay.nix)
         (import ./packages/myhaskell/overlay.nix)
         (import ./packages/mypython/overlay.nix)
         (import ./packages/myjupyter/overlay.nix)

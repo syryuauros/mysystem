@@ -33,7 +33,7 @@
 
   services.printing.enable = true;
   services.printing.drivers = [
-    pkgs.brlaser pkgs.brgenml1lpr pkgs.brgenml1cupswrapper
+    # pkgs.brlaser pkgs.brgenml1cupswrapper
   ];
 
   # services.tailscale = {

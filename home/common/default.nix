@@ -25,7 +25,6 @@
     ../programs/git
     ../programs/zathura
     ../programs/mpv
-    # ../programs/doom-emacs
     ../programs/rofi
     ../programs/firefox
     ../programs/qutebrowser
@@ -130,13 +129,13 @@
 
     dracula-qutebrowser
     anydesk
-    virtualbox
+    # virtualbox
     slack
     # nur.repos.ilya-fedin.kotatogram-desktop
     kotatogram-desktop
     pdfarranger
 
-    wireguard
+    wireguard-tools
     wally-cli
     magic-wormhole
     xorg.xev

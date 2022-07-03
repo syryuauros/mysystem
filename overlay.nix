@@ -16,11 +16,6 @@
   # });
   # rtw89-firmware = callPackage ./packages/rtw89-firmware {};
 
-  doom-emacs = mk-doom-emacs {
-    doomPrivateDir = ./packages/doom-emacs/doom.d;
-  };
-
-
   mytex = texlive.combine {
     inherit (texlive)
       collection-basic

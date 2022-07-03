@@ -74,11 +74,6 @@ in {
       hpack
     ];
 
-    mypackages = p: with p; [
-      myflow
-      myplot
-    ];
-
     xmonad-siblings = p: with p; [
       xmonad
       xmonad-contrib
@@ -101,7 +96,6 @@ in {
       ++ (lens p)
       ++ (web p)
       ++ (develop p)
-      ++ (mypackages p)
       );
 
     linux-only = p:

@@ -4,14 +4,13 @@
     "TERM" = "xterm-256color";
   };
 
-  background_opacity = 0.95;
-
   selection.save_to_clipboard = true;
 
   window = {
     padding.x = 10;
     padding.y = 10;
     decorations = "buttonless";
+    opacity = 0.95;
   };
 
   bell = {
