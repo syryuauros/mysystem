@@ -8,18 +8,5 @@
       enable = true;
       plugins = [ "git" ];
     };
-    shellAliases = {
-      cat  = "bat";
-      du   = "ncdu --color dark -rr -x";
-      # ls   = "exa";
-      ll   = "ls -a";
-      ec   = "emacsclient";
-      ecc  = "emacsclient -c";
-      ping = "prettyping";
-      ".." = "cd ..";
-      "-" = "cd -";
-      p = "pushd";
-      d = "dirs";
-    };
   };
 }

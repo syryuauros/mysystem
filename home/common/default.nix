@@ -144,6 +144,7 @@
     deploy-rs.deploy-rs
     gimp
     sweethome3d.application
+    gscan2pdf
 
     (agda.withPackages (ps : with ps; [ standard-library ]))
 
@@ -154,6 +155,20 @@
     EDITOR = "emacsclient -c";
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     # PATH = "$PATH:${builtins.getEnv "HOME"}/.emacs.d/bin:${builtins.getEnv "HOME"}/.radicle/bin";
+  };
+
+  home.shellAliases = {
+    # ls   = "exa";
+    du   = "ncdu --color dark";
+    la   = "ls -a";
+    ll   = "ls -l";
+    lla  = "ls -al";
+    ec   = "emacsclient";
+    ecc  = "emacsclient -c";
+    ping = "prettyping";
+    ".." = "cd ..";
+    p = "pushd";
+    d = "dirs -v";
   };
 
   xdg.configFile."mimeapps.list".text = ''
@@ -210,6 +225,6 @@
 
   # You can update Home Manager without changing this value. See the Home Manager release notes for
   # a list of state version changes in each release.
-  # home.stateVersion = "21.03";
+  home.stateVersion = "22.05";
 
 }
