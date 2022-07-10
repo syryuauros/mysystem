@@ -145,6 +145,7 @@
     gimp
     sweethome3d.application
     gscan2pdf
+    sxiv
 
     (agda.withPackages (ps : with ps; [ standard-library ]))
 
@@ -169,6 +170,7 @@
     ".." = "cd ..";
     p = "pushd";
     d = "dirs -v";
+    o = "xdg-open";
   };
 
   xdg.configFile."mimeapps.list".text = ''
@@ -186,6 +188,10 @@
     application/x-extension-xht=firefox.desktop
     application/pdf=org.pwmt.zathura.desktop
     application/pdf=org.pwmt.zathura.desktop
+    inode/directory=xfce4-file-manager.desktop
+    image/png=sxiv.desktop
+    image/jpeg=sxiv.desktop
+    text/plain=nvim.desktop
   '';
 
     # text/html=org.qutebrowser.qutebrowser.desktop
