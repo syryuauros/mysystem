@@ -347,11 +347,11 @@
     "jupyter_contrib_core": {
       "flake": false,
       "locked": {
-        "lastModified": 1504140390,
-        "narHash": "sha256-9g/wJnVkc0ujQrcWAc1K562QuswhlAqDFGFEB4oiu3E=",
+        "lastModified": 1657314789,
+        "narHash": "sha256-Fclltmk3G7v7eO2kU9lZ2AKW6qfbTzYvskwZb5gVkUw=",
         "owner": "Jupyter-contrib",
         "repo": "jupyter_contrib_core",
-        "rev": "2e6d8431d43a6cfa3debf4b3c1669acfdba273e5",
+        "rev": "7ab165b880c285deda4642461f61e8e773b31c1a",
         "type": "github"
       },
       "original": {
@@ -363,11 +363,11 @@
     "jupyter_nbextensions_configurator": {
       "flake": false,
       "locked": {
-        "lastModified": 1583070377,
-        "narHash": "sha256-VaEDwFt1p3OzN9NGFALeVvlENLvAVaRYqmAIyeYbl4U=",
+        "lastModified": 1657357729,
+        "narHash": "sha256-YOcvLaaO241s9zReEOhrN0SvNzHlF4ImTEoVyOfYlK0=",
         "owner": "Jupyter-contrib",
         "repo": "jupyter_nbextensions_configurator",
-        "rev": "fa95f418b716dd4e4d7990bf4e04d3bcd3f571bc",
+        "rev": "761bd9c7ca222b9c422e7b0300a4089bf42a1ef9",
         "type": "github"
       },
       "original": {
@@ -526,11 +526,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1657010181,
-        "narHash": "sha256-sbV2PFKiflm/4UIp5CNYOe49rV4j4yi81t7Wt3bokmE=",
+        "lastModified": 1657535550,
+        "narHash": "sha256-8WwxmlXe6o1Ob8rQan8R1H1NKSNaxqRuIuIU5RVhyd4=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "136d743a585bad0b45534e22420871d131882a93",
+        "rev": "f0faa262c28384df0c00ec2c64e8031c4fbd0a61",
         "type": "github"
       },
       "original": {
