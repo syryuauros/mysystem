@@ -52,6 +52,7 @@
       "https://hydra.iohk.io"
       "https://cachix.cachix.org"
       "https://nix-community.cachix.org"
+      "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
     ];
 
     trustedBinaryCaches = [
@@ -77,6 +78,7 @@
       "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
       "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "https://nixpkgs-wayland.cachix.org"
     ];
 
     trustedUsers = [
@@ -111,6 +113,9 @@
     ../nfs
     ../ipfs
   ];
+
+
+  mymodules.sway.enable = true;
 
   fonts.fontconfig.enable = true;
 

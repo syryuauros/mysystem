@@ -22,6 +22,8 @@
     };
 
     nix-doom-emacs.url = "github:jjdosa/nix-doom-emacs";
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    nixpkgs-wayland.inputs.nixpkgs.follows = "haedosa/nixpkgs";
 
   };
 
@@ -169,6 +171,7 @@
                 configuration
                 (import ./nixos/wireguard wg-key haedosa0ips hds0ips)
                 inputs.agenix.nixosModules.age
+                ./modules
                 home-manager.nixosModules.home-manager
                 {
                   # nixpkgs = pkgsConfig;
@@ -224,6 +227,7 @@
         nix-doom-emacs.overlay
         agenix.overlay
         deploy-rs.overlay
+        nixpkgs-wayland.overlay
         (import ./packages/myemacs/overlay.nix)
         (import ./packages/myvim/overlay.nix)
         (import ./packages/mytmux/overlay.nix)
