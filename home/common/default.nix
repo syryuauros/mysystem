@@ -40,7 +40,6 @@
     ../services/udiskie
     ../services/flameshot
     ../services/xcape
-    ../services/xmonad
     # ../../services/syncthing
     ../services/keyboard
     ../services/redshift
@@ -76,6 +75,7 @@
     cmatrix
     tokei
     sqlite
+    nixfmt
 
     # myemacs  # emacs is installed as emacs
     mymyemacs  # emacs is installed as myemacs
@@ -206,16 +206,12 @@
     # x-scheme-handler/about=brave-browser.desktop
     # x-scheme-handler/unknown=brave-browser.desktop
 
-  xsession.initExtra = ''
-    # disable the middle button of Lenovo TrackPoint Keyboard II
-    xinput set-button-map "Lenovo TrackPoint Keyboard II Mouse" 1 0 3
-  '';
+  # xsession.initExtra = ''
+  #   # disable the middle button of Lenovo TrackPoint Keyboard II
+  #   xinput set-button-map "Lenovo TrackPoint Keyboard II Mouse" 1 0 3
+  # '';
 
-
-  home.file = {
-    ".config/xpm".source = ../xpm;
-  };
-
+  mysystem.windowManager.xmonad.enable = true;
 
   # I wanted two instances of emacs using this chemacs2: one for myemacs and the
   # other for doom-emacs. But I realized that I don't need chemacs2 because with

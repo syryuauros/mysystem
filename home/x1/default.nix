@@ -47,9 +47,4 @@
     # myjupyter-full
   ];
 
-
-  home.file = {
-    ".config/xmobar/xmobarrc".source = ../services/xmonad/xmobarrc-laptop;
-  };
-
 }

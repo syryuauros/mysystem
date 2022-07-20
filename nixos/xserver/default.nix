@@ -29,20 +29,22 @@
 
       desktopManager.gnome.enable = true;
       displayManager.gdm.enable = true;
-      displayManager.defaultSession = "none+xmonad";
+      # displayManager.lightdm.enable = true;
 
-      windowManager.xmonad = {
-        enable = true;
-        enableContribAndExtras = true;
-        extraPackages = haskellPackages: [
-          haskellPackages.xmonad-contrib
-          haskellPackages.xmonad-extras
-          haskellPackages.xmonad
-        ];
-      };
+      # FIXME: not working
+      # Following https://discourse.nixos.org/t/opening-i3-from-home-manager-automatically/4849/6
+      #
+      # I added this line below in the myxmonad home-manager module
+      # xsession.scriptPath = ".hm-xsession";
+      #
+      # and uncommented this line, but it does not work.
+      # desktopManager.session = [
+      #   {
+      #     name = "xmonad";
+      #     start = ''eval exec $HOME/.xmonad-xsession'';
+      #   }
+      # ];
 
-      # xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
-      ##^ will be set separatedly for each machine
     };
   };
 

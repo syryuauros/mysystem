@@ -26,6 +26,7 @@ in
         screenshot
         wf-recorder
         wl-clipboard
+        launcher
       ];
       programs = {
         mako = {
