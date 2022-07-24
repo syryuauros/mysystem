@@ -29,8 +29,8 @@
 
     nix-doom-emacs.url = "github:jjdosa/nix-doom-emacs";
     myxmonad.url = "github:jjdosa/myxmonad";
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-    nixpkgs-wayland.inputs.nixpkgs.follows = "haedosa/nixpkgs";
+    # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    # nixpkgs-wayland.inputs.nixpkgs.follows = "haedosa/nixpkgs";
 
   };
 
@@ -237,7 +237,7 @@
         nix-doom-emacs.overlay
         agenix.overlay
         deploy-rs.overlay
-        nixpkgs-wayland.overlay
+        # nixpkgs-wayland.overlay
         (import ./packages/myemacs/overlay.nix)
         (import ./packages/myvim/overlay.nix)
         (import ./packages/mytmux/overlay.nix)

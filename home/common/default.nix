@@ -36,7 +36,6 @@
     ../services/networkmanager
     ../services/picom
     ../services/screenlocker       # needs mylockscreen
-    ../services/random-background  # needs mywallpapers
     ../services/udiskie
     ../services/flameshot
     ../services/xcape
