@@ -558,11 +558,11 @@
         "ts-fold": "ts-fold"
       },
       "locked": {
-        "lastModified": 1658651920,
+        "lastModified": 1658740897,
         "narHash": "sha256-4bwTj4YgTvYlSVfgOc1wtMMRBt8UvTvPBtm+dTOp/tE=",
         "owner": "jjdosa",
         "repo": "nix-doom-emacs",
-        "rev": "e6aa70fbb15cbb46e0f1d1cd83c2709ff70275c3",
+        "rev": "89731245e162c7a416562d3bfc4404b8a152ca1a",
         "type": "github"
       },
       "original": {
@@ -697,11 +697,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1658641542,
-        "narHash": "sha256-safd1Dxl/M98lqusPZYgtSYHhPUWz5kMcw/VijoIJ+A=",
+        "lastModified": 1658739353,
+        "narHash": "sha256-HiZj1URBkAlaMi7PnhqJA7APIvXuVP9MANnwvEiLUuo=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "be903bbc59aa4da9c2b1b0b5f6dfa7a801ad8b2e",
+        "rev": "2afd00ebe155062e60884c965aff7f1748daa46e",
         "type": "github"
       },
       "original": {
