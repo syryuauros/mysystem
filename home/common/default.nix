@@ -18,9 +18,7 @@
     ../programs/broot
     ../programs/direnv
     ../programs/htop
-    ../programs/bat
     ../programs/gpg
-    ../programs/jq
     ../programs/ssh
     ../programs/git
     ../programs/zathura
@@ -31,7 +29,7 @@
     ../programs/zathura
     ../programs/xscreensaver
 
-    ../services/emacs
+    # ../services/emacs
     ../services/gpg-agent
     ../services/networkmanager
     ../services/picom
@@ -50,14 +48,14 @@
   ];
 
 
+  programs.jq.enable = true;
+  programs.bat.enable = true;
+  programs.zoxide.enable = true;
+
   home.packages = with pkgs; [
     file
-    fd
     unzip
     ncdu
-    du-dust
-    exa
-    ripgrep
     any-nix-shell
     prettyping
     diff-so-fancy
@@ -72,9 +70,24 @@
     graphviz
     pass
     cmatrix
-    tokei
+
+
     sqlite
     nixfmt
+
+    # rust programs
+    fd
+    exa
+    ripgrep
+    tokei
+    hyperfine
+    procs
+    du-dust
+    tealdeer
+    bandwhich
+    grex
+    delta
+
 
     # myemacs  # emacs is installed as emacs
     mymyemacs  # emacs is installed as myemacs
