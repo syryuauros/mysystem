@@ -146,6 +146,7 @@
     # nur.repos.ilya-fedin.kotatogram-desktop
     kotatogram-desktop
     pdfarranger
+    solaar                # Linux device manager for the Logitech Unifying Receiver
 
     wireguard-tools
     wally-cli
