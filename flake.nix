@@ -292,6 +292,10 @@
         # defaultPackage = pkgs.deploy;
         packages = {
           # deploy = pkgs.deploy;
+          default = pkgs.symlinkJoin {
+            name = "all";
+            paths = lib.attrValues nixosPackages;
+          };
         } // nixosPackages;
 
         defaultApp = apps.deploy;
