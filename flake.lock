@@ -340,11 +340,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1658643448,
-        "narHash": "sha256-rtjtcVQdLy3eDt3i4mgVBHqjCt1ukAT8MSWTgsZEhb0=",
+        "lastModified": 1659602623,
+        "narHash": "sha256-+muRpXx5np2vhNbVXt8BGHXY/Wk0g5T5Tb1RHlSg3TA=",
         "owner": "haedosa",
         "repo": "flakes",
-        "rev": "81c9a898ecccd64a8bad6dc4ee08ae5158067303",
+        "rev": "26c516db27f04a0b8f4b37c2a25d2d54a6313d2c",
         "type": "github"
       },
       "original": {
@@ -512,11 +512,11 @@
         "wallpapers": "wallpapers"
       },
       "locked": {
-        "lastModified": 1658398103,
-        "narHash": "sha256-4rG4MnwgjXJ/0PC9OjXJTU8dg83dgL22pES3YXH1mbE=",
+        "lastModified": 1659612642,
+        "narHash": "sha256-MidU93ITQKaf2J/3ftdkLkvzmXM0kS84j98pQZqYDjA=",
         "owner": "jjdosa",
         "repo": "myxmonad",
-        "rev": "821661c75c7c7122f96b5874fc99825231b0d70b",
+        "rev": "9fcaab1d14ee4764bd82c527435ff8b8076595f6",
         "type": "github"
       },
       "original": {
@@ -621,11 +621,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1658500284,
-        "narHash": "sha256-g7vwZ5UF8PvC9f2/7Zf5O6zxgJiMSuh1CiGZVuuOhEQ=",
+        "lastModified": 1659445012,
+        "narHash": "sha256-n8/7npmp3hLbPSTRHPW8EPO8qh9vJ10RgkRM3Ve4vfc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e3583ad6e533a9d8dd78f90bfa93812d390ea187",
+        "rev": "a9f66ae640146ac16b6e33d2359e9171b27b0993",
         "type": "github"
       },
       "original": {

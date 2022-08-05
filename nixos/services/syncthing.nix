@@ -31,18 +31,6 @@
         };
       };
 
-      # Dropbox = {
-      #   path = "/home/jj/Dropbox";
-      #   devices = [ "lapaz" "lima" "bogota" "urubamba" "mbp15" ];
-      #   versioning = {
-      #     type = "staggered";
-      #     params = {
-      #       cleanInterval = "3600";  # 1 hour in seconds
-      #       maxAge = "15552000";     # 180 days in seconds
-      #     };
-      #   };
-      # };
-
     };
   };
 

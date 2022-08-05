@@ -59,6 +59,7 @@
           "nvidia-settings"
           "grammarly"
           "dropbox"
+          "foxitreader"
         ];
 
       # This keys for the distributed builds

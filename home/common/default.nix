@@ -147,6 +147,7 @@
     kotatogram-desktop
     pdfarranger
     solaar                # Linux device manager for the Logitech Unifying Receiver
+    foxitreader
 
     wireguard-tools
     wally-cli
