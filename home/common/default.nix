@@ -147,8 +147,15 @@
     kotatogram-desktop
     pdfarranger
     solaar                # Linux device manager for the Logitech Unifying Receiver
+
+    # pdf viewers
     foxitreader
     evince
+    apvlv
+    mupdf
+    qpdfview
+    okular
+
 
     wireguard-tools
     wally-cli
