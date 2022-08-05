@@ -148,6 +148,7 @@
     pdfarranger
     solaar                # Linux device manager for the Logitech Unifying Receiver
     foxitreader
+    evince
 
     wireguard-tools
     wally-cli
