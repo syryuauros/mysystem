@@ -51,6 +51,7 @@
   programs.jq.enable = true;
   programs.bat.enable = true;
   programs.zoxide.enable = true;
+  programs.pandoc.enable = true;
 
   home.packages = with pkgs; [
     file
