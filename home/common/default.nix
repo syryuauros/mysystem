@@ -32,7 +32,7 @@
     # ../services/emacs
     ../services/gpg-agent
     ../services/networkmanager
-    ../services/picom
+    # ../services/picom
     ../services/screenlocker       # needs mylockscreen
     ../services/udiskie
     ../services/flameshot
