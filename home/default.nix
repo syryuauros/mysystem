@@ -2,56 +2,10 @@
 
 {
 
-  programs.home-manager.enable = true;
-  xdg.enable = true;
-
-  programs.bash.enable = true;
-
   imports = [
-    ../programs/alacritty
-    ../programs/kitty
-    ../programs/fish
-    ../programs/bash
-    ../programs/zsh
-    ../programs/starship
-    ../programs/fzf
-    ../programs/broot
-    ../programs/direnv
-    ../programs/htop
-    ../programs/gpg
-    ../programs/ssh
-    ../programs/git
-    ../programs/zathura
-    ../programs/mpv
-    ../programs/rofi
-    ../programs/firefox
-    ../programs/qutebrowser
-    ../programs/zathura
-    ../programs/xscreensaver
-
-    # ../services/emacs
-    ../services/gpg-agent
-    ../services/networkmanager
-    # ../services/picom
-    ../services/screenlocker       # needs mylockscreen
-    ../services/udiskie
-    ../services/flameshot
-    ../services/xcape
-    # ../../services/syncthing
-    ../services/keyboard
-    ../services/redshift
-    ../services/uim-korean
-    ../services/email
-  ] ++
-  lib.filter lib.pathExists [
-    ./private.nix
+    ./programs
+    ./services
   ];
-
-
-  programs.jq.enable = true;
-  programs.bat.enable = true;
-  programs.zoxide.enable = true;
-  programs.pandoc.enable = true;
 
   home.packages = with pkgs; [
     file
@@ -88,6 +42,8 @@
     bandwhich
     grex
     delta
+
+    tree-sitter
 
 
     # myemacs  # emacs is installed as emacs
@@ -196,6 +152,14 @@
     o = "xdg-open";
   };
 
+
+  home.keyboard = {
+    layout = "us";
+    # variant = "workman,";
+  };
+
+  xdg.enable = true;
+
   xdg.configFile."mimeapps.list".text = ''
     [Default Applications]
     x-scheme-handler/http=firefox.desktop
@@ -236,20 +200,6 @@
 
   mysystem.windowManager.xmonad.enable = true;
 
-  # I wanted two instances of emacs using this chemacs2: one for myemacs and the
-  # other for doom-emacs. But I realized that I don't need chemacs2 because with
-  # Nix I can install doom-emacs and myemacs as separate packages. Due to the
-  # way myemacs is configured, I needed to change the executable names for
-  # myemacs such that emacs -> myemacs and emacsclient -> myemacsclient.
-  # If I want to use chemacs2 then I have to re-configure myemacs such that
-  # it reads a folder like .emacs.d for configurations.
-  # home.file = {
-  #   ".emacs.d".source = pkgs.mychemacs2;
-  #   ".emacs-profiles.el".source = "${pkgs.mychemacs2}/emacs-profiles.el";
-  # };
-
-  # You can update Home Manager without changing this value. See the Home Manager release notes for
-  # a list of state version changes in each release.
   home.stateVersion = "22.05";
 
 }
