@@ -11,7 +11,7 @@ in
 {
 
   imports = [
-    ../common
+    ../.
     ./hardware-configuration.nix
   ];
 
@@ -21,17 +21,6 @@ in
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
   };
-
-  # networking = {
-  #   inherit hostName;
-  #   networkmanager = {
-  #     enable   = true;
-  #     packages = [
-  #       pkgs.networkmanager
-  #     ];
-  #   };
-  # };
-
 
   services.xserver.xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin";
 

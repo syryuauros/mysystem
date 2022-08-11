@@ -42,64 +42,54 @@
       "experimental-features = nix-command flakes"}
     '';
 
-    binaryCaches = [
-      "http://haedosa.xyz:201"
-      "http://haedosa.xyz:202"
-      "http://haedosa.xyz:203"
-      "http://haedosa.xyz:204"
-      "http://haedosa.xyz:205"
-      "http://haedosa.xyz:206"
-      # "http://10.10.100.1"
-      # "http://10.10.100.2"
-      "https://cache.nixos.org/"
-      "https://hydra.iohk.io"
-      "https://cachix.cachix.org"
-      "https://nix-community.cachix.org"
-      # "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-    ];
 
-    trustedBinaryCaches = [
-      "http://haedosa.xyz:201"
-      "http://haedosa.xyz:202"
-      "http://haedosa.xyz:203"
-      "http://haedosa.xyz:204"
-      "http://haedosa.xyz:205"
-      "http://haedosa.xyz:206"
-      "http://192.168.100.54:201"
-      "http://192.168.100.54:202"
-      "https://cache.nixos.org/"
-      "https://hydra.iohk.io"
-      "http://10.100.100.1"
-      "http://10.100.100.2"
-      "http://10.10.100.1"
-      "http://10.10.100.2"
-      "http://10.10.100.3"
-    ];
+    settings = {
 
-    binaryCachePublicKeys = [
-      "builder1:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
-      "builder2:R7X06/w5h5SfUO4ZvTkkfIjHHEDhrOFYLoQjYVIrFLM="
-      "builder3:ICrJJg0EV8V5n90xghprYM7hEZg+dJ5T06gyaHqZtKU="
-      "builder4:g2y9eiBfz+zWX6PGbXSxiRcJcW6+7RFZh0TXwF8cmcc="
-      "builder5:+3i3teuBVBQXR47k9M0zLVmdzirKSGm9+9awX2jp+u0="
-      "builder6:LoWfwaMHhw0E4FrXq3qlTvslOgZHh7fIPFVcfPy3UXo="
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-      "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      # "https://nixpkgs-wayland.cachix.org"
-    ];
+      substituters = [
+        "http://haedosa.xyz:201"
+        "http://haedosa.xyz:202"
+        "http://haedosa.xyz:203"
+        "http://haedosa.xyz:204"
+        "http://haedosa.xyz:205"
+        "http://haedosa.xyz:206"
+        "https://cache.nixos.org/"
+        "https://hydra.iohk.io"
+        "https://cachix.cachix.org"
+        "https://nix-community.cachix.org"
+        "https://cuda-maintainers.cachix.org"
+        # "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+      ];
 
-    trustedUsers = [
-      "root" "@admin" "@wheel"
-    ];
+      trusted-public-keys = [
+        "builder1:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
+        "builder2:R7X06/w5h5SfUO4ZvTkkfIjHHEDhrOFYLoQjYVIrFLM="
+        "builder3:ICrJJg0EV8V5n90xghprYM7hEZg+dJ5T06gyaHqZtKU="
+        "builder4:g2y9eiBfz+zWX6PGbXSxiRcJcW6+7RFZh0TXwF8cmcc="
+        "builder5:+3i3teuBVBQXR47k9M0zLVmdzirKSGm9+9awX2jp+u0="
+        "builder6:LoWfwaMHhw0E4FrXq3qlTvslOgZHh7fIPFVcfPy3UXo="
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+        "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+        # "https://nixpkgs-wayland.cachix.org"
+      ];
+
+      trusted-users = [
+        "root" "@admin" "@wheel"
+      ];
+
+      require-sigs = true;
+
+    };
+
+
 
     gc = {
       automatic = false;
       options = "--delete-older-than 90d";
     };
 
-    requireSignedBinaryCaches = false;
 
     # buildCores = 8;
     # maxJobs = 8;
@@ -113,14 +103,14 @@
 
 
   imports = [
-    # ../users
-    ../i18n
-    ../xserver
-    ../services
-    ../hardware
-    ../distributed-build
-    ../nfs
-    ../ipfs
+    # ./users
+    ./i18n
+    ./xserver
+    ./services
+    ./hardware
+    ./distributed-build
+    ./nfs
+    ./ipfs
   ];
 
 
