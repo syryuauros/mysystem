@@ -4,7 +4,7 @@
 
   inputs = {
 
-    haedosa.url = "github:haedosa/flakes/22.05";
+    haedosa.url = "github:haedosa/flakes";
     nixpkgs.follows = "haedosa/nixpkgs";
 
     flake-utils.follows = "haedosa/flake-utils";
