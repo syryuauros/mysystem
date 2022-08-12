@@ -79,7 +79,7 @@
         "root" "@admin" "@wheel"
       ];
 
-      require-sigs = true;
+      require-sigs = false;
 
     };
 
