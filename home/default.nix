@@ -126,6 +126,8 @@
     gscan2pdf
     sxiv
 
+    bfg-repo-cleaner
+
     (agda.withPackages (ps : with ps; [ standard-library ]))
 
 
