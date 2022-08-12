@@ -110,7 +110,7 @@
     ./hardware
     ./distributed-build
     ./nfs
-    ./ipfs
+    # ./ipfs
   ];
 
 
