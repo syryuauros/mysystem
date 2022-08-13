@@ -78,11 +78,11 @@
     "doom-private": {
       "flake": false,
       "locked": {
-        "lastModified": 1658977068,
-        "narHash": "sha256-VIIlr3cqzsl+H33/LP3VnrMcXRTUB7mMQwhMQUBDPaM=",
+        "lastModified": 1660387302,
+        "narHash": "sha256-mhyiZdsJmxaNp0UnxUkg2QNJREUUMXEz2iQFwTqfYoc=",
         "owner": "jjdosa",
         "repo": "doom-private",
-        "rev": "3d777a50f37d19b1bfbc3008e396a83502d1caa4",
+        "rev": "e86cb9150b76c1970fbf9b4de840846e9f6318d9",
         "type": "github"
       },
       "original": {
@@ -302,11 +302,11 @@
     },
     "flake-utils_5": {
       "locked": {
-        "lastModified": 1656928814,
-        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
         "type": "github"
       },
       "original": {
@@ -381,16 +381,15 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1658643448,
-        "narHash": "sha256-rtjtcVQdLy3eDt3i4mgVBHqjCt1ukAT8MSWTgsZEhb0=",
+        "lastModified": 1660270358,
+        "narHash": "sha256-XQ8iQmUWfnMsao60EWtldKpSMLWqdjBipf6QWUfZzOM=",
         "owner": "haedosa",
         "repo": "flakes",
-        "rev": "81c9a898ecccd64a8bad6dc4ee08ae5158067303",
+        "rev": "7aeac9850f616717b7ffcf6ee2fe7f5775e4172d",
         "type": "github"
       },
       "original": {
         "owner": "haedosa",
-        "ref": "22.05",
         "repo": "flakes",
         "type": "github"
       }
@@ -558,11 +557,11 @@
         "zoxide": "zoxide"
       },
       "locked": {
-        "lastModified": 1659435795,
-        "narHash": "sha256-v2MZLAyzluu5UZcQMuWYDcZOyCWb8I3C/WUnWY4euPQ=",
+        "lastModified": 1660389523,
+        "narHash": "sha256-QQEefOOuucUeZUmir8+zZgObNmpvQ2SfwAmKtr1dZT0=",
         "owner": "jjdosa",
         "repo": "nix-doom-emacs",
-        "rev": "be87f2a7872053a8c08e959fe462d59c8ff362bc",
+        "rev": "eaf503eec70835d38d30ba38dbe3022bd41826d1",
         "type": "github"
       },
       "original": {
@@ -665,11 +664,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1658500284,
-        "narHash": "sha256-g7vwZ5UF8PvC9f2/7Zf5O6zxgJiMSuh1CiGZVuuOhEQ=",
+        "lastModified": 1660215038,
+        "narHash": "sha256-tqMyd5QB4MZh59wMHXqpro4hkKjz9ubQxkxFSuCuBGE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e3583ad6e533a9d8dd78f90bfa93812d390ea187",
+        "rev": "45c9736ed69800a6ff2164fb4538c9e40dad25d6",
         "type": "github"
       },
       "original": {
