@@ -23,7 +23,7 @@
   xsession.initExtra = ''
 
     setxkbmap -option caps:ctrl_modifier
-    legion5-two-qhd.sh
+    sl-legion5-vertical-right.sh
 
   '';
 
