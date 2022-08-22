@@ -77,7 +77,6 @@
           ip = "10.10.0.2";
           configuration = ./nixos/x1;
           home = ./home/x1;
-          haedosa0ips = [ "10.100.0.2/32" ];
           hds0ips = [ "10.10.0.2/32" ];
           wg-key = ./secrets/wg-urubamba.age;
           private-key = ./secrets/sshkey.age;
@@ -87,7 +86,6 @@
           ip = "10.10.0.21";
           configuration = ./nixos/x1;
           home = ./home/x1;
-          haedosa0ips = [ "10.100.0.21/32" ];
           hds0ips = [ "10.10.0.21/32" ];
           wg-key = ./secrets/wg-lima.age;
           private-key = ./secrets/sshkey.age;
@@ -97,7 +95,6 @@
           ip = "10.10.0.22";
           configuration = ./nixos/legion5;
           home = ./home/legion5;
-          haedosa0ips = [ "10.100.0.22/32" ];
           hds0ips = [ "10.10.0.22/32" ];
           wg-key = ./secrets/wg-bogota.age;
           private-key = ./secrets/sshkey.age;
@@ -107,7 +104,6 @@
           ip = "10.10.0.23";
           configuration = ./nixos/x1;
           home = ./home/x1;
-          haedosa0ips = [ "10.100.0.23/32" ];
           hds0ips = [ "10.10.0.23/32" ];
           wg-key = ./secrets/wg-lapaz.age;
           private-key = ./secrets/sshkey.age;
@@ -178,7 +174,7 @@
 
               imports = with host; [
                 configuration
-                (import ./nixos/wireguard wg-key haedosa0ips hds0ips)
+                (import ./nixos/wireguard wg-key hds0ips)
                 inputs.agenix.nixosModules.age
                 ./modules
                 home-manager.nixosModules.home-manager
