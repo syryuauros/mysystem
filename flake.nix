@@ -161,6 +161,8 @@
                 networkmanager.enable = true;
               };
 
+              systemd.services.NetworkManager-wait-online.enable = false;
+
               nix.registry = {
                 self.flake = inputs.self;
                 nixpkgs = {
