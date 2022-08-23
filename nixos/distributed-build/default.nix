@@ -53,35 +53,32 @@
       mandatoryFeatures = [ ];
     }
   ];
-  nix.extraOptions = ''
-    builders-use-substitutes = true
-  '';
 
   programs.ssh.extraConfig = ''
     Host builder1
       HostName 10.10.100.1
       User root
-      IdentityFile /home/jj/.ssh/id_builder
+      IdentityFile /home/jj/.ssh/id_ed25519
     Host builder2
       HostName 10.10.100.2
       User root
-      IdentityFile /home/jj/.ssh/id_builder
+      IdentityFile /home/jj/.ssh/id_ed25519
     Host builder3
       HostName 10.10.100.3
       User root
-      IdentityFile /home/jj/.ssh/id_builder
+      IdentityFile /home/jj/.ssh/id_ed25519
     Host builder4
       HostName 10.10.100.4
       User root
-      IdentityFile /home/jj/.ssh/id_builder
+      IdentityFile /home/jj/.ssh/id_ed25519
     Host builder5
       HostName 10.10.100.5
       User root
-      IdentityFile /home/jj/.ssh/id_builder
+      IdentityFile /home/jj/.ssh/id_ed25519
     Host builder6
       HostName 10.10.100.6
       User root
-      IdentityFile /home/jj/.ssh/id_builder
+      IdentityFile /home/jj/.ssh/id_ed25519
   '';
 
   services.openssh.knownHosts."10.10.100.1".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOy9IObSEcyb3+3gGXuG8uUGIUiWAuW6hPjoq0059SvZ";
