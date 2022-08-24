@@ -22,12 +22,12 @@ in {
     settings = {
 
       substituters = [
-        "http://haedosa.xyz:201" "http://10.10.100.1" # "http://192.168.100.54"
-        "http://haedosa.xyz:202" "http://10.10.100.2" # "http://192.168.100.55"
-        "http://haedosa.xyz:203" "http://10.10.100.3" # "http://192.168.100.97"
-        "http://haedosa.xyz:204" "http://10.10.100.4" # "http://192.168.100.101"
-        "http://haedosa.xyz:205" "http://10.10.100.5" # "http://192.168.100.102"
-        "http://haedosa.xyz:206" "http://10.10.100.6" # "http://192.168.100.70"
+        "http://10.10.100.1" # "http://haedosa.xyz:201" # "http://192.168.100.54"
+        "http://10.10.100.2" # "http://haedosa.xyz:202" # "http://192.168.100.55"
+        "http://10.10.100.3" # "http://haedosa.xyz:203" # "http://192.168.100.97"
+        "http://10.10.100.4" # "http://haedosa.xyz:204" # "http://192.168.100.101"
+        "http://10.10.100.5" # "http://haedosa.xyz:205" # "http://192.168.100.102"
+        "http://10.10.100.6" # "http://haedosa.xyz:206" # "http://192.168.100.70"
         "https://cache.nixos.org/"
         "https://hydra.iohk.io"
         "https://cachix.cachix.org"
