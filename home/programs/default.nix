@@ -88,8 +88,11 @@
   };
 
   programs.brave = {
-    enanle = true;
-    extenstions = [ "surfingkeys" "grammarly" ];
+    enable = true;
+    extensions = [
+      { id = "gfbliohnnapiefjpjlpjnehglfpaknnc"; } # surfingkeys
+      { id = "kbfnbcaeplbcioakkpcpgfkobkghlhen"; } # grammarly
+    ];
   };
 
 }
