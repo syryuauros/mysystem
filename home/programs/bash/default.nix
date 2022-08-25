@@ -5,6 +5,7 @@
     enable = true;
     initExtra = ''
       set -o vi
+      ${pkgs.neofetch}/bin/neofetch
     '';
   };
 }

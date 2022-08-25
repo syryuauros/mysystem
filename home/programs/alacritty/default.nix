@@ -5,13 +5,47 @@
 
     enable = true;
 
-    settings = lib.attrsets.recursiveUpdate
-      (import ./settings.nix { inherit (pkgs) fish neofetch; }) {
-      font.size = 11;
-      font.user_thin_strokes = false;
-      window = {
-        decorations = "full";
+    settings =  {
+
+      env = {
+        "TERM" = "xterm-256color";
       };
+
+      selection.save_to_clipboard = true;
+
+      window = {
+        padding.x = 10;
+        padding.y = 10;
+        decorations = "None";
+        opacity = 0.95;
+      };
+
+      bell = {
+        animation = "EaseOutExpo";
+        duration = 5;
+        color = "#ffffff";
+      };
+
+      font = {
+        size = 12.0;
+        use_thin_strokes = true;
+
+        normal.family = "Mononoki Nerd Font";
+        bold.family = "Mononoki Nerd Font";
+        italic.family = "Mononoki Nerd Font";
+      };
+
+      cursor.style = "Beam";
+      colors = import ./theme/tomorrow-night;
+
+      # shell = {
+      #   program = "${fish}/bin/fish";
+      #   args = [
+      #     "-C"
+      #     "${neofetch}/bin/neofetch"
+      #   ];
+      # }
+
     };
 
   };
