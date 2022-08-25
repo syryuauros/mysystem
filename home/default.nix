@@ -70,6 +70,7 @@
     acpilight     # xbacklight drop-in replacement; adjust display brightness
     redshift      # adjust display light temperature
     pavucontrol   # control audio in/out
+    i3lock-fancy-rapid
 
     xmobar
     mynitrogen
