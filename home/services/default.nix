@@ -15,11 +15,11 @@
     enableSshSupport = true;
   };
 
-  services.emacs = {
-    enable = true;
-    package = pkgs.doom-emacs;
-    client.enable = true;
-  };
+  # services.emacs = {
+  #   enable = true;
+  #   package = pkgs.doom-emacs;
+  #   client.enable = true;
+  # };
 
   services.flameshot.enable = true;
 

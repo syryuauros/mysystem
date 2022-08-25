@@ -36,7 +36,6 @@
     setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
 
     x1-two-qhd.sh
-    nitrogen-random
 
   '';
 
