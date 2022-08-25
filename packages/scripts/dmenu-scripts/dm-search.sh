@@ -28,9 +28,9 @@ websearch[haedosaGitlab]="https://gitlab.com/search?group_id=12624055&search="
 
 
 declare -a browsers=(
+  "brave"
   "firefox"
   "qutebrowser"
-  "brave"
 )
 
 main() {
