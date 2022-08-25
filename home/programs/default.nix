@@ -92,6 +92,7 @@
     extensions = [
       { id = "gfbliohnnapiefjpjlpjnehglfpaknnc"; } # surfingkeys
       { id = "kbfnbcaeplbcioakkpcpgfkobkghlhen"; } # grammarly
+      { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # darkreader
     ];
   };
 
