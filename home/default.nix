@@ -132,6 +132,10 @@
 
     (agda.withPackages (ps : with ps; [ standard-library ]))
 
+    nix-tree
+    nix-du
+    nix-query-tree-viewer
+
 
   ] ++ myfonts-collection;
 
