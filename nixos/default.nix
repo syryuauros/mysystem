@@ -70,15 +70,16 @@
   ];
 
   programs.light.enable = true;
-  services.actkbd = {
-    enable = true;
-    bindings = [
-      { keys = [ 224 ]; events = [ "key" ]; command = "${pkgs.light}/bin/light -A 5"; }
-      { keys = [ 225 ]; events = [ "key" ]; command = "${pkgs.light}/bin/light -U 5"; }
-    ];
-  };
   sound.mediaKeys.enable = true;
 
+  # xmonad takes care of this
+  # services.actkbd = {
+  #   enable = true;
+  #   bindings = [
+  #     { keys = [ 224 ]; events = [ "key" ]; command = "${pkgs.light}/bin/light -A 5"; }
+  #     { keys = [ 225 ]; events = [ "key" ]; command = "${pkgs.light}/bin/light -U 5"; }
+  #   ];
+  # };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ 80 8081 ];
