@@ -41,7 +41,7 @@ in {
 
   home.file.".mailcap".text =
     if pkgs.stdenv.hostPlatform.isLinux
-      then "text/html; qutebrowser %s; nametemplate=%s.html"
+      then "text/html; xdg-open %s; nametemplate=%s.html"
       else "text/html; open %s; nametemplate=%s.html";
 
 }

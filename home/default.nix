@@ -170,14 +170,14 @@
 
   xdg.configFile."mimeapps.list".text = ''
     [Default Applications]
-    x-scheme-handler/http=firefox.desktop
-    x-scheme-handler/https=firefox.desktop
-    x-scheme-handler/ftp=firefox.desktop
-    x-scheme-handler/chrome=firefox.desktop
+    x-scheme-handler/http=brave-browser.desktop
+    x-scheme-handler/https=brave-browser.desktop
+    x-scheme-handler/ftp=brave-browser.desktop
+    x-scheme-handler/chrome=brave-browser.desktop
     text/html=brave-browser.desktop
     application/x-extension-htm=brave-browser.desktop
     application/x-extension-html=brave-browser.desktop
-    application/x-extension-shtml=brave-browser.desktop
+    application/x-extension-shtml=.desktop
     application/xhtml+xml=brave-browser.desktop
     application/x-extension-xhtml=brave-browser.desktop
     application/x-extension-xht=brave-browser.desktop
@@ -188,17 +188,6 @@
     image/jpeg=sxiv.desktop
     text/plain=nvim.desktop
   '';
-
-    # text/html=org.qutebrowser.qutebrowser.desktop
-    # x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
-    # x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
-    # x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop
-    # x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop
-
-  # xsession.initExtra = ''
-  #   # disable the middle button of Lenovo TrackPoint Keyboard II
-  #   xinput set-button-map "Lenovo TrackPoint Keyboard II Mouse" 1 0 3
-  # '';
 
   mysystem.windowManager.xmonad.enable = true;
 
