@@ -509,11 +509,11 @@
         "wallpapers": "wallpapers"
       },
       "locked": {
-        "lastModified": 1661485489,
-        "narHash": "sha256-l0G6wEi0uW3KrXWnsrurAKwiMQdpZYNeAH46JOclmww=",
+        "lastModified": 1662099230,
+        "narHash": "sha256-0tV/ZGaPYSytHcyH3csi6aCRFcJe6eHy3AN95kun0pw=",
         "owner": "jjdosa",
         "repo": "myxmonad",
-        "rev": "6db3f352eb77642409dae313d607c3884f53bd93",
+        "rev": "89a109e09aa233e2f63b802906798044afd1f38b",
         "type": "github"
       },
       "original": {
