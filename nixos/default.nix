@@ -82,10 +82,26 @@
   # };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ 80 8081 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.allowedTCPPorts = [ 69 4011 80 8080 8081 52647 ];
+  networking.firewall.allowedUDPPorts =
+    [
+      69
+      4011  # for pixiecore
+      8080
+      52647 # for pixiecore
+    ];
+
+  networking.firewall.enable = false;
+
+
+  services.avahi.enable = true;
+  services.avahi.publish.enable = true;
+  services.avahi.publish.addresses = true;
+  services.avahi.publish.domain = true;
+  services.avahi.publish.userServices = true;
+  services.avahi.publish.workstation = true;
+  services.avahi.nssmdns = true;
+
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
