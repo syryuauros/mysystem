@@ -79,6 +79,15 @@
           private-key = ./secrets/sshkey.age;
         };
 
+        antofagasta = {
+          ip = "10.10.0.24";
+          configuration = ./nixos/x1;
+          home = ./home/x1;
+          hds0ips = [ "10.10.0.24/32" ];
+          wg-key = ./secrets/wg-lapaz.age;
+          private-key = ./secrets/sshkey.age;
+        };
+
       };
 
       users = {
