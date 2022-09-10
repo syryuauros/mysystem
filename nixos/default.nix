@@ -60,12 +60,19 @@
   services.logind.lidSwitchExternalPower = "ignore";
   services.logind.lidSwitchDocked = "ignore";
 
+  # Increase open file limit for sudoers
   security.pam.loginLimits = [
     {
-      domain = "*";
-      type = "soft";
+      domain = "@wheel";
       item = "nofile";
-      value = "262144";
+      type = "soft";
+      value = "524288";
+    }
+    {
+      domain = "@wheel";
+      item = "nofile";
+      type = "hard";
+      value = "1048576";
     }
   ];
 
