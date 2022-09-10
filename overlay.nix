@@ -45,16 +45,18 @@
   };
 
 
-  deploy = let
+  mk-deploy-sh = host: store: let
     profile = "/nix/var/nix/profiles/system";
-  in writeScriptBin "deploy" ''
-    host="$1"
-    store="$2"
+  in writeShellScriptBin "deploy-sh" ''
+    host="${host}"
+    store="${store}"
     # nix-copy-closure --to --use-substitutes $host $store
     nix-copy-closure --to $host $store
     ssh $host sudo nix-env --profile ${profile} --set $store
     ssh $host sudo ${profile}/bin/switch-to-configuration switch
   '';
+
+  deploy-sh = mk-deploy-sh "$1" "$2";
 
   nixOSApps = (pkgs.lib.mapAttrs
     (name: host: let
@@ -63,17 +65,7 @@
     in
     {
       type = "app";
-      program = let
-        profile = "/nix/var/nix/profiles/system";
-        prog = pkgs.writeScriptBin "deploy" ''
-          host="${host.ip}"
-          store="${nixOSPkg}"
-          # nix-copy-closure --to --use-substitutes $host $store
-          nix-copy-closure --to $host $store
-          ssh $host sudo nix-env --profile ${profile} --set $store
-          ssh $host sudo ${profile}/bin/switch-to-configuration switch
-        '';
-      in "${prog}/bin/deploy";
+      program = "${mk-deploy-sh host.ip nixOSPkg}/bin/deploy-sh";
     })
     hosts);
 
