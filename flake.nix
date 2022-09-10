@@ -41,26 +41,6 @@
       lib = nixpkgs.lib;
       inherit (builtins) mapAttrs;
 
-      allowUnfreePredicate = pkg:
-        builtins.elem (nixpkgs.lib.getName pkg) [ # whitelist for firefox
-          "firefox-beta-bin"
-          "firefox-beta-bin-unwrapped"
-          "languagetool"
-          "lastpass-password-manager"
-          "broadcom-sta"
-          "cudatoolkit"
-          "zoom"
-          "google-chrome"
-          "anydesk"
-          "slack"
-          "Oracle_VM_VirtualBox_Extension_Pack"
-          "symbola"
-          "nvidia-x11"
-          "nvidia-settings"
-          "grammarly"
-          "dropbox"
-          "foxitreader"
-        ];
 
       # This keys for the distributed builds
       root = {
@@ -134,7 +114,7 @@
       system = "x86_64-linux";
       pkgsConfig = {
         inherit system;
-        config = { inherit allowUnfreePredicate; };
+        config = { allowUnfree = true; };
         overlays = [ self.overlay ];
       };
 
