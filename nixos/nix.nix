@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }: let
+{ lib, pkgs, config, inputs, ... }: let
 
   key-for-builders = "/home/jj/.ssh/id_ed25519";
 
@@ -18,6 +18,10 @@ in {
       connect-timeout = 3
       builders-use-substitutes = true
     '';
+
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     settings = {
 
