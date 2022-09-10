@@ -285,7 +285,10 @@
             self.nixosConfigurations);
 
       in rec {
-        devShell = import ./develop.nix { inherit pkgs; };
+
+        devShells = {
+          default = pkgs.callPackage ./shell.nix {};
+        };
 
         # defaultPackage = pkgs.deploy;
         packages = {

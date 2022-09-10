@@ -1,2 +1,12 @@
-# See https://nixos.wiki/wiki/Flakes#Using_flakes_project_from_a_legacy_Nix
-(import ./.).shellNix
+{ pkgs ? let flake = builtins.getFlake (toString ./.);
+         in import flake.inputs.nixpkgs { overlays = [ flake.overlay ]; }
+}: pkgs.mkShell {
+  NIX_CONFIG = "experimental-features = nix-command flakes";
+  nativeBuildInputs = with pkgs; [
+    nix
+    home-manager
+    git
+    deploy-rs.deploy-rs
+    age
+  ];
+}
