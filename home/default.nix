@@ -11,7 +11,6 @@
     file
     unzip
     ncdu
-    any-nix-shell
     prettyping
     diff-so-fancy
     gnused
@@ -19,7 +18,6 @@
     neofetch
     youtube-dl
     syncthing
-    rnix-lsp
     imagemagick
     inkscape
     graphviz
@@ -28,7 +26,6 @@
 
 
     sqlite
-    nixfmt
 
     # rust programs
     fd
@@ -79,7 +76,6 @@
     killall              # kill processes by name
     bottom               # alternative to htop & ytop
     dmenu                # application launcher
-    nix-doc              # nix documentation search tool
     tree                 # display files in a tree view
     xclip                # clipboard support (also for neovim)
     iftop                # network traffic monitoring
@@ -132,9 +128,18 @@
 
     (agda.withPackages (ps : with ps; [ standard-library ]))
 
+    nvd
+    rnix-lsp
+    nixfmt
+    nix-doc
     nix-tree
+    nix-diff
     nix-du
+    deadnix
+    statix
+    any-nix-shell
     nix-query-tree-viewer
+    haskellPackages.nix-derivation # Inspecting .drv's
 
 
   ] ++ myfonts-collection;
