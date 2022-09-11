@@ -1,4 +1,4 @@
-wg-key: hds0ips: { config, ... }:
+{ config, wg-key, wg-ip, ... }:
 {
 
   networking.firewall = {
@@ -10,7 +10,7 @@ wg-key: hds0ips: { config, ... }:
   networking.wireguard.interfaces = {
 
     hds0 = {
-      ips = hds0ips;
+      ips = [ wg-ip ];
       listenPort = 51821;
       privateKeyFile = config.age.secrets.wg.path;
       peers = [

@@ -7,10 +7,36 @@
   ];
 
   services.blueman.enable = true;
-
   services.geoclue2.enable = true;
+  services.upower.enable = true;
 
-  services.xserver.layout = "us";
+  services.dbus = {
+      enable = true;
+      packages = [ pkgs.dconf ];
+    };
+
+  services.xserver = {
+    enable = true;
+
+    libinput = {
+      enable = true;
+      touchpad = {
+        disableWhileTyping = true;
+        naturalScrolling = true;
+      };
+      mouse = {
+        disableWhileTyping = true;
+        naturalScrolling = true;
+      };
+    };
+
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+  };
+
+  services.gnome.gnome-keyring.enable = true;
+
+  systemd.services.upower.enable = true;
   # services.xserver.xkbVariant = ",dvorak";
   # xkbOptions = "caps:ctrl_modifier,altwin:swap_lalt_lwin"; # set separatedly for each machine
 
@@ -36,7 +62,16 @@
     # pkgs.brlaser pkgs.brgenml1cupswrapper
   ];
 
-  # services.tailscale = {
-  #   enable = true;
-  # };
+  # services.logind.lidSwitch = "ignore";
+  services.logind.lidSwitchExternalPower = "ignore";
+  services.logind.lidSwitchDocked = "ignore";
+
+  services.avahi.enable = true;
+  services.avahi.publish.enable = true;
+  services.avahi.publish.addresses = true;
+  services.avahi.publish.domain = true;
+  services.avahi.publish.userServices = true;
+  services.avahi.publish.workstation = true;
+  services.avahi.nssmdns = true;
+
 }

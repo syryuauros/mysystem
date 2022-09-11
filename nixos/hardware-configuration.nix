@@ -9,11 +9,11 @@
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.availableKernelModules = [ "thunderbolt" "nvme" "xhci_pci" "usb_storage" "sd_mod" ];
+  # boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ]; # legion5
+  boot.initrd.availableKernelModules = [ "thunderbolt" "nvme" "xhci_pci" "usb_storage" "sd_mod" "usbhid" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "v4l2loopback" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
-  boot.hardwareScan = true;
 
   boot.extraModprobeConfig = ''
     options v4l2loopback exclusive_caps=1 max_buffers=2
@@ -29,7 +29,8 @@
       fsType = "vfat";
     };
 
-  swapDevices = [];
+  swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

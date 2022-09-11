@@ -5,10 +5,16 @@
   inputs = {
 
     haedosa.url = "github:haedosa/flakes";
-    nixpkgs.follows = "haedosa/nixpkgs";
+    # nixpkgs.follows = "haedosa/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-utils.follows = "haedosa/flake-utils";
-    home-manager.follows = "haedosa/home-manager";
+
+    # home-manager.follows = "haedosa/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nur.url = "github:nix-community/NUR";
     jupyter_contrib_core = {
@@ -29,156 +35,32 @@
 
     nix-doom-emacs.url = "github:jjdosa/nix-doom-emacs";
     myxmonad.url = "github:jjdosa/myxmonad";
-    # nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-    # nixpkgs-wayland.inputs.nixpkgs.follows = "haedosa/nixpkgs";
 
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, flake-utils, nur, ... }:
-
     let
-
-      lib = nixpkgs.lib;
-      inherit (builtins) mapAttrs;
-
-      hosts = {
-
-        urubamba = {
-          ip = "10.10.0.2";
-          configuration = ./nixos/x1;
-          home = ./home/x1;
-          hds0ips = [ "10.10.0.2/32" ];
-          wg-key = ./secrets/wg-urubamba.age;
-          private-key = ./secrets/sshkey.age;
-        };
-
-        lima = {
-          ip = "10.10.0.21";
-          configuration = ./nixos/x1;
-          home = ./home/x1;
-          hds0ips = [ "10.10.0.21/32" ];
-          wg-key = ./secrets/wg-lima.age;
-          private-key = ./secrets/sshkey.age;
-        };
-
-        bogota = {
-          ip = "10.10.0.22";
-          configuration = ./nixos/legion5;
-          home = ./home/legion5;
-          hds0ips = [ "10.10.0.22/32" ];
-          wg-key = ./secrets/wg-bogota.age;
-          private-key = ./secrets/sshkey.age;
-        };
-
-        lapaz = {
-          ip = "10.10.0.23";
-          configuration = ./nixos/x1;
-          home = ./home/x1;
-          hds0ips = [ "10.10.0.23/32" ];
-          wg-key = ./secrets/wg-lapaz.age;
-          private-key = ./secrets/sshkey.age;
-        };
-
-        antofagasta = {
-          ip = "10.10.0.24";
-          configuration = ./nixos/x1;
-          home = ./home/x1;
-          hds0ips = [ "10.10.0.24/32" ];
-          wg-key = ./secrets/wg-lapaz.age;
-          private-key = ./secrets/sshkey.age;
-        };
-
-      };
-
       system = "x86_64-linux";
       pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
           overlays = [ self.overlay ];
         };
+      mylib = import ./lib inputs system pkgs;
+      inherit (builtins) mapAttrs;
+      inherit (pkgs.lib) makeOverridable;
+      inherit (mylib) mkUser mkNixosSystem getToplevel;
 
-      mkNixOSConfiguration = name: host:
-        nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
-          specialArgs = { inherit inputs; };
-          modules = [
-            (import ./nixos/users)
-            ({ pkgs, ... }: {
-
-              environment.etc.nixpkgs.source = inputs.nixpkgs;
-              nix.nixPath = [ "nixpkgs=/etc/nixpkgs" ];
-
-              networking = {
-                hostName = name;
-                networkmanager.enable = true;
-              };
-
-              systemd.services.NetworkManager-wait-online.enable = false;
-
-              nix.registry = {
-                self.flake = inputs.self;
-                nixpkgs = {
-                  from = {
-                    id = "nixpkgs";
-                    type = "indirect";
-                  };
-                  flake = inputs.nixpkgs;
-                };
-              };
-
-              imports = with host; [
-                configuration
-                (import ./nixos/wireguard wg-key hds0ips)
-                inputs.agenix.nixosModules.age
-                ./modules
-                home-manager.nixosModules.home-manager
-                {
-                  # nixpkgs = pkgsConfig;
-                  home-manager.users = (mapAttrs (username: user: {
-                    imports = with inputs; [
-                      nix-doom-emacs.hmModule
-                      inputs.myxmonad.hmModule
-                      host.home
-                    ];
-
-                    home.file.".nixpkgs".source = inputs.nixpkgs;
-                    systemd.user.sessionVariables."NIX_PATH" = lib.mkForce
-                      "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
-                    # xdg.configFile."nixpkgs/config.nix".source = ./nix/config.nix;
-
-                    # Re-expose self and nixpkgs as flakes.
-                    xdg.configFile."nix/registry.json".text = builtins.toJSON {
-                      version = 2;
-                      flakes = let
-                        toInput = input:
-                          {
-                            type = "path";
-                            path = input.outPath;
-                          } // (lib.filterAttrs (n: _:
-                            n == "lastModified" || n == "rev" || n == "revCount"
-                            || n == "narHash") input);
-                      in [
-                        {
-                          from = {
-                            id = "self";
-                            type = "indirect";
-                          };
-                          to = toInput inputs.self;
-                        }
-                        {
-                          from = {
-                            id = "nixpkgs";
-                            type = "indirect";
-                          };
-                          to = toInput inputs.nixpkgs;
-                        }
-                      ];
-                    };
-                  }) users);
-                }
-              ];
-            })
+      jj = makeOverridable mkUser {
+          userId = "jj";
+          userName = "JJ Kim";
+          userEmail = "jj@haeodsa.xyz";
+          extraGroups = [ "wheel" "networkmanager" "audio" "video" "hds" "ipfs" ];
+          hashedPassword = "$6$3nKguLgJMB$leFSKrvWiUAXiay8MJ8i66.ZzufIhkrrbxzv625DV28xSYGBCLp62pyIp4U3s8miHcOdJZpWLgDMEoWljPtT0.";
+          keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIXifjBn6gkBCKkpJJAbB1pJC1zSUljf8SFnPqvB6vIR jj"
           ];
+          extraHomeModules = [];
         };
 
     in rec {
@@ -188,7 +70,6 @@
         nix-doom-emacs.overlay
         agenix.overlay
         deploy-rs.overlay
-        # nixpkgs-wayland.overlay
         (import ./packages/myemacs/overlay.nix)
         (import ./packages/myvim/overlay.nix)
         (import ./packages/mytmux/overlay.nix)
@@ -204,10 +85,50 @@
         (import ./packages/myjupyter/jupyter-overlay.nix {
           inherit jupyter_contrib_core jupyter_nbextensions_configurator;
         })
-        (import ./overlay.nix { inherit inputs mkNixOSConfiguration hosts; })
+        (import ./overlay.nix inputs)
       ]);
 
-      nixosConfigurations = mapAttrs mkNixOSConfiguration hosts;
+      nixosConfigurations = {
+
+          urubamba = mkNixosSystem {
+            hostName = "urubamba";
+            wg-ip = "10.10.0.2/32";
+            modules = [ jj.nixosModule
+                        jj.homeModule ];
+          };
+
+          lima = mkNixosSystem {
+            hostName = "lima";
+            wg-ip = "10.10.0.21/32";
+            modules = [ jj.nixosModule
+                        jj.homeModule ];
+          };
+
+          bogota = mkNixosSystem {
+            hostName = "bogota";
+            wg-ip = "10.10.0.22/32";
+            modules = [ jj.nixosModule
+                        jj.homeModule ];
+          };
+
+          lapaz = mkNixosSystem {
+            hostName = "lapaz";
+            wg-ip = "10.10.0.23/32";
+            modules = [ jj.nixosModule
+                        jj.homeModule ];
+          };
+
+          antofagasta = mkNixosSystem
+            { hostName = "antofagasta";
+              wg-ip = "10.10.0.24/32";
+              modules = [ jj.nixosModule
+                          jj.homeModule ];
+            };
+        };
+
+      homeConfigurations = {
+        jj = jj.homeConfiguration;
+      };
 
       deploy = {
         magicRollback = true;
@@ -217,45 +138,22 @@
         user = "root";
         sshOpts = [ "-p" "22" ];
 
-        nodes = mapAttrs (name: host:
-          let nixosConfig = mkNixOSConfiguration name host;
-          in {
-            hostname = host.ip;
-            profiles.system.path =
-              inputs.deploy-rs.lib.${system}.activate.nixos nixosConfig;
-          }) hosts;
+        nodes = mapAttrs (_: nixos-system:
+          {
+            hostname = nixos-system.deploy-ip;
+            profiles.system.path = inputs.deploy-rs.lib.${system}.activate.nixos nixos-system;
+          }) nixosConfigurations;
       };
 
-      checks =
-        mapAttrs (_: lib: lib.deployChecks self.deploy) inputs.deploy-rs.lib;
+      devShells.${system} = {
+        default = pkgs.callPackage ./shell.nix {};
+      };
 
-    } // flake-utils.lib.eachDefaultSystem (system:
-      let
+      packages.${system} = let
+          nixosPackages = mapAttrs (_: config: getToplevel config) nixosConfigurations;
+          homePackages = mapAttrs (_: config: config.activationPackage) homeConfigurations;
+        in nixosPackages // homePackages;
 
-        nixosPackages =
-          (mapAttrs (name: host: host.config.system.build.toplevel)
-            self.nixosConfigurations);
+    };
 
-      in rec {
-
-        devShells = {
-          default = pkgs.callPackage ./shell.nix {};
-        };
-
-        # defaultPackage = pkgs.deploy;
-        packages = {
-          # deploy = pkgs.deploy;
-          default = pkgs.symlinkJoin {
-            name = "all";
-            paths = lib.attrValues nixosPackages;
-          };
-        } // nixosPackages;
-
-        defaultApp = apps.deploy;
-        apps = {
-          # add other apps here
-        } // pkgs.nixOSApps;
-      }
-
-    );
 }

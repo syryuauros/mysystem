@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, userName, userEmail, ... }:
 
 let
   gitConfig = {
@@ -20,6 +20,9 @@ in
 {
   programs.git = {
     enable = true;
+    inherit userName userEmail;
+    # userName = "JJ Kim";
+    # userEmail = "jj@haedosa.xyz";
     aliases = {
       amend = "commit --amend -m";
       br = "branch";
@@ -35,12 +38,11 @@ in
     ignores = [
       ".DS_Store"
       "result"
+      ".direnv"
     ];
     signing = {
       key = "6A9DC1FC403B1F49";
       signByDefault = false;
     };
-    userEmail = "jj@haedosa.xyz";
-    userName = "JJ Kim";
   };
 }

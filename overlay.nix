@@ -1,4 +1,4 @@
-{ mkNixOSConfiguration, hosts, inputs }: final: prev: with final;
+inputs: final: prev: with final;
 {
 
   screenlayout = callPackage ./packages/scripts/screenlayout {};
@@ -50,7 +50,6 @@
   in writeShellScriptBin "deploy-sh" ''
     host="${host}"
     store="${store}"
-    # nix-copy-closure --to --use-substitutes $host $store
     nix-copy-closure --to $host $store
     ssh $host sudo nix-env --profile ${profile} --set $store
     ssh $host sudo ${profile}/bin/switch-to-configuration switch
@@ -58,15 +57,15 @@
 
   deploy-sh = mk-deploy-sh "$1" "$2";
 
-  nixOSApps = (pkgs.lib.mapAttrs
-    (name: host: let
-      nixOSConf = mkNixOSConfiguration name host;
-      nixOSPkg = nixOSConf.config.system.build.toplevel;
-    in
-    {
-      type = "app";
-      program = "${mk-deploy-sh host.ip nixOSPkg}/bin/deploy-sh";
-    })
-    hosts);
+  # nixOSApps = (pkgs.lib.mapAttrs
+  #   (name: host: let
+  #     nixOSConf = mkNixOSConfiguration name host;
+  #     nixOSPkg = nixOSConf.config.system.build.toplevel;
+  #   in
+  #   {
+  #     type = "app";
+  #     program = "${mk-deploy-sh host.ip nixOSPkg}/bin/deploy-sh";
+  #   })
+  #   hosts);
 
 }

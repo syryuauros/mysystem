@@ -1,50 +1,39 @@
 { inputs, config, lib, pkgs, ... }: {
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "backup";
-  };
+  system.stateVersion = "22.05";
 
-  environment = {
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-    systemPackages = with pkgs; [
+  networking.networkmanager.enable = true;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
+  # fileSystems."/hds/store" = {
+  #   device = "10.10.100.4:/hds/store";
+  #   fsType = "nfs";
+  #   options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+  # };
+
+  users.mutableUsers = false;
+
+  environment.systemPackages = with pkgs; [
       neovim
       coreutils
       curl
       wget
       git
-
     ];
 
-    # etc = {
-    #   home-manager.source = "${inputs.home-manager}";
-    #   nixpkgs.source = "${inputs.nixpkgs}";
-    #   darwin.source = "${inputs.darwin}";
-    # };
-
-    # list of acceptable shells in /etc/shells
-    shells = with pkgs; [ bashInteractive ];
-
-  };
-
-
+  environment.etc = {
+      home-manager.source = "${inputs.home-manager}";
+      nixpkgs.source = "${inputs.nixpkgs}";
+    };
 
   imports = [
-    # ./users
     ./nix.nix
-    ./i18n
-    ./xserver
     ./services
-    ./hardware
-    ./distributed-build
-    ./nfs
     # ./ipfs
   ];
-
-
-  # mymodules.sway.enable = true;
 
   fonts.fontconfig.enable = true;
 
@@ -55,10 +44,6 @@
   time.timeZone = "Asia/Seoul";
 
   security.sudo.wheelNeedsPassword = false;
-
-  # services.logind.lidSwitch = "ignore";
-  services.logind.lidSwitchExternalPower = "ignore";
-  services.logind.lidSwitchDocked = "ignore";
 
   # Increase open file limit for sudoers
   security.pam.loginLimits = [
@@ -76,19 +61,18 @@
     }
   ];
 
-  programs.light.enable = true;
+  sound.enable = true;
   sound.mediaKeys.enable = true;
 
-  # xmonad takes care of this
-  # services.actkbd = {
-  #   enable = true;
-  #   bindings = [
-  #     { keys = [ 224 ]; events = [ "key" ]; command = "${pkgs.light}/bin/light -A 5"; }
-  #     { keys = [ 225 ]; events = [ "key" ]; command = "${pkgs.light}/bin/light -U 5"; }
-  #   ];
-  # };
+  hardware.bluetooth.enable = true;
+  hardware.acpilight.enable = true;
+  hardware.pulseaudio.enable = true;
+  hardware.keyboard.zsa.enable = true;
+
+  programs.light.enable = true;
 
   # Open ports in the firewall.
+  networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 69 4011 80 8080 8081 52647 ];
   networking.firewall.allowedUDPPorts =
     [
@@ -98,21 +82,25 @@
       52647 # for pixiecore
     ];
 
-  networking.firewall.enable = false;
 
-
-  services.avahi.enable = true;
-  services.avahi.publish.enable = true;
-  services.avahi.publish.addresses = true;
-  services.avahi.publish.domain = true;
-  services.avahi.publish.userServices = true;
-  services.avahi.publish.workstation = true;
-  services.avahi.nssmdns = true;
-
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  system.stateVersion = "22.05";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    inputMethod.enabled = "kime";
+    inputMethod.kime.config = {
+      engine = {
+        hangul = {
+          layout = "sebeolsik-3-91";
+        };
+        global_hotkeys = {
+          S-Space = {
+            behavior = {
+              Toggle = ["Hangul" "Latin"];
+            };
+            result = "Consume";
+          };
+        };
+      };
+    };
+  };
 
 }

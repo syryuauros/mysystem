@@ -1,11 +1,10 @@
-{ config, pkgs , lib , ... }:
+{ config, pkgs, lib, userId, ... }:
 
 {
 
-  imports = [
-    ./programs
-    ./services
-  ];
+  home.username = userId;
+  home.homeDirectory = "/home/${userId}";
+  home.stateVersion = "22.05";
 
   home.packages = with pkgs; [
     file
@@ -141,6 +140,7 @@
     nix-query-tree-viewer
     haskellPackages.nix-derivation # Inspecting .drv's
 
+    myhaskell-full
 
   ] ++ myfonts-collection;
 
@@ -171,6 +171,11 @@
     # variant = "workman,";
   };
 
+  imports = [
+    ./programs
+    ./services
+  ];
+
   xdg.enable = true;
 
   xdg.configFile."mimeapps.list".text = ''
@@ -196,6 +201,20 @@
 
   mysystem.windowManager.xmonad.enable = true;
 
-  home.stateVersion = "22.05";
+  xresources.properties = {
+    "Xft.dpi" = 120;
+    "Xft.autohint" = 0;
+    "Xft.hintstyle" = "hintfull";
+    "Xft.hinting" = 1;
+    "Xft.antialias" = 1;
+    "Xft.rgba" = "rgb";
+    "Xcursor*theme" = "Vanilla-DMZ-AA";
+    "Xcursor*size" = 24;
+  };
+
+  xsession.enable = true;
+  xsession.initExtra = ''
+    setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
+  '';
 
 }
