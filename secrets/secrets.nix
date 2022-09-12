@@ -6,7 +6,7 @@ let
   urubamba = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOw4J9vtIT4/Juac+bp06Yf5lk5/hlzGeqJBEKOaZsvZ";
   bogota = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAl5/ozkuWmVXtqSOJetfMA1OWF+LZ4IqsYkNhsQcGb6";
   lapaz = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKa+MtYN20MlkctttUkg2RpOTNLRbfvqeTLwqbJoUj2o";
-  antofagasta = "";
+  antofagasta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPYe7j/BoueCTsYF4BrNojPC+Y0MMCDqia4QkS7KmVNG";
 
   systems = [ lima urubamba bogota lapaz antofagasta ];
 

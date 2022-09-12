@@ -44,12 +44,11 @@
       pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
-          overlays = [ self.overlay ];
+          overlays = [ self.overlays.default ];
         };
       mylib = import ./lib inputs system pkgs;
-      inherit (builtins) mapAttrs;
-      inherit (pkgs.lib) makeOverridable;
-      inherit (mylib) mkUser mkNixosSystem getToplevel;
+      inherit (pkgs.lib) makeOverridable attrValues mapAttrs mapAttrs';
+      inherit (mylib) mkUser mkNixosSystem getToplevel usb-with-packages deploy-to-remote;
 
       jj = makeOverridable mkUser {
           userId = "jj";
@@ -65,7 +64,7 @@
 
     in rec {
 
-      overlay = nixpkgs.lib.composeManyExtensions (with inputs; [
+      overlays.default = nixpkgs.lib.composeManyExtensions (with inputs; [
         nur.overlay
         nix-doom-emacs.overlay
         agenix.overlay
@@ -123,7 +122,9 @@
               wg-ip = "10.10.0.24/32";
               modules = [ jj.nixosModule
                           jj.homeModule ];
+              deploy-ip = "192.168.68.69";
             };
+
         };
 
       homeConfigurations = {
@@ -133,13 +134,13 @@
       deploy = {
         magicRollback = true;
         autoRollback = true;
+        fastConnection = true;
 
         sshUser = "jj";
         user = "root";
         sshOpts = [ "-p" "22" ];
 
-        nodes = mapAttrs (_: nixos-system:
-          {
+        nodes = mapAttrs (_: nixos-system: {
             hostname = nixos-system.deploy-ip;
             profiles.system.path = inputs.deploy-rs.lib.${system}.activate.nixos nixos-system;
           }) nixosConfigurations;
@@ -149,10 +150,19 @@
         default = pkgs.callPackage ./shell.nix {};
       };
 
-      packages.${system} = let
+      packages.${system} =
+        let
           nixosPackages = mapAttrs (_: config: getToplevel config) nixosConfigurations;
           homePackages = mapAttrs (_: config: config.activationPackage) homeConfigurations;
-        in nixosPackages // homePackages;
+          deployScripts = mapAttrs' (name: config: {
+              name = "deploy-${name}";
+              value = deploy-to-remote {
+                  remote = config.deploy-ip;
+                  nixos-toplevel = getToplevel config;
+                };
+            }) nixosConfigurations;
+          packages = nixosPackages // homePackages // deployScripts;
+        in packages // { usb = usb-with-packages (attrValues packages); };
 
     };
 

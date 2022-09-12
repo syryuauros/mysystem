@@ -45,17 +45,17 @@ inputs: final: prev: with final;
   };
 
 
-  mk-deploy-sh = host: store: let
+  mk-deploy-to = host-ip: store: let
     profile = "/nix/var/nix/profiles/system";
   in writeShellScriptBin "deploy-sh" ''
-    host="${host}"
+    host-ip="${host}"
     store="${store}"
-    nix-copy-closure --to $host $store
+    nix copy --to $host-ip $store
     ssh $host sudo nix-env --profile ${profile} --set $store
     ssh $host sudo ${profile}/bin/switch-to-configuration switch
   '';
 
-  deploy-sh = mk-deploy-sh "$1" "$2";
+  deploy-sh = mk-deploy-to "$1" "$2";
 
   # nixOSApps = (pkgs.lib.mapAttrs
   #   (name: host: let
