@@ -7,6 +7,7 @@
   home.stateVersion = "22.05";
 
   home.packages = with pkgs; [
+
     file
     unzip
     ncdu
@@ -17,13 +18,8 @@
     neofetch
     youtube-dl
     syncthing
-    imagemagick
-    inkscape
-    graphviz
     pass
     cmatrix
-
-
     sqlite
 
     # rust programs
@@ -92,6 +88,10 @@
     gnome3.nautilus
     libreoffice
     vlc
+    obs-studio
+    imagemagick
+    inkscape
+    graphviz
 
     dracula-qutebrowser
     anydesk
