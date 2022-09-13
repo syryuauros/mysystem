@@ -4,9 +4,9 @@
 
   inputs = {
 
-    haedosa.url = "github:haedosa/flakes";
-    # nixpkgs.follows = "haedosa/nixpkgs";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    haedosa.url = "github:haedosa/flakes/2022-09-13";
+    nixpkgs.follows = "haedosa/nixpkgs-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-utils.follows = "haedosa/flake-utils";
 
@@ -33,7 +33,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-doom-emacs.url = "github:jjdosa/nix-doom-emacs";
+    doom-private.url = "github:jjdosa/doom-private";
+    doom-private.flake = false;
+    nix-doom-emacs = {
+      url = "github:jjdosa/nix-doom-emacs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.doom-private.follows = "doom-private";
+    };
     myxmonad.url = "github:jjdosa/myxmonad";
 
   };
@@ -67,6 +73,7 @@
       overlays.default = nixpkgs.lib.composeManyExtensions (with inputs; [
         nur.overlay
         nix-doom-emacs.overlay
+        # (final: prev: { doom-emacs = nix-doom-emacs.package; })
         agenix.overlay
         deploy-rs.overlay
         (import ./packages/myemacs/overlay.nix)
@@ -122,7 +129,7 @@
               wg-ip = "10.10.0.24/32";
               modules = [ jj.nixosModule
                           jj.homeModule ];
-              deploy-ip = "192.168.68.69";
+              # deploy-ip = "192.168.68.69";
             };
 
         };
@@ -149,6 +156,11 @@
       devShells.${system} = {
         default = pkgs.callPackage ./shell.nix {};
       };
+
+      apps.${system} = mapAttrs (name: config: {
+          type = "app";
+          program = "${packages.${system}."deploy-${name}/bin/deploy-${name}"}";
+        }) nixosConfigurations;
 
       packages.${system} =
         let
