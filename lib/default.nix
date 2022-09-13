@@ -15,21 +15,22 @@ in
     , extraGroups ? []
     , hashedPassword
     , keys ? []
-    , extraHomeModules ? []
+    , homeModules ? []
+    , nixosModules ? []
     }:
     let
       extraSpecialArgs = {
         inherit inputs outputs userId userName userEmail; };
-      homeModules = [
+      homeModules' = [
           inputs.myxmonad.hmModule
           ../home
-        ] ++ extraHomeModules;
+        ] ++ homeModules;
     in {
 
       # For 'home-manager build/switch --flake' command
       homeConfiguration = homeManagerConfiguration {
           inherit pkgs extraSpecialArgs;
-          modules = homeModules;
+          modules = homeModules';
         };
 
       # To set 'home-manager.users = ' option in the nixos configuration
@@ -37,7 +38,7 @@ in
           nixpkgs.pkgs = pkgs;
           home-manager = {
               users.${userId} = {
-                imports = homeModules;
+                imports = homeModules';
               };
               inherit extraSpecialArgs;
             };
@@ -45,6 +46,7 @@ in
 
       # To set 'user.users = ' option in the nixos configuration
       nixosModule = {
+        imports = nixosModules;
         users.users.${userId} = {
           isNormalUser = true;
           home = "/home/${userId}";
@@ -123,11 +125,12 @@ in
   getToplevel = nixos-system: nixos-system.config.system.build.toplevel;
 
   deploy-to-remote =
-    { nixos-toplevel
+    { hostName ? "to-remote"
+    , nixos-toplevel
     , remote
     }:
     let profile = "/nix/var/nix/profiles/system";
-    in pkgs.writeShellScriptBin "deploy-sh" ''
+    in pkgs.writeShellScriptBin "deploy-${hostName}" ''
       nix copy ${nixos-toplevel} \
         --to ssh://${remote} \
         --no-check-sigs \

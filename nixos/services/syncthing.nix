@@ -16,12 +16,13 @@
       bogota = { id = "35ND6IE-TNGZ5KH-U5SIL7L-RKAXD6S-GAXIWBT-KAPYXMD-FELWNBZ-HYXCFAS"; };
       mbp15 = { id = "IP22ZVB-ODDIJK5-JQIXGES-QHP6GNC-HBTMDP3-KLDHUPM-SHNIFN5-QKB7PA5"; };
       urubamba = { id = "XEVAC4R-X6NZWOF-UNC5VFJ-VVV7WWA-R75Q66Q-REGPX33-F5Y76R5-KUCG5QO"; };
+      antofagasta = { id = "25SGCDR-2WOKWNJ-JU7VJ3C-BYWO77P-ASVQTUV-2LI7NTY-JTSWFKK-DUJEBA4"; };
     };
     folders = {
 
       Ocean = {
         path = "/home/jj/Ocean";
-        devices = [ "lapaz" "lima" "bogota" "urubamba" "mbp15" ];
+        devices = [ "lapaz" "lima" "bogota" "urubamba" "mbp15" "antofagasta" ];
         versioning = {
           type = "staggered";
           params = {

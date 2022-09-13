@@ -56,7 +56,8 @@
       inherit (pkgs.lib) makeOverridable attrValues mapAttrs mapAttrs';
       inherit (mylib) mkUser mkNixosSystem getToplevel usb-with-packages deploy-to-remote;
 
-      jj = makeOverridable mkUser {
+      jj = makeOverridable mkUser
+        {
           userId = "jj";
           userName = "JJ Kim";
           userEmail = "jj@haeodsa.xyz";
@@ -65,7 +66,6 @@
           keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIXifjBn6gkBCKkpJJAbB1pJC1zSUljf8SFnPqvB6vIR jj"
           ];
-          extraHomeModules = [];
         };
 
     in rec {
@@ -113,8 +113,11 @@
           bogota = mkNixosSystem {
             hostName = "bogota";
             wg-ip = "10.10.0.22/32";
-            modules = [ jj.nixosModule
-                        jj.homeModule ];
+            modules =
+              [ jj.nixosModule
+                jj.homeModule
+                { services.xserver.videoDrivers = [ "nvidia" "intel" ]; }
+              ];
           };
 
           lapaz = mkNixosSystem {
@@ -127,8 +130,10 @@
           antofagasta = mkNixosSystem
             { hostName = "antofagasta";
               wg-ip = "10.10.0.24/32";
-              modules = [ jj.nixosModule
-                          jj.homeModule ];
+              modules =
+                [ jj.nixosModule
+                  jj.homeModule
+                ];
               # deploy-ip = "192.168.68.69";
             };
 
@@ -159,17 +164,18 @@
 
       apps.${system} = mapAttrs (name: config: {
           type = "app";
-          program = "${packages.${system}."deploy-${name}/bin/deploy-${name}"}";
+          program = "${packages.${system}."deploy-${name}"}/bin/deploy-${name}";
         }) nixosConfigurations;
 
       packages.${system} =
         let
           nixosPackages = mapAttrs (_: config: getToplevel config) nixosConfigurations;
           homePackages = mapAttrs (_: config: config.activationPackage) homeConfigurations;
-          deployScripts = mapAttrs' (name: config: {
-              name = "deploy-${name}";
+          deployScripts = mapAttrs' (hostName: config: {
+              name = "deploy-${hostName}";
               value = deploy-to-remote {
                   remote = config.deploy-ip;
+                  hostName = hostName;
                   nixos-toplevel = getToplevel config;
                 };
             }) nixosConfigurations;
