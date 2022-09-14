@@ -133,15 +133,20 @@
                         jj.homeModule ];
           };
 
-          antofagasta = mkNixosSystem
-            { hostName = "antofagasta";
-              wg-ip = "10.10.0.24/32";
-              modules =
-                [ jj.nixosModule
-                  jj.homeModule
-                ];
-              # deploy-ip = "192.168.68.69";
-            };
+          antofagasta =
+            let jj' = jj.override {
+                  homeModules = [{
+                    xsession.initExtra = ''
+                      sl-antofagasta.sh
+                    '';}
+                    ];
+                  };
+            in mkNixosSystem {
+                  hostName = "antofagasta";
+                  wg-ip = "10.10.0.24/32";
+                  modules = [ jj.nixosModule jj'.homeModule];
+                  # deploy-ip = "192.168.68.69";
+                };
 
         };
 
