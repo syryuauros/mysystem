@@ -31,4 +31,7 @@ in
   # swarm.key for the private ipfs
   "ipfs-swarm-key.age".publicKeys = [ jj ] ++ systems;
 
+  # peerix key, pubkey = peerix:5In6cUHRQgQUhvnlefNBd/0e7g1TMhmck15UsJv9hxY=
+  "peerix.age".publicKeys = [jj] ++ systems;
+
 }

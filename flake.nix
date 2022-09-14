@@ -42,6 +42,10 @@
     };
     myxmonad.url = "github:jjdosa/myxmonad";
 
+    peerix = {
+      url = "github:cid-chan/peerix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, flake-utils, nur, ... }:
@@ -50,7 +54,9 @@
       pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
-          overlays = [ self.overlays.default ];
+          overlays = [
+            inputs.peerix.overlay
+            self.overlays.default ];
         };
       mylib = import ./lib inputs system pkgs;
       inherit (pkgs.lib) makeOverridable attrValues mapAttrs mapAttrs';

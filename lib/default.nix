@@ -73,7 +73,6 @@ in
           networking.hostName = hostName;
           imports = modules ++ [
               ../nixos/default.nix
-              ../nixos/wireguard.nix
               ../nixos/hardware-configuration.nix
               agenix.nixosModules.age
               home-manager.nixosModules.home-manager

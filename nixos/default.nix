@@ -33,6 +33,8 @@
     ./nix.nix
     ./services
     # ./ipfs
+    ./peerix.nix
+    ./wireguard.nix
   ];
 
   fonts.fontconfig.enable = true;
