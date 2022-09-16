@@ -34,7 +34,7 @@ in {
 
   myfonts-collection = with final; [
     # myfonts
-    # noto-sans-kr
+    noto-sans-kr
     # noto-serif-kr
     # nerdfonts
     symbola
