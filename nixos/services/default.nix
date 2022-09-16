@@ -53,6 +53,9 @@
       User jj
       ForwardX11 yes
       IdentityFile /home/jj/.ssh/id_rsa
+    Host 192.168.0.*
+      StrictHostKeyChecking no
+      UserKnownHostsFile=/dev/null
   '';
 
   services.clipmenu.enable = true;
