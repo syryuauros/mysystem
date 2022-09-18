@@ -93,9 +93,11 @@
         hangul.layout = "sebeolsik-3-91";
         global_hotkeys = {
           S-Space = {
-            behavior = {
-              Toggle = ["Hangul" "Latin"];
-            };
+            behavior.Toggle = ["Hangul" "Latin"];
+            result = "Consume";
+          };
+          Alt_R = {
+            behavior.Toggle = ["Hangul" "Latin"];
             result = "Consume";
           };
         };
