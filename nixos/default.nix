@@ -72,6 +72,7 @@
   hardware.keyboard.zsa.enable = true;
 
   programs.light.enable = true;
+  programs.kdeconnect.enable = true;
 
   # Open ports in the firewall.
   networking.firewall.enable = false;

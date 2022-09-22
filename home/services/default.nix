@@ -62,7 +62,7 @@
     tray = "always";
   };
 
-  services.syncthing = {
-    enable = true;
-  };
+  services.syncthing.enable = true;
+  services.kdeconnect.enable = true;
+
 }
