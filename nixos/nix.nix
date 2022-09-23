@@ -26,12 +26,12 @@ in {
     settings = {
 
       substituters = [
-        "http://10.10.100.1" # "http://haedosa.xyz:201" # "http://192.168.100.54"
-        "http://10.10.100.2" # "http://haedosa.xyz:202" # "http://192.168.100.55"
+        "http://10.10.100.6" # "http://haedosa.xyz:206" # "http://192.168.100.70"
         "http://10.10.100.3" # "http://haedosa.xyz:203" # "http://192.168.100.97"
         "http://10.10.100.4" # "http://haedosa.xyz:204" # "http://192.168.100.101"
         "http://10.10.100.5" # "http://haedosa.xyz:205" # "http://192.168.100.102"
-        "http://10.10.100.6" # "http://haedosa.xyz:206" # "http://192.168.100.70"
+        # "http://10.10.100.1" # "http://haedosa.xyz:201" # "http://192.168.100.54"
+        # "http://10.10.100.2" # "http://haedosa.xyz:202" # "http://192.168.100.55"
         "https://cache.nixos.org/"
         "https://hydra.iohk.io"
         "https://cachix.cachix.org"
@@ -41,8 +41,8 @@ in {
       ];
 
       trusted-public-keys = [
-        "builder1:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
-        "builder2:R7X06/w5h5SfUO4ZvTkkfIjHHEDhrOFYLoQjYVIrFLM="
+        # "builder1:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
+        # "builder2:R7X06/w5h5SfUO4ZvTkkfIjHHEDhrOFYLoQjYVIrFLM="
         "builder3:ICrJJg0EV8V5n90xghprYM7hEZg+dJ5T06gyaHqZtKU="
         "builder4:g2y9eiBfz+zWX6PGbXSxiRcJcW6+7RFZh0TXwF8cmcc="
         "builder5:+3i3teuBVBQXR47k9M0zLVmdzirKSGm9+9awX2jp+u0="
@@ -99,22 +99,6 @@ in {
         system = "x86_64-linux";
         maxJobs = 6;
         speedFactor = 4;
-        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-        mandatoryFeatures = [ ];
-      }
-      {
-        hostName = "builder1";
-        system = "x86_64-linux";
-        maxJobs = 6;
-        speedFactor = 2;
-        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-        mandatoryFeatures = [ ];
-      }
-      {
-        hostName = "builder2";
-        system = "x86_64-linux";
-        maxJobs = 6;
-        speedFactor = 2;
         supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         mandatoryFeatures = [ ];
       }

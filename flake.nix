@@ -50,16 +50,17 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, flake-utils, nur, ... }:
     let
+
+      inherit (nixpkgs.lib) attrValues makeOverridable mapAttrs mapAttrs';
+
       system = "x86_64-linux";
       pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
-          overlays = [
-            inputs.peerix.overlay
-            self.overlays.default ];
+          overlays = attrValues self.overlays;
         };
       mylib = import ./lib inputs system pkgs;
-      inherit (pkgs.lib) makeOverridable attrValues mapAttrs mapAttrs';
+
       inherit (mylib) mkUser mkNixosSystem getToplevel usb-with-packages deploy-to-remote;
 
       jj = makeOverridable mkUser
@@ -76,29 +77,7 @@
 
     in rec {
 
-      overlays.default = nixpkgs.lib.composeManyExtensions (with inputs; [
-        nur.overlay
-        nix-doom-emacs.overlay
-        # (final: prev: { doom-emacs = nix-doom-emacs.package; })
-        agenix.overlay
-        deploy-rs.overlay
-        (import ./packages/myemacs/overlay.nix)
-        (import ./packages/myvim/overlay.nix)
-        (import ./packages/mytmux/overlay.nix)
-        (import ./packages/myfonts/overlay.nix)
-        (import ./packages/mylockscreen/overlay.nix)
-        (import ./packages/mywallpapers-1366/overlay.nix)
-        (import ./packages/mynitrogen/overlay.nix)
-        # (import ./packages/myflow/overlay.nix)
-        # (import ./packages/myplot/overlay.nix)
-        (import ./packages/myhaskell/overlay.nix)
-        (import ./packages/mypython/overlay.nix)
-        (import ./packages/myjupyter/overlay.nix)
-        (import ./packages/myjupyter/jupyter-overlay.nix {
-          inherit jupyter_contrib_core jupyter_nbextensions_configurator;
-        })
-        (import ./overlay.nix inputs)
-      ]);
+      overlays = import ./overlays { inherit inputs system; };
 
       nixosConfigurations = {
 

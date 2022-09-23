@@ -93,7 +93,6 @@
     inkscape
     graphviz
 
-    dracula-qutebrowser
     anydesk
     # virtualbox
     slack
