@@ -92,15 +92,16 @@
     inputMethod.kime.config = {
       engine = {
         hangul.layout = "sebeolsik-3-91";
-        global_hotkeys = {
-          S-Space = {
+        global_hotkeys = let
+          hanToggle = {
             behavior.Toggle = ["Hangul" "Latin"];
             result = "Consume";
           };
-          Alt_R = {
-            behavior.Toggle = ["Hangul" "Latin"];
-            result = "Consume";
-          };
+        in
+        {
+          S-Space = hanToggle;
+          AltR = hanToggle;
+          Hangul = hanToggle;
         };
       };
     };
