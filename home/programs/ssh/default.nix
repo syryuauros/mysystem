@@ -57,6 +57,11 @@
         hostname = "10.10.0.23";
       };
 
+      "antofagasta" = {
+        forwardX11 = true;
+        hostname = "10.10.0.24";
+      };
+
       "p15" = {
         forwardX11 = true;
         hostname = "10.10.0.3";
