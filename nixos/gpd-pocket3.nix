@@ -30,7 +30,15 @@
       Section "Device"
         Identifier "modesetting"
         Driver "modesetting"
-        Option "TearFree" "True"
+        Option "TearFree" "true"
+      EndSection
+    '';
+
+    scrollDirection = ''
+      Section "InputClass"
+        Identifier "gpd-pocket3-touchpad"
+        MatchProduct "HAILUCK CO.,LTD USB KEYBOARD Mouse"
+        Option "NaturalScrolling" "0"
       EndSection
     '';
 
@@ -38,6 +46,7 @@
     ${tearFree}
     ${monitor}
     ${touchScreen}
+    ${scrollDirection}
   '';
 
 }

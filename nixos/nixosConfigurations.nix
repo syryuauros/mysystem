@@ -36,7 +36,7 @@
     jj' = jj.override {
             homeModules = [{
               xsession.initExtra = ''
-                xinput set-prop "HAILUCK CO.,LTD USB KEYBOARD Mouse" 325 0
+                # xinput set-prop "HAILUCK CO.,LTD USB KEYBOARD Mouse" 325 0
                 sl-antofagasta.sh
               '';
             }];
