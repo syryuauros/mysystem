@@ -27,7 +27,7 @@ in {
 
       substituters = [
         "http://10.10.100.6" # "http://haedosa.xyz:206" # "http://192.168.100.70"
-        "http://10.10.100.3" # "http://haedosa.xyz:203" # "http://192.168.100.97"
+        # "http://10.10.100.3" # "http://haedosa.xyz:203" # "http://192.168.100.97"
         "http://10.10.100.4" # "http://haedosa.xyz:204" # "http://192.168.100.101"
         "http://10.10.100.5" # "http://haedosa.xyz:205" # "http://192.168.100.102"
         # "http://10.10.100.1" # "http://haedosa.xyz:201" # "http://192.168.100.54"
@@ -43,7 +43,7 @@ in {
       trusted-public-keys = [
         # "builder1:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
         # "builder2:R7X06/w5h5SfUO4ZvTkkfIjHHEDhrOFYLoQjYVIrFLM="
-        "builder3:ICrJJg0EV8V5n90xghprYM7hEZg+dJ5T06gyaHqZtKU="
+        # "builder3:ICrJJg0EV8V5n90xghprYM7hEZg+dJ5T06gyaHqZtKU="
         "builder4:g2y9eiBfz+zWX6PGbXSxiRcJcW6+7RFZh0TXwF8cmcc="
         "builder5:+3i3teuBVBQXR47k9M0zLVmdzirKSGm9+9awX2jp+u0="
         "builder6:LoWfwaMHhw0E4FrXq3qlTvslOgZHh7fIPFVcfPy3UXo="
@@ -71,25 +71,9 @@ in {
     distributedBuilds = true;
     buildMachines = [
       {
-        hostName = "builder6";
-        system = "x86_64-linux";
-        maxJobs = 64;
-        speedFactor = 20;
-        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-        mandatoryFeatures = [ ];
-      }
-      {
-        hostName = "builder3";
-        system = "x86_64-linux";
-        maxJobs = 6;
-        speedFactor = 4;
-        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-        mandatoryFeatures = [ ];
-      }
-      {
         hostName = "builder4";
         system = "x86_64-linux";
-        maxJobs = 6;
+        maxJobs = 8;
         speedFactor = 4;
         supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         mandatoryFeatures = [ ];
@@ -97,11 +81,27 @@ in {
       {
         hostName = "builder5";
         system = "x86_64-linux";
-        maxJobs = 6;
+        maxJobs = 8;
         speedFactor = 4;
         supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         mandatoryFeatures = [ ];
       }
+      {
+        hostName = "builder6";
+        system = "x86_64-linux";
+        maxJobs = 32;
+        speedFactor = 20;
+        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+        mandatoryFeatures = [ ];
+      }
+      # {
+      #   hostName = "builder3";
+      #   system = "x86_64-linux";
+      #   maxJobs = 6;
+      #   speedFactor = 4;
+      #   supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      #   mandatoryFeatures = [ ];
+      # }
     ];
 
   };
