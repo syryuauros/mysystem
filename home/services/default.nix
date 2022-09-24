@@ -25,7 +25,7 @@
 
   services.screen-locker = {
     enable = true;
-    inactiveInterval = 120; # min
+    inactiveInterval = 60; # min
     lockCmd = "${pkgs.i3lock-fancy-rapid}/bin/i3lock-fancy-rapid 5 pixel";
   };
 
