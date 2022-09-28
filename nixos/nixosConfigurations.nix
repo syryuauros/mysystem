@@ -1,4 +1,4 @@
-{ mkNixosSystem, jj }:
+{ inputs, mkNixosSystem, jj }:
 {
 
   urubamba = mkNixosSystem {
@@ -22,6 +22,30 @@
       jj.nixosModule
       jj.homeModule
       { services.xserver.videoDrivers = [ "nvidia" "intel" ]; }
+      ({ config, pkgs, ... }: let
+          fmmdosa-api = inputs.fmmdosa-api.defaultPackage.${pkgs.system};
+        in {
+        systemd.services.fmmdosa-api = {
+          enable = true;
+          description = "fmmdosa-api";
+          wantedBy = ["multi-user.target"];
+          serviceConfig.ExecStart = "${fmmdosa-api}/bin/fmmdosa-api";
+        };
+        networking.firewall.allowedTCPPorts = [ 80 443 3000 ];
+        services.nginx = {
+          enable = true;
+          recommendedGzipSettings = true;
+          recommendedOptimisation = true;
+          recommendedProxySettings = true;
+          recommendedTlsSettings = true;
+          virtualHosts."fmmdosa-api" = {
+            # enableACME = true;
+            # addSSL = true;
+            locations."/fmmdosa-api".proxyPass =
+                "http://localhost:3000";
+          };
+        };
+      })
     ];
   };
 

@@ -86,14 +86,14 @@ in {
         supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         mandatoryFeatures = [ ];
       }
-      {
-        hostName = "builder6";
-        system = "x86_64-linux";
-        maxJobs = 32;
-        speedFactor = 20;
-        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-        mandatoryFeatures = [ ];
-      }
+      # {
+      #   hostName = "builder6";
+      #   system = "x86_64-linux";
+      #   maxJobs = 32;
+      #   speedFactor = 20;
+      #   supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+
+      # }
       # {
       #   hostName = "builder3";
       #   system = "x86_64-linux";

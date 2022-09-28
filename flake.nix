@@ -46,6 +46,9 @@
       url = "github:cid-chan/peerix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    fmmdosa-api.url = "git+ssh://git@github.com/haedosa/fmmdosa-api";
+
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, flake-utils, nur, ... }:
@@ -79,7 +82,7 @@
 
       overlays = import ./overlays { inherit inputs system; };
 
-      nixosConfigurations = import ./nixos/nixosConfigurations.nix { inherit mkNixosSystem jj; };
+      nixosConfigurations = import ./nixos/nixosConfigurations.nix { inherit inputs mkNixosSystem jj; };
 
       homeConfigurations = {
         jj = jj.homeConfiguration;
