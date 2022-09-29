@@ -73,7 +73,7 @@
     dmenu                # application launcher
     tree                 # display files in a tree view
     xclip                # clipboard support (also for neovim)
-    iftop                # network traffic monitoring
+    iftop nload         # network traffic monitoring
 
     screenlayout
     restart-xmonad
