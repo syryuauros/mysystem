@@ -1,4 +1,4 @@
-{ config, pkgs , lib , ... }:
+{ inputs, config, pkgs , lib , ... }:
 
 {
 
@@ -11,6 +11,7 @@
     ./firefox
     ./qutebrowser
     ./xscreensaver
+    ./doom-emacs
   ];
 
   programs.home-manager.enable = true;

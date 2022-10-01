@@ -17,7 +17,7 @@ in
 {
 
 
-  nix-doom-emacs = nix-doom-emacs.overlay;
+  # nix-doom-emacs = nix-doom-emacs.overlay;
   agenix = agenix.overlay;
   deploy-rs = deploy-rs.overlay;
   nur = nur.overlay;

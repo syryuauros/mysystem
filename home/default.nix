@@ -40,7 +40,7 @@
 
     # myemacs  # emacs is installed as emacs
     mymyemacs  # emacs is installed as myemacs
-    doom-emacs
+    # doom-emacs
     myvim
     mytmux
     mytex

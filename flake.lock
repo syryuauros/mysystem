@@ -2558,11 +2558,11 @@
         "zoxide": "zoxide"
       },
       "locked": {
-        "lastModified": 1661357843,
-        "narHash": "sha256-OkJB2MoM9asc066g08AiSx7C/xPVX+fNOVJ7Y2p0O1E=",
+        "lastModified": 1664594529,
+        "narHash": "sha256-phIC0Ar1tATRIrctkci/2FwDufguSnJSwSaRCq4B1qw=",
         "owner": "jjdosa",
         "repo": "nix-doom-emacs",
-        "rev": "a7acddf604ee61018d51987f664f112a3b23304f",
+        "rev": "3b9625dad0a287399153754be4b906faf179d0e9",
         "type": "github"
       },
       "original": {

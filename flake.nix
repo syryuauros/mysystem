@@ -35,6 +35,7 @@
 
     doom-private.url = "github:jjdosa/doom-private";
     doom-private.flake = false;
+
     nix-doom-emacs = {
       url = "github:jjdosa/nix-doom-emacs";
       inputs.nixpkgs.follows = "nixpkgs";
