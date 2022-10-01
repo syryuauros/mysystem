@@ -6,13 +6,13 @@ in {
 
   nix = {
 
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
 
     # Enable experimental version of nix with flakes support
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
-      ${lib.optionalString (config.nix.package == pkgs.nixFlakes)
+      ${lib.optionalString (config.nix.package == pkgs.nixVersions.stable)
       "experimental-features = nix-command flakes"}
       binary-caches-parallel-connections = 3
       connect-timeout = 3

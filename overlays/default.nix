@@ -34,7 +34,7 @@ in
         # (import ./packages/myplot/overlay.nix)
         (import ../packages/mytex/overlay.nix)
         (import ../packages/myscripts/overlay.nix)
-        (import ../packages/myhaskell/overlay.nix)
+        # (import ../packages/myhaskell/overlay.nix)
         (import ../packages/mypython/overlay.nix)
         (import ../packages/myjupyter/overlay.nix)
         (import ../packages/myjupyter/jupyter-overlay.nix {

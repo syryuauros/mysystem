@@ -85,7 +85,7 @@
     zoom-us
     google-chrome
     brave
-    gnome3.nautilus
+    gnome.nautilus
     libreoffice
     vlc
     obs-studio
@@ -138,8 +138,6 @@
     any-nix-shell
     nix-query-tree-viewer
     haskellPackages.nix-derivation # Inspecting .drv's
-
-    myhaskell-full
 
   ] ++ myfonts-collection;
 

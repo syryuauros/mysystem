@@ -4,11 +4,9 @@
 
   inputs = {
 
-    haedosa.url = "github:haedosa/flakes/2022-09-13";
-    nixpkgs.follows = "haedosa/nixpkgs-unstable";
+    haedosa.url = "github:haedosa/flakes";
+    nixpkgs.follows = "haedosa/nixpkgs";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    flake-utils.follows = "haedosa/flake-utils";
 
     # home-manager.follows = "haedosa/home-manager";
     home-manager = {
@@ -52,7 +50,7 @@
 
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, flake-utils, nur, ... }:
+  outputs = inputs@{ self, nixpkgs, ... }:
     let
 
       inherit (nixpkgs.lib) attrValues makeOverridable mapAttrs mapAttrs';
