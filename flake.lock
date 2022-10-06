@@ -922,11 +922,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1664426155,
-        "narHash": "sha256-9wA9dHFv1VHT0qv4GLWYJ1ryg/t3H1C2OMFk65aXkqs=",
+        "lastModified": 1664862220,
+        "narHash": "sha256-IbomqmUPe36p73QtTcOEyLAiiqfWCforIV10Lvn6qv8=",
         "ref": "master",
-        "rev": "df9b8db109a657a2d73c524db511d6fe221f8c1f",
-        "revCount": 1050,
+        "rev": "4b734d4ce8e1d5f26936935ff7a70fc9db3791bd",
+        "revCount": 1073,
         "type": "git",
         "url": "ssh://git@github.com/haedosa/fmmdosa.git"
       },
@@ -951,11 +951,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1664436276,
-        "narHash": "sha256-yIfCkrMlePBGTUppvReAY2ZeeWiNnUuc7Xr9c3dWVtU=",
+        "lastModified": 1665082557,
+        "narHash": "sha256-SAL3k5R/Ic+vCMElpfUlDSNI/A3ijgADGJ2GqfR3Wos=",
         "ref": "refs/heads/master",
-        "rev": "1fb264a69987afb6b4456729792b1e3399c2ab76",
-        "revCount": 19,
+        "rev": "1038a0d1d4a35163e4ea90d9e0bf5ceacc4170f2",
+        "revCount": 41,
         "type": "git",
         "url": "ssh://git@github.com/haedosa/fmmdosa-api"
       },
@@ -2462,11 +2462,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1663240800,
-        "narHash": "sha256-gQasjri/7HvHufUNLq43EIhWuLOgi0NDWiVYlMKGing=",
+        "lastModified": 1664452728,
+        "narHash": "sha256-2fgg9Qwd1CPVnRWfiasGfgcc2DAGSSnZH8rYACCTwZc=",
         "ref": "co-log",
-        "rev": "12876dcf2cfb6f7af0e411ceb57d4200310a70a9",
-        "revCount": 221,
+        "rev": "05ef79e2f6ffa986165ad59ad1a6f1ab9e368d14",
+        "revCount": 224,
         "type": "git",
         "url": "ssh://git@github.com/haedosa/mldosa.git"
       },
