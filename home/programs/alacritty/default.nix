@@ -28,8 +28,6 @@
 
       font = {
         size = 12.0;
-        use_thin_strokes = true;
-
         normal.family = "Mononoki Nerd Font";
         bold.family = "Mononoki Nerd Font";
         italic.family = "Mononoki Nerd Font";
