@@ -8,7 +8,6 @@
     nixpkgs.follows = "haedosa/nixpkgs";
     home-manager.follows = "haedosa/home-manager";
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
     # home-manager = {
     #   url = "github:nix-community/home-manager";
     #   inputs.nixpkgs.follows = "nixpkgs";
