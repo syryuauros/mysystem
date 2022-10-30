@@ -7,6 +7,7 @@
     # ./picom
      # ../../syncthing
     ./email
+    ./emanote.nix
   ];
 
   services.gpg-agent = {

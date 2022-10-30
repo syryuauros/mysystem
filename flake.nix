@@ -45,6 +45,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    emanote.url = "github:EmaApps/emanote";
+
     fmmdosa-api.url = "git+ssh://git@github.com/haedosa/fmmdosa-api";
 
   };
