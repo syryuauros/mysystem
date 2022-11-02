@@ -26,12 +26,10 @@ in {
     settings = {
 
       substituters = [
-        "http://10.10.100.6" # "http://haedosa.xyz:206" # "http://192.168.100.70"
-        # "http://10.10.100.3" # "http://haedosa.xyz:203" # "http://192.168.100.97"
-        "http://10.10.100.4" # "http://haedosa.xyz:204" # "http://192.168.100.101"
-        "http://10.10.100.5" # "http://haedosa.xyz:205" # "http://192.168.100.102"
-        # "http://10.10.100.1" # "http://haedosa.xyz:201" # "http://192.168.100.54"
-        # "http://10.10.100.2" # "http://haedosa.xyz:202" # "http://192.168.100.55"
+        "http://10.10.100.3" # "http://haedosa.xyz:203" # "http://192.168.50.3"
+        "http://10.10.100.6" # "http://haedosa.xyz:206" # "http://192.168.50.6"
+        "http://10.10.100.4" # "http://haedosa.xyz:204" # "http://192.168.50.4"
+        "http://10.10.100.5" # "http://haedosa.xyz:205" # "http://192.168.50.5"
         "https://cache.nixos.org/"
         "https://hydra.iohk.io"
         "https://cachix.cachix.org"
@@ -43,7 +41,7 @@ in {
       trusted-public-keys = [
         # "builder1:W5idzEOcUKokokJV6K/9yEKgAtUcBH3IIZ23yE+XW7k="
         # "builder2:R7X06/w5h5SfUO4ZvTkkfIjHHEDhrOFYLoQjYVIrFLM="
-        # "builder3:ICrJJg0EV8V5n90xghprYM7hEZg+dJ5T06gyaHqZtKU="
+        "builder3:ICrJJg0EV8V5n90xghprYM7hEZg+dJ5T06gyaHqZtKU="
         "builder4:g2y9eiBfz+zWX6PGbXSxiRcJcW6+7RFZh0TXwF8cmcc="
         "builder5:+3i3teuBVBQXR47k9M0zLVmdzirKSGm9+9awX2jp+u0="
         "builder6:LoWfwaMHhw0E4FrXq3qlTvslOgZHh7fIPFVcfPy3UXo="
@@ -78,6 +76,14 @@ in {
       #   supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       # }
       {
+        hostName = "builder3";
+        system = "x86_64-linux";
+        maxJobs = 6;
+        speedFactor = 4;
+        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+        mandatoryFeatures = [ ];
+      }
+      {
         hostName = "builder4";
         system = "x86_64-linux";
         maxJobs = 8;
@@ -93,14 +99,6 @@ in {
         supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
         mandatoryFeatures = [ ];
       }
-      # {
-      #   hostName = "builder3";
-      #   system = "x86_64-linux";
-      #   maxJobs = 6;
-      #   speedFactor = 4;
-      #   supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-      #   mandatoryFeatures = [ ];
-      # }
     ];
 
   };
@@ -109,27 +107,27 @@ in {
   programs.ssh.extraConfig = ''
     Host builder1
       HostName 10.10.100.1
-      User root
+      User jj
       IdentityFile ${key-for-builders}
     Host builder2
       HostName 10.10.100.2
-      User root
+      User jj
       IdentityFile ${key-for-builders}
     Host builder3
       HostName 10.10.100.3
-      User root
+      User jj
       IdentityFile ${key-for-builders}
     Host builder4
       HostName 10.10.100.4
-      User root
+      User jj
       IdentityFile ${key-for-builders}
     Host builder5
       HostName 10.10.100.5
-      User root
+      User jj
       IdentityFile ${key-for-builders}
     Host builder6
       HostName 10.10.100.6
-      User root
+      User jj
       IdentityFile ${key-for-builders}
   '';
 
