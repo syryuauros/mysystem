@@ -15,6 +15,7 @@ let
     init = {
       defaultBranch = "master";
     };
+    lfs.enable = true;
   };
 in
 {
