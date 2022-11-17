@@ -13,7 +13,7 @@ in {
     host = "127.0.0.1";
     port = 7000;
     notes = [
-      "${config.home.homeDirectory}/Ocean/Notes"
+      "${config.home.homeDirectory}/Dropbox/Notes"
     ];
   };
 
