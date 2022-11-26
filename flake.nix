@@ -59,7 +59,12 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
           inherit system;
-          config = { allowUnfree = true; };
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = [ # FIXME find a way to avoid this
+              "qtwebkit-5.212.0-alpha4"
+            ];
+          };
           overlays = attrValues self.overlays;
         };
       mylib = import ./lib inputs system pkgs;
