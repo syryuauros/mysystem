@@ -21,7 +21,7 @@
     modules = [
       jj.nixosModule
       jj.homeModule
-      inputs.fmmdosa-api.nixosModules.default
+      # inputs.fmmdosa-api.nixosModules.default
       { services.fmmdosa-api-service.enable = true; }
       { programs.fmmdosa.enable = true; }
       { services.xserver.videoDrivers = [ "nvidia" "intel" ]; }

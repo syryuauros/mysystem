@@ -47,7 +47,7 @@
 
     emanote.url = "github:EmaApps/emanote";
 
-    fmmdosa-api.url = "git+ssh://git@github.com/haedosa/fmmdosa-api";
+    # fmmdosa-api.url = "git+ssh://git@github.com/haedosa/fmmdosa-api";
 
   };
 
@@ -66,9 +66,16 @@
 
       inherit (mylib)
         mkUser
-        mkNixosSystem getToplevel
-        mkBootableUsbSystem getIsoImage
+        mkNixosSystem
+        mkBootableUsbSystem
         deploy-to-remote
+      ;
+      inherit (mylib.scripts)
+        install-over-ssh
+      ;
+      inherit (mylib.utils)
+        getToplevel
+        getIsoImage
       ;
 
       jj = makeOverridable mkUser
@@ -112,10 +119,22 @@
         default = pkgs.callPackage ./shell.nix {};
       };
 
-      apps.${system} = mapAttrs (name: config: {
-          type = "app";
-          program = "${packages.${system}."deploy-${name}"}/bin/deploy-${name}";
-        }) nixosConfigurations;
+      apps.${system} =
+        let
+          deploy-nixosConfigurations =
+            mapAttrs (name: config: {
+              type = "app";
+              program = "${packages.${system}."deploy-${name}"}/bin/deploy-${name}";
+            }) nixosConfigurations;
+          install-urubamba-over-ssh = {
+            type = "app";
+            program = "${install-over-ssh {
+              host = "192.168.68.81";
+              user = "jj";
+              evaled-config = nixosConfigurations.urubamba;
+            }}/bin/install-over-ssh.sh";
+          };
+        in deploy-nixosConfigurations // { inherit install-urubamba-over-ssh; };
 
       packages.${system} =
         let

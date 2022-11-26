@@ -5,6 +5,10 @@ let
   inherit (pkgs.lib) elemAt splitString;
   inherit (nixpkgs.lib) nixosSystem;
   inherit (home-manager.lib) homeManagerConfiguration;
+
+  utils = pkgs.callPackage ./utils.nix {};
+  scripts = import ./scripts.nix { inherit pkgs utils; };
+
 in
 {
 
@@ -108,53 +112,6 @@ in
       ];
     };
 
-  getToplevel = nixos-system: nixos-system.config.system.build.toplevel;
-  getIsoImage = nixos-system: nixos-system.config.system.build.isoImage;
-
-  deploy-to-remote =
-    { hostName ? "to-remote"
-    , nixos-toplevel
-    , remote
-    }:
-    let profile = "/nix/var/nix/profiles/system";
-    in pkgs.writeShellScriptBin "deploy-${hostName}" ''
-      nix copy ${nixos-toplevel} \
-        --to ssh://${remote} \
-        --no-check-sigs \
-        --experimental-features nix-command
-      ssh ${remote} sudo nix-env --profile ${profile} --set ${nixos-toplevel}
-      ssh ${remote} sudo ${profile}/bin/switch-to-configuration switch
-    '';
-
-  install-from-usb =
-    { mountPoint ? "/mnt"
-    , nixos-toplevel
-    }:
-    let profile = "${mountPoint}/nix/var/nix/profiles/system";
-    in pkgs.writeShellScriptBin "deploy-sh" ''
-      nix copy ${nixos-toplevel} \
-        --from / \
-        --to ${mountPoint} \
-        --no-check-sigs \
-        --experimental-features nix-command
-      nix-env --store ${mountPoint} \
-              --profile ${profile}  \
-              --set ${nixos-toplevel}
-      ${profile}/bin/switch-to-configuration switch
-      mkdir -m 0755 -p ${mountPoint}/etc
-      touch "${mountPoint}/etc/NIXOS"
-      ln -sfn /proc/mounts ${mountPoint}/etc/mtab
-      NIXOS_INSTALL_BOOTLOADER=1 nixos-enter --root "${mountPoint}" -- /run/current-system/bin/switch-to-configuration boot
-    '';
-
-  deploy-ssh-from-to = host: path: store:
-    let profile = "/nix/var/nix/profiles/system";
-    in pkgs.writeShellScriptBin "deploy-sh" ''
-      host="${host}"
-      store="${store}"
-      nix copy $store --from ssh://$host --to ${path}
-      nix-env --profile ${profile} --set $store
-      ${profile}/bin/switch-to-configuration switch
-    '';
+  inherit utils scripts;
 
 }
