@@ -6,6 +6,7 @@
     wg-ip = "10.10.0.2/32";
     modules = [ jj.nixosModule
                 jj.homeModule ];
+    # deploy-ip = "192.168.68.81";
   };
 
   lima = mkNixosSystem {
@@ -22,8 +23,8 @@
       jj.nixosModule
       jj.homeModule
       # inputs.fmmdosa-api.nixosModules.default
-      { services.fmmdosa-api-service.enable = true; }
-      { programs.fmmdosa.enable = true; }
+      # { services.fmmdosa-api-service.enable = true; }
+      # { programs.fmmdosa.enable = true; }
       { services.xserver.videoDrivers = [ "nvidia" "intel" ]; }
     ];
   };
