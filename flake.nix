@@ -64,7 +64,12 @@
         };
       mylib = import ./lib inputs system pkgs;
 
-      inherit (mylib) mkUser mkNixosSystem getToplevel usb-with-packages deploy-to-remote;
+      inherit (mylib)
+        mkUser
+        mkNixosSystem getToplevel
+        mkBootableUsbSystem getIsoImage
+        deploy-to-remote
+      ;
 
       jj = makeOverridable mkUser
         {
@@ -125,7 +130,11 @@
                 };
             }) nixosConfigurations;
           packages = nixosPackages // homePackages // deployScripts;
-        in packages // { usb = usb-with-packages (attrValues packages); };
+          install-usb = getIsoImage (mkBootableUsbSystem {
+                          hostName = "summoner";
+                          modules = [ jj.nixosModule ];
+                        });
+        in packages // { inherit install-usb; };
 
     };
 

@@ -20,29 +20,30 @@ in
     }:
     let
       extraSpecialArgs = {
-        inherit inputs outputs userId userName userEmail; };
+        inherit inputs outputs userId userName userEmail;
+      };
       homeModules' = [
-          inputs.myxmonad.hmModule
-          ../home
-        ] ++ homeModules;
+        inputs.myxmonad.hmModule
+        ../home
+      ] ++ homeModules;
     in {
 
       # For 'home-manager build/switch --flake' command
       homeConfiguration = homeManagerConfiguration {
-          inherit pkgs extraSpecialArgs;
-          modules = homeModules';
-        };
+        inherit pkgs extraSpecialArgs;
+        modules = homeModules';
+      };
 
       # To set 'home-manager.users = ' option in the nixos configuration
       homeModule = {
-          nixpkgs.pkgs = pkgs;
-          home-manager = {
-              users.${userId} = {
-                imports = homeModules';
-              };
-              inherit extraSpecialArgs;
+        nixpkgs.pkgs = pkgs;
+        home-manager = {
+            users.${userId} = {
+              imports = homeModules';
             };
-        };
+            inherit extraSpecialArgs;
+          };
+      };
 
       # To set 'user.users = ' option in the nixos configuration
       nixosModule = {
@@ -55,6 +56,7 @@ in
         };
       };
     };
+
 
   mkNixosSystem =
     { hostName
@@ -88,40 +90,26 @@ in
       ];
     } // { inherit deploy-ip; };
 
-  usb-with-packages = packages: (nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
+  mkBootableUsbSystem = { hostName , modules }:
+    nixpkgs.lib.nixosSystem {
+      inherit system pkgs;
+      specialArgs = {
+        inherit inputs outputs;
+      };
+      modules = modules ++ [
         ({ modulesPath, ...}: {
+          networking.hostName = hostName;
           imports = [
             # (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
             (modulesPath + "/installer/cd-dvd/installation-cd-graphical-gnome.nix")
           ];
         })
-        ({ config, lib, pkgs, ... }: {
-
-          system.stateVersion = "22.05";
-
-          environment.systemPackages = with pkgs; [
-            vim
-            curl
-            wget
-            pciutils
-            htop
-          ] ++ packages;
-
-          services.avahi.enable = true;
-          services.avahi.publish.enable = true;
-          services.avahi.publish.addresses = true;
-          services.avahi.publish.domain = true;
-          services.avahi.publish.userServices = true;
-          services.avahi.publish.workstation = true;
-          services.avahi.nssmdns = true;
-
-        })
+        (import ../nixos/usbConfiguration.nix)
       ];
-    }).config.system.build.isoImage;
+    };
 
   getToplevel = nixos-system: nixos-system.config.system.build.toplevel;
+  getIsoImage = nixos-system: nixos-system.config.system.build.isoImage;
 
   deploy-to-remote =
     { hostName ? "to-remote"

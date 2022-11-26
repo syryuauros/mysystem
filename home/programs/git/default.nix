@@ -22,8 +22,6 @@ in
   programs.git = {
     enable = true;
     inherit userName userEmail;
-    # userName = "JJ Kim";
-    # userEmail = "jj@haedosa.xyz";
     aliases = {
       amend = "commit --amend -m";
       br = "branch";

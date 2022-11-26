@@ -5,7 +5,6 @@
   nativeBuildInputs = with pkgs; [
     nix
     home-manager
-    git
     deploy-rs.deploy-rs
     age
   ];
