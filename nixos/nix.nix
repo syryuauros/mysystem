@@ -31,7 +31,7 @@ in {
         "http://10.10.100.4" # "http://haedosa.xyz:204" # "http://192.168.50.4"
         "http://10.10.100.5" # "http://haedosa.xyz:205" # "http://192.168.50.5"
         "https://cache.nixos.org/"
-        "https://hydra.iohk.io"
+        # "https://hydra.iohk.io"
         "https://cachix.cachix.org"
         "https://nix-community.cachix.org"
         "https://cuda-maintainers.cachix.org"
@@ -58,7 +58,6 @@ in {
       ];
 
       require-sigs = false;
-
     };
 
     gc = {
