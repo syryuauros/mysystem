@@ -7,8 +7,10 @@
     ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/sda";
 
   time.timeZone = "Asia/Seoul";
 
@@ -17,7 +19,10 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    trustedUsers = [ "root" "@admin" "@wheel" ];
+    settings = {
+      trusted-users = [ "jj" "root" "@admin" "@wheel" ];
+      require-sigs = false;
+    };
   };
 
   networking = {
@@ -65,7 +70,8 @@
   services.openssh.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
+  security.pam.enableSSHAgentAuth = true;
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "22.11";
 
 }

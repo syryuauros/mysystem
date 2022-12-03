@@ -65,13 +65,14 @@ in
   mkNixosSystem =
     { hostName
     , wg-ip
+    , wg-ip-hds1
     , deploy-ip ? elemAt (splitString "/" wg-ip) 0
     , modules
     }:
     nixpkgs.lib.nixosSystem {
       inherit system pkgs;
       specialArgs = {
-        inherit inputs outputs wg-ip;
+        inherit inputs outputs wg-ip wg-ip-hds1;
         wg-key = ../secrets/wg-${hostName}.age;
       };
       modules = [

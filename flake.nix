@@ -106,8 +106,8 @@
       };
 
       deploy = {
-        magicRollback = true;
-        autoRollback = true;
+        # magicRollback = true;
+        # autoRollback = true;
         fastConnection = true;
 
         sshUser = "jj";

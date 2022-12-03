@@ -20,7 +20,7 @@
     '';
 
 
-  switch-after-enter = evaled-config: mount-point:
+  switch-after-enter = { evaled-config, mount-point ? "/mnt", switch-command ? "switch" }:
     let
       inherit (evaled-config.config.system.build) toplevel;
     in ''
@@ -31,8 +31,8 @@
       export PATH=$PATH:"${toplevel}/sw/bin"
 
       sudo nix-env --store "${mount-point}" \
-              -p "${mount-point}/nix/var/nix/profiles/system" \
-              --set "${toplevel}"
+                   -p "${mount-point}/nix/var/nix/profiles/system" \
+                   --set "${toplevel}"
 
       sudo mkdir -m 0755 -p "${mount-point}/etc"
       sudo touch "${mount-point}/etc/NIXOS"
@@ -43,7 +43,7 @@
       sudo nixos-enter \
         --root "${mount-point}" \
         -- \
-        /run/current-system/bin/switch-to-configuration boot
+        /run/current-system/bin/switch-to-configuration ${switch-command}
 
       # TODO: GC
 
@@ -59,19 +59,26 @@
 
   remote-execution-over-ssh =
 
-    { host, user ? "root", private-key ? null, extraArgs ? [], trace ? true }:
+    { host, user ? "root", private-key ? null, remote-store ? null, extraArgs ? [], trace ? true }:
 
     script:
 
     let
+
+      inherit (builtins) split filter isString concatStringsSep;
+
       references = pkgs.writeStringReferencesToFile script;
       indent = "\t";
       script' = let
-        inherit (builtins) split filter isString concatStringsSep;
         lines = (if trace then [ "set -x\n" ] else []) ++ (filter isString (split "\n" script));
       in concatStringsSep "\n${indent}" lines;
       extraArgs' = (if ! isNull private-key then [ "-i ${private-key}" ] else []) ++ extraArgs;
-      store-uri = "ssh://${user}@${host}${if ! isNull private-key then "?ssh-key=${private-key}" else ""}";
+      store-uri = let
+        queries = concatStringsSep "" [
+          (if ! isNull private-key then "?ssh-key=${private-key}" else "")
+          (if ! isNull remote-store then "?remote-store=${remote-store}" else "")
+        ];
+      in "ssh://${user}@${host}${queries}";
     in ''
         ### remote-execution-over-ssh ###
 
