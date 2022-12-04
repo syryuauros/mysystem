@@ -73,10 +73,10 @@
         mkUser
         mkNixosSystem
         mkBootableUsbSystem
-        deploy-to-remote
       ;
       inherit (mylib.scripts)
         install-over-ssh
+        deploy-to-remote
       ;
       inherit (mylib.utils)
         getToplevel
@@ -158,7 +158,12 @@
                           hostName = "summoner";
                           modules = [ jj.nixosModule ];
                         });
-        in packages // { inherit install-usb; };
+          install-usb-nvidia = getIsoImage (mkBootableUsbSystem {
+                                 hostName = "summoner";
+                                 modules = [ jj.nixosModule ];
+                                 hasNvidia = true;
+                               });
+        in packages // { inherit install-usb install-usb-nvidia; };
 
     };
 

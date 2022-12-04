@@ -95,7 +95,7 @@ in
       ];
     } // { inherit deploy-ip; };
 
-  mkBootableUsbSystem = { hostName , modules }:
+  mkBootableUsbSystem = { hostName , modules, hasNvidia ? false }:
     nixpkgs.lib.nixosSystem {
       inherit system pkgs;
       specialArgs = {
@@ -110,6 +110,10 @@ in
           ];
         })
         (import ../nixos/usbConfiguration.nix)
+        ({ config, pkgs, lib, ... }:
+          if hasNvidia then {
+            services.xserver.videoDrivers = [ "nvidia" ];
+          } else {})
       ];
     };
 
