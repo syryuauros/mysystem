@@ -4,7 +4,7 @@
   urubamba = mkNixosSystem {
     hostName = "urubamba";
     wg-ip = "10.10.0.2/32";
-    wg-ip-hds1 = "10.20.0.2/32";
+    wg-ip-hds1 = "20.20.0.2/32";
     modules = [ jj.nixosModule
                 jj.homeModule
               ];
@@ -14,7 +14,7 @@
   lima = mkNixosSystem {
     hostName = "lima";
     wg-ip = "10.10.0.21/32";
-    wg-ip-hds1 = "10.20.0.21/32";
+    wg-ip-hds1 = "20.20.0.21/32";
     modules = [ jj.nixosModule
                 jj.homeModule ];
   };
@@ -22,7 +22,7 @@
   bogota = mkNixosSystem {
     hostName = "bogota";
     wg-ip = "10.10.0.22/32";
-    wg-ip-hds1 = "10.20.0.22/32";
+    wg-ip-hds1 = "20.20.0.22/32";
     modules = [
       jj.nixosModule
       jj.homeModule
@@ -36,7 +36,7 @@
   lapaz = mkNixosSystem {
     hostName = "lapaz";
     wg-ip = "10.10.0.23/32";
-    wg-ip-hds1 = "10.20.0.23/32";
+    wg-ip-hds1 = "20.20.0.23/32";
     modules = [ jj.nixosModule
                 jj.homeModule ];
   };
@@ -53,7 +53,7 @@
   in mkNixosSystem {
     hostName = "antofagasta";
     wg-ip = "10.10.0.24/32";
-    wg-ip-hds1 = "10.20.0.24/32";
+    wg-ip-hds1 = "20.20.0.24/32";
     modules = [
       jj.nixosModule
       jj'.homeModule

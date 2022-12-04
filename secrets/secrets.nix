@@ -22,7 +22,7 @@ in
   # pubkey = /P8HtebCmkXt+17xEeCsMpzsukG2ZpCm8Lh6jjsgRzo=
   "wg-bogota.age".publicKeys = [ jj bogota ];
 
-  # pubkey = GaDfcKdWItmWd3Raj3Ak5Kr5PNagVG4sCaQiBR3XIC0=
+  # pubkey = 35WCxg6asdsW7+v67RO9eG+/mVG4pbYz0bJtvxyR5Cc=
   "wg-lapaz.age".publicKeys = [ jj lapaz ];
 
    # pubkey = 9FS4y8jInY0xizUqAZvONoaTYL6ZN+MyngmPDi5HNHo=
