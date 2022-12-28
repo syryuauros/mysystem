@@ -1,4 +1,4 @@
-{ config, pkgs, userInfo, ... }:
+{ config, pkgs, ... }:
 
 let
   extraConfig = {
@@ -22,7 +22,8 @@ in
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
-    inherit (userInfo) userName userEmail;
+    userName = config.userInfo.name;
+    userEmail = config.userInfo.email;
     aliases = {
       amend = "commit --amend -m";
       pushall = "!git remote | xargs -L1 git push --all";

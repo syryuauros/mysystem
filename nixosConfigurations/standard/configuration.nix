@@ -1,11 +1,15 @@
-{ inputs, config, lib, pkgs, ... }: {
+{ inputs, config, lib, pkgs, ... }:
+let
+  inherit (inputs) agenix home-manager;
+in
+{
 
   imports = [
 
     # base configuration
     ../basic/configuration.nix
 
-    # standard configurations for all
+    # standard configurations
     ./nix.nix
     ./firewall.nix
     ./i18n.nix
@@ -20,6 +24,12 @@
     ./dbus.nix
     ./geoclue2.nix
     ./clipmenu.nix
+
+    # secret management
+    agenix.nixosModules.age
+
+    # home-manager
+    home-manager.nixosModules.home-manager
 
   ];
 

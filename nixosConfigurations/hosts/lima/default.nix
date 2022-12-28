@@ -37,15 +37,9 @@ in
     # kernel
     ./kernel.nix
 
-    # file system
+    # file systems
     ../../fileSystems/btrfs.nix
     ../../fileSystems/encrypted-root.nix
-
-    # secret management
-    agenix.nixosModules.age
-
-    # home-manager
-    home-manager.nixosModules.home-manager
 
     # host agnostic standard configurations
     ../../users
@@ -64,11 +58,5 @@ in
     ../../features/remote-build.nix
 
   ];
-
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  # high resolution screen
-  hardware.video.hidpi.enable = lib.mkDefault true;
 
 }

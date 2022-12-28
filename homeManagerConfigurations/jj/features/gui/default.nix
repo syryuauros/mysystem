@@ -5,8 +5,8 @@
   imports = [
     ./alacritty
     ./kitty
-    ./firefox
-    ./qutebrowser
+    # ./firefox
+    # ./qutebrowser
     ./rofi
     ./zathura.nix
     ./brave.nix
@@ -17,6 +17,7 @@
   programs.mpv.enable = true;
 
   home.packages = with pkgs; [
+    syncthing
   ];
 
 

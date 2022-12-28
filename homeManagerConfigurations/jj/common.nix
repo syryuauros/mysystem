@@ -2,6 +2,7 @@
 let
 
   inherit (builtins) attrValues;
+  inherit (inputs.self) homeManagerModules;
   overlays = attrValues inputs.self.overlays;
 
 in
@@ -9,12 +10,12 @@ in
 
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
-    # ./home-packages.nix
-    # ./programs
-    # ./services
-  ];
+  ] ++ (builtins.attrValues homeManagerModules);
 
-  home.username = userInfo.userAccount;
+  userInfo.name = "JJ Kim";
+  userInfo.email = "jj@haedosa.xyz";
+
+  home.username = "jj";
   home.homeDirectory = "/home/${config.home.username}";
   home.stateVersion = "22.11";
 

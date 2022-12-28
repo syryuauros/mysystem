@@ -12,7 +12,7 @@
     overrideFolders = true;
     devices = {
       lapaz = { id = "AYSSCDO-7QIMWCI-ZX6NL23-PAZCL4A-Y5RUZZX-USGFL3T-JRIJPBY-W4CU3AZ"; };
-      lima = { id = "EASXHWA-PYUGJDN-STOQU7D-6RUASQW-SC5YAFK-EPV4LW6-CSIDPH3-4N526A3"; };
+      lima = { id = "VYO7L22-RHVZOJA-VXORQSO-66RUZ3I-UHXWKLZ-ZKVC3IY-MQ7L3SM-J4JL4AO"; };
       bogota = { id = "35ND6IE-TNGZ5KH-U5SIL7L-RKAXD6S-GAXIWBT-KAPYXMD-FELWNBZ-HYXCFAS"; };
       mbp15 = { id = "IP22ZVB-ODDIJK5-JQIXGES-QHP6GNC-HBTMDP3-KLDHUPM-SHNIFN5-QKB7PA5"; };
       urubamba = { id = "W33RJBP-6JXMOPP-USEFKYU-U2EJWN4-YTLGXBF-ICQUEIV-RQZURFW-RKZZFAY"; };
@@ -22,7 +22,7 @@
 
       Ocean = {
         path = "/home/jj/Ocean";
-        devices = [ "lapaz" "lima" "bogota" "urubamba" "mbp15" "antofagasta" ];
+        devices = [ "lapaz" "lima" "bogota" "urubamba" "antofagasta" ];
         versioning = {
           type = "staggered";
           params = {
