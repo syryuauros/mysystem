@@ -1,15 +1,33 @@
-args@{ pkgs, utils }: let
+pkgs:
+let
 
-  inherit (utils) getToplevel;
+  utils = import ./utils.nix pkgs;
+  snippets = import ./snippets.nix pkgs;
 
-  inherit (import ./snippets.nix args)
-    mount-new-root
-    switch-after-enter
-    remote-execution-over-ssh
-  ;
+  inherit (utils) get-toplevel;
+
 
 in
 {
+
+  partition-format = pkgs.writeShellScriptBin "partition-format"
+    ''
+      if [ -z "$1" ]; then
+        echo -e "Please call '$0 <disk>' to run this command!\n"
+        exit 1
+      fi
+      disk=$1
+       ${snippets.partition-format { forced = "true"; disk = "\${disk}"; }}
+    '';
+
+  create-btrfs-subvolumes = pkgs.writeShellScriptBin "create-btrfs-subvolumes"
+    ''${snippets.create-btrfs-subvolumes { }}'';
+
+  mount-btrfs-subvolumes = pkgs.writeShellScriptBin "mount-btrfs-subvolumes"
+    ''${snippets.mount-btrfs-subvolumes { }}'';
+
+  switch-after-enter = system-toplevel: pkgs.writeShellScriptBin "switch-after-enter"
+    ''${snippets.switch-after-enter { inherit system-toplevel; }}'';
 
   deploy-to-remote =
     { hostName ? "to-remote"
@@ -60,51 +78,65 @@ in
 
   switch-over-ssh = {
     host
-    , evaled-config
+    , nixosConfiguration
     , user ? "jj"
     , extraScripts ? ""
     , switch-command ? "switch"
-  }:
-  let
-    toplevel = getToplevel evaled-config;
-    profile = "/nix/var/nix/profiles/system";
-    script =
-      remote-execution-over-ssh { inherit host user; } ''
-        sudo nix-env --profile "${profile}" --set "${toplevel}"
-        sudo ${profile}/bin/switch-to-configuration ${switch-command}
-        ${extraScripts}
-      '';
-  in pkgs.writeShellScriptBin "switch-over-ssh.sh" script;
+    }:
+    let
+      toplevel = get-toplevel nixosConfiguration;
+      profile = "/nix/var/nix/profiles/system";
+      script =
+        snippets.remote-execution-over-ssh { inherit host user; } ''
+          sudo nix-env --profile "${profile}" --set "${toplevel}"
+          sudo ${profile}/bin/switch-to-configuration ${switch-command}
+          ${extraScripts}
+        '';
+    in pkgs.writeShellScriptBin "switch-over-ssh.sh" script;
 
 
   # FIXME: this copies the closure into not /mnt/nix/store but /nix/store,
   #        which results in insufficient space error.
   install-over-ssh =
     { host
-    , evaled-config
+    , system-toplevel
     , user ? "root"
     , extraScripts ? ""
     , root-label ? "root"
     , boot-label ? "BOOT"
     , mount-point ? "/mnt"
+    , forced ? "false"
+    , disk ? "/dev/nvme0n1"
     }:
     let
-      toplevel = getToplevel evaled-config;
-      profile = "/nix/var/nix/profiles/system";
-      script =
-        remote-execution-over-ssh {
-          inherit host user;
-          extraArgs = ["-o StrictHostKeyChecking=no"
-                       "-o UserKnownHostsFile=/dev/null"
-                       "-o \"ServerAliveInterval 2\"" ];
-          remote-store = mount-point;
-        } ''
+      inherit (snippets)
+        partition-format
+        create-btrfs-subvolumes
+        mount-btrfs-subvolumes
+        switch-after-enter;
 
-          ${mount-new-root { inherit root-label boot-label mount-point; }}
-          ${switch-after-enter { inherit evaled-config mount-point; }}
+      remote-script =
+        snippets.remote-execution-over-ssh {
+          inherit host user;
+          remote-store = "/mnt";
+        }
+        ''
+          ${partition-format { inherit forced disk; }}
+          ${create-btrfs-subvolumes { inherit root-label boot-label mount-point; }}
+          ${mount-btrfs-subvolumes { inherit root-label boot-label mount-point; }}
+          ${switch-after-enter { inherit system-toplevel; }}
           ${extraScripts}
         '';
-    in pkgs.writeShellScriptBin "install-over-ssh.sh" script;
+
+    in pkgs.writeShellScriptBin "install-over-ssh.sh"
+        ''
+          system-toplevel=$1
+          host=$2
+          disk=$3
+          forced=$4
+          ${pkgs.nixFlakes}/bin/nix copy ''${system-toplevel} --to root@host?remote-store=/mnt
+          ${remote-script "\${system-toplevel}" "\${host}" "\${disk}" "\${forced}"}
+        '';
 
 
 }

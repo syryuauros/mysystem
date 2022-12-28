@@ -6,8 +6,8 @@ let
   inherit (nixpkgs.lib) nixosSystem;
   inherit (home-manager.lib) homeManagerConfiguration;
 
-  utils = pkgs.callPackage ./utils.nix {};
-  scripts = import ./scripts.nix { inherit pkgs utils; };
+  utils = import ./utils.nix pkgs;
+  scripts = import ./scripts.nix pkgs;
 
 in
 {

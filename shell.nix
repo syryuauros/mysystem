@@ -1,5 +1,4 @@
-{ pkgs ? let flake = builtins.getFlake (toString ./.);
-         in import flake.inputs.nixpkgs { overlays = [ flake.overlay ]; }
+{ pkgs ? import ./pkgs.nix {}
 }: pkgs.mkShell {
   NIX_CONFIG = "experimental-features = nix-command flakes";
   nativeBuildInputs = with pkgs; [
