@@ -37,6 +37,9 @@
     # control becomes esc when pressed alone
     ./features/xcape.nix
 
+    # editors of my choice
+    ./features/doom-emacs
+
     # window manager of my choice
     ./features/xmonad.nix
 
