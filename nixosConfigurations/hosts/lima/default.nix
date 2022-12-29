@@ -54,6 +54,7 @@ in
     ../../features/syncthing.nix
     ../../features/substituters/hds0.nix
     ../../features/remote-build.nix
+    ../../features/quietboot
 
   ];
 

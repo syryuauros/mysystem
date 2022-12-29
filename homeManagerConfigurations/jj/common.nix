@@ -1,3 +1,7 @@
+{ inputs, lib, ... }:
+let
+  inherit (inputs.nix-colors) colorSchemes;
+in
 {
 
   imports = [
@@ -39,10 +43,12 @@
 
     # editors of my choice
     ./features/doom-emacs
+    ./features/neovim
 
     # window manager of my choice
     ./features/xmonad.nix
 
   ];
 
+  colorscheme = lib.mkDefault colorSchemes.dracula;
 }

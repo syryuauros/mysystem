@@ -10,6 +10,7 @@ in
 
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
+    inputs.nix-colors.homeManagerModule
   ] ++ (builtins.attrValues homeManagerModules);
 
   userInfo.name = "JJ Kim";
