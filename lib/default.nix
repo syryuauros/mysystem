@@ -5,7 +5,7 @@ let
   get-isoimage = nixos: nixos.config.system.build.isoImage;
 
   get-boot-essential = nixosConfiguration:
-    let build = nixosConfiguration.config.system.build;
+    let inherit (nixosConfiguration.config.system) build;
     in {
       kernel = "${build.toplevel}/kernel";
       initrd = "${build.netbootRamdisk or build.toplevel}/initrd";

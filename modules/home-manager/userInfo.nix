@@ -1,9 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 let
-
   inherit (lib) mkOption types;
-  cfg = config.userInfo;
-
 in {
   options.userInfo = mkOption {
     type = types.submodule {

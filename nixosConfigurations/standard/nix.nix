@@ -1,8 +1,5 @@
-{ lib, pkgs, config, inputs, ... }: let
-
-  key-for-builders = "/home/jj/.ssh/id_ed25519";
-
-in {
+{ lib, pkgs, config, inputs, ... }:
+{
 
   nix = {
 

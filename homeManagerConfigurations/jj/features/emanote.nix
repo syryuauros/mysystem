@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ... }: let
+{ inputs, config, pkgs, ... }: let
 
   emanote = inputs.emanote.packages.${pkgs.system}.default;
 

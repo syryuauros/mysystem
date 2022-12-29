@@ -8,7 +8,7 @@ rec
 {
 
   partition-format =
-    { disk, forced, root-label ? "root", boot-label ? "BOOT", mount-point ? "/mnt" }:
+    { disk, forced, root-label ? "root", boot-label ? "BOOT" }:
     ''
       ### partition-format ###
       ### https://nixos.org/manual/nixos/stable/index.html#sec-installation-manual-partitioning
@@ -49,7 +49,7 @@ rec
       ########################################
     '';
 
-  create-btrfs-subvolumes = { root-label ? "root", boot-label ? "BOOT", mount-point ? "/mnt" }:
+  create-btrfs-subvolumes = { root-label ? "root", mount-point ? "/mnt" }:
     ''
       ### create subvolumes ###
 
@@ -150,8 +150,8 @@ rec
     let
       store-uri = let
         queries = concatStringsSep "" [
-          (if ! isNull private-key then "?ssh-key=${private-key}" else "")
-          (if ! isNull remote-store then "?remote-store=${remote-store}" else "")
+          (if private-key != null then "?ssh-key=${private-key}" else "")
+          (if remote-store != null then "?remote-store=${remote-store}" else "")
         ];
       in "ssh://${user}@${host}${queries}";
     in
@@ -184,7 +184,7 @@ rec
       extraArgs' = [ "-o StrictHostKeyChecking=no"
                      "-o UserKnownHostsFile=/dev/null"
                      "-o \"ServerAliveInterval 2\""
-                   ] ++ (if ! isNull private-key then [ "-i ${private-key}" ] else []) ++
+                   ] ++ (if private-key != null then [ "-i ${private-key}" ] else []) ++
                    extraArgs;
 
     in ''

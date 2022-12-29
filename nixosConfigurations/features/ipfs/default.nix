@@ -46,7 +46,7 @@ in {
     file = ../../secrets/ipfs-swarm-key.age;
     path = cfg.dataDir + "/swarm.key";
     owner = cfg.user;
-    group = cfg.group;
+    inherit (cfg) group;
     symlink = false;
   };
 

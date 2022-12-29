@@ -1,4 +1,4 @@
-{ config, pkgs, modulesPath, inputs, ... }:
+{ pkgs, modulesPath, inputs, ... }:
 let
   mypackages = inputs.self.packages.${pkgs.system};
   mylib = import ../../../lib pkgs;

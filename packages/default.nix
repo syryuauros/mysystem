@@ -10,7 +10,7 @@ let
   inherit (mylib) get-toplevel get-isoimage;
 
   nixosSystems =
-    (mapAttrs (_ :value: get-toplevel value) nixosConfigurations) // {
+    (mapAttrs (_ : get-toplevel) nixosConfigurations) // {
       iguazu = get-isoimage nixosConfigurations.iguazu;
       usb = get-isoimage nixosConfigurations.usb;
     };

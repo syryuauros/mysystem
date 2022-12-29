@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 let
   mypackages = inputs.self.packages.${pkgs.system};
 in

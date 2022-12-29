@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, ... }:
+{ inputs, ... }:
 let
   inherit (inputs) agenix home-manager;
 in

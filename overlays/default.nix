@@ -1,6 +1,6 @@
 {
 
-  mylib = final: prev: {
+  mylib = final: _: {
     mylib = import ../lib final;
   };
 

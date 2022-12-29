@@ -1,4 +1,4 @@
-{ name ? "haesoda" , primary ? false, ... }@all: let
+{ name ? "haesoda", ... }@all: let
 
   address = "jj@haedosa.xyz";
 

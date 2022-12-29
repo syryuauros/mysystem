@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, userInfo, ... }:
+{ config, inputs, userInfo, ... }:
 let
 
   inherit (builtins) attrValues;
@@ -23,7 +23,7 @@ in
     inherit overlays;
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
       permittedInsecurePackages = [ # TODO: remove this
         "qtwebkit-5.212.0-alpha4"
       ];

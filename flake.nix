@@ -53,17 +53,11 @@
 
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
+  outputs = inputs@{ nixpkgs, ... }:
   let
 
-    inherit (nixpkgs.lib)
-      makeOverridable
-      attrValues genAttrs filterAttrs
-      mapAttrs mapAttrs';
-
-    inherit (builtins) elem;
-    inherit (self) outputs;
-    notBroken = x: !(x.meta.broken or false);
+    inherit (nixpkgs.lib) genAttrs;
+    # notBroken = x: !(x.meta.broken or false);
     supportedSystems = [ "x86_64-linux" ];
     forAllSystems = genAttrs supportedSystems;
     # pkgsFor = forAllSystems (system: import nixpkgs {
@@ -120,7 +114,7 @@
 
     homeManagerModules = import ./modules/home-manager;
 
-    packages = forAllSystems (system: import ./packages inputs system);
+    packages = forAllSystems (import ./packages inputs);
 
     devShells = forAllSystems (system: {
       default = import ./shell.nix { pkgs = pkgsFor system; };

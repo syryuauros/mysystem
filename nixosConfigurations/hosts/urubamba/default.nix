@@ -1,24 +1,59 @@
-{ config, lib, pkgs, inputs, modulesPath, ... }:
+{ inputs, modulesPath, ... }:
+let
 
+  hds0-wireguard = import ../../features/wireguard.nix {
+    name = "hds0";
+    port = 51821;
+    wg-key = ../../../secrets/wg-lima.age;
+    wg-ips = [ "10.10.0.2/32" ];
+    allowedIPs = [ "10.10.0.0/16" ];
+  };
+
+  hds1-wireguard = import ../../features/wireguard.nix {
+    name = "hds1";
+    port = 51820;
+    wg-key = ../../../secrets/wg-lima.age;
+    wg-ips = [ "20.20.0.2/32" ];
+    allowedIPs = [ "20.20.0.0/16" ];
+  };
+
+in
 {
 
-  system.stateVersion = "22.11";
   networking.hostName = "urubamba";
 
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
 
+    # hardware
+    (modulesPath + "/installer/scan/not-detected.nix")
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
-    inputs.agenix.nixosModules.age
 
+    # bootloader
+    ./bootloader.nix
+
+    # kernel
+    ./kernel.nix
+
+    # file systems
+    ../../fileSystems/ext4.nix
+
+    # host agnostic standard configurations
     ../../users
     ../../standard/configuration.nix
 
-    ../../fileSystems/ext4.nix
-  ];
+    # wireguard networks
+    hds0-wireguard
+    hds1-wireguard
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+    # features
+    ../../features/xserver.nix
+    ../../features/avahi.nix
+    ../../features/dropbox.nix
+    ../../features/syncthing.nix
+    ../../features/substituters/hds0.nix
+    ../../features/remote-build.nix
+
+  ];
 
 }

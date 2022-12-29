@@ -8,20 +8,24 @@ let
   pkgsFor = system: import ../pkgs.nix { inherit inputs system; };
 
 
+  # TODO: not finished
   remote-install = system: nixos:
     let
       pkgs = pkgsFor system;
-      path = (deploy-rs.lib.${system}.activate.nixos nixos);
+      path = activate-nixos nixos;
       snippets = import ../lib/snippets.nix pkgs;
       script = pkgs.writeShellScriptBin "remote-install" ''
                  ${snippets.partition-format { forced = "false"; disk = "/dev/nvme0n1"; }}
                  ${snippets.create-btrfs-subvolumes { }}
                  ${snippets.mount-btrfs-subvolumes { }}
-              '';
-    in deploy-rs.lib.${system}.activate.custom script "./bin/remote-install";
 
-  activate-nixos = system: nixos: deploy-rs.lib.${system}.activate.nixos nixos;
-  activate-home = system: home: deploy-rs.lib."x86_64-linux".activate.home-manager home;
+                 ${path}/activate
+              '';
+    in activate-custom script "./bin/remote-install";
+
+  activate-nixos = system: deploy-rs.lib.${system}.activate.nixos;
+  activate-home = system: deploy-rs.lib.${system}.activate.home-manager;
+  activate-custom = system: deploy-rs.lib.${system}.activate.custom;
 
 in
 {
@@ -37,7 +41,7 @@ in
 
   nodes = {
 
-    lima-install = {
+    lima-install = { # TODO: not finished
       hostname = "192.168.50.101";
       sshUser = "jj";
       user = "root";

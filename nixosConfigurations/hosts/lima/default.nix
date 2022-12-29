@@ -1,7 +1,5 @@
-{ config, lib, pkgs, inputs, modulesPath, ... }:
+{ inputs, modulesPath, ... }:
 let
-
-  inherit (inputs) agenix home-manager;
 
   hds0-wireguard = import ../../features/wireguard.nix {
     name = "hds0";

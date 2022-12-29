@@ -1,4 +1,4 @@
-{ pkgs, runCommand, nerdfonts }:
+{ runCommand, nerdfonts }:
 let
 
   mkFont = path: runCommand "myfont" {} ''

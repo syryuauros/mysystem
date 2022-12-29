@@ -1,4 +1,4 @@
-{ name, port, wg-key, wg-ips, allowedIPs } : { config, lib, pkgs, ... }:
+{ name, port, wg-key, wg-ips, allowedIPs } : { config, ... }:
 
 {
   networking.firewall = {
@@ -15,7 +15,7 @@
       peers = [
         {
           publicKey = "i0ZorMa8S9fT8/TI/U01K5HGhYPGRESnrq36k2I7MBU=";
-          allowedIPs = allowedIPs;
+          inherit allowedIPs;
           endpoint = "121.136.244.64:${toString port}";
           persistentKeepalive = 25;
         }
