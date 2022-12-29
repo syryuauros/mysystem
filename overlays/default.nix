@@ -1,7 +1,8 @@
 {
 
-
-
+  mylib = final: prev: {
+    mylib = import ../lib final;
+  };
 
 }
 # { inputs, system }:

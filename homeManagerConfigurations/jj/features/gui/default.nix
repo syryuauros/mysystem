@@ -1,5 +1,7 @@
-{ config, lib, pkgs, ... }:
-
+{ config, lib, pkgs, inputs, ... }:
+let
+  mypackages = inputs.self.packages.${pkgs.system};
+in
 {
 
   imports = [
@@ -44,7 +46,12 @@
     solaar                # Linux device manager for the Logitech Unifying Receiver
 
     sweethome3d.application
-  ];
+  ] ++
+  (with mypackages; [
+    screenlayout
+    mysetxkbmap
+    dmenu-scripts
+  ]);
 
 
   xsession.enable = true;

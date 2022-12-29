@@ -1,7 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 let
   mypackages = inputs.self.packages.${pkgs.system};
-  inherit (mypackages) mytmux;
 in
 {
 
@@ -58,7 +57,10 @@ in
     nload             # network traffic monitoring
     bandwhich         # display current network utilization
     magic-wormhole    # Securely and simply transfer data between computers
-    mytmux            # tmux with my customization
-  ];
+  ] ++
+  (with mypackages; [
+    tmux
+    tex
+  ]);
 
 }

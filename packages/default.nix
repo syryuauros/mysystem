@@ -4,34 +4,28 @@ let
   inherit (inputs.self) nixosConfigurations;
 
   pkgs = import ../pkgs.nix { inherit inputs system; };
-  utils = pkgs.callPackage ../lib/utils.nix {};
+  mylib = import ../lib pkgs;
 
   inherit (builtins) mapAttrs;
-  inherit (utils) get-toplevel get-isoimage;
+  inherit (mylib) get-toplevel get-isoimage;
 
   nixosSystems =
-    (mapAttrs (_ :value: get-toplevel value) nixosConfigurations)
-    // { iguazu = get-isoimage nixosConfigurations.iguazu;
-         usb = get-isoimage nixosConfigurations.usb;
-       };
+    (mapAttrs (_ :value: get-toplevel value) nixosConfigurations) // {
+      iguazu = get-isoimage nixosConfigurations.iguazu;
+      usb = get-isoimage nixosConfigurations.usb;
+    };
 
-  scripts = import ../lib/scripts.nix pkgs;
+  inherit (pkgs) callPackage;
 
-  myfonts = pkgs.callPackage ./myfonts {};
-
-  mytmux = pkgs.callPackage ./mytmux {};
+  tmux = callPackage ./tmux {};
+  tex = callPackage ./tex {};
+  myfonts = callPackage ./myfonts {};
+  myscripts = callPackage ./myscripts {};
 
 in nixosSystems
 // myfonts
+// myscripts
 //
 {
-  inherit mytmux;
-  # inherit myfonts;
-  # inherit pkgs;
-  # inherit (scripts)
-  #   partition-format
-  #   create-btrfs-subvolumes
-  #   mount-btrfs-subvolumes
-    # install-over-ssh
-  # ;
+  inherit tmux tex;
 }

@@ -1,15 +1,15 @@
 { config, pkgs, modulesPath, inputs, ... }:
 let
+  mypackages = inputs.self.packages.${pkgs.system};
+  mylib = import ../../../lib pkgs;
 
   inherit (inputs.self) nixosConfigurations;
-
-  utils = import ../../../lib/utils.nix pkgs;
-  scripts = import ../../../lib/scripts.nix pkgs;
-  snippets = import ../../../lib/snippets.nix pkgs;
+  inherit (mylib) get-toplevel snippets;
+  inherit (mypackages) myinstall;
 
   switch-to-garganta =
     let
-      garganta = utils.get-toplevel nixosConfigurations.garganta;
+      garganta = get-toplevel nixosConfigurations.garganta;
     in
     pkgs.writeShellScriptBin "switch-to-garganta" ''
       ${snippets.create-btrfs-subvolumes { }}
@@ -34,9 +34,9 @@ in
     gparted
     nix-prefetch-scripts
 
-    scripts.partition-format
-    scripts.create-btrfs-subvolumes
-    scripts.mount-btrfs-subvolumes
+    myinstall.partition-format
+    myinstall.create-btrfs-subvolumes
+    myinstall.mount-btrfs-subvolumes
     switch-to-garganta
   ];
 
