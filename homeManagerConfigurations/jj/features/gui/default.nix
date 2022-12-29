@@ -12,12 +12,38 @@
     ./brave.nix
     ./xdg.nix
     ./fonts.nix
+    ./images.nix
+    ./pdfs.nix
+    ./videos.nix
   ];
 
-  programs.mpv.enable = true;
-
   home.packages = with pkgs; [
-    syncthing
+
+    networkmanager_dmenu
+    networkmanagerapplet
+
+    xorg.xkbcomp           # keymaps modifier
+    xorg.xrandr            # display manager (X Resize and Rotate protocol)
+    xorg.xev
+    arandr
+    xdotool
+
+    acpilight              # xbacklight drop-in replacement; adjust display brightness
+    pavucontrol            # control audio in/out
+    i3lock-fancy-rapid
+
+    libreoffice
+    zoom-us
+    gnome.nautilus
+    trayer
+
+    # virtualbox
+    anydesk
+    slack
+    kotatogram-desktop
+    solaar                # Linux device manager for the Logitech Unifying Receiver
+
+    sweethome3d.application
   ];
 
 

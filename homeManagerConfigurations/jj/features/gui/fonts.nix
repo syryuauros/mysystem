@@ -1,13 +1,18 @@
 { config, lib, pkgs, inputs, ... }:
 let
 
-  myfonts = pkgs.callPackage ../../../../packages/myfonts {};
+  mypackages = inputs.self.packages.${pkgs.system};
+
+  inherit (mypackages)
+    noto-sans-kr
+    seoul-hangan
+    mynerdfonts
+  ;
 
 in
 {
 
-  home.packages = with pkgs; with myfonts; [
-    # myfonts
+  home.packages = with pkgs; [
     noto-sans-kr
     # noto-serif-kr
     # nerdfonts

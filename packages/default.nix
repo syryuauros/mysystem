@@ -19,10 +19,13 @@ let
 
   myfonts = pkgs.callPackage ./myfonts {};
 
+  mytmux = pkgs.callPackage ./mytmux {};
+
 in nixosSystems
 // myfonts
 //
 {
+  inherit mytmux;
   # inherit myfonts;
   # inherit pkgs;
   # inherit (scripts)

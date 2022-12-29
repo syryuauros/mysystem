@@ -4,7 +4,6 @@
 
   imports = [
     ./common.nix
-    ./features/cli
   ];
 
 }

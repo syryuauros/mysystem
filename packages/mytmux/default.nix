@@ -1,12 +1,5 @@
-{ runCommand, makeWrapper, tmux }
-:
-let
+{ runCommand, makeWrapper, tmux }:
 
-  name    = "myTmux";
-  inBin   = "${tmux}/bin/tmux";
-  outBin  = "$out/bin/tmux";
-  env = { buildInputs = [ makeWrapper ]; };
-  cmdHead = "makeWrapper ${inBin} ${outBin} ";
-  cmdTail = ''--add-flags "-f ${./tmux.conf}"'';
-
-in runCommand name env (cmdHead + cmdTail)
+runCommand "mytmux" { buildInputs = [ makeWrapper ]; } ''
+  makeWrapper ${tmux}/bin/tmux $out/bin/tmux --add-flags "-f ${./tmux.conf}"
+''

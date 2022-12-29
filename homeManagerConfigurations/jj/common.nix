@@ -1,40 +1,45 @@
-{ config, pkgs, lib, inputs, userInfo, ... }:
-let
-
-  inherit (builtins) attrValues;
-  inherit (inputs.self) homeManagerModules;
-  overlays = attrValues inputs.self.overlays;
-
-in
 {
 
   imports = [
-    inputs.impermanence.nixosModules.home-manager.impermanence
-  ] ++ (builtins.attrValues homeManagerModules);
 
-  userInfo.name = "JJ Kim";
-  userInfo.email = "jj@haedosa.xyz";
+    # base home configurations
+    ./base.nix
 
-  home.username = "jj";
-  home.homeDirectory = "/home/${config.home.username}";
-  home.stateVersion = "22.11";
+    # cli applications
+    ./features/cli
 
-  nixpkgs = {
-    inherit overlays;
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = (_: true);
-      permittedInsecurePackages = [ # TODO: remove this
-        "qtwebkit-5.212.0-alpha4"
-      ];
-    };
-  };
+    # gui applications
+    ./features/gui
 
-  home.sessionVariables = {
-    EDITOR = "emacsclient -c";
-    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
-    # PATH = "$PATH:${builtins.getEnv "HOME"}/.emacs.d/bin:${builtins.getEnv "HOME"}/.radicle/bin";
-  };
+    # nix related tools
+    ./features/nix.nix
 
+    # dependent type language
+    ./features/agda.nix
+
+    # personal note live server
+    ./features/emanote.nix
+
+    # screenshot
+    ./features/flameshot.nix
+
+    ./features/gpg-agent.nix
+    ./features/kdeconnect.nix
+    ./features/networkmanager.nix
+    ./features/redshift.nix
+
+    # screen lock
+    ./features/screen-locker.nix
+
+    ./features/syncthing.nix
+    ./features/udiskie.nix
+
+    # control becomes esc when pressed alone
+    ./features/xcape.nix
+
+    # window manager of my choice
+    ./features/xmonad.nix
+
+  ];
 
 }
