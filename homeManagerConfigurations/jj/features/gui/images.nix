@@ -9,7 +9,8 @@
     graphviz
     gphoto2
     sxiv
-    zgrviewer
+    nsxiv
+    zgrviewer     # svg viewer
   ];
 
 }
