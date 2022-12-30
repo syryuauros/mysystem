@@ -4,7 +4,7 @@
 
   inputs = {
 
-    haedosa.url = "github:haedosa/flakes";
+    # haedosa.url = "github:haedosa/flakes";
     # nixpkgs.follows = "haedosa/nixpkgs";
     # home-manager.follows = "haedosa/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -52,8 +52,6 @@
     };
 
     emanote.url = "github:EmaApps/emanote";
-
-    # fmmdosa-api.url = "git+ssh://git@github.com/haedosa/fmmdosa-api";
 
   };
 
