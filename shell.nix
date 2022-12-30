@@ -6,5 +6,6 @@
     home-manager
     deploy-rs.deploy-rs
     age
+    agenix
   ];
 }

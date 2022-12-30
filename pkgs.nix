@@ -5,9 +5,9 @@
 , overlays ? []
 }:
 let
-  inherit (inputs) nixpkgs deploy-rs;
+  inherit (inputs) nixpkgs deploy-rs agenix;
 in
 import nixpkgs {
   inherit system;
-  overlays = [ deploy-rs.overlay ] ++ overlays;
+  overlays = [ deploy-rs.overlay agenix.overlay ] ++ overlays;
 }
