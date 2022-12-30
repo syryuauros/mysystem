@@ -5,11 +5,11 @@ in
 {
 
   imports = [
+    agenix.nixosModules.age
+    home-manager.nixosModules.home-manager
 
-    # base configuration
     ../basic/configuration.nix
 
-    # standard configurations
     ./nix.nix
     ./firewall.nix
     ./i18n.nix
@@ -24,12 +24,7 @@ in
     ./dbus.nix
     ./geoclue2.nix
     ./clipmenu.nix
-
-    # secret management
-    agenix.nixosModules.age
-
-    # home-manager
-    home-manager.nixosModules.home-manager
+    ./lidSwitch.nix
 
   ];
 

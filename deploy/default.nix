@@ -64,6 +64,24 @@ in
       };
     };
 
+    lapaz = {
+      hostname = "10.10.0.23";
+      profiles.system.path = activate-nixos "x86_64-linux" nixosConfigurations.lapaz;
+      profiles."jj" = {
+        user = "jj";
+        path = activate-home "x86_64-linux" homeManagerConfigurations."jj@lapaz";
+      };
+    };
+
+    bogota = {
+      hostname = "10.10.0.22";
+      profiles.system.path = activate-nixos "x86_64-linux" nixosConfigurations.bogota;
+      profiles."jj" = {
+        user = "jj";
+        path = activate-home "x86_64-linux" homeManagerConfigurations."jj@bogota";
+      };
+    };
+
   };
 
 }

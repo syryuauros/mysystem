@@ -22,7 +22,6 @@ let
   myfonts = callPackage ./myfonts {};
   myscripts = callPackage ./myscripts {};
 
-
 in nixosSystems
 // myfonts
 // myscripts

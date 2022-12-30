@@ -19,5 +19,16 @@ in
     modules = [ ./jj/urubamba.nix ];
   };
 
+  "jj@lapaz" = homeManagerConfiguration {
+    pkgs = nixpkgs.legacyPackages."x86_64-linux";
+    extraSpecialArgs = { inherit inputs; };
+    modules = [ ./jj/lapaz.nix ];
+  };
+
+  "jj@bogota" = homeManagerConfiguration {
+    pkgs = nixpkgs.legacyPackages."x86_64-linux";
+    extraSpecialArgs = { inherit inputs; };
+    modules = [ ./jj/bogota.nix ];
+  };
 
 }

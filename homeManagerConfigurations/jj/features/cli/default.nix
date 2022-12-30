@@ -61,6 +61,7 @@ in
   (with mypackages; [
     tmux
     tex
+    trim-generations
   ]);
 
 }
