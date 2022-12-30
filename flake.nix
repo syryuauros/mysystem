@@ -65,7 +65,8 @@
     forAllSystems = genAttrs supportedSystems;
     pkgsFor = system: import ./pkgs.nix { inherit inputs system; };
 
-  in rec {
+  in
+  {
 
     overlays = import ./overlays;
 

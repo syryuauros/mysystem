@@ -53,9 +53,8 @@ in
     ../../features/syncthing.nix
     ../../features/substituters/hds0.nix
     ../../features/remote-build.nix
+    ../../features/nvidia.nix
 
   ];
-
-  services.xserver.videoDrivers = [ "nvidia" "intel" ];
 
 }
