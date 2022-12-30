@@ -30,21 +30,19 @@ let
 in
 {
 
-  magicRollback = false;
-  autoRollback = false;
+  magicRollback = true;
+  autoRollback = true;
 
+  user = "root";
   sshUser = "jj";
   sshOpts = [ "-o StrictHostKeyChecking=no"
               "-o UserKnownHostsFile=/dev/null" ];
-  user = "root";
   fastConnection = true;
 
   nodes = {
 
     lima-install = { # TODO: not finished
       hostname = "192.168.50.101";
-      sshUser = "jj";
-      user = "root";
       profiles.system.path = remote-install "x86_64-linux" nixosConfigurations.lima;
     };
 
@@ -54,6 +52,15 @@ in
       profiles."jj" = {
         user = "jj";
         path = activate-home "x86_64-linux" homeManagerConfigurations."jj@lima";
+      };
+    };
+
+    urubamba = {
+      hostname = "10.10.0.2";
+      profiles.system.path = activate-nixos "x86_64-linux" nixosConfigurations.urubamba;
+      profiles."jj" = {
+        user = "jj";
+        path = activate-home "x86_64-linux" homeManagerConfigurations."jj@urubamba";
       };
     };
 
