@@ -36,8 +36,9 @@ in
     ./kernel.nix
 
     # file systems
-    ../../fileSystems/btrfs.nix
     ../../fileSystems/encrypted-root.nix
+    ../../fileSystems/btrfs.nix
+    ../../fileSystems/persistence.nix
 
     # host agnostic standard configurations
     ../../users

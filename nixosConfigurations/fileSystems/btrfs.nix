@@ -1,5 +1,6 @@
+{ lib, ... }:
 let
-  wipeScript = ''
+  wipeBtrfsRoot = ''
     mkdir -p /btrfs
     mount -o subvol=/ /dev/disk/by-label/root /btrfs
 
@@ -17,14 +18,14 @@ let
     fi
 
     umount /btrfs
-    rm /btrfs
+    rmdir /btrfs
   '';
 in
 {
 
   boot.initrd.supportedFilesystems = [ "btrfs" ];
 
-  # boot.initrd.postDeviceCommands = lib.mkBefore wipeScript;
+  boot.initrd.postDeviceCommands = lib.mkBefore wipeBtrfsRoot;
 
   fileSystems."/" =
     { device = "/dev/disk/by-label/root";

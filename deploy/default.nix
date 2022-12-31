@@ -12,14 +12,12 @@ let
   remote-install = system: nixos:
     let
       pkgs = pkgsFor system;
-      path = activate-nixos nixos;
-      snippets = import ../lib/snippets.nix pkgs;
+      mylib = import ../lib pkgs;
+      inherit (mylib) snippets;
       script = pkgs.writeShellScriptBin "remote-install" ''
-                 ${snippets.partition-format { forced = "false"; disk = "/dev/nvme0n1"; }}
-                 ${snippets.create-btrfs-subvolumes { }}
                  ${snippets.mount-btrfs-subvolumes { }}
 
-                 ${path}/activate
+                 ${activate-nixos nixos}/activate
               '';
     in activate-custom script "./bin/remote-install";
 
@@ -42,12 +40,13 @@ in
   nodes = {
 
     lima-install = { # TODO: not finished
-      hostname = "192.168.50.101";
+      hostname = "192.168.68.75";
       profiles.system.path = remote-install "x86_64-linux" nixosConfigurations.lima;
     };
 
     lima = {
-      hostname = "10.10.0.21";
+      hostname = "192.168.68.75";
+      # hostname = "10.10.0.21";
       profiles.system.path = activate-nixos "x86_64-linux" nixosConfigurations.lima;
       profiles."jj" = {
         user = "jj";

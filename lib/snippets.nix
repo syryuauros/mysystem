@@ -167,6 +167,27 @@ rec
       #############################################
    '';
 
+  execute-after-chroot = { mount-point ? "/mnt" }: script
+   ''
+      ### execute-after-chroot ###
+
+      ${pkgs.coreutils}/bin/mkdir -p "${mount-point}/run"
+      ln -sfn ${toplevel} "${mount-point}/run/current-system"
+
+      mkdir -p ${mount-point}/proc ${mount-point}/sys ${mount-point}/dev
+      ${pkgs.util-linux}/bin/mount --bind /proc "${mount-point}/proc"
+      ${pkgs.util-linux}/bin/mount --bind /sys "${mount-point}/sys"
+      ${pkgs.util-linux}/bin/mount --bind /dev "${mount-point}/dev"
+
+      ${pkgs.sudo}/bin/sudo chroot "${mount-point}" <<-EOF_CHROOT
+        ${script}
+      EOF_CHROOT
+
+      echo "kexec-after-chroot is done."
+
+      #############################################
+   '';
+
   copy-to-remote =
     { host
     , user ? "root"
