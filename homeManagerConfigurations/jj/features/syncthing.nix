@@ -3,5 +3,5 @@
   home.packages = with pkgs; [
     syncthing
   ];
-  services.syncthing.enable = true;
+  # services.syncthing.enable = true;
 }
