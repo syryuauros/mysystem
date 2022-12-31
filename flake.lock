@@ -638,38 +638,6 @@
         "type": "github"
       }
     },
-    "jupyter_contrib_core": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1668528216,
-        "narHash": "sha256-UTtK+aKxBFkqKuHrt1ox8vdHyFz/9HiKFl7U4UQcG88=",
-        "owner": "Jupyter-contrib",
-        "repo": "jupyter_contrib_core",
-        "rev": "3c4eb859cc3099d8270b8cf89494d72462c5d64e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Jupyter-contrib",
-        "repo": "jupyter_contrib_core",
-        "type": "github"
-      }
-    },
-    "jupyter_nbextensions_configurator": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1668459402,
-        "narHash": "sha256-SwpSSlk8PM/dBPKYcLd224TMd4NiUmV1P1+ZMoAK/Nk=",
-        "owner": "Jupyter-contrib",
-        "repo": "jupyter_nbextensions_configurator",
-        "rev": "af0845c661a8525a2d6bcb0710fda545ddc46bb5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Jupyter-contrib",
-        "repo": "jupyter_nbextensions_configurator",
-        "type": "github"
-      }
-    },
     "myxmonad": {
       "inputs": {
         "haedosa": "haedosa",
@@ -1140,8 +1108,6 @@
         "emanote": "emanote",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "jupyter_contrib_core": "jupyter_contrib_core",
-        "jupyter_nbextensions_configurator": "jupyter_nbextensions_configurator",
         "myxmonad": "myxmonad",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-colors": "nix-colors",

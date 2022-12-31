@@ -4,9 +4,6 @@
 
   inputs = {
 
-    # haedosa.url = "github:haedosa/flakes";
-    # nixpkgs.follows = "haedosa/nixpkgs";
-    # home-manager.follows = "haedosa/home-manager";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -17,14 +14,7 @@
     impermanence.url = "github:nix-community/impermanence";
 
     nur.url = "github:nix-community/NUR";
-    jupyter_contrib_core = {
-      url = "github:Jupyter-contrib/jupyter_contrib_core";
-      flake = false;
-    };
-    jupyter_nbextensions_configurator = {
-      url = "github:Jupyter-contrib/jupyter_nbextensions_configurator";
-      flake = false;
-    };
+
     agenix.url = "github:ryantm/agenix";
 
     deploy-rs = {
