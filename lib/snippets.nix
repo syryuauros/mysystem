@@ -1,7 +1,8 @@
-pkgs:
+pkgs: mylib:
 let
 
   inherit (builtins) split filter isString concatStringsSep;
+  inherit (mylib) get-toplevel get-boot-essential;
 
 in
 rec
@@ -139,6 +140,32 @@ rec
       #########################################
     '';
 
+  kexec-after-chroot = { nixosConfiguration, mount-point ? "/mnt" }:
+    let
+      boot-essential = get-boot-essential nixosConfiguration;
+      inherit (boot-essential) kernel initrd cmdLine;
+      toplevel= get-toplevel nixosConfiguration;
+   in
+   ''
+      ### kexec-after-chroot ###
+
+      ${pkgs.coreutils}/bin/mkdir -p "${mount-point}/run"
+      ln -sfn ${toplevel} "${mount-point}/run/current-system"
+
+      mkdir -p ${mount-point}/proc ${mount-point}/sys ${mount-point}/dev
+      ${pkgs.util-linux}/bin/mount --bind /proc "${mount-point}/proc"
+      ${pkgs.util-linux}/bin/mount --bind /sys "${mount-point}/sys"
+      ${pkgs.util-linux}/bin/mount --bind /dev "${mount-point}/dev"
+
+      ${pkgs.sudo}/bin/sudo chroot "${mount-point}" <<-EOF_CHROOT
+        kexec --load ${kernel} --initrd=${initrd} --command-line "${cmdLine}"
+        kexec -e
+      EOF_CHROOT
+
+      echo "kexec-after-chroot is done."
+
+      #############################################
+   '';
 
   copy-to-remote =
     { host

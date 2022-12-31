@@ -14,7 +14,7 @@ in
         exit 1
       fi
       disk=$1
-       ${snippets.partition-format { forced = "true"; disk = "\${disk}"; }}
+      ${snippets.partition-format { forced = "true"; disk = "\${disk}"; }}
     '';
 
   create-btrfs-subvolumes = pkgs.writeShellScriptBin "create-btrfs-subvolumes"

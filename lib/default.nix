@@ -1,26 +1,25 @@
 pkgs:
 let
 
-  get-toplevel = nixos: nixos.config.system.build.toplevel;
-  get-isoimage = nixos: nixos.config.system.build.isoImage;
+  inherit (pkgs.lib) makeExtensible;
 
-  get-boot-essential = nixosConfiguration:
-    let inherit (nixosConfiguration.config.system) build;
-    in {
-      kernel = "${build.toplevel}/kernel";
-      initrd = "${build.netbootRamdisk or build.toplevel}/initrd";
-      cmdLine = "init=${build.toplevel}/init";
-    };
+  mylib = makeExtensible (self: let
+    callLibs = file: import file pkgs self;
+  in {
 
-  snippets = import ./snippets.nix pkgs;
+    get-toplevel = nixos: nixos.config.system.build.toplevel;
+    get-isoimage = nixos: nixos.config.system.build.isoImage;
 
-in
-{
-  inherit
-    get-toplevel
-    get-isoimage
-    get-boot-essential
-    snippets
-  ;
+    get-boot-essential = nixosConfiguration:
+      let inherit (nixosConfiguration.config.system) build;
+      in {
+        kernel = "${build.toplevel}/kernel";
+        initrd = "${build.netbootRamdisk or build.toplevel}/initrd";
+        cmdLine = "init=${build.toplevel}/init";
+      };
 
-}
+    snippets = callLibs ./snippets.nix;
+
+  });
+
+in mylib
