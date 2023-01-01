@@ -7,4 +7,5 @@ in runCommand name { buidInputs = [ ]; } ''
   outfile=$out/bin/${name}.sh
   cp ${./. + "/${name}.sh"} $outfile
   patchShebangs $outfile
+  chmod +x $outfile
 ''

@@ -9,5 +9,6 @@ in runCommand name { buidInputs = [ ]; } ''
   for i in $outdir/*.sh;
   do
     patchShebangs $i
+    chmod +x $i
   done
 ''
