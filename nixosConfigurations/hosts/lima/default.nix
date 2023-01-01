@@ -38,7 +38,7 @@ in
     # file systems
     ../../fileSystems/encrypted-root.nix
     ../../fileSystems/btrfs.nix
-    ../../fileSystems/persistence.nix
+    # ../../fileSystems/persistence.nix
 
     # host agnostic standard configurations
     ../../users
@@ -48,12 +48,14 @@ in
     hds0-wireguard
     hds1-wireguard
 
+    # hds0 binary caches
+    ../../features/substituters/hds0.nix
+
     # features
     ../../features/xserver.nix
     ../../features/avahi.nix
     ../../features/dropbox.nix
     ../../features/syncthing.nix
-    ../../features/substituters/hds0.nix
     ../../features/remote-build.nix
     ../../features/quietboot
 

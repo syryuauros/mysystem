@@ -11,6 +11,8 @@
         "/var/lib/systemd"
         "/etc/NetworkManager/system-connections"
         "/etc/ssh"
+        "/etc/static"
+        "/etc"
       ];
     };
     enableAllTerminfo = true;

@@ -25,7 +25,7 @@ in
 
   boot.initrd.supportedFilesystems = [ "btrfs" ];
 
-  boot.initrd.postDeviceCommands = lib.mkBefore wipeBtrfsRoot;
+  # boot.initrd.postDeviceCommands = lib.mkBefore wipeBtrfsRoot;
 
   fileSystems."/" =
     { device = "/dev/disk/by-label/root";

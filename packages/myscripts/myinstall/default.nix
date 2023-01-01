@@ -72,6 +72,14 @@ in
       ${profile}/bin/switch-to-configuration switch
     '';
 
+  remote-nixos-install = pkgs.runCommand "remote-nixos-install" {} ''
+    mkdir -p $out/bin
+    outfile=$out/bin/remote-nixos-install
+    cp ${./remote-nixos-install.sh} $outfile
+    patchShebangs $outfile
+    chmod +x $outfile
+  '';
+
 
   switch-over-ssh = {
     host

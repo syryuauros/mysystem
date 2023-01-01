@@ -15,6 +15,12 @@ let
       usb = get-isoimage nixosConfigurations.usb;
     };
 
+  remote-install = { system-toplevel, mount-point ? "/mnt" }:
+    pkgs.writeShellScriptBin "remote-install" ''
+      ${pkgs.nix}/bin/nix copy ${system-toplevel}
+      ${pkgs.nixos-install}/bin/nixos-install --root ${mount-point} --system ${system-toplevel} --no-root-passwd
+    '';
+
   inherit (pkgs) callPackage;
 
   tmux = callPackage ./tmux {};

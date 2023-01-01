@@ -167,12 +167,12 @@ rec
       #############################################
    '';
 
-  execute-after-chroot = { mount-point ? "/mnt" }: script
+  execute-after-chroot = { system-toplevel, mount-point ? "/mnt" }: script:
    ''
       ### execute-after-chroot ###
 
       ${pkgs.coreutils}/bin/mkdir -p "${mount-point}/run"
-      ln -sfn ${toplevel} "${mount-point}/run/current-system"
+      ln -sfn ${system-toplevel} "${mount-point}/run/current-system"
 
       mkdir -p ${mount-point}/proc ${mount-point}/sys ${mount-point}/dev
       ${pkgs.util-linux}/bin/mount --bind /proc "${mount-point}/proc"
@@ -207,6 +207,20 @@ rec
       ${pkgs.nixFlakes}/bin/nix copy "${references}" --to "${store-uri}"
     '';
 
+  remote-nixos-install =
+    { host
+    , user ? "root"
+    , private-key ? null
+    , remote-store ? "/mnt"
+    , system-toplevel
+    }:
+    remote-execution-over-ssh { inherit host user private-key remote-store;} ''
+      ${pkgs.nixos-install}/bin/nixos-install \
+          --root "${remote-store}" \
+          --system "${system-toplevel}" \
+          --no-root-passwd
+    '';
+
 
   # `remote-execution-over-ssh` makes sure that whenever a script is executed
   # over ssh, all the contexts are present on remote side.
@@ -235,10 +249,17 @@ rec
                    ] ++ (if private-key != null then [ "-i ${private-key}" ] else []) ++
                    extraArgs;
 
+      store-uri = let
+        queries = concatStringsSep "" [
+          (if private-key != null then "?ssh-key=${private-key}" else "")
+          (if remote-store != null then "?remote-store=${remote-store}" else "")
+        ];
+      in "ssh://${user}@${host}${queries}";
+
     in ''
         ### remote-execution-over-ssh ###
 
-        ${copy-to-remote { inherit host user private-key remote-store references; }}
+        ${pkgs.nixFlakes}/bin/nix copy "${references}" --to "${store-uri}"
 
         ${pkgs.openssh}/bin/ssh ${user}@${host} -T ${toString extraArgs'} <<EOF
         ${indent}${script'}
