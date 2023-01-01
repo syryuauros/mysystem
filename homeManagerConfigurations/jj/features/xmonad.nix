@@ -1,12 +1,8 @@
-{ inputs, pkgs, ... }:
+{ inputs, ... }:
 
 {
 
-  imports = [ inputs.myxmonad.hmModule ];
-
-  home.packages = with pkgs; [
-    xmobar
-  ];
+  imports = [ inputs.myxmonad.homeManagerModules.default ];
 
   mysystem.windowManager.xmonad.enable = true;
 
