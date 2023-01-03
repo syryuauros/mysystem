@@ -31,4 +31,10 @@ in
     modules = [ ./jj/bogota.nix ];
   };
 
+  "jj@server" = homeManagerConfiguration {
+    pkgs = nixpkgs.legacyPackages."x86_64-linux";
+    extraSpecialArgs = { inherit inputs; };
+    modules = [ ./jj/kinds/server.nix ];
+  };
+
 }

@@ -1,5 +1,5 @@
 {
   imports = [
-    ./common.nix
+    ./kinds/laptop.nix
   ];
 }

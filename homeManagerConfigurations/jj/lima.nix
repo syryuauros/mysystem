@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
   imports = [
-    ./common.nix
+    ./kinds/laptop.nix
   ];
 }

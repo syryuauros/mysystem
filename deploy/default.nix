@@ -1,12 +1,28 @@
 inputs:
 let
 
+  inherit (inputs.nixpkgs.legacyPackages."x86_64-linux") lib;
   inherit (inputs) deploy-rs;
   inherit (inputs.self) nixosConfigurations homeManagerConfigurations;
 
   activate-nixos = system: deploy-rs.lib.${system}.activate.nixos;
   activate-home = system: deploy-rs.lib.${system}.activate.home-manager;
   activate-custom = system: deploy-rs.lib.${system}.activate.custom;
+
+  server-nodes = lib.mapAttrs (name: value: {
+    hostname = value;
+    profiles."jj" = {
+      user = "jj";
+      path = activate-home "x86_64-linux" homeManagerConfigurations."jj@server";
+    };
+  }) {
+    gateway = "10.10.0.1";
+    hproxy = "20.20.100.1";
+    b3 = "10.10.100.3";
+    b4 = "10.10.100.4";
+    b5 = "10.10.100.5";
+    b6 = "10.10.100.6";
+  };
 
 in
 {
@@ -57,6 +73,9 @@ in
       };
     };
 
-  };
+  }
+  //
+  server-nodes
+  ;
 
 }
