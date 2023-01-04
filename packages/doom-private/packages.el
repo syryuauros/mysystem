@@ -57,6 +57,10 @@
 
 (package! lsp-haskell)
 
+(package! consult-lsp)
+
+(package! consult-eglot)
+
 (package! swagger-to-org)
 
 (package! string-inflection)

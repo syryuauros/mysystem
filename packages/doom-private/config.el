@@ -53,10 +53,6 @@
   :custom
   (lsp-completion-enable-additional-text-edit nil)
   (lsp-lens-enable nil)
-  :hook (lsp-mode . (lambda ()
-     (lsp-ui-mode)
-     (lsp-ui-doc-mode)
-   ))
 )
 
 (use-package! lsp-ui)
@@ -85,9 +81,7 @@
   :hook ((haskell-mode . lsp-deferred)
          (haskell-mode . (lambda ()
                            (set-tab-width)
-                           (set-lsp-ui-doc-size)
-                           (lsp-ui-mode)
-                           (lsp-ui-doc-mode)))))
+                           ))))
 
 ;; add to $DOOMDIR/config.el
 (after! lsp-mode
@@ -232,6 +226,8 @@
                 (append '((company-math-symbols-latex company-latex-commands))
                         company-backends)))
   )
+
+  (map! "C-M-i"   #'completion-at-point)
 
 (use-package! whitespace
   :custom (whitespace-style '(face tabs trailing

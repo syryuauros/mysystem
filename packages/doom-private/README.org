@@ -504,10 +504,6 @@ yaml              ; JSON, but readable
   :custom
   (lsp-completion-enable-additional-text-edit nil)
   (lsp-lens-enable nil)
-  :hook (lsp-mode . (lambda ()
-     (lsp-ui-mode)
-     (lsp-ui-doc-mode)
-   ))
 )
 
 
@@ -551,7 +547,6 @@ yaml              ; JSON, but readable
   (setq lsp-ui-doc-max-width 300)
   (setq lsp-ui-doc-max-height 50))
 
-
 #+end_src
 
 **** lsp-haskell
@@ -568,9 +563,23 @@ yaml              ; JSON, but readable
   :hook ((haskell-mode . lsp-deferred)
          (haskell-mode . (lambda ()
                            (set-tab-width)
-                           (set-lsp-ui-doc-size)
-                           (lsp-ui-mode)
-                           (lsp-ui-doc-mode)))))
+                           ))))
+
+#+end_src
+
+**** consult-lsp
+
+#+begin_src emacs-lisp :tangle packages.el
+
+(package! consult-lsp)
+
+#+end_src
+
+**** consult-eglot
+
+#+begin_src emacs-lisp :tangle packages.el
+
+(package! consult-eglot)
 
 #+end_src
 
@@ -809,6 +818,15 @@ causes conflict in syncing files between linux and mac.
                 (append '((company-math-symbols-latex company-latex-commands))
                         company-backends)))
   )
+
+#+end_src
+
+
+*** Compeletion-at-point
+
+#+begin_src emacs-lisp
+
+  (map! "C-M-i"   #'completion-at-point)
 
 #+end_src
 
