@@ -45,19 +45,30 @@
   #   extraOptions = builtins.readFile ./picom-jonaburg-extra.conf;
 
   # };
-
-  #for yshui version, shipped in nixpkgs by default
   services.picom = {
     enable = true;
-    activeOpacity = "0.95";
-    inactiveOpacity = "0.8";
-    # backend = "glx";
+    activeOpacity = 1.0;
+    inactiveOpacity = 0.8;
+    backend = "glx";
     fade = true;
     fadeDelta = 5;
-    opacityRule = [ "100:name *= 'i3lock'" ];
+    opacityRules = [
+      "100:name *= 'i3lock'"
+      "99:fullscreen"
+      "50:class_g = 'Alacritty' && focused"
+      "50:class_g = 'Alacritty' && !focused"
+      "100:class_g = 'Brave-browser'"
+    ];
+
     shadow = true;
-    shadowOpacity = "0.75";
-    experimentalBackends = true;
+    shadowOpacity = 0.75;
+    settings = {
+      xrender-sync-fence = true;
+      mark-ovredir-focused = false;
+      use-ewmh-active-win = true;
+      inactive-opacity-override = true;
+    };
+
   };
 
 }
