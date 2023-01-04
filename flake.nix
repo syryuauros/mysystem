@@ -22,13 +22,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    doom-private.url = "github:jjdosa/doom-private";
-    doom-private.flake = false;
-
     nix-doom-emacs = {
-      url = "github:jjdosa/nix-doom-emacs";
+      url = "github:nix-community/nix-doom-emacs";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.doom-private.follows = "doom-private";
     };
 
     nix-colors.url = "github:misterio77/nix-colors";

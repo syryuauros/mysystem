@@ -27,11 +27,12 @@ let
   tex = callPackage ./tex {};
   myfonts = callPackage ./myfonts {};
   myscripts = callPackage ./myscripts {};
+  doom-private = callPackage ./doom-private {};
 
 in nixosSystems
 // myfonts
 // myscripts
 //
 {
-  inherit tmux tex;
+  inherit tmux tex doom-private;
 }
