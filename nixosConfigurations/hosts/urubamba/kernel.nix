@@ -8,10 +8,13 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  boot.kernelParams = [ "i915.force_probe=46a6" ];
+
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # high resolution screen
   hardware.video.hidpi.enable = lib.mkDefault true;
+  hardware.opengl.enable = true;
 
 }

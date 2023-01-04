@@ -7,7 +7,7 @@ in
   imports = [
 
     # base home configurations
-    ../base.nix
+    ./base.nix
 
     # cli applications
     ../features/cli

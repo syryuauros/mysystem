@@ -7,7 +7,7 @@ in
   imports = [
 
     # base home configurations
-    ../base.nix
+    ./base.nix
 
     # cli applications
     ../features/cli
@@ -47,6 +47,7 @@ in
 
     # window manager of my choice
     ../features/xmonad.nix
+    # ../features/picom # results in flickering..
 
   ];
 
