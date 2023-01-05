@@ -821,7 +821,6 @@ causes conflict in syncing files between linux and mac.
 
 #+end_src
 
-
 *** Compeletion-at-point
 
 #+begin_src emacs-lisp

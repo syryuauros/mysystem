@@ -7,5 +7,6 @@
     deploy-rs.deploy-rs
     age
     agenix
+    xmonad-restart
   ];
 }

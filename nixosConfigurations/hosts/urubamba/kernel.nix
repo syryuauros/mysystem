@@ -15,6 +15,5 @@
 
   # high resolution screen
   hardware.video.hidpi.enable = lib.mkDefault true;
-  hardware.opengl.enable = true;
 
 }

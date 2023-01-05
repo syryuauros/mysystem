@@ -9,5 +9,9 @@ let
 in
 import nixpkgs {
   inherit system;
-  overlays = [ deploy-rs.overlay agenix.overlay ] ++ overlays;
+  overlays = [
+    deploy-rs.overlay
+    agenix.overlay
+    (final: prve: { xmonad-restart = inputs.myxmonad.packages.${system}.xmonad-restart; })
+  ] ++ overlays;
 }
