@@ -53,6 +53,7 @@
   :custom
   (lsp-completion-enable-additional-text-edit nil)
   (lsp-lens-enable nil)
+  (lsp-keymap-prefix "C-k")
 )
 
 (use-package! lsp-ui)
@@ -257,7 +258,6 @@
   :bind ("C-c s" . rg-menu)
   :config
   (message "rg loaded")
-  (map! :leader "r" #'rg-menu)
 )
 
 (map! :leader
@@ -335,7 +335,12 @@
           :ni "<down>" #'vterm-send-down
           :ni "<up>"   #'vterm-send-up
           :ni "C-r"    #'vterm-send-C-r
-          :ni "C-t"    #'vterm-send-C-t))
+          :ni "C-t"    #'vterm-send-C-t
+          :ni "M-["    #'+workspace/switch-left
+          :ni "M-]"    #'+workspace/switch-right
+          :ni "M-`"    #'+workspace/other
+          :ni "M-,"    #'+workspace/switch-to
+          ))
 
 (use-package! vterm
   :config
@@ -390,3 +395,6 @@
   (map! :leader
         :desc "previous-buffer" "[" #'previous-buffer
         :desc "next-buffer"     "]" #'next-buffer)
+
+  (map! :leader "r" #'consult-ripgrep)
+  (map! "M-c"       #'lsp-execute-code-action)

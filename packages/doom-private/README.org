@@ -504,8 +504,8 @@ yaml              ; JSON, but readable
   :custom
   (lsp-completion-enable-additional-text-edit nil)
   (lsp-lens-enable nil)
+  (lsp-keymap-prefix "C-k")
 )
-
 
 #+end_src
 
@@ -893,7 +893,6 @@ causes conflict in syncing files between linux and mac.
   :bind ("C-c s" . rg-menu)
   :config
   (message "rg loaded")
-  (map! :leader "r" #'rg-menu)
 )
 
 #+end_src
@@ -1055,7 +1054,12 @@ https://github.com/Vonfry/zoxide.el
           :ni "<down>" #'vterm-send-down
           :ni "<up>"   #'vterm-send-up
           :ni "C-r"    #'vterm-send-C-r
-          :ni "C-t"    #'vterm-send-C-t))
+          :ni "C-t"    #'vterm-send-C-t
+          :ni "M-["    #'+workspace/switch-left
+          :ni "M-]"    #'+workspace/switch-right
+          :ni "M-`"    #'+workspace/other
+          :ni "M-,"    #'+workspace/switch-to
+          ))
 
 #+end_src
 **** vterm-complete
@@ -1129,6 +1133,17 @@ https://gist.github.com/ram535/a2153fb86f33ecec587d593c1c5e1623
   (map! :leader
         :desc "previous-buffer" "[" #'previous-buffer
         :desc "next-buffer"     "]" #'next-buffer)
+
+#+end_src
+
+*** temporary
+
+Temporary fixes for broken keybindings in the process of packages updating
+
+#+begin_src emacs-lisp
+
+  (map! :leader "r" #'consult-ripgrep)
+  (map! "M-c"       #'lsp-execute-code-action)
 
 #+end_src
 
