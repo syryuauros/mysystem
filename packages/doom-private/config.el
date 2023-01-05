@@ -78,10 +78,11 @@
   (setq lsp-ui-doc-max-width 300)
   (setq lsp-ui-doc-max-height 50))
 
-(use-package! lsp-haskell
+(use-package! haskell-mode
   :hook ((haskell-mode . lsp-deferred)
          (haskell-mode . (lambda ()
                            (set-tab-width)
+                           (global-subword-mode)
                            ))))
 
 ;; add to $DOOMDIR/config.el
@@ -209,6 +210,9 @@
   (setq indent-tabs-mode nil))
 
 (setq-default evil-snipe-scope 'buffer)
+
+(use-package! company
+  :config (company-box-mode))
 
 (map! :map company-active-map
       "TAB"        #'company-select-common-or-cycle
@@ -397,4 +401,4 @@
         :desc "next-buffer"     "]" #'next-buffer)
 
   (map! :leader "r" #'consult-ripgrep)
-  (map! "M-c"       #'lsp-execute-code-action)
+  (map! "C-j"       #'lsp-execute-code-action)

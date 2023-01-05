@@ -559,10 +559,11 @@ yaml              ; JSON, but readable
 
 #+begin_src emacs-lisp
 
-(use-package! lsp-haskell
+(use-package! haskell-mode
   :hook ((haskell-mode . lsp-deferred)
          (haskell-mode . (lambda ()
                            (set-tab-width)
+                           (global-subword-mode)
                            ))))
 
 #+end_src
@@ -795,6 +796,9 @@ causes conflict in syncing files between linux and mac.
 *** Company
 
 #+begin_src emacs-lisp
+
+(use-package! company
+  :config (company-box-mode))
 
 (map! :map company-active-map
       "TAB"        #'company-select-common-or-cycle
@@ -1143,7 +1147,7 @@ Temporary fixes for broken keybindings in the process of packages updating
 #+begin_src emacs-lisp
 
   (map! :leader "r" #'consult-ripgrep)
-  (map! "M-c"       #'lsp-execute-code-action)
+  (map! "C-j"       #'lsp-execute-code-action)
 
 #+end_src
 
