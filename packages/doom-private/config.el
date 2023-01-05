@@ -53,7 +53,7 @@
   :custom
   (lsp-completion-enable-additional-text-edit nil)
   (lsp-lens-enable nil)
-  (lsp-keymap-prefix "C-k")
+  (lsp-keymap-prefix "C-'")
 )
 
 (use-package! lsp-ui)
@@ -400,5 +400,12 @@
         :desc "previous-buffer" "[" #'previous-buffer
         :desc "next-buffer"     "]" #'next-buffer)
 
+  (map! :map org-mode-map
+        "C-j"  #'forward-paragraph
+        "C-K"  #'backward-paragraph)
+
+  (map! "C-j"  #'forward-paragraph
+        "C-K"  #'backward-paragraph)
+
   (map! :leader "r" #'consult-ripgrep)
-  (map! "C-j"       #'lsp-execute-code-action)
+  (map! "C-,"       #'lsp-execute-code-action)

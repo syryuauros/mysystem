@@ -504,7 +504,7 @@ yaml              ; JSON, but readable
   :custom
   (lsp-completion-enable-additional-text-edit nil)
   (lsp-lens-enable nil)
-  (lsp-keymap-prefix "C-k")
+  (lsp-keymap-prefix "C-'")
 )
 
 #+end_src
@@ -1140,6 +1140,16 @@ https://gist.github.com/ram535/a2153fb86f33ecec587d593c1c5e1623
 
 #+end_src
 
+*** paragraph
+
+#+begin_src emacs-lisp
+
+  (map! :map org-mode-map
+        "C-j"  #'forward-paragraph
+        "C-K"  #'backward-paragraph)
+  (map! "C-j"  #'forward-paragraph
+        "C-K"  #'backward-paragraph)
+
 *** temporary
 
 Temporary fixes for broken keybindings in the process of packages updating
@@ -1147,7 +1157,7 @@ Temporary fixes for broken keybindings in the process of packages updating
 #+begin_src emacs-lisp
 
   (map! :leader "r" #'consult-ripgrep)
-  (map! "C-j"       #'lsp-execute-code-action)
+  (map! "C-,"       #'lsp-execute-code-action)
 
 #+end_src
 
