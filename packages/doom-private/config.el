@@ -176,7 +176,7 @@
 
 (use-package! org
   :custom
-  (org-directory                       "~/Org")
+  (org-directory                       "~/Ocean/Org")
   (org-ellipsis                        " ▾")
   (org-src-fontify-natively            t)
   (org-src-tab-acts-natively           t)
