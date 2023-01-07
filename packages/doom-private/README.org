@@ -485,6 +485,18 @@ yaml              ; JSON, but readable
 
 #+end_src
 
+*** Transparency
+
+#+begin_src emacs-lisp
+
+(add-to-list 'default-frame-alist '(alpha 97 80))
+
+(defun my/display-transparency (a b)
+  (interactive "nAlpha Active:\nnAlpha Inactive:")
+  (set-frame-parameter nil 'alpha `(,a . ,b)))
+
+#+end_src
+
 ** Programming
 *** Envrc
 

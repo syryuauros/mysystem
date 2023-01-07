@@ -46,6 +46,12 @@
   (winum-mode 1)
 )
 
+(add-to-list 'default-frame-alist '(alpha 97 80))
+
+(defun my/display-transparency (a b)
+  (interactive "nAlpha Active:\nnAlpha Inactive:")
+  (set-frame-parameter nil 'alpha `(,a . ,b)))
+
 (use-package! envrc
   :hook (after-init . envrc-global-mode))
 
