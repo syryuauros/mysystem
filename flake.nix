@@ -39,6 +39,11 @@
 
     emanote.url = "github:EmaApps/emanote";
 
+    kmonad = {
+      url = "github:kmonad/kmonad?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = inputs@{ nixpkgs, ... }:

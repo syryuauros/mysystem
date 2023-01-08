@@ -8,5 +8,6 @@
     age
     agenix
     xmonad-restart
+    kmonad
   ];
 }

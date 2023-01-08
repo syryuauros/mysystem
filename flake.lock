@@ -539,6 +539,28 @@
         "type": "github"
       }
     },
+    "kmonad": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "nix",
+        "lastModified": 1673185501,
+        "narHash": "sha256-uEtWPpl9nH7QqochHo1z+giPga1zXR1Ko3dOXHIapFY=",
+        "owner": "kmonad",
+        "repo": "kmonad",
+        "rev": "3413f1be996142c8ef4f36e246776a6df7175979",
+        "type": "github"
+      },
+      "original": {
+        "dir": "nix",
+        "owner": "kmonad",
+        "repo": "kmonad",
+        "type": "github"
+      }
+    },
     "myxmonad": {
       "inputs": {
         "home-manager": "home-manager_2",
@@ -968,6 +990,7 @@
         "emanote": "emanote",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "kmonad": "kmonad",
         "myxmonad": "myxmonad",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-colors": "nix-colors",

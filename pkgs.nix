@@ -5,13 +5,16 @@
 , overlays ? []
 }:
 let
-  inherit (inputs) nixpkgs deploy-rs agenix;
+  inherit (inputs) nixpkgs deploy-rs agenix kmonad;
 in
 import nixpkgs {
   inherit system;
   overlays = [
     deploy-rs.overlay
     agenix.overlay
-    (final: prve: { xmonad-restart = inputs.myxmonad.packages.${system}.xmonad-restart; })
+    (final: prve: {
+      xmonad-restart = inputs.myxmonad.packages.${system}.xmonad-restart;
+      kmonad = inputs.kmonad.packages.${system}.kmonad;
+    })
   ] ++ overlays;
 }

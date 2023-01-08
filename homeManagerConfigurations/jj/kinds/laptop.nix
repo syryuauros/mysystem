@@ -38,8 +38,9 @@ in
     ../features/syncthing.nix
     ../features/udiskie.nix
 
-    # control becomes esc when pressed alone
+    # keyboard
     ../features/xcape.nix
+    ../features/kmonad
 
     # editors of my choice
     ../features/doom-emacs
