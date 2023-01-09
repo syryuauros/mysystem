@@ -25,6 +25,7 @@ in
     ./geoclue2.nix
     ./clipmenu.nix
     ./lidSwitch.nix
+    ./uinput.nix
 
   ];
 

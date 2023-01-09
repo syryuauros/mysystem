@@ -54,10 +54,10 @@ in
   ]);
 
 
-  xsession.enable = true;
-  xsession.initExtra = ''
-    setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
-  '';
+  # xsession.enable = true;
+  # xsession.initExtra = ''
+  #   setxkbmap -option altwin:swap_lalt_lwin -option caps:ctrl_modifier
+  # '';
 
   # xresources.properties = {
   #   "Xft.dpi" = 120;

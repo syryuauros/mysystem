@@ -39,7 +39,7 @@ in
     ../features/udiskie.nix
 
     # keyboard
-    ../features/xcape.nix
+    # ../features/xcape.nix
     ../features/kmonad
 
     # editors of my choice

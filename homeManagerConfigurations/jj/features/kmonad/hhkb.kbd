@@ -1,0 +1,36 @@
+
+(defcfg
+  input  (device-file "/dev/input/by-id/@hhkb@")
+  output (uinput-sink "my-@hhkb@")
+  fallthrough true
+)
+
+(defalias lctl (tap-hold-next-release 500 esc lctl)
+          tab  (tap-hold-next-release 500 tab (layer-toggle arrow))
+          arr  (layer-switch arrow)
+          bas  (layer-switch base)
+         )
+
+(defsrc
+  esc   1    2    3    4    5    6    7    8    9    0    -     =     `
+  tab   q    w    e    r    t    y    u    i    o    p    [     ]     bspc
+  lctl  a    s    d    f    g    h    j    k    l    ;    '           ret
+  lsft  z    x    c    v    b    n    m    ,    .    /    rsft
+        lalt lmet          spc                  rmet ralt
+  )
+
+(deflayer base
+  esc   1    2    3    4    5    6    7    8    9    0    -     =     `
+  @tab  q    w    e    r    t    y    u    i    o    p    [     ]     bspc
+  @lctl a    s    d    f    g    h    j    k    l    ;    '           ret
+  lsft  z    x    c    v    b    n    m    ,    .    /    rsft
+        lalt lmet           spc                 @arr ralt
+  )
+
+(deflayer arrow
+  _     _    _    _    _    _    _    _    _    _    _    _     _     _
+  _     _    _    _    _    _    home pgdn pgup end  _    _     _     _
+  _     _    _    _    _    _    lft  down up   rght _    _           _
+  _     _    _    _    _    _    _    _    _    _    _    _
+        -    _              _                   @bas _
+  )
