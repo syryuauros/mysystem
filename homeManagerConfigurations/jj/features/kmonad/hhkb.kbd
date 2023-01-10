@@ -1,12 +1,12 @@
 
 (defcfg
-  input  (device-file "/dev/input/by-id/@hhkb@")
-  output (uinput-sink "my-@hhkb@")
+  input  (device-file "@device@")
+  output (uinput-sink "@name@")
   fallthrough true
 )
 
-(defalias lctl (tap-hold-next-release 500 esc lctl)
-          tab  (tap-hold-next-release 500 tab (layer-toggle arrow))
+(defalias lctl (tap-hold-next-release 200 esc lctl)
+          tab  (tap-hold-next-release 200 tab (layer-toggle arrow))
           arr  (layer-switch arrow)
           bas  (layer-switch base)
          )
