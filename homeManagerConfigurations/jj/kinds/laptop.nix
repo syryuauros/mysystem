@@ -41,6 +41,7 @@ in
     # keyboard
     # ../features/xcape.nix
     ../features/kmonad
+    ../features/warpd.nix
 
     # editors of my choice
     ../features/doom-emacs
