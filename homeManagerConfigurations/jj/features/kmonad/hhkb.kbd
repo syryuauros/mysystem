@@ -7,7 +7,9 @@
 
 (defalias lctl (tap-hold-next-release 200 esc lctl)
           tab  (tap-hold-next-release 200 tab (layer-toggle arrow))
-          arr  (layer-switch arrow)
+          spc  (tap-hold-next-release 200 spc (layer-toggle arrow))
+          alx  (tap-hold-next-release 200 (around lalt x) rsft)
+          arr  (tap-hold-next-release 200 (layer-switch arrow) lalt)
           bas  (layer-switch base)
          )
 
@@ -16,15 +18,15 @@
   tab   q    w    e    r    t    y    u    i    o    p    [     ]     bspc
   lctl  a    s    d    f    g    h    j    k    l    ;    '           ret
   lsft  z    x    c    v    b    n    m    ,    .    /    rsft
-        lalt lmet          spc                  rmet ralt
+        lalt lmet           spc                 rmet ralt
   )
 
 (deflayer base
   esc   1    2    3    4    5    6    7    8    9    0    -     =     `
   @tab  q    w    e    r    t    y    u    i    o    p    [     ]     bspc
   @lctl a    s    d    f    g    h    j    k    l    ;    '           ret
-  lsft  z    x    c    v    b    n    m    ,    .    /    rsft
-        lalt lmet           spc                 @arr ralt
+  lsft  z    x    c    v    b    n    m    ,    .    /    @alx
+        lalt lmet           @spc                @arr ralt
   )
 
 (deflayer arrow
