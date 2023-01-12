@@ -218,15 +218,14 @@
 (setq-default evil-snipe-scope 'buffer)
 
 (use-package! company
-  :config (company-box-mode))
+  ;; :config (company-box-mode)
+  :custom (company-idle-delay nil))
 
 (map! :map company-active-map
-      "TAB"        #'company-select-common-or-cycle
-      "<tab>"      #'company-select-common-or-cycle
-      "RET"        nil
-      "<return>"   nil
-      "C-RET"      #'company-complete
-      "<C-return>" #'company-complete
+  "TAB"        #'company-complete-common-or-cycle
+  "<tab>"      #'company-complete-common-or-cycle
+  "C-SPC"      #'company-complete
+  "<C-space>"  #'company-complete
 )
 
 (use-package! company-math
@@ -238,7 +237,7 @@
                         company-backends)))
   )
 
-  (map! "C-M-i"   #'completion-at-point)
+  (map! :map global-map "C-M-i"   #'completion-at-point)
 
 (use-package! whitespace
   :custom (whitespace-style '(face tabs trailing
