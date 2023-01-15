@@ -1154,13 +1154,25 @@ https://gist.github.com/ram535/a2153fb86f33ecec587d593c1c5e1623
 
 *** paragraph
 
-#+begin_src emacs-lisp
+  #+begin_src emacs-lisp
 
   (map! :map org-mode-map
         "C-j"  #'forward-paragraph
         "C-K"  #'backward-paragraph)
   (map! "C-j"  #'forward-paragraph
         "C-K"  #'backward-paragraph)
+
+#+end_src
+
+*** minibuffer
+
+#+begin_src emacs-lisp
+
+  (map! :map minibuffer-mode-map
+        "M-j"  #'next-history-element
+        "M-k"  #'previous-history-element)
+
+#+end_src
 
 *** temporary
 

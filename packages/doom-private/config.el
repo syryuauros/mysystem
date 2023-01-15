@@ -59,7 +59,7 @@
   :custom
   (lsp-completion-enable-additional-text-edit nil)
   (lsp-lens-enable nil)
-  (lsp-keymap-prefix "C-'")
+  (lsp-keymap-prefix "C-c l")
 )
 
 (use-package! lsp-ui)
@@ -237,7 +237,7 @@
                         company-backends)))
   )
 
-  (map! :map global-map "C-M-i"   #'completion-at-point)
+(map! :map global-map "C-M-i"   #'completion-at-point)
 
 (use-package! whitespace
   :custom (whitespace-style '(face tabs trailing
@@ -408,9 +408,12 @@
   (map! :map org-mode-map
         "C-j"  #'forward-paragraph
         "C-K"  #'backward-paragraph)
-
   (map! "C-j"  #'forward-paragraph
         "C-K"  #'backward-paragraph)
+
+  (map! :map minibuffer-mode-map
+        "M-j"  #'next-history-element
+        "M-k"  #'previous-history-element)
 
   (map! :leader "r" #'consult-ripgrep)
   (map! "C-,"       #'lsp-execute-code-action)
