@@ -88,6 +88,8 @@
   :hook ((haskell-mode . lsp-deferred)
          (haskell-mode . (lambda ()
                            (set-tab-width)
+                           (lsp-ui-mode nil)
+                           (smartparens-mode nil)
                            (global-subword-mode)
                            ))))
 

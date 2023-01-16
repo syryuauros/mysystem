@@ -496,7 +496,6 @@ yaml              ; JSON, but readable
   (set-frame-parameter nil 'alpha `(,a . ,b)))
 
 #+end_src
-
 ** Programming
 *** Envrc
 
@@ -575,11 +574,12 @@ yaml              ; JSON, but readable
   :hook ((haskell-mode . lsp-deferred)
          (haskell-mode . (lambda ()
                            (set-tab-width)
+                           (lsp-ui-mode nil)
+                           (smartparens-mode nil)
                            (global-subword-mode)
                            ))))
 
 #+end_src
-
 **** consult-lsp
 
 #+begin_src emacs-lisp :tangle packages.el
