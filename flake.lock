@@ -568,14 +568,17 @@
         "wallpapers": "wallpapers"
       },
       "locked": {
-        "lastModified": 1673850433,
-        "narHash": "sha256-XtlrMuty1Sm+R0EwKNwHMA31hXTtp6Y8VN/EJUD6foY=",
-        "type": "git",
-        "url": "file:///home/jj/Ocean/jjdosa/myxmonad"
+        "lastModified": 1673909738,
+        "narHash": "sha256-na2R4bM+CzPO2WJW6v4i+JHNOHAufym0IsKr6989Tpk=",
+        "owner": "jjdosa",
+        "repo": "myxmonad",
+        "rev": "249de9219c7cd8055200e56f73fe45a4a06780ee",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/jj/Ocean/jjdosa/myxmonad"
+        "owner": "jjdosa",
+        "repo": "myxmonad",
+        "type": "github"
       }
     },
     "neovim-flake": {
