@@ -43,7 +43,6 @@ in {
     kmonad-hhkb-blt &
     kmonad-x1 &
     myxset
-    xset r rate 350 70
   '';
 
 }
