@@ -3,16 +3,35 @@
   input  (device-file "@device@")
   output (uinput-sink "@name@")
   fallthrough true
+  allow-cmd true
 )
 
-(defalias lctl (tap-hold-next-release 200 esc lctl)
-          tab  (tap-hold-next-release 200 tab lalt)
-          spc  (tap-hold-next-release 200 spc (layer-toggle arrow))
-          ;; f2   (tap-hold-next-release 200 f   (layer-toggle arrow))
-          alx  (tap-hold-next-release 200 (around lalt x) rsft)
-          arr  (tap-hold-next-release 200 (layer-switch arrow) lalt)
-          bas  (layer-switch base)
-         )
+(defalias
+
+  ;; tap hold modifiers
+  lctl (tap-hold-next-release 200 esc lctl)
+  tab  (tap-hold-next-release 200 tab lalt)
+  spc  (tap-hold-next-release 200 spc (layer-toggle arrow))
+
+  ;; for doom-emacs
+  alx  (tap-hold-next-release 200 (around lalt x) ralt)
+  s[   #(spc [)
+  s]   #(spc ])
+  s`   #(spc `)
+  sfs  #(spc f s)
+  swc  #(spc w c)
+  sot  #(spc o t)
+  sw   #(C-w C-w)
+  st.  #(spc tab .)
+
+  ;; layer switchers
+  arr  (tap-hold-next-release 200 (layer-switch arrow) lalt)
+  bas  (layer-switch base)
+
+  ;; speed up typing
+  xst (cmd-button "xset r rate 300 80")
+
+  )
 
 (defsrc
   esc   1    2    3    4    5    6    7    8    9    0    -    =    `
@@ -31,9 +50,9 @@
   )
 
 (deflayer arrow
-  _     _    _    _    _    _    _    _    _    _    _    _    _    _
-  _     _    _    _    _    _    home pgdn pgup end  _    _    _    _
-  _     _    _    _    _    _    lft  down up   rght _    _         _
-  _     _    _    _    _    _    spc  _    _    _    _    _
+  @s`   _    _    _    _    _    _    _    _    _    _    _    _    _
+  @st.  _    @sw  _    _    @sot home pgdn pgup end  _    @s[  @s]  _
+  _     _    @sfs _    _    _    lft  down up   rght _    _         _
+  _     _    @xst @swc _    _    spc  _    _    _    _    _
         -    _              _                   @bas _
   )
