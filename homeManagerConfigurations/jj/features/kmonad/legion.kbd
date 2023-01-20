@@ -1,0 +1,48 @@
+
+(defcfg
+  input  (device-file "@device@")
+  output (uinput-sink "@name@")
+  fallthrough true
+)
+
+(defalias lctl (tap-hold-next-release 200 esc lctl)
+          tab  (tap-hold-next-release 200 tab lalt)
+          spc  (tap-hold-next-release 200 spc (layer-toggle arrow))
+          ;; f2   (tap-hold-next-release 200 f   (layer-toggle arrow))
+          alx  (tap-hold-next-release 200 (around lalt x) rsft)
+          arr  (tap-hold-next-release 200 (layer-switch arrow) lalt)
+          bas  (layer-switch base)
+         )
+
+(defsrc
+        mute vold volu
+  esc   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  ins  prnt del
+  grv   1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab   q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps  a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft  z    x    c    v    b    n    m    ,    .    /              rsft
+  lctl  wkup lmet lalt           spc            ralt rctl      up
+                                                         left  down rght
+)
+
+(deflayer base
+        mute vold volu
+  esc   f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  ins  prnt del
+  grv   1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  @tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  @lctl a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft  z    x    c    v    b    n    m    ,    .    /              rsft
+  wkup  lctl lalt lmet           @spc           @arr @alx      up
+                                                          left down rght
+)
+
+(deflayer arrow
+        _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    _    _    _    _    _    _    _    _
+  _     _    _    _    _    _    home pgdn pgup end  _    _    _    _
+  _     _    _    _    _    _    left down up   rght _    _         _
+  _     _    _    _    _    _    spc  _    _    _    _         _
+  _     _    _    _              _              @bas _         _
+                                                          _    _    _
+)

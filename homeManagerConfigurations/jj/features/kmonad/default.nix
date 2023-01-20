@@ -16,6 +16,10 @@ let
       kdbFile = ./x1.kbd;
       device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
     };
+    legion = {
+      kdbFile = ./legion.kbd;
+      device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+    };
   };
 
   kmonadScripts = lib.mapAttrs' (name: value: {
