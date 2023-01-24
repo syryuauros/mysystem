@@ -31,6 +31,12 @@ in
     modules = [ ./jj/bogota.nix ];
   };
 
+  "jj@antofagasta" = homeManagerConfiguration {
+    pkgs = nixpkgs.legacyPackages."x86_64-linux";
+    extraSpecialArgs = { inherit inputs; };
+    modules = [ ./jj/antofagasta.nix ];
+  };
+
   "jj@server" = homeManagerConfiguration {
     pkgs = nixpkgs.legacyPackages."x86_64-linux";
     extraSpecialArgs = { inherit inputs; };

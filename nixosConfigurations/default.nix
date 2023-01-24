@@ -26,6 +26,11 @@ in
     modules = [ ./hosts/bogota ];
   };
 
+  antofagasta = nixosSystem {
+    inherit specialArgs;
+    modules = [ ./hosts/antofagasta ];
+  };
+
   # iguazu is for a USB installer
   iguazu = nixosSystem {
     inherit specialArgs;

@@ -73,6 +73,16 @@ in
       };
     };
 
+    antofagasta = {
+      hostname = "10.10.0.24";
+      profiles.system.path = activate-nixos "x86_64-linux" nixosConfigurations.antofagasta;
+      profiles."jj" = {
+        user = "jj";
+        path = activate-home "x86_64-linux" homeManagerConfigurations."jj@antofagasta";
+      };
+    };
+
+
   }
   //
   server-nodes
