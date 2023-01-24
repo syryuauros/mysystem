@@ -9,7 +9,7 @@ let
   antofagasta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPYe7j/BoueCTsYF4BrNojPC+Y0MMCDqia4QkS7KmVNG";
   giron = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7qlu4YKYbtjN4oLFC9VQZYFWEGnpkHYt7MsF1+dHt6";
 
-  systems = [ lima urubamba bogota lapaz antofagasta ];
+  systems = [ lima urubamba bogota lapaz antofagasta giron ];
 
 in
 {
