@@ -7,6 +7,7 @@ let
   bogota = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAl5/ozkuWmVXtqSOJetfMA1OWF+LZ4IqsYkNhsQcGb6";
   lapaz = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKa+MtYN20MlkctttUkg2RpOTNLRbfvqeTLwqbJoUj2o";
   antofagasta = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPYe7j/BoueCTsYF4BrNojPC+Y0MMCDqia4QkS7KmVNG";
+  giron = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7qlu4YKYbtjN4oLFC9VQZYFWEGnpkHYt7MsF1+dHt6";
 
   systems = [ lima urubamba bogota lapaz antofagasta ];
 
@@ -25,8 +26,14 @@ in
   # pubkey = 35WCxg6asdsW7+v67RO9eG+/mVG4pbYz0bJtvxyR5Cc=
   "wg-lapaz.age".publicKeys = [ jj lapaz ];
 
-   # pubkey = 9FS4y8jInY0xizUqAZvONoaTYL6ZN+MyngmPDi5HNHo=
+  # pubkey = 9FS4y8jInY0xizUqAZvONoaTYL6ZN+MyngmPDi5HNHo=
   "wg-antofagasta.age".publicKeys = [ jj antofagasta ];
+
+  # pubkey = CSDp+z+0Bb7twf55hIoBVk7VYGJ58TPWmT7SvYMW/3E=
+  "wg-giron.age".publicKeys = [ jj giron ];
+
+  # pubkey = giron:0/bWdH7q7OTCgX8Yz4b+3utJDsVSsusLhqds/OVw5y8=
+  "serve-giron.age".publicKeys = [ jj giron ];
 
   # swarm.key for the private ipfs
   "ipfs-swarm-key.age".publicKeys = [ jj ] ++ systems;

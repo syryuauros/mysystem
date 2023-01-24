@@ -132,8 +132,6 @@ rec
         -- \
         /run/current-system/bin/switch-to-configuration ${switch-command}
 
-      # TODO: GC
-
       sync
       echo "switch-after-enter is done"
 

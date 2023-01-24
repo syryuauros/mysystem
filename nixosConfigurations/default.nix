@@ -31,6 +31,11 @@ in
     modules = [ ./hosts/antofagasta ];
   };
 
+  giron = nixosSystem {
+    inherit specialArgs;
+    modules = [ ./hosts/giron ];
+  };
+
   # iguazu is for a USB installer
   iguazu = nixosSystem {
     inherit specialArgs;

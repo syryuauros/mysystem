@@ -100,8 +100,8 @@ in
     in pkgs.writeShellScriptBin "switch-over-ssh.sh" script;
 
 
-  # FIXME: this copies the closure into not /mnt/nix/store but /nix/store,
-  #        which results in insufficient space error.
+  # NOTE: this copies the closure into not /mnt/nix/store but /nix/store,
+  # which results in insufficient space error.
   install-over-ssh =
     { host
     , system-toplevel

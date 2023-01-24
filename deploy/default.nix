@@ -82,6 +82,14 @@ in
       };
     };
 
+    giron = {
+      hostname = "10.10.0.25";
+      profiles.system.path = activate-nixos "x86_64-linux" nixosConfigurations.giron;
+      profiles."jj" = {
+        user = "jj";
+        path = activate-home "x86_64-linux" homeManagerConfigurations."jj@server";
+      };
+    };
 
   }
   //
