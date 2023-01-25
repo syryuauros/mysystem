@@ -53,8 +53,6 @@ in
     # features
     ../../features/xserver.nix
     ../../features/avahi.nix
-    ../../features/dropbox.nix
-    ../../features/syncthing.nix
     ../../features/substituters/hds0.nix
     ../../features/remote-build.nix
     ../../features/peerix.nix
