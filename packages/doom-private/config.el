@@ -60,9 +60,15 @@
   (lsp-completion-enable-additional-text-edit nil)
   (lsp-lens-enable nil)
   (lsp-keymap-prefix "C-c l")
+  (lsp-headerline-breadcrumb-enable nil)
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-sideline-show-diagnostics nil)
+  (lsp-modeline-diagnostics-enable nil)
+  ;;(lsp-eldoc-enable-hover nil)
 )
 
-(use-package! lsp-ui)
+(use-package! lsp-ui
+  :disabled t)
 
 (after! lsp-ui
   (setq lsp-ui-doc-position 'top)
@@ -88,10 +94,14 @@
   :hook ((haskell-mode . lsp-deferred)
          (haskell-mode . (lambda ()
                            (set-tab-width)
-                           (lsp-ui-mode nil)
-                           (smartparens-mode nil)
+                           (turn-off-smartparens-mode)
+                           (setq lsp-haskell-formatting-provider "fourmolu")
                            (global-subword-mode)
                            ))))
+
+(add-hook 'lsp-after-open-hook (lambda ()
+   (lsp-ui-mode -1)
+   ))
 
 ;; add to $DOOMDIR/config.el
 (after! lsp-mode

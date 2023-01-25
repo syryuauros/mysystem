@@ -516,6 +516,11 @@ yaml              ; JSON, but readable
   (lsp-completion-enable-additional-text-edit nil)
   (lsp-lens-enable nil)
   (lsp-keymap-prefix "C-c l")
+  (lsp-headerline-breadcrumb-enable nil)
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-sideline-show-diagnostics nil)
+  (lsp-modeline-diagnostics-enable nil)
+  ;;(lsp-eldoc-enable-hover nil)
 )
 
 #+end_src
@@ -530,7 +535,8 @@ yaml              ; JSON, but readable
 
 #+begin_src emacs-lisp
 
-(use-package! lsp-ui)
+(use-package! lsp-ui
+  :disabled t)
 
 #+end_src
 
@@ -574,10 +580,14 @@ yaml              ; JSON, but readable
   :hook ((haskell-mode . lsp-deferred)
          (haskell-mode . (lambda ()
                            (set-tab-width)
-                           (lsp-ui-mode nil)
-                           (smartparens-mode nil)
+                           (turn-off-smartparens-mode)
+                           (setq lsp-haskell-formatting-provider "fourmolu")
                            (global-subword-mode)
                            ))))
+
+(add-hook 'lsp-after-open-hook (lambda ()
+   (lsp-ui-mode -1)
+   ))
 
 #+end_src
 **** consult-lsp
