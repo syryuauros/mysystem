@@ -5,7 +5,7 @@
   restart-xmonad = pkgs.callPackage ./restart-xmonad {};
   mysetxkbmap = pkgs.callPackage ./mysetxkbmap {};
   dmenu-scripts = pkgs.callPackage ./dmenu-scripts {};
-  myinstall = pkgs.callPackage ./myinstall {};
+  # myinstall = pkgs.callPackage ./myinstall {};
   trim-generations = pkgs.callPackage ./trim-generations {};
 
 }

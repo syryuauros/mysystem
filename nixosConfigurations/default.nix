@@ -37,18 +37,18 @@ in
   };
 
   # iguazu is for a USB installer
-  iguazu = nixosSystem {
-    inherit specialArgs;
-    modules = [ ./hosts/iguazu ];
-  };
+  # iguazu = nixosSystem {
+  #   inherit specialArgs;
+  #   modules = [ ./hosts/iguazu ];
+  # };
 
   garganta = nixosSystem {
     inherit specialArgs;
     modules = [ ./hosts/garganta ];
   };
 
-  usb = nixosSystem {
-    inherit specialArgs;
-    modules = [ ./hosts/usb ];
-  };
+  # usb = nixosSystem {
+  #   inherit specialArgs;
+  #   modules = [ ./hosts/usb ];
+  # };
 }
